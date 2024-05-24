@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: usfree.site
   productName: Orbit
-  defaultCursor: {fileID: 2800000, guid: 332b852a8f7f9ae4a8a2726cd363a509, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 16b22705e429b8e4b91e671e81434cf3, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 0.27058825}
   m_ShowUnitySplashScreen: 0
@@ -327,7 +327,7 @@ PlayerSettings:
   m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
-    m_StaticBatching: 1
+    m_StaticBatching: 0
     m_DynamicBatching: 0
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:
@@ -366,8 +366,8 @@ PlayerSettings:
     m_APIs: 10000000
     m_Automatic: 0
   - m_BuildTarget: WindowsStandaloneSupport
-    m_APIs: 02000000
-    m_Automatic: 1
+    m_APIs: 1200000002000000
+    m_Automatic: 0
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
     m_Automatic: 1
@@ -761,7 +761,12 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -776,10 +781,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 27895b8a-1d64-4188-b75e-121808919445
+  cloudProjectId: 31db9e8c-f5b5-4126-9b2f-3dd12d9f0896
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: UtopAI 2024-05-11_17-22-36
+  projectName: Unity_Orbit
   organizationId: tlrmsjtm77
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
