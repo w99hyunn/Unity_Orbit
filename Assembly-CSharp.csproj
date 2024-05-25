@@ -60,8 +60,10 @@
   <ItemGroup>
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Element\HorizontalSelector.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\NoisyShakeMovement.cs" />
+    <Compile Include="Assets\Script\Player\PlayerManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerParticle.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\SettingsButton.cs" />
+    <Compile Include="Assets\Script\Player\BulletManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Event\TimedEvent.cs" />
@@ -70,11 +72,13 @@
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\ShortcutButton.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\DisableMeshRenderer.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\UIElementInFront.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\PublicAssets\SampleSceneAssets\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveAnim.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\CanvasManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Input\ScrollGamepadManager.cs" />
+    <Compile Include="Assets\Cold War Weapons\AK74M\Demo\CameraRotate.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
@@ -101,11 +105,12 @@
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\MainButton.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Element\UIElementSound.cs" />
+    <Compile Include="Assets\Script\Player\PlayerStats.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
-    <Compile Include="Assets\Script\CameraDepthOn.cs" />
+    <Compile Include="Assets\Script\Player\CameraDepthOn.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightGroupController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbitCollision.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\LaunchURL.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerBGMusic.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\SpotlightButton.cs" />
+    <Compile Include="Assets\Script\TipKey.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Event\PointerEnterEvents.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\LayoutGroupPositionFix.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerBackground.cs" />
@@ -152,9 +158,6 @@
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Panel\MainPanelButtonParent.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Panel\ServerBrowserManager.cs" />
-    <Compile Include="Assets\Script\PlayerStats.cs" />
-    <Compile Include="Assets\Script\MonsterAttack.cs" />
-    <Compile Include="Assets\Script\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro.cginc" />
@@ -182,6 +185,7 @@
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\WaterSimple.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\PublicAssets\Images\Crosshairs\Readme.txt" />
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\GrassAnim.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_Bitmap-Mobile.shader" />
@@ -523,12 +527,28 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.37f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ReportGeneratorMerged">
+      <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.5\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.6.12\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.2\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ReportGeneratorMerged">
-      <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.5\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Tracker.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1019,6 +1039,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.37f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Purchasing.Common">
+      <HintPath>Library\ScriptAssemblies\Purchasing.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
       <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
       <Private>False</Private>
@@ -1029,6 +1053,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
@@ -1049,6 +1077,14 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing.SecurityStub">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Advertisements.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Searcher.Editor">
@@ -1083,6 +1119,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Analytics">
+      <HintPath>Library\ScriptAssemblies\Analytics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -1099,8 +1139,16 @@
       <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing.Codeless">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.Codeless.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
@@ -1117,6 +1165,10 @@
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Tutorials.Core">
@@ -1203,8 +1255,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.Tutorials.Core.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Services.Core">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Animation.Rigging">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Mathematics">
@@ -1213,6 +1273,10 @@
     </Reference>
     <Reference Include="Unity.TerrainTools">
       <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Analytics">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst">
@@ -1227,6 +1291,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.Purchasing.SecurityCore">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.SecurityCore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1235,8 +1303,8 @@
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.TerrainTools.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
+    <Reference Include="Unity.Services.Core.Environments">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
@@ -1247,6 +1315,14 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.Purchasing.Stores">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Purchasing.Stores.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TerrainTools.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -1255,8 +1331,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.Purchasing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Advertisements.Editor">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.Advertisements.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
@@ -1273,6 +1357,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="OccaSoftware.Crosshairs.Editor.csproj">
+      <Project>{D00A9695-FE89-D8BF-F145-A675711E8633}</Project>
+      <Name>OccaSoftware.Crosshairs.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
