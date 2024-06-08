@@ -60,14 +60,15 @@
   <ItemGroup>
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Element\HorizontalSelector.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\NoisyShakeMovement.cs" />
-    <Compile Include="Assets\Script\Player\PlayerManager.cs" />
+    <Compile Include="Assets\Script\3rd_Player\PlayerManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerParticle.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\SettingsButton.cs" />
-    <Compile Include="Assets\Script\Player\BulletManager.cs" />
+    <Compile Include="Assets\Script\3rd_Player\BulletManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Event\TimedEvent.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Element\SwitchHandler.cs" />
+    <Compile Include="Assets\PublicAssets\StarterAssets\FirstPersonController\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\FloorChangeTrigger.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\ShortcutButton.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\DisableMeshRenderer.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\CanvasManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Input\ScrollGamepadManager.cs" />
-    <Compile Include="Assets\Cold War Weapons\AK74M\Demo\CameraRotate.cs" />
+    <Compile Include="Assets\PublicAssets\Cold War Weapons\AK74M\Demo\CameraRotate.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
@@ -102,15 +103,16 @@
     <Compile Include="Assets\Script\FpsScript.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Rendering\BlurManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Other\QualityManager.cs" />
+    <Compile Include="Assets\Script\3rd_Player\Enemy.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\MainButton.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\UI Element\UIElementSound.cs" />
-    <Compile Include="Assets\Script\Player\PlayerStats.cs" />
+    <Compile Include="Assets\Script\3rd_Player\PlayerStats.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
-    <Compile Include="Assets\Script\Player\CameraDepthOn.cs" />
+    <Compile Include="Assets\Script\3rd_Player\CameraDepthOn.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightGroupController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbitCollision.cs" />
@@ -122,7 +124,9 @@
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Panel\ModalWindowManager.cs" />
+    <Compile Include="Assets\Script\3rd_Player\LookUI.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
+    <Compile Include="Assets\Script\3rd_Player\PoolManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveEnableGo.cs" />
     <Compile Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Scripts\Buttons\FavoriteButton.cs" />
     <Compile Include="Assets\Script\StartManager.cs" />
@@ -175,7 +179,6 @@
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF.shader" />
     <None Include="Assets\PublicAssets\Shift - Complete Sci-Fi UI\Read Me.txt" />
-    <None Include="Assets\PublicAssets\StarterAssets\license.txt" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMeshPro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
