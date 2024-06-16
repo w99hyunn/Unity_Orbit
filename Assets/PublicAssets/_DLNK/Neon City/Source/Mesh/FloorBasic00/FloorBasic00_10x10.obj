@@ -1,0 +1,44 @@
+# ProBuilder 4.5.2
+# https://unity3d.com/unity/features/worldbuilding/probuilder
+# 12/05/2023 15:48:25
+
+mtllib ./FloorBasic00_10x10.mtl
+o FloorBasic00_10x10
+
+g FloorBasic00_10x10
+v 0 0.5 -10
+v 0 0.5 0
+v -10 0.5 0
+v -10 0.5 -10
+v 0 0 0
+v -10 0 0
+v -10 0 -10
+v 0 0 -10
+
+vt -1.192093E-07 -2.980232E-08
+vt 0 1
+vt 1 1
+vt 1 0
+vt 0.9999999 0.04999995
+vt 0.9999999 -2.980232E-08
+vt -1.192093E-07 0.04999995
+
+vn 0 1 0
+vn 0 0 1
+vn -1 0 0
+vn 0 0 -1
+vn 1 0 0
+vn 0 -1 0
+
+usemtl PavementDirtTiles00b
+f 4/4/1 3/3/1 2/2/1 1/1/1
+
+usemtl BrickDamaged00b
+f 3/7/2 6/1/2 5/6/2 2/5/2
+f 4/7/3 7/1/3 6/6/3 3/5/3
+f 1/7/4 8/1/4 7/6/4 4/5/4
+f 2/7/5 5/1/5 8/6/5 1/5/5
+
+usemtl PlasterPannelsDirt00
+f 6/2/6 7/1/6 8/4/6 5/3/6
+
