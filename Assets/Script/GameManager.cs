@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay; // 현실의 1초에 해당하는 게임 시간
  
 
-    private AudioSource audioSource;
 
     public static GameManager Instance { get; private set; }
 
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -81,11 +80,5 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void PlaySound(AudioClip clip)
-    {
-        if (clip != null)
-        {
-            audioSource.PlayOneShot(clip);
-        }
-    }
+
 }

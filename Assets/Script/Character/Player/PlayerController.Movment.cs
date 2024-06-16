@@ -192,13 +192,5 @@ namespace Orbit_Character
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
-
-        private void HandleReload()
-        {
-            if (_reload)
-            {
-                // Implement reload logic here
-            }
-        }
     }
 }

@@ -8,11 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GoopStreak
-  m_Shader: {fileID: 210, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _EMISSION
-  - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -72,6 +71,7 @@ Material:
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
+    - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.025
     - _DetailNormalMapScale: 1
@@ -86,7 +86,7 @@ Material:
     - _Glossiness: 1
     - _GlossyReflections: 1
     - _InvFade: 1
-    - _LightingEnabled: 1
+    - _LightingEnabled: 0
     - _Metallic: 0
     - _Mode: 1
     - _OcclusionStrength: 1
@@ -102,6 +102,7 @@ Material:
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 0.7647059, g: 0.06948486, b: 0.062745094, a: 1}
+    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.28235295, g: 0.07450979, b: 0.07650532, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 1}

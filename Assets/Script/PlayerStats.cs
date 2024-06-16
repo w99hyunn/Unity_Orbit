@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Analytics;
+using Orbit_Character;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class PlayerStats : MonoBehaviour
 
     void LevelUp()
     {
-        GameManager.Instance.PlaySound(levelUpSound);
+        PlayerController.Instance.PlaySound(levelUpSound);
         level++;
         currentExperience -= maxExperience; // 남은 경험치는 다음 레벨로 이월
         StartCoroutine(SmoothSliderChange(experienceBar, currentExperience));

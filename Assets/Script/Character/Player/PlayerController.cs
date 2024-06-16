@@ -4,14 +4,30 @@ namespace Orbit_Character
 {
 	public partial class PlayerController : MonoBehaviour
 	{
-		public GameObject spawnPos;
+        private AudioSource audioSource;
+        public GameObject spawnPos;
+
+        public static PlayerController Instance { get; private set; }
+
+
+
         private void Awake()
         {
-			_controller = GetComponent<CharacterController>();
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
 		}
 
         private void Start()
 		{
+            audioSource = GetComponent<AudioSource>();
             _controller = GetComponent<CharacterController>();
             InitializeNetworking();
 			InitializeGun();
@@ -29,6 +45,16 @@ namespace Orbit_Character
 				CinemachineVirtualCameraInstance.Instance.gameObject.SetActive(true);
 			}
 		}
+
+        /*Audio*/
+        public void PlaySound(AudioClip clip)
+        {
+            if (clip != null)
+            {
+                audioSource.spatialBlend = 1f;
+                audioSource.PlayOneShot(clip);
+            }
+        }
 
         /* network */
         private bool _isOwner = true;
