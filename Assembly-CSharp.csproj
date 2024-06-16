@@ -60,16 +60,13 @@
   <ItemGroup>
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\HorizontalSelector.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\NoisyShakeMovement.cs" />
-    <Compile Include="Assets\Alteruna\Scripts\EnsureEventSystem.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerParticle.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Gun.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.Gun.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\SettingsButton.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Input.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Event\TimedEvent.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\SwitchHandler.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandMe.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\FirstPersonController\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\FloorChangeTrigger.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\ShortcutButton.cs" />
@@ -77,33 +74,20 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\UIElementInFront.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveAnim.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Networking.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\CanvasManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\ScrollGamepadManager.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\ITextChatCommand.cs" />
     <Compile Include="Assets\PublicAssets\Cold War Weapons\AK74M\Demo\CameraRotate.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandPrint.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\StatusPopup.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\ExitToSystem.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerText.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\GameInitSet.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\ScoreBoardRow.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Audio\RandomPitch.cs" />
+    <Compile Include="Assets\Script\Character\Audio\RandomPitch.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Animation.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.Animation.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandTp.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatSynchronizable.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\MenuInstance.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\RespawnController.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandLeaveRoom.cs" />
-    <Compile Include="Assets\Alteruna\Scripts\Examples\ExampleRpcSerializable.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
-    <Compile Include="Assets\Alteruna\Scripts\Examples\ExampleSynchronizable.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\EditorDemoPositionFix.cs" />
@@ -112,37 +96,30 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Rendering\UIParticleRenderer.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Rendering\GradientEffect.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\GamepadChecker.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandRotate.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDLevel.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\ScaleInLightmapSetter.cs" />
     <Compile Include="Assets\Script\FpsScript.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\ScoreBoard.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Rendering\BlurManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\QualityManager.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Health.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.Health.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\MainButton.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\UIElementSound.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\EfxManager.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\RoomBrowser.cs" />
+    <Compile Include="Assets\Script\Character\EfxManager.cs" />
     <Compile Include="Assets\Script\PlayerStats.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\CinemachineVirtualCameraInstance.cs" />
+    <Compile Include="Assets\Script\Character\CinemachineVirtualCameraInstance.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandSync.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Health.cs" />
+    <Compile Include="Assets\Script\Character\Health.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomMenu\RoomMenu.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Movment.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.Movment.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\MapDescriptions.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.cs" />
     <Compile Include="Assets\Script\CameraDepthOn.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightGroupController.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbitCollision.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerStats.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\VirtualCursorAnimate.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\MainPanelButton.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\SplashScreenManager.cs" />
@@ -150,25 +127,13 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\ModalWindowManager.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\RoomBrowserRow.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandRoom.cs" />
-    <Compile Include="Assets\Alteruna\Scripts\Examples\ExampleRpcProcedureParameters.cs" />
     <Compile Include="Assets\Script\LookUI.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandLoadScene.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\ResizeController.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\PasswordPopup.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\IKControl.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\CreateRoomMenu.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandCreateRoom.cs" />
+    <Compile Include="Assets\Script\Character\Player\IKControl.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveEnableGo.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\CustomRoomInfo.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\FavoriteButton.cs" />
-    <Compile Include="Assets\Alteruna\Scripts\Examples\ExampleAttributeRpc.cs" />
     <Compile Include="Assets\Script\StartManager.cs" />
     <Compile Include="Assets\Script\TipText.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandScale.cs" />
     <Compile Include="Assets\Script\SplashSceneManager.cs" />
     <Compile Include="Assets\Script\CursorManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerImage.cs" />
@@ -177,26 +142,19 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\SliderManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Editor Handlers\ShiftUIEditorHandler.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\QuickMatchButton.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandJoinRoom.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\RoomBrowserSortButton.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbit.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.Camera.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandUid.cs" />
+    <Compile Include="Assets\Script\Character\Player\PlayerController.Camera.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\ObjectRemover.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Player\PlayerController.AngleNormalization.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDScene.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\Compass.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\SplashScreenHelper.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\UI\GameInitRead.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\Source Demos\FreeCamera.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\CustomInputField.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\CharControlSimple.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Event\HoldKeyEvent.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveMaterial.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\VirtualCursor.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandMove.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\TextChat\TextChatCommands\CommandTarget.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\LaunchURL.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerBGMusic.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\SpotlightButton.cs" />
@@ -204,20 +162,17 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Event\PointerEnterEvents.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\LayoutGroupPositionFix.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerBackground.cs" />
-    <Compile Include="Assets\Alteruna\Prefabs\RoomBrowser\Scripts\BaseRoomBrowser.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\FriendsPanelManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
-    <Compile Include="Assets\AlterunaFPS\Scripts\Audio\GunAudio.cs" />
+    <Compile Include="Assets\Script\Character\Audio\GunAudio.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\MainPanelButtonParent.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\ServerBrowserManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Alteruna\Plugins\Alteruna.TrinityEditor.dll" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro.cginc" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_Bitmap.shader" />
     <None Include="Assets\PublicAssets\UI\Shaders\Masked UI Blur.shader" />
-    <None Include="Assets\Alteruna\Plugins\Alteruna.Trinity.xml" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Surface-Mobile.shader" />
@@ -226,7 +181,6 @@
     <None Include="Assets\PublicAssets\_DLNK\Neon City\Readme.txt" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Surface.shader" />
     <None Include="Assets\PublicAssets\UI\Shaders\UI Particle Additive.shader" />
-    <None Include="Assets\AlterunaFPS\Plugins\AlterunaDependency.dll" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Mobile SSD.shader" />
@@ -234,7 +188,6 @@
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro_Properties.cginc" />
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro_Surface.cginc" />
-    <None Include="Assets\Alteruna\Plugins\Alteruna.Trinity.dll" />
     <None Include="Assets\TextMeshPro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
     <None Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\WaterSimple.shader" />
@@ -580,10 +533,6 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.37f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AlterunaDependency">
-      <HintPath>Assets\AlterunaFPS\Plugins\AlterunaDependency.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ReportGeneratorMerged">
       <HintPath>Library\PackageCache\com.unity.testtools.codecoverage@1.2.5\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
       <Private>False</Private>
@@ -598,14 +547,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Alteruna.Trinity">
-      <HintPath>Assets\Alteruna\Plugins\Alteruna.Trinity.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Alteruna.TrinityEditor">
-      <HintPath>Assets\Alteruna\Plugins\Alteruna.TrinityEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
