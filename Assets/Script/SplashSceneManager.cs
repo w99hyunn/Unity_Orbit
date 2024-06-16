@@ -13,6 +13,8 @@ public class SplashSceneManager : MonoBehaviour
     [SerializeField]
     private GameObject canvasC;
     [SerializeField]
+    private GameObject canvas_Loading;
+    [SerializeField]
     private string nextSceneName;
     [SerializeField]
     private float delayBetweenCanvases = 6.0f;
@@ -45,6 +47,7 @@ public class SplashSceneManager : MonoBehaviour
 
         canvasA.SetActive(false);
         canvasB.SetActive(true);
+        canvas_Loading.SetActive(true);
 
         // 3√  ¥Î±‚
         yield return new WaitForSeconds(delayBetweenCanvases);
