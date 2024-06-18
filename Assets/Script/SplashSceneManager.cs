@@ -26,6 +26,7 @@ public class SplashSceneManager : MonoBehaviour
         canvasA.SetActive(true);
         canvasB.SetActive(false);
         canvasC.SetActive(false);
+        canvas_Loading.SetActive(false);
 
         Cursor.visible = false; //스플래시 마우스 비활성화
         StartCoroutine(LoadSceneAsync()); // 비동기 씬 로드를 시작합니다.
