@@ -40,25 +40,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         PlayerStats.OnPlayerStatsInitialized += LoadGame; // 이벤트 구독
         PlayerController.OnPlayerStatsInitialized += LoadGame;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
         PlayerStats.OnPlayerStatsInitialized -= LoadGame; // 이벤트 구독 해제
         PlayerController.OnPlayerStatsInitialized -= LoadGame;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "OutdoorsScene")
-        {
-            Debug.Log("OutdoorsScene 로드됨");
-            // LoadGame 호출을 여기서 제거
-        }
     }
 
     public void GameOver()
