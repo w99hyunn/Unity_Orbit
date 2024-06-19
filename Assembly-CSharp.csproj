@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\HorizontalSelector.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\Basic Scripts\Transform\NoisyShakeMovement.cs" />
+    <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerParticle.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Gun.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\SettingsButton.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Script\Character\Audio\RandomPitch.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Animation.cs" />
+    <Compile Include="Assets\Script\AutoSaveManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
@@ -167,8 +169,6 @@
     <Compile Include="Assets\Script\Character\Audio\GunAudio.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\MainPanelButtonParent.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\ServerBrowserManager.cs" />
-    <Compile Include="Assets\Script\UIManager.cs" />
-    <Compile Include="Assets\Script\AutoSaveManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro.cginc" />

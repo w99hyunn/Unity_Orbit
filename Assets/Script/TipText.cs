@@ -15,10 +15,10 @@ public class TipText : MonoBehaviour
         "깨어있는 지식인을 표방하는 자들이 모인 이리스 그룹의 조력자들은 주인공에게 쿨타임마다 도움을 줄 수 있는 스킬을 제공합니다."};
 
 
-    void FixedUpdate()
+    void OnEnable()
     {
-        RandomNum = Random.Range(0, TipTexts.Length - 1);
-        //Debug.Log(TipTexts.Length - 1);
+        RandomNum = Random.Range(0, TipTexts.Length);
+        Debug.Log(RandomNum);
     }
 
     void Start()
