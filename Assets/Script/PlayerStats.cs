@@ -64,11 +64,11 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        InitializeStats();
-        OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
-
         InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
         InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
+
+        InitializeStats();
+        OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
     }
 
 

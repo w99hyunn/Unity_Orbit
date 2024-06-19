@@ -20,6 +20,7 @@ public class AutoSaveManager : MonoBehaviour
         {
             yield return new WaitForSeconds(interval);
             SaveButton.onClick.Invoke();
+            Debug.Log("자동저장");
         }
     }
 }

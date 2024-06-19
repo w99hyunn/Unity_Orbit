@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private string saveFilePath;
+    private bool isPlayerStatsInitialized = false;
+    private bool isPlayerControllerInitialized = false;
 
     private void Awake()
     {
@@ -40,14 +42,34 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.OnPlayerStatsInitialized += LoadGame; // 이벤트 구독
-        PlayerController.OnPlayerStatsInitialized += LoadGame;
+        PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
+        PlayerController.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
     }
 
     private void OnDisable()
     {
-        PlayerStats.OnPlayerStatsInitialized -= LoadGame; // 이벤트 구독 해제
-        PlayerController.OnPlayerStatsInitialized -= LoadGame;
+        PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
+        PlayerController.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+    }
+
+    private void OnPlayerStatsInitialized()
+    {
+        isPlayerStatsInitialized = true;
+        TryLoadGame();
+    }
+
+    private void OnPlayerControllerInitialized()
+    {
+        isPlayerControllerInitialized = true;
+        TryLoadGame();
+    }
+
+    private void TryLoadGame()
+    {
+        if (isPlayerStatsInitialized && isPlayerControllerInitialized)
+        {
+            LoadGame();
+        }
     }
 
     public void GameOver()

@@ -7,7 +7,7 @@ namespace Orbit_Character
         private AudioSource audioSource;
         public GameObject spawnPos;
 
-        public static event System.Action OnPlayerStatsInitialized;
+        public static event System.Action OnPlayerControllerInitialized;
         public static PlayerController Instance { get; private set; }
 
 
@@ -35,7 +35,7 @@ namespace Orbit_Character
 			InitialiseAnimations();
 			InitializeInput();
 
-            OnPlayerStatsInitialized?.Invoke();
+            OnPlayerControllerInitialized?.Invoke();
         }
 		
 		private new void OnEnable()
