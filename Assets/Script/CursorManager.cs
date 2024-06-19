@@ -47,6 +47,7 @@ public class CursorManager : MonoBehaviour
         Destroy(GameObject.Find("GameManager"));
         Destroy(GameObject.Find("Player"));
         Destroy(GameObject.Find("CursorManager"));
+        Destroy(GameObject.Find("UIManager"));
     }
 
     public void CustomResume()

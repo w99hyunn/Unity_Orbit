@@ -7,6 +7,7 @@ namespace Orbit_Character
         private AudioSource audioSource;
         public GameObject spawnPos;
 
+        public static event System.Action OnPlayerStatsInitialized;
         public static PlayerController Instance { get; private set; }
 
 
@@ -33,7 +34,9 @@ namespace Orbit_Character
 			InitializeGun();
 			InitialiseAnimations();
 			InitializeInput();
-		}
+
+            OnPlayerStatsInitialized?.Invoke();
+        }
 		
 		private new void OnEnable()
 		{			
@@ -103,11 +106,18 @@ namespace Orbit_Character
 				GroundedRadius);
 		}
 
-        public void SetPos()
+        public void SetPos(Vector3 pos)
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
-            transform.position = spawnPos.transform.position;
+            transform.position = pos;
             _controller.enabled = true;  // 다시 활성화
-        }        
+        }
+
+        public void ResetPos()
+        {
+            _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
+            transform.position = new Vector3(0, 0, 20);
+            _controller.enabled = true;  // 다시 활성화
+        }
     }
 }

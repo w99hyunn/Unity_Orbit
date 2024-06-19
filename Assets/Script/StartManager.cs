@@ -1,37 +1,73 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartManager : MonoBehaviour
 {
+    public GameObject continueButton;
+
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        CheckForSavedGame();
+    }
+
+    private void CheckForSavedGame()
+    {
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+        if (File.Exists(saveFilePath))
+        {
+            continueButton.SetActive(true);
+        }
+        else
+        {
+            continueButton.SetActive(false);
+        }
+    }
+
     public void AsyncLoadScene(string name)
     {
         StartCoroutine(LoadSceneProcess(name));
     }
 
-    IEnumerator LoadSceneProcess(string name)
+    private IEnumerator LoadSceneProcess(string name)
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(name);
-        op.allowSceneActivation = true; //로딩 중 씬 로드가 끝났을 때 바로 넘어갈 것인가
+        op.allowSceneActivation = true;
 
-        if (op.isDone)
+        yield return new WaitUntil(() => op.isDone);
+
+        if (name == "OutdoorsScene")
         {
-            yield break;
+            GameManager.Instance.LoadGame();
         }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void StartNewGame()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        // Delete the existing save file if it exists
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+        }
+
+        PlayerPrefs.DeleteKey("ContinueGame");
+
+        // Load the OutdoorsScene
+        AsyncLoadScene("OutdoorsScene");
+    }
+
+    public void ContinueGame()
+    {
+        // Load the OutdoorsScene and load the game data
+        AsyncLoadScene("OutdoorsScene");
     }
 
     public void DevSite(string url)
     {
         Application.OpenURL(url);
     }
-
 }

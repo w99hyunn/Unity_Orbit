@@ -34,12 +34,12 @@ public class PlayerStats : MonoBehaviour
 
     private int maxHealth = 100;
     private int maxMana = 100;
-    private int currentHealth;
-    private int currentMana;
+    public int currentHealth;
+    public int currentMana;
 
     private int maxExperience = 100; // 최대 경험치 설정
-    private int currentExperience = 0; // 현재 경험치
-    private int level = 1; // 초기 레벨 설정
+    public int currentExperience = 0; // 현재 경험치
+    public int level = 1; // 초기 레벨 설정
 
     private float manaRegenRate = 10f;
     private float healthRegenRate = 5f;
@@ -47,23 +47,30 @@ public class PlayerStats : MonoBehaviour
 
     private bool isFlashing = false;
 
+    public static event System.Action OnPlayerStatsInitialized;
+
+    public static PlayerStats Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        currentHealth = maxHealth;
-        currentMana = maxMana;
-        healthBar.maxValue = maxHealth;
-        manaBar.maxValue = maxMana;
-        healthBar.value = currentHealth;
-        manaBar.value = currentMana;
-        experienceBar.maxValue = maxExperience; // 경험치 슬라이더 초기화
-        experienceBar.value = currentExperience;
-        UpdateHealthText();
-        UpdateManaText();
-        UpdateLevelText(); // 레벨 텍스트 업데이트
+        InitializeStats();
+        OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
 
         InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
         InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
     }
+
 
     void Update()
     {
@@ -89,6 +96,48 @@ public class PlayerStats : MonoBehaviour
     public void GameOver_()
     {
         GameManager.Instance.GameOver();
+    }
+
+    public void SetStats(int health, int mana, int experience, int level)
+    {
+        currentHealth = health;
+        currentMana = mana;
+        currentExperience = experience;
+        this.level = level;
+
+        healthBar.maxValue = maxHealth;
+        manaBar.maxValue = maxMana;
+        experienceBar.maxValue = maxExperience;
+
+        healthBar.value = currentHealth;
+        manaBar.value = currentMana;
+        experienceBar.value = currentExperience;
+
+        UpdateHealthText();
+        UpdateManaText();
+        UpdateExperienceText();
+        UpdateLevelText();
+    }
+
+    public void InitializeStats()
+    {
+        currentHealth = maxHealth;
+        currentMana = maxMana;
+        currentExperience = 0;
+        level = 1;
+
+        healthBar.maxValue = maxHealth;
+        manaBar.maxValue = maxMana;
+        experienceBar.maxValue = maxExperience;
+
+        healthBar.value = currentHealth;
+        manaBar.value = currentMana;
+        experienceBar.value = currentExperience;
+
+        UpdateHealthText();
+        UpdateManaText();
+        UpdateExperienceText();
+        UpdateLevelText();
     }
 
     void RegenerateMana()

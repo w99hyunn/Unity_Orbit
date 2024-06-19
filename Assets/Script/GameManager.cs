@@ -1,19 +1,27 @@
+using Orbit_Character;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class GameData
+{
+    public float gameTime;
+    public int currentHealth;
+    public int currentMana;
+    public int currentExperience;
+    public int level;
+    public Vector3 playerPosition;
+}
 
 public class GameManager : MonoBehaviour
 {
-    [Header("게임 내 시간")]
-    public TMP_Text timeText; // UI Text 컴포넌트에 연결
-    private float gameTime = 0f; // 게임 내 시간(초)
-    private const float realSecondsPerGameDay = 3 * 60 * 60; // 3시간(현실 초)
-    private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay; // 현실의 1초에 해당하는 게임 시간
- 
-
-
     public static GameManager Instance { get; private set; }
+
+    private string saveFilePath;
 
     private void Awake()
     {
@@ -26,59 +34,88 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayerStats.OnPlayerStatsInitialized += LoadGame; // 이벤트 구독
+        PlayerController.OnPlayerStatsInitialized += LoadGame;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        InGameTimeUpdate();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        PlayerStats.OnPlayerStatsInitialized -= LoadGame; // 이벤트 구독 해제
+        PlayerController.OnPlayerStatsInitialized -= LoadGame;
     }
 
-    public void InGameTimeUpdate()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        gameTime += Time.deltaTime * gameSecondsPerRealSecond;
-
-        if (gameTime >= 24 * 60 * 60)
+        if (scene.name == "OutdoorsScene")
         {
-            gameTime -= 24 * 60 * 60;
+            Debug.Log("OutdoorsScene 로드됨");
+            // LoadGame 호출을 여기서 제거
         }
-
-        int hours = (int)(gameTime / 3600) % 24;
-        int minutes = (int)(gameTime % 3600 / 60);
-
-        string period = hours >= 12 ? "오후" : "오전";
-        hours = hours % 12;
-
-        // 오전 12시(자정)와 오후 12시(정오)의 예외 처리
-        if (period == "오전" && hours == 0)
-        {
-            hours = 0; // 오전 12시는 0시로 표시
-        }
-        else if (period == "오후" && hours == 0)
-        {
-            hours = 12; // 오후 12시는 12시로 표시
-        }
-        else if (hours == 0)
-        {
-            hours = 12; // 0시를 12시로 변환
-        }
-
-        string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
-
-        timeText.text = timeFormatted;
     }
 
     public void GameOver()
     {
-
+        SaveGame();
     }
 
+    public void SaveGame()
+    {
+        GameData data = new GameData
+        {
+            gameTime = UIManager.Instance.GameTime,
+            currentHealth = PlayerStats.Instance.currentHealth,
+            currentMana = PlayerStats.Instance.currentMana,
+            currentExperience = PlayerStats.Instance.currentExperience,
+            level = PlayerStats.Instance.level,
+            playerPosition = PlayerController.Instance.transform.position
+        };
 
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(saveFilePath, json);
+        PlayerPrefs.SetInt("ContinueGame", 1);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadGame()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            string json = File.ReadAllText(saveFilePath);
+            Debug.Log("Loaded JSON: " + json); // 데이터가 제대로 읽혔는지 로그 확인
+
+            GameData data = JsonUtility.FromJson<GameData>(json);
+
+            if (data != null)
+            {
+                UIManager.Instance.GameTime = data.gameTime;
+                PlayerStats.Instance.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                PlayerController.Instance.SetPos(data.playerPosition);
+
+                Debug.Log("Game loaded successfully.");
+            }
+            else
+            {
+                Debug.LogError("Failed to parse JSON data.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Save file does not exist!");
+        }
+    }
+
+    public void NewGame()
+    {
+        UIManager.Instance.GameTime = 0f;
+        PlayerStats.Instance.InitializeStats();
+        PlayerController.Instance.transform.position = Vector3.zero; // 초기 위치 설정
+    }
 }
