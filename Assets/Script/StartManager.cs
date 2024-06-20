@@ -14,6 +14,7 @@ public class StartManager : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text hpText;
     public TMP_Text mpText;
+    public TMP_Text lastModifiedText;
 
     private void Start()
     {
@@ -32,6 +33,9 @@ public class StartManager : MonoBehaviour
             newDescription.SetActive(false);
 
             LoadGameData(saveFilePath);
+
+            FileInfo fileInfo = new FileInfo(saveFilePath);
+            lastModifiedText.text = fileInfo.LastWriteTime.ToString("G");
         }
         else
         {
@@ -71,9 +75,9 @@ public class StartManager : MonoBehaviour
             string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
             gameTimeText.text = timeFormatted;
-            levelText.text = data.level.ToString() + " (" + data.currentExperience.ToString() + "%)";
-            hpText.text = data.currentHealth.ToString();
-            mpText.text = data.currentMana.ToString();
+            levelText.text = data.level.ToString() + "·¹º§ (" + data.currentExperience.ToString() + "%)";
+            hpText.text = data.currentHealth.ToString() + "%";
+            mpText.text = data.currentMana.ToString() + "%";
         }
         else
         {
