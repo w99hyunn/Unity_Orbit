@@ -104,9 +104,12 @@ namespace Orbit_Character
 
                 if (_reload || _gunMagazine <= 0) //리로드
                 {
-                    GunAnimator.Play(_animIDGunReload);
-                    _gunReloadCooldown = GunReloadTime;
-                    _gunMagazine = GunMagazineSize;
+                    if (!(_gunMagazine == GunMagazineSize)) //완충돼있을 땐 재장전 X
+                    { 
+                        GunAnimator.Play(_animIDGunReload);
+                        _gunReloadCooldown = GunReloadTime;
+                        _gunMagazine = GunMagazineSize;
+                    }
                 }
             }
             else

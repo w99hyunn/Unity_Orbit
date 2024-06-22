@@ -1,35 +1,36 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
 
 public class MinimapFollow : MonoBehaviour
 {
     public RectTransform playerIcon;
-    public Transform player;
+    private Transform player;
     private Camera minimapCamera;
-    public Slider sizeSlider;    // 슬라이더 UI
 
     private void Start()
     {
         minimapCamera = GetComponent<Camera>();
+        player = GameObject.FindWithTag("Player").transform;
 
-        // 슬라이더 초기값 설정
-        if (minimapCamera != null && sizeSlider != null)
+        /*
+        //HDRP 미니맵 그림자 제거
+        HDAdditionalCameraData hdCameraData = minimapCamera.GetComponent<HDAdditionalCameraData>();
+        if (hdCameraData != null)
         {
-            sizeSlider.value = minimapCamera.orthographicSize;
-            sizeSlider.onValueChanged.AddListener(OnSliderValueChanged);
-        }
-    }
+            hdCameraData.customRenderingSettings = true;
 
-    void OnSliderValueChanged(float value)
-    {
-        // 슬라이더 값 변경 시 카메라 Orthographic Size 변경
-        if (minimapCamera != null)
-        {
-            minimapCamera.orthographicSize = value;
-        }
+            var customFrameSettings = hdCameraData.renderingPathCustomFrameSettings;
+            customFrameSettings.SetEnabled(FrameSettingsField.ShadowMaps, false);
+            customFrameSettings.SetEnabled(FrameSettingsField.ContactShadows, false);
+            customFrameSettings.SetEnabled(FrameSettingsField.Postprocess, false); // 포스트 프로세싱 비활성화
+            hdCameraData.renderingPathCustomFrameSettingsOverrideMask = new FrameSettingsOverrideMask();
+            hdCameraData.renderingPathCustomFrameSettingsOverrideMask.mask[(int)FrameSettingsField.ShadowMaps] = true;
+            hdCameraData.renderingPathCustomFrameSettingsOverrideMask.mask[(int)FrameSettingsField.ContactShadows] = true;
+            hdCameraData.renderingPathCustomFrameSettings = customFrameSettings;
+        }*/
     }
-
     void LateUpdate()
     {
         Vector3 newPosition = player.position;

@@ -9,6 +9,8 @@ using UnityEngine.Rendering.HighDefinition;
 using Cinemachine;
 using Unity.VisualScripting;
 using Orbit_Character;
+using UnityEngine.Experimental.Rendering;
+using RayTracingMode = UnityEngine.Rendering.HighDefinition.RayTracingMode;
 
 namespace Michsky.UI.Shift
 {
@@ -39,6 +41,9 @@ namespace Michsky.UI.Shift
         private Camera MainCamera;
         [SerializeField]
         private CinemachineVirtualCamera VirtualCamera;
+        [Header("미니맵 카메라")]
+        [SerializeField]
+        private Camera minimapCamera;
 
         //FPSRate
         [SerializeField]
@@ -179,8 +184,6 @@ namespace Michsky.UI.Shift
                 }
             }
 
-            
-            //QualitySettings.antiAliasing = index;
         }
 
         public void VsyncSet(int index) // 수직동기화 <테스트 후 확인 완료>
@@ -242,7 +245,7 @@ namespace Michsky.UI.Shift
             QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
         }
 
-        public void MotionBlurEnable(bool index) //이방성 필터링 <테스트 후 확인 완료>
+        public void MotionBlurEnable(bool index) // 모션블러 <테스트 후 확인 완료>
         {
             VolumeProfile profile = globalVolume.sharedProfile;
 
@@ -252,6 +255,21 @@ namespace Michsky.UI.Shift
             }
         }
 
+        public void MinimapFOV(float index) //미니맵 확대/축소 <테스트 후 확인 완료>
+        {
+            minimapCamera.orthographicSize = index;
+        }
+
+        /* 레이트레이싱 관련. RenderPipelineAsset을 변경 */
+        public void EnableRayTracing()
+        {
+            QualitySettings.SetQualityLevel(1);
+        }
+
+        public void DisableRayTracing()
+        {
+            QualitySettings.SetQualityLevel(0);
+        }
 
         /* ------------------------------------------------------------------------------ */
 
