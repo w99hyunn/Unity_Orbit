@@ -13,23 +13,6 @@ public class MinimapFollow : MonoBehaviour
     {
         minimapCamera = GetComponent<Camera>();
         player = GameObject.FindWithTag("Player").transform;
-
-        /*
-        //HDRP 미니맵 그림자 제거
-        HDAdditionalCameraData hdCameraData = minimapCamera.GetComponent<HDAdditionalCameraData>();
-        if (hdCameraData != null)
-        {
-            hdCameraData.customRenderingSettings = true;
-
-            var customFrameSettings = hdCameraData.renderingPathCustomFrameSettings;
-            customFrameSettings.SetEnabled(FrameSettingsField.ShadowMaps, false);
-            customFrameSettings.SetEnabled(FrameSettingsField.ContactShadows, false);
-            customFrameSettings.SetEnabled(FrameSettingsField.Postprocess, false); // 포스트 프로세싱 비활성화
-            hdCameraData.renderingPathCustomFrameSettingsOverrideMask = new FrameSettingsOverrideMask();
-            hdCameraData.renderingPathCustomFrameSettingsOverrideMask.mask[(int)FrameSettingsField.ShadowMaps] = true;
-            hdCameraData.renderingPathCustomFrameSettingsOverrideMask.mask[(int)FrameSettingsField.ContactShadows] = true;
-            hdCameraData.renderingPathCustomFrameSettings = customFrameSettings;
-        }*/
     }
     void LateUpdate()
     {

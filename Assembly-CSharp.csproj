@@ -88,7 +88,7 @@
     <Compile Include="Assets\Script\Character\Audio\RandomPitch.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Animation.cs" />
-    <Compile Include="Assets\Script\AutoSaveManager.cs" />
+    <Compile Include="Assets\Script\SaveManager\AutoSaveManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
@@ -107,10 +107,11 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Other\QualityManager.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Health.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Input\SliderGamepadManager.cs" />
+    <Compile Include="Assets\Script\SaveManager\CryptoUtility.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\MainButton.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Element\UIElementSound.cs" />
     <Compile Include="Assets\Script\Character\EfxManager.cs" />
-    <Compile Include="Assets\Script\PlayerStats.cs" />
+    <Compile Include="Assets\Script\Character\PlayerStats.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\Script\Character\CinemachineVirtualCameraInstance.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
@@ -1049,6 +1050,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.37f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Recorder.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Purchasing.Common">
       <HintPath>Library\ScriptAssemblies\Purchasing.Common.dll</HintPath>
       <Private>False</Private>
@@ -1177,12 +1182,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.Tutorials.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Recorder">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualEffectGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Recorder.Base">
+      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Base.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.007">
@@ -1343,38 +1356,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Recorder">
-      <HintPath>Library\ScriptAssemblies\Unity.Recorder.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Recorder.Base">
-      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Base.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Recorder.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Recorder.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

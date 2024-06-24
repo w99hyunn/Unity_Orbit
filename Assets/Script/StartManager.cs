@@ -47,7 +47,8 @@ public class StartManager : MonoBehaviour
 
     private void LoadGameData(string path)
     {
-        string json = File.ReadAllText(path);
+        string encryptedJson = File.ReadAllText(path);
+        string json = CryptoUtility.DecryptString(encryptedJson); // º¹È£È­
         GameData data = JsonUtility.FromJson<GameData>(json);
 
         if (data != null)

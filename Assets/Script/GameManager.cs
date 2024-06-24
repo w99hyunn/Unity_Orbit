@@ -90,7 +90,9 @@ public class GameManager : MonoBehaviour
         };
 
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(saveFilePath, json);
+        string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
+
+        File.WriteAllText(saveFilePath, encryptedJson);
         PlayerPrefs.SetInt("ContinueGame", 1);
         PlayerPrefs.Save();
     }
@@ -99,7 +101,9 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(saveFilePath))
         {
-            string json = File.ReadAllText(saveFilePath);
+            string encryptedJson = File.ReadAllText(saveFilePath);
+            string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
+
             Debug.Log("Loaded JSON: " + json); // 데이터가 제대로 읽혔는지 로그 확인
 
             GameData data = JsonUtility.FromJson<GameData>(json);
