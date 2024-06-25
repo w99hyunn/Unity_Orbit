@@ -7,6 +7,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
+public class ZoneData
+{
+    public string zoneName;
+    public bool isLiberated;
+}
+
+[System.Serializable]
 public class GameData
 {
     public float gameTime;
@@ -15,6 +22,7 @@ public class GameData
     public int currentExperience;
     public int level;
     public Vector3 playerPosition;
+    public List<ZoneData> zones;
 }
 
 public class GameManager : MonoBehaviour
@@ -24,6 +32,21 @@ public class GameManager : MonoBehaviour
     private string saveFilePath;
     private bool isPlayerStatsInitialized = false;
     private bool isPlayerControllerInitialized = false;
+
+    // 인스턴스 던전관련
+    public List<ZoneData> zones;
+    public string currentZoneName;
+    public Vector3 lastPlayerPosition;
+
+    public void SavePlayerPosition(Vector3 position)
+    {
+        lastPlayerPosition = position;
+    }
+
+    public Vector3 LoadPlayerPosition()
+    {
+        return lastPlayerPosition;
+    }
 
     private void Awake()
     {
@@ -86,7 +109,8 @@ public class GameManager : MonoBehaviour
             currentMana = PlayerStats.Instance.currentMana,
             currentExperience = PlayerStats.Instance.currentExperience,
             level = PlayerStats.Instance.level,
-            playerPosition = PlayerController.Instance.transform.position
+            playerPosition = PlayerController.Instance.transform.position,
+            zones = zones
         };
 
         string json = JsonUtility.ToJson(data);
@@ -113,6 +137,7 @@ public class GameManager : MonoBehaviour
                 UIManager.Instance.GameTime = data.gameTime;
                 PlayerStats.Instance.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
                 PlayerController.Instance.SetPos(data.playerPosition);
+                zones = data.zones;
 
                 Debug.Log("Game loaded successfully.");
             }
@@ -132,5 +157,32 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.GameTime = 0f;
         PlayerStats.Instance.InitializeStats();
         PlayerController.Instance.transform.position = Vector3.zero; // 초기 위치 설정
+        zones = new List<ZoneData>();
     }
+
+    public void LiberateZone(string zoneName)
+    {
+        foreach (ZoneData zone in zones)
+        {
+            if (zone.zoneName == zoneName)
+            {
+                zone.isLiberated = true;
+                return;
+            }
+        }
+        zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
+    }
+
+    public bool IsZoneLiberated(string zoneName)
+    {
+        foreach (ZoneData zone in zones)
+        {
+            if (zone.zoneName == zoneName)
+            {
+                return zone.isLiberated;
+            }
+        }
+        return false;
+    }
+
 }

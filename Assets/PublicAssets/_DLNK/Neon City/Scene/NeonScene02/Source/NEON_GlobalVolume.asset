@@ -41,10 +41,10 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0.282
   screenFadeDistance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.1
   accumulationFactor:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.75
   m_RayMaxIterations:
     m_OverrideState: 1
@@ -67,7 +67,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   m_RayLength:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 50
   m_ClampValue:
     m_OverrideState: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 2
   m_FullResolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   sampleCount:
     m_OverrideState: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   m_RayMaxIterationsRT:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 48
 --- !u!114 &-8256156587793539602
 MonoBehaviour:
@@ -1141,10 +1141,10 @@ MonoBehaviour:
     m_Value: 64
   m_VolumetricFogBudget:
     m_OverrideState: 0
-    m_Value: 0.33
+    m_Value: 0.5
   m_ResolutionDepthRatio:
     m_OverrideState: 0
-    m_Value: 0.666
+    m_Value: 0.5
   directionalLightsOnly:
     m_OverrideState: 0
     m_Value: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 2
   rayTracing:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   intensity:
     m_OverrideState: 1

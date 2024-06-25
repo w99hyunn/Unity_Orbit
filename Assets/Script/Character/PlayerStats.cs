@@ -86,6 +86,10 @@ public class PlayerStats : MonoBehaviour
         {
             GainExperience(50);
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameManager.Instance.SaveGame();
+        }
 
         if (currentHealth <= 0)
         {

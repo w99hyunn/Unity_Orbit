@@ -73,7 +73,7 @@ namespace Orbit_Character
 				if (HealthPoints <= 0f)
 				{
 					HealthPoints = 0f;
-					OnDeath.Invoke(senderID);
+					Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
 				}
 			}
 		}

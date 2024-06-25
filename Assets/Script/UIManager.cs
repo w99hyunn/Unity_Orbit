@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -6,9 +7,52 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     public TMP_Text timeText;
+
+    public GameObject ZoneName;
+    public GameObject lockBack;
+    public GameObject unlockBack;
+    public TMP_Text zoneNameText; // 변수명 변경
+    public TMP_Text minimapZoneNameText; // 변수명 변경
+    public TMP_Text liberatedText; // 변수명 변경
+
+    [Header("팁가이드")]
+    public GameObject TipKey;
+    private TMP_Text TipText;
+    private TMP_Text TipKeys;
+
+    [Header("스크립트 텍스트")]
+    public GameObject scriptText;
+
     private float gameTime = 0f;
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
+
+    private void Start()
+    {
+        Transform TipTextTransform = TipKey.transform.Find("TipText");
+        TipText = TipTextTransform.gameObject.GetComponent<TMP_Text>();
+
+        Transform TipKeysTransform = TipKey.transform.Find("Tipkey");
+        TipKeys = TipKeysTransform.gameObject.GetComponent<TMP_Text>();
+    }
+
+
+    public void ScriptText_Disable()
+    {
+        scriptText.SetActive(false);
+    }
+
+    public void TipKey_Enable(string Title, string Key)
+    {
+        TipKey.SetActive(true);
+        TipText.text = Title;
+        TipKeys.text = Key;
+    }
+
+    public void TipKey_Disable()
+    {
+        TipKey.SetActive(false);
+    }
 
     public float GameTime
     {
@@ -66,4 +110,74 @@ public class UIManager : MonoBehaviour
 
         timeText.text = timeFormatted;
     }
+
+    private Coroutine deactivateCoroutine;
+
+    public void UpdateZoneInfo(string zoneName, bool isLiberated)
+    {
+        ZoneName.SetActive(false);
+
+        minimapZoneNameText.text = zoneName;
+        zoneNameText.text = zoneName;
+
+        if (isLiberated)
+        { //해방됨
+            unlockBack.SetActive(true);
+            lockBack.SetActive(false);
+        }
+        else
+        {
+            unlockBack.SetActive(false);
+            lockBack.SetActive(true);
+        }
+
+        liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
+        ZoneName.SetActive(true);
+
+        // 기존 코루틴이 있으면 중지
+        if (deactivateCoroutine != null)
+        {
+            StopCoroutine(deactivateCoroutine);
+        }
+
+        // 새로운 코루틴 시작
+        deactivateCoroutine = StartCoroutine(DeactivateZoneNameAfterDelay(6f));
+    }
+
+    private IEnumerator DeactivateZoneNameAfterDelay(float delay)
+    {
+        // delay 동안 대기
+        yield return new WaitForSeconds(delay);
+        // ZoneName 비활성화
+        ZoneName.SetActive(false);
+    }
+
+    private Coroutine deactivateScriptCoroutine;
+
+    public void ScriptText_Enable(string text)
+    {
+        scriptText.SetActive(false);
+        Debug.Log("동작" + text);
+
+        scriptText.GetComponent<TMP_Text>().text = text;
+        scriptText.SetActive(true);
+
+        // 기존 코루틴이 있으면 중지
+        if (deactivateScriptCoroutine != null)
+        {
+            StopCoroutine(deactivateScriptCoroutine);
+        }
+
+        // 새로운 코루틴 시작
+        deactivateScriptCoroutine = StartCoroutine(DeactivateScriptAfterDelay(6f));
+    }
+
+    private IEnumerator DeactivateScriptAfterDelay(float delay)
+    {
+        // delay 동안 대기
+        yield return new WaitForSeconds(delay);
+        // ZoneName 비활성화
+        scriptText.SetActive(false);
+    }
+
 }

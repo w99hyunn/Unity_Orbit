@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using Orbit_Character;
 using UnityEngine.Experimental.Rendering;
 using RayTracingMode = UnityEngine.Rendering.HighDefinition.RayTracingMode;
+using UnityEngine.UI;
 
 namespace Michsky.UI.Shift
 {
@@ -24,7 +25,7 @@ namespace Michsky.UI.Shift
 
         [Header("Resolution")]
         public GameObject FrameObject;
-        public bool preferSelector = false;
+        private bool preferSelector = false;
         public HorizontalSelector resolutionSelector;
         public TMP_Dropdown resolutionDropdown;
         [System.Serializable]
@@ -39,6 +40,7 @@ namespace Michsky.UI.Shift
         //메인카메라
         [SerializeField]
         private Camera MainCamera;
+
         [SerializeField]
         private CinemachineVirtualCamera VirtualCamera;
         [Header("미니맵 카메라")]
@@ -53,6 +55,7 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
+
 
             mixer.SetFloat("Master", Mathf.Log10(PlayerPrefs.GetFloat(masterSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat(musicSlider.sliderTag + "SliderValue")) * 20);
@@ -260,7 +263,7 @@ namespace Michsky.UI.Shift
             minimapCamera.orthographicSize = index;
         }
 
-        /* 레이트레이싱 관련. RenderPipelineAsset을 변경 */
+        /* 레이트레이싱 관련 */
         public void EnableRayTracing()
         {
             QualitySettings.SetQualityLevel(1);
@@ -289,12 +292,15 @@ namespace Michsky.UI.Shift
 
      
 
-        public void ShadowsSet(int index) //그림자 ON/OFF<<<<적용X>>>>
+        public void ShadowsSet(bool index) //그림자 ON/OFF<<<<적용X>>>>
         {
-            if (index == 0)
-                QualitySettings.shadows = ShadowQuality.Disable;
-            else if (index == 1)
-                QualitySettings.shadows = ShadowQuality.All;
+            VolumeProfile profile = globalVolume.sharedProfile;
+
+            if (profile.TryGet<HDShadowSettings>(out HDShadowSettings hdShadowSettings))
+            {
+                hdShadowSettings.active = index;
+            }
+
         }
 
         public void ShadowsCascasedSet(int index) //그림자 카스케이드<<<<적용X>>>>

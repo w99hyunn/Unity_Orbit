@@ -18,7 +18,6 @@ public class TipText : MonoBehaviour
     void OnEnable()
     {
         RandomNum = Random.Range(0, TipTexts.Length);
-        Debug.Log(RandomNum);
     }
 
     void Start()

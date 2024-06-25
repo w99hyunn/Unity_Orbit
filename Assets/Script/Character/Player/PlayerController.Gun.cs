@@ -21,8 +21,6 @@ namespace Orbit_Character
         public TMP_Text GunUI;
         public GameObject AimImage_zoom;
         public GameObject AimImage_def;
-        [SerializeField]
-        private TipKey tipKey;
 
         [Header("Aiming")]
         public float ZoomFov = 30f;
@@ -119,7 +117,7 @@ namespace Orbit_Character
         }
         public void Success_Reload()
         {
-            tipKey.gameObject.SetActive(false); //키가이드 없애고
+            UIManager.Instance.TipKey_Disable();
             GunUI.text = "0" + _gunMagazine.ToString(); //잔탄 수 업데이트
         }
 
@@ -133,11 +131,7 @@ namespace Orbit_Character
             GunUI.text = "0" + _gunMagazine.ToString();
             if (_gunMagazine <= 15)
             {
-                tipKey.Reload();
-            }
-            else
-            {
-                tipKey.gameObject.SetActive(false);
+                UIManager.Instance.TipKey_Enable("재장전", "R");
             }
 
             float currentPenetration = penetration;
