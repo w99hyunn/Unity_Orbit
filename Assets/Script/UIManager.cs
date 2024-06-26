@@ -1,3 +1,4 @@
+using Michsky.UI.Shift;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -34,12 +35,6 @@ public class UIManager : MonoBehaviour
 
         Transform TipKeysTransform = TipKey.transform.Find("Tipkey");
         TipKeys = TipKeysTransform.gameObject.GetComponent<TMP_Text>();
-    }
-
-
-    public void ScriptText_Disable()
-    {
-        scriptText.SetActive(false);
     }
 
     public void TipKey_Enable(string Title, string Key)
@@ -111,6 +106,8 @@ public class UIManager : MonoBehaviour
         timeText.text = timeFormatted;
     }
 
+    /* 존 이름 & 해방여부 업데이트 */
+
     private Coroutine deactivateCoroutine;
 
     public void UpdateZoneInfo(string zoneName, bool isLiberated)
@@ -152,6 +149,8 @@ public class UIManager : MonoBehaviour
         ZoneName.SetActive(false);
     }
 
+    /* 가운데 하단 스크립트 텍스트 */
+
     private Coroutine deactivateScriptCoroutine;
 
     public void ScriptText_Enable(string text)
@@ -177,6 +176,23 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         // ZoneName 비활성화
         scriptText.SetActive(false);
+    }
+
+    public void ScriptText_Disable()
+    {
+        scriptText.SetActive(false);
+    }
+
+    public void GameOverUI()
+    {
+        Animator GameOverScreenAnimator;
+        TimedEvent GameOverScreenTimedEvent;
+
+        GameObject gameOverScreen = GameObject.Find("GameOverScreen");
+        GameOverScreenAnimator = gameOverScreen.GetComponent<Animator>();
+        GameOverScreenTimedEvent = gameOverScreen.GetComponent<TimedEvent>();
+
+        GameOverScreenAnimator.Play("Loading");
     }
 
 }

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ZoneData
@@ -32,9 +34,14 @@ public class GameManager : MonoBehaviour
     private bool isPlayerControllerInitialized = false;
 
     // 인스턴스 던전관련
-    public List<ZoneData> zones;
+    public List<ZoneData> zones; //디버그용 public
     public string currentZoneName;
     public Vector3 lastPlayerPosition;
+
+    [Header("설정된 시간마다 자동저장(초 단위)")]
+    public float interval = 180f;
+
+    private bool isGameOver = false;
 
     public void SavePlayerPosition(Vector3 position)
     {
@@ -61,6 +68,11 @@ public class GameManager : MonoBehaviour
         }
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+    }
+
+    private void Start()
+    {
+        StartCoroutine(AutoClick());
     }
 
     private void OnEnable()
@@ -92,12 +104,22 @@ public class GameManager : MonoBehaviour
         if (isPlayerStatsInitialized && isPlayerControllerInitialized)
         {
             LoadGame();
+            SaveGame();
         }
     }
 
     public void GameOver()
     {
-        SaveGame();
+        isGameOver = true;
+        UIManager.Instance.GameOverUI();
+        CursorManager.Instance.CustomPause();
+    }
+
+    // 게임 오버시 체크포인트 불러오기
+    public void ContinueGame()
+    {
+        isGameOver = false;
+        LoadGame();
     }
 
     public void SaveGame()
@@ -152,14 +174,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void NewGame()
-    {
-        UIManager.Instance.GameTime = 0f;
-        PlayerStats.Instance.InitializeStats();
-        PlayerController.Instance.transform.position = Vector3.zero; // 초기 위치 설정
-        zones = new List<ZoneData>();
-    }
-
     public void LiberateZone(string zoneName)
     {
         foreach (ZoneData zone in zones)
@@ -185,4 +199,22 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    /* Auto Save Manager */
+    public Button SaveButton; // PauseMenu > Save 버튼 클릭 이벤트 발생
+
+    private IEnumerator AutoClick()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(interval);
+            if (SceneManager.GetActiveScene().name == "OutdoorsScene" && isGameOver == false)
+            {
+                SaveButton.onClick.Invoke();
+            }
+            else
+            {
+                Debug.Log("자동저장 요건 충족 X");
+            }
+        }
+    }
 }

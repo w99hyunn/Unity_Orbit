@@ -74,32 +74,10 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            TakeDamage(20);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            UseMana(20);
-        }
-        if (Input.GetKeyDown(KeyCode.N)) // N키를 눌러 경험치 얻기 테스트
-        {
-            GainExperience(50);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GameManager.Instance.SaveGame();
-        }
-
         if (currentHealth <= 0)
         {
-            GameOver_();
+            GameManager.Instance.GameOver();
         }
-    }
-
-    public void GameOver_()
-    {
-        GameManager.Instance.GameOver();
     }
 
     public void SetStats(int health, int mana, int experience, int level)

@@ -13,7 +13,7 @@ namespace Orbit_Character
         public Transform FirePoint;
         public IKControl IKController;
         public Animator GunAnimator;
-        public LayerMask BulletCollisionLayers = ~0;
+        public LayerMask BulletCollisionLayers = ~0 & ~(1 << 31);
         public int GunMagazineSize = 5;
         public float GunFireTime = 0.2f;
         public float GunReloadTime = 2.35f;

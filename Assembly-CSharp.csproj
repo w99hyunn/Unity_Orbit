@@ -64,6 +64,7 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerParticle.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Gun.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Buttons\SettingsButton.cs" />
+    <Compile Include="Assets\Script\_Debug.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManager.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Event\TimedEvent.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Assets\Script\Character\Audio\RandomPitch.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Animation.cs" />
-    <Compile Include="Assets\Script\SaveManager\AutoSaveManager.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
     <Compile Include="Assets\Script\Map\DungeonEntrance.cs" />
@@ -116,8 +116,9 @@
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\Script\Character\CinemachineVirtualCameraInstance.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
-    <Compile Include="Assets\Script\Character\Health.cs" />
+    <Compile Include="Assets\Script\Map\WaterDead.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\Basic Scripts\Transform\MovementController.cs" />
+    <Compile Include="Assets\Script\Character\Health.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.Movment.cs" />
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
     <Compile Include="Assets\Script\Character\Player\PlayerController.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\ModalWindowManager.cs" />
+    <Compile Include="Assets\Script\Map\DungeonExit.cs" />
     <Compile Include="Assets\Script\LookUI.cs" />
     <Compile Include="Assets\PublicAssets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
     <Compile Include="Assets\Script\Character\Player\IKControl.cs" />
@@ -172,9 +174,9 @@
     <Compile Include="Assets\PublicAssets\_DLNK\_DLNK Source\_DLNK Libraries\dlnk Script Library\TopDown Wizard\Source\Scripts\TDZone.cs" />
     <Compile Include="Assets\Script\Character\Audio\GunAudio.cs" />
     <Compile Include="Assets\Script\MinimapFollowIcon.cs" />
+    <Compile Include="Assets\Script\Map\HintTrigger.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\MainPanelButtonParent.cs" />
     <Compile Include="Assets\PublicAssets\UI\Scripts\Panel\ServerBrowserManager.cs" />
-    <Compile Include="Assets\Script\Map\DungeonExit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMeshPro\Shaders\TextMeshPro\TMPro.cginc" />

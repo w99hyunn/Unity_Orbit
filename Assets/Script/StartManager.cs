@@ -106,7 +106,6 @@ public class StartManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        // Delete the existing save file if it exists
         string saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         if (File.Exists(saveFilePath))
         {
@@ -115,13 +114,11 @@ public class StartManager : MonoBehaviour
 
         PlayerPrefs.DeleteKey("ContinueGame");
 
-        // Load the OutdoorsScene
         AsyncLoadScene("OutdoorsScene");
     }
 
     public void ContinueGame()
     {
-        // Load the OutdoorsScene and load the game data
         AsyncLoadScene("OutdoorsScene");
     }
 
