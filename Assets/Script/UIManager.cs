@@ -157,7 +157,6 @@ public class UIManager : MonoBehaviour
     public void ScriptText_Enable(string text)
     {
         scriptText.SetActive(false);
-        Debug.Log("µø¿€" + text);
 
         scriptText.GetComponent<TMP_Text>().text = text;
         scriptText.SetActive(true);

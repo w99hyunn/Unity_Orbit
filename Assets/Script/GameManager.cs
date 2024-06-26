@@ -27,8 +27,6 @@ public class GameData
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
-
     private string saveFilePath;
     private bool isPlayerStatsInitialized = false;
     private bool isPlayerControllerInitialized = false;
@@ -47,6 +45,8 @@ public class GameManager : MonoBehaviour
     {
         return lastPlayerPosition;
     }
+
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {

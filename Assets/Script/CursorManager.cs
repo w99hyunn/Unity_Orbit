@@ -1,3 +1,4 @@
+using Michsky.UI.Shift;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +49,9 @@ public class CursorManager : MonoBehaviour
         Destroy(GameObject.Find("Player"));
         Destroy(GameObject.Find("CursorManager"));
         Destroy(GameObject.Find("UIManager"));
+        Destroy(GameObject.Find("Pause Menu Manager"));
+        Destroy(GameObject.Find("QualityManager"));
+
     }
 
     public void CustomResume()
