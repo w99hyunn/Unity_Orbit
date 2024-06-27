@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [Header("설정된 시간마다 자동저장(초 단위)")]
     public float interval = 180f;
 
-    private bool isGameOver = false;
+    public bool isGameOver = false;
 
     public void SavePlayerPosition(Vector3 position)
     {

@@ -13,6 +13,8 @@ public class SplashSceneManager : MonoBehaviour
     [SerializeField]
     private GameObject canvasC;
     [SerializeField]
+    private GameObject canvasD;
+    [SerializeField]
     private GameObject canvas_Loading;
     [SerializeField]
     private string nextSceneName;
@@ -26,6 +28,7 @@ public class SplashSceneManager : MonoBehaviour
         canvasA.SetActive(true);
         canvasB.SetActive(false);
         canvasC.SetActive(false);
+        canvasD.SetActive(false);
         canvas_Loading.SetActive(false);
 
         Cursor.visible = false; //스플래시 마우스 비활성화
@@ -44,7 +47,7 @@ public class SplashSceneManager : MonoBehaviour
 
     private IEnumerator SwitchCanvasAndLoadScene()
     {
-        yield return new WaitForSeconds(delayBetweenCanvases);
+        yield return new WaitForSeconds(6);
 
         canvasA.SetActive(false);
         canvasB.SetActive(true);
@@ -54,6 +57,11 @@ public class SplashSceneManager : MonoBehaviour
         yield return new WaitForSeconds(delayBetweenCanvases);
         canvasB.SetActive(false);
         canvasC.SetActive(true);
+
+        yield return new WaitForSeconds(delayBetweenCanvases);
+
+        canvasC.SetActive(false);
+        canvasD.SetActive(true);
 
         yield return new WaitForSeconds(delayBetweenCanvases);
 
