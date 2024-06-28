@@ -16,7 +16,6 @@ MonoBehaviour:
   - {fileID: 6047270489934575003}
   - {fileID: 3842439323056328615}
   - {fileID: 1402911643201247736}
-  - {fileID: 7952296158890577837}
 --- !u!114 &1402911643201247736
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -30,37 +29,74 @@ MonoBehaviour:
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  rayTracing:
+    m_OverrideState: 0
+    m_Value: 0
   intensity:
     m_OverrideState: 1
     m_Value: 1.45
-    min: 0
-    max: 4
-  thicknessModifier:
-    m_OverrideState: 1
-    m_Value: 2.19
-    min: 1
-    max: 10
   directLightingStrength:
     m_OverrideState: 1
     m_Value: 0.099
-    min: 0
-    max: 1
-  noiseFilterTolerance:
+  radius:
+    m_OverrideState: 0
+    m_Value: 2
+  spatialBilateralAggressiveness:
+    m_OverrideState: 0
+    m_Value: 0.15
+  temporalAccumulation:
+    m_OverrideState: 0
+    m_Value: 1
+  ghostingReduction:
+    m_OverrideState: 0
+    m_Value: 0.5
+  blurSharpness:
+    m_OverrideState: 0
+    m_Value: 0.1
+  layerMask:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  specularOcclusion:
+    m_OverrideState: 0
+    m_Value: 0.5
+  occluderMotionRejection:
+    m_OverrideState: 0
+    m_Value: 1
+  receiverMotionRejection:
+    m_OverrideState: 0
+    m_Value: 1
+  m_StepCount:
+    m_OverrideState: 0
+    m_Value: 6
+  m_FullResolution:
     m_OverrideState: 0
     m_Value: 0
-    min: -8
-    max: 0
-  blurTolerance:
+  m_MaximumRadiusInPixels:
     m_OverrideState: 0
-    m_Value: -4.6
-    min: -8
-    max: 1
-  upsampleTolerance:
+    m_Value: 40
+  m_BilateralUpsample:
     m_OverrideState: 0
-    m_Value: -12
-    min: -12
-    max: -1
+    m_Value: 1
+  m_DirectionCount:
+    m_OverrideState: 0
+    m_Value: 2
+  m_RayLength:
+    m_OverrideState: 0
+    m_Value: 3
+  m_SampleCount:
+    m_OverrideState: 0
+    m_Value: 2
+  m_Denoise:
+    m_OverrideState: 0
+    m_Value: 1
+  m_DenoiserRadius:
+    m_OverrideState: 0
+    m_Value: 0.5
 --- !u!114 &3842439323056328615
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -74,56 +110,51 @@ MonoBehaviour:
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
   focusMode:
     m_OverrideState: 1
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
     m_Value: 0.3
-    min: 0.1
+  focusDistanceMode:
+    m_OverrideState: 0
+    m_Value: 0
   nearFocusStart:
     m_OverrideState: 0
     m_Value: 0
-    min: 0
   nearFocusEnd:
     m_OverrideState: 0
     m_Value: 4
-    min: 0
   farFocusStart:
     m_OverrideState: 0
     m_Value: 10
-    min: 0
   farFocusEnd:
     m_OverrideState: 0
     m_Value: 20
-    min: 0
-  nearSampleCount:
+  m_NearSampleCount:
     m_OverrideState: 0
     m_Value: 5
-    min: 3
-    max: 8
-  nearMaxBlur:
+  m_NearMaxBlur:
     m_OverrideState: 0
     m_Value: 4
-    min: 0
-    max: 8
-  farSampleCount:
+  m_FarSampleCount:
     m_OverrideState: 0
     m_Value: 7
-    min: 3
-    max: 16
-  farMaxBlur:
+  m_FarMaxBlur:
     m_OverrideState: 0
     m_Value: 8
-    min: 0
-    max: 16
-  highQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 1
-  resolution:
+  m_Resolution:
     m_OverrideState: 0
     m_Value: 2
+  m_HighQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 1
+  m_PhysicallyBased:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &6047270489934575003
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -137,40 +168,37 @@ MonoBehaviour:
   m_Name: Bloom
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 1
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 0
+    m_Value: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.01
-    min: 0
-    max: 1
   scatter:
     m_OverrideState: 1
     m_Value: 0.166
-    min: 0
-    max: 1
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 4.22
-    min: 0
-  highQualityFiltering:
+  anamorphic:
     m_OverrideState: 0
     m_Value: 1
-  resolution:
+  m_Resolution:
     m_OverrideState: 0
     m_Value: 2
-  prefilter:
-    m_OverrideState: 1
-    m_Value: 1
-  anamorphic:
+  m_HighQualityPrefiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  m_HighQualityFiltering:
     m_OverrideState: 0
     m_Value: 1
 --- !u!114 &7952296158890577837
