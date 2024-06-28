@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1863.8564, g: 1863.8564, b: 1863.8564, a: 1}
+  m_IndirectSpecularColor: {r: 5263.6553, g: 5052.002, b: 4848.504, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6b8a9a6a78fdab945a92c78806cf91c9, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 5af61343ef81b3c48a72792efc2054f1, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -245,15 +245,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 6346517}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6346517}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 6346517}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6346517}
@@ -445,7 +445,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 9fb75413eaaae0e4b8e6bfb79fda99c8, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -663,6 +663,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6922156596761960542, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
   m_PrefabInstance: {fileID: 226807303}
   m_PrefabAsset: {fileID: 0}
+--- !u!115 &18094684
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 5
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: SceneObjectIDMapSceneAsset
+  m_Namespace: UnityEngine.Rendering.HighDefinition
 --- !u!1001 &20199057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1297,7 +1311,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 24b3b84c2dd84864eb0b3943b972f099, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -1596,7 +1610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.500012
+      value: -2.5000124
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1604,7 +1618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5000086
+      value: -2.500009
       objectReference: {fileID: 0}
     - target: {fileID: 1306229618043273324, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2136,7 +2150,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 7ee860c7fcc015a429817f4775dc3fad, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -3154,15 +3168,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 226807305}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 226807305}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 226807305}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 226807305}
@@ -3354,7 +3368,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 99584557b6f56e24f89646128655b2ba, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -4276,7 +4290,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 493f873514f900c4da1c5a0516459cb1, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -4752,15 +4766,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 263412213}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 263412213}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 263412213}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 263412213}
@@ -4952,7 +4966,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: aa4a6ccd86bba274f8842ffe97a82d85, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -5292,6 +5306,54 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 27fa48f634367c34cb51413c54757c7d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a71dc9b17bcfc42a8dcb85dc4c07aa, type: 3}
+--- !u!1 &291442009
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291442011}
+  - component: {fileID: 291442010}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &291442010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291442009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 11400000, guid: e71b2c37ddc2fde44a6172a77ea8827b, type: 2}
+  m_StaticLightingSkyUniqueID: 0
+  m_StaticLightingCloudsUniqueID: 0
+  m_StaticLightingVolumetricClouds: 0
+--- !u!4 &291442011
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291442009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &298348387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5414,15 +5476,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 298348389}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 298348389}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 298348389}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 298348389}
@@ -5614,7 +5676,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 4e686fd03e6897d40a906faec46f4cc0, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -5949,15 +6011,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 304035495}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 304035495}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 304035495}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 304035495}
@@ -6149,7 +6211,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 07e272794f1fd104ab692ba155beb1ed, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -6724,15 +6786,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 322496106}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 322496106}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 322496106}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 322496106}
@@ -6924,7 +6986,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: d05560563d889e8429674b6aad9f0ac8, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 3ff2429d5dafaa54e80c0b51d03e0617, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -7660,15 +7722,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4999983
+      value: -2.4999976
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.499988
+      value: 2.4999895
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5000005
+      value: -2.500002
       objectReference: {fileID: 0}
     - target: {fileID: 1306229618043273324, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -8200,7 +8262,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 569fb0c3235b0714993290eeff7e1e3c, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -8535,15 +8597,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 414570896}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 414570896}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 414570896}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 414570896}
@@ -8735,7 +8797,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 8b50de620fa123646ad3a05fb1dc87fe, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -9673,15 +9735,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 480731334}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 480731334}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 480731334}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 480731334}
@@ -9873,7 +9935,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 08e9333032026e648ad46b18d7a20395, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -10208,15 +10270,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 503032004}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 503032004}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 503032004}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 503032004}
@@ -10408,7 +10470,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 14eeda293aa3b0646a27e3e1fb12b517, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -10808,15 +10870,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 519964468}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 519964468}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 519964468}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 519964468}
@@ -11008,7 +11070,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: d05560563d889e8429674b6aad9f0ac8, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 4f03c10c4a5730245ae12e6b5c2fe931, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -11408,15 +11470,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 562696754}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 562696754}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 562696754}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 562696754}
@@ -11608,7 +11670,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: d05560563d889e8429674b6aad9f0ac8, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 51bd0b59fc757e147b686402ca6d0ba6, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -16725,15 +16787,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 730447990}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 730447990}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 730447990}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 730447990}
@@ -16925,7 +16987,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 05ebcee14e16d434cafa76c642addef2, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -17235,15 +17297,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 755156965}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 755156965}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 755156965}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 755156965}
@@ -17932,7 +17994,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1486332394}
   - {fileID: 1886204564}
   m_Father: {fileID: 0}
   m_RootOrder: 23
@@ -18679,7 +18740,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 6f0bdd7f74803b54d9cb13dea729f058, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -19461,7 +19522,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: d7368498d8baa724599e1642db030b6f, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -19883,15 +19944,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.500003
+      value: 2.5000026
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2500005
+      value: 1.2500002
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.499998
+      value: -2.4999976
       objectReference: {fileID: 0}
     - target: {fileID: 7359514285736975997, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -19936,15 +19997,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 940909041}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 940909041}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 940909041}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 940909041}
@@ -20136,7 +20197,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 69e016a416df9eb44aab74ecfd532d2f, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -20471,15 +20532,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 940915544}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 940915544}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 940915544}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 940915544}
@@ -20671,7 +20732,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 5c941bba6d0710c4597c3a63ddbe3ed9, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 534cbb2272859a5478d2930667677dde, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -21141,15 +21202,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 952571966}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 952571966}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 952571966}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 952571966}
@@ -21341,7 +21402,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 67db649321160f24b8b2252b121d0066, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -21913,15 +21974,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 975194098}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 975194098}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 975194098}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 975194098}
@@ -22113,7 +22174,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 2078333e3519e1248b96b4dbae8d7c60, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -22457,15 +22518,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 991587474}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 991587474}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 991587474}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 991587474}
@@ -22657,7 +22718,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: d05560563d889e8429674b6aad9f0ac8, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 386130d7b254a514a9c2f36eb85c38d2, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -22997,15 +23058,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 995105124}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 995105124}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 995105124}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 995105124}
@@ -23197,7 +23258,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 6ec0c1f4a7970744a8771c5a208932cf, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -23874,15 +23935,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.500003
+      value: 2.5000026
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2500005
+      value: 1.2500002
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.499998
+      value: -2.4999976
       objectReference: {fileID: 0}
     - target: {fileID: 7359514285736975997, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -23932,15 +23993,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1049018915}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1049018915}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1049018915}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1049018915}
@@ -24132,7 +24193,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: f927962a4bc822f439facb3ee8be5dfe, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -24537,15 +24598,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1090874703}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1090874703}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1090874703}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1090874703}
@@ -24737,7 +24798,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 5c941bba6d0710c4597c3a63ddbe3ed9, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 43b055c371349fd4e8e7d9a3661bcd26, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -26114,7 +26175,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 332d5f613d68800418c5ce2b54b0aebb, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -26871,15 +26932,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1295501984}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1295501984}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1295501984}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1295501984}
@@ -27071,7 +27132,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 74955391e49040947b12f8c5d10f4a3c, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -27432,15 +27493,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5000005
+      value: 2.5000012
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2500007
+      value: 1.2499995
       objectReference: {fileID: 0}
     - target: {fileID: 6996061817206015985, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4999976
+      value: -2.499999
       objectReference: {fileID: 0}
     - target: {fileID: 7359514285736975997, guid: d226e03742ff0d44c891aded90a943a8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -27485,15 +27546,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1332298409}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1332298409}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1332298409}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1332298409}
@@ -27685,7 +27746,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 5c941bba6d0710c4597c3a63ddbe3ed9, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 8a00aa56d6ed7e4409f82a1f7a46f3a7, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -28599,15 +28660,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1427090884}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1427090884}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1427090884}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1427090884}
@@ -28799,7 +28860,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 4c85a11d40f20594d9f16f1c0b152e08, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -29581,7 +29642,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: d02359f35e257b54db1b13c7b1529637, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -29972,15 +30033,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1451800822}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1451800822}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1451800822}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1451800822}
@@ -30112,15 +30173,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1454343082}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1454343082}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1454343082}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1454343082}
@@ -30312,7 +30373,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: b2a4afa684f45f248b641f46a1749d12, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -30647,15 +30708,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1458455110}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1458455110}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1458455110}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1458455110}
@@ -30847,7 +30908,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 0b5b879d316dc4b4c9087c45c513620b, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -31379,15 +31440,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1478670088}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1478670088}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1478670088}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1478670088}
@@ -31579,7 +31640,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 5f01175e08bbb5245b280d6ab57fd584, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -31857,55 +31918,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 27fa48f634367c34cb51413c54757c7d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2a71dc9b17bcfc42a8dcb85dc4c07aa, type: 3}
---- !u!1 &1486332393
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1486332394}
-  - component: {fileID: 1486332395}
-  m_Layer: 1
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1486332394
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486332393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 843338844}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1486332395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486332393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 0476c1938998dbb45bff9022cac56f9a, type: 2}
 --- !u!1001 &1509978045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32068,15 +32080,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1511507215}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1511507215}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1511507215}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1511507215}
@@ -32793,15 +32805,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1631700337}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1631700337}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1631700337}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1631700337}
@@ -32993,7 +33005,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 9c1aa386763021749b3860e2ae6ab8b5, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -33328,15 +33340,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1651799774}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1651799774}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1651799774}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1651799774}
@@ -33528,7 +33540,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 5c941bba6d0710c4597c3a63ddbe3ed9, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: ca0dd3a6f43a7c04eb1e93c16ba60b63, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -34442,15 +34454,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1768533737}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1768533737}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1768533737}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1768533737}
@@ -34642,7 +34654,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: ccb2c7de625350a4abe10cf3abf1075b, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -34977,15 +34989,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1777290528}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1777290528}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1777290528}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1777290528}
@@ -35177,7 +35189,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: ae6b1a8627387dd43b3052d604dfa2e2, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -36094,7 +36106,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 5b25bac914946134790909aae4128d31, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -36913,7 +36925,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: a7e8aa87d6516b4438148b5843bda511, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -37323,15 +37335,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1829624168}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1829624168}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1829624168}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1829624168}
@@ -37523,7 +37535,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 9b7ba54b49eeff04c94d4e86facd0463, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -38001,15 +38013,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1861860484}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1861860484}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1861860484}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1861860484}
@@ -38141,15 +38153,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1869849615}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1869849615}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1869849615}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1869849615}
@@ -38341,7 +38353,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: e8eabc57ba48f13428e3e3c4f841400b, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -38676,15 +38688,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1874277528}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1874277528}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1874277528}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1874277528}
@@ -38876,7 +38888,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 9e0f7ed8206efef4bb88e21c48977487, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -39119,7 +39131,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 843338844}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1886204565
 MonoBehaviour:
@@ -39685,15 +39697,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1963855170}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1963855170}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1963855170}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1963855170}
@@ -39885,7 +39897,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 86f598ee1a106d546a9e71e2de1c1514, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -40667,7 +40679,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 161cc591ebbeb2c4cbf66dcc57afed57, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -41454,7 +41466,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: e1986b8a17fcbf34da1cc838e2dd97ef, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -41886,15 +41898,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2003474955}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2003474955}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2003474955}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2003474955}
@@ -42538,7 +42550,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 548e25333ca718d4ab39815fbed49b56, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -42751,6 +42763,201 @@ MonoBehaviour:
   m_ObsoleteBlendNormalDistanceNegative: {x: 0, y: 0, z: 0}
   m_ObsoleteBoxSideFadePositive: {x: 1, y: 1, z: 1}
   m_ObsoleteBoxSideFadeNegative: {x: 1, y: 1, z: 1}
+--- !u!1 &2019582250
+GameObject:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019582252}
+  - component: {fileID: 2019582251}
+  m_Layer: 0
+  m_Name: SceneIDMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2019582251
+MonoBehaviour:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019582250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 18094684}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Entries:
+  - id: 0
+    category: 0
+    gameObject: {fileID: 1829624170}
+  - id: 1
+    category: 0
+    gameObject: {fileID: 1454343083}
+  - id: 2
+    category: 0
+    gameObject: {fileID: 1332298410}
+  - id: 3
+    category: 0
+    gameObject: {fileID: 1821609956}
+  - id: 4
+    category: 0
+    gameObject: {fileID: 2105353252}
+  - id: 5
+    category: 0
+    gameObject: {fileID: 1631700338}
+  - id: 6
+    category: 0
+    gameObject: {fileID: 913823963}
+  - id: 7
+    category: 0
+    gameObject: {fileID: 503032005}
+  - id: 8
+    category: 0
+    gameObject: {fileID: 6346518}
+  - id: 9
+    category: 0
+    gameObject: {fileID: 56552471}
+  - id: 10
+    category: 0
+    gameObject: {fileID: 241135955}
+  - id: 11
+    category: 0
+    gameObject: {fileID: 322496107}
+  - id: 12
+    category: 0
+    gameObject: {fileID: 1768533738}
+  - id: 13
+    category: 0
+    gameObject: {fileID: 1869849616}
+  - id: 14
+    category: 0
+    gameObject: {fileID: 1427090885}
+  - id: 15
+    category: 0
+    gameObject: {fileID: 304035496}
+  - id: 16
+    category: 0
+    gameObject: {fileID: 2102149658}
+  - id: 17
+    category: 0
+    gameObject: {fileID: 1090874704}
+  - id: 18
+    category: 0
+    gameObject: {fileID: 2013672897}
+  - id: 19
+    category: 0
+    gameObject: {fileID: 991587475}
+  - id: 20
+    category: 0
+    gameObject: {fileID: 298348390}
+  - id: 21
+    category: 0
+    gameObject: {fileID: 995105126}
+  - id: 22
+    category: 0
+    gameObject: {fileID: 76644201}
+  - id: 23
+    category: 0
+    gameObject: {fileID: 1811952135}
+  - id: 24
+    category: 0
+    gameObject: {fileID: 226807306}
+  - id: 25
+    category: 0
+    gameObject: {fileID: 1777290529}
+  - id: 26
+    category: 0
+    gameObject: {fileID: 2095990843}
+  - id: 27
+    category: 0
+    gameObject: {fileID: 1965318457}
+  - id: 28
+    category: 0
+    gameObject: {fileID: 1049018917}
+  - id: 29
+    category: 0
+    gameObject: {fileID: 940909042}
+  - id: 30
+    category: 0
+    gameObject: {fileID: 1874277529}
+  - id: 31
+    category: 0
+    gameObject: {fileID: 382578160}
+  - id: 32
+    category: 0
+    gameObject: {fileID: 1972122586}
+  - id: 33
+    category: 0
+    gameObject: {fileID: 480731335}
+  - id: 34
+    category: 0
+    gameObject: {fileID: 730447991}
+  - id: 35
+    category: 0
+    gameObject: {fileID: 912648998}
+  - id: 36
+    category: 0
+    gameObject: {fileID: 940915545}
+  - id: 37
+    category: 0
+    gameObject: {fileID: 562696755}
+  - id: 38
+    category: 0
+    gameObject: {fileID: 1295501985}
+  - id: 39
+    category: 0
+    gameObject: {fileID: 263412214}
+  - id: 40
+    category: 0
+    gameObject: {fileID: 1651799775}
+  - id: 41
+    category: 0
+    gameObject: {fileID: 952571967}
+  - id: 42
+    category: 0
+    gameObject: {fileID: 1478670089}
+  - id: 43
+    category: 0
+    gameObject: {fileID: 519964469}
+  - id: 44
+    category: 0
+    gameObject: {fileID: 414570897}
+  - id: 45
+    category: 0
+    gameObject: {fileID: 1963855171}
+  - id: 46
+    category: 0
+    gameObject: {fileID: 1458455111}
+  - id: 47
+    category: 0
+    gameObject: {fileID: 1189790789}
+  - id: 48
+    category: 0
+    gameObject: {fileID: 975194099}
+  - id: 49
+    category: 0
+    gameObject: {fileID: 1428525089}
+--- !u!4 &2019582252
+Transform:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019582250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2020764516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43819,15 +44026,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2095990842}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2095990842}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2095990842}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2095990842}
@@ -44019,7 +44226,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 86795ac1e493b3a439e4c9c7121dd56c, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -44354,15 +44561,15 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2102149657}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2102149657}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2102149657}
+  - screenRelativeHeight: 0.05
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 2102149657}
@@ -44554,7 +44761,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: 3811cb541d9a28146a24c8e10a3eebe3, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: 3a36f866e5623494297367aa5fb35618, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:
@@ -44796,7 +45003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5000157
+      value: -2.5000162
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -44804,7 +45011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 994005984750327697, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5000095
+      value: -2.5000103
       objectReference: {fileID: 0}
     - target: {fileID: 1306229618043273324, guid: 18f5a0ecdc4bb2a4c969b293425aa8b7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -45336,7 +45543,7 @@ MonoBehaviour:
     camera:
       camera: 0
   m_ProxyVolume: {fileID: 0}
-  m_BakedTexture: {fileID: 8900000, guid: a7f81718f37d8e2458e6e43073057c4d, type: 3}
+  m_BakedTexture: {fileID: 8900000, guid: eb1881ee59179894298908b1e76849da, type: 3}
   m_CustomTexture: {fileID: 0}
   m_BakedRenderData:
     m_WorldToCameraRHS:

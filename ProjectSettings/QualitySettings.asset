@@ -41,7 +41,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 5cddee4fbdb0123408688d088c6c1e56, type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 8d2d1f2a77600c1499af366ffb3d3049, type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: RayTracing
@@ -80,4 +80,6 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 64c4c927f1b232a45a65b505ea7b768a, type: 2}
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Server: 0
+    Standalone: 0
