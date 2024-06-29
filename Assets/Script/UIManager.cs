@@ -24,9 +24,10 @@ public class UIManager : MonoBehaviour
     [Header("스크립트 텍스트")]
     public GameObject scriptText;
 
-    private float gameTime = 0f;
+    private float gameTime = 21600f;
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
+    private Light directionalLight;
 
     private void Start()
     {
@@ -35,6 +36,9 @@ public class UIManager : MonoBehaviour
 
         Transform TipKeysTransform = TipKey.transform.Find("Tipkey");
         TipKeys = TipKeysTransform.gameObject.GetComponent<TMP_Text>();
+
+        GameObject lightObject = GameObject.Find("Directional Light");
+        directionalLight = lightObject.GetComponent<Light>();
     }
 
     public void TipKey_Enable(string Title, string Key)
@@ -73,7 +77,7 @@ public class UIManager : MonoBehaviour
         UpdateGameTime();
     }
 
-    private void UpdateGameTime()
+    public void UpdateGameTime()
     {
         gameTime += Time.deltaTime * gameSecondsPerRealSecond;
 
@@ -104,6 +108,22 @@ public class UIManager : MonoBehaviour
         string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
         timeText.text = timeFormatted;
+
+        UpdateLightIntensity(hours, period);
+    }
+
+    private void UpdateLightIntensity(int hours, string period)
+    {
+        if (directionalLight == null)
+        {
+            return;
+        }
+
+        // 오전 7시부터 오후 7시까지는 낮, 나머지는 밤
+        float targetIntensity = (period == "오전" && hours >= 7 || period == "오후" && hours < 7) ? 130000f : 0f;
+
+        // Light intensity 조절
+        directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, targetIntensity, Time.deltaTime);
     }
 
     /* 존 이름 & 해방여부 업데이트 */
@@ -190,7 +210,6 @@ public class UIManager : MonoBehaviour
 
         GameObject gameOverScreen = GameObject.Find("GameOverScreen");
         GameOverScreenAnimator = gameOverScreen.GetComponent<Animator>();
-        GameOverScreenTimedEvent = gameOverScreen.GetComponent<TimedEvent>();
 
         GameOverScreenAnimator.Play("Loading");
     }

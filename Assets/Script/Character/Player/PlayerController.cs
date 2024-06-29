@@ -37,7 +37,7 @@ namespace Orbit_Character
             OnPlayerControllerInitialized?.Invoke();
         }
 		
-		private new void OnEnable()
+		private void OnEnable()
 		{			
 			ResetAmmo();
 
