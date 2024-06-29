@@ -17,6 +17,10 @@ namespace Orbit_Character
 
         private Animator _animator;
 
+        [Header("손 움직임 강도 제어")]
+        [Range(0.1f, 1.0f)]
+        public float HandMovementIntensity = 0.5f;
+
         private bool _hasAnimator;
 
         private void InitialiseAnimations()

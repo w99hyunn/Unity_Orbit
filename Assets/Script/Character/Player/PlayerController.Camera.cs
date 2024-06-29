@@ -6,7 +6,7 @@ namespace Orbit_Character
 	{
         /*Camera*/
 
-        [Header("Cinemachine"), SerializeField]
+        [Header("Cinemachine")]
         private bool _firstPerson = true;
         public Transform FirstPersonCameraTarget;
         public float TopClamp = 70.0f;
@@ -16,7 +16,6 @@ namespace Orbit_Character
         [Range(0f, 0.4f)]
         public float FirstPersonCameraRotationSmoothing = 0.3f;
 
-        private bool _defaultCamera;
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
         private float _bodyRotate = 0f;
@@ -42,8 +41,6 @@ namespace Orbit_Character
                 CinemachineVirtualCameraInstance.Instance.Follow(_cameraTarget);
                 CinemachineVirtualCameraInstance.Instance.FirstPerson = _firstPerson;
             }
-
-            _defaultCamera = _firstPerson;
             _cinemachineTargetYaw = _cameraTarget.rotation.eulerAngles.y;
         }
 

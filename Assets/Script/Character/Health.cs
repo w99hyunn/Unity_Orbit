@@ -9,6 +9,9 @@ namespace Orbit_Character
 {
 	public class Health : MonoBehaviour
 	{
+		[Header("아레테인지 유무")]
+		public bool isArete = false;
+		private Arete arete;
 
 		public Health Parent;
 		
@@ -40,6 +43,10 @@ namespace Orbit_Character
         private void Start()
         {
 			MaxPoints = HealthPoints;
+			if (isArete = true)
+			{
+				arete = GetComponent<Arete>();
+			}
         }
 
         public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
@@ -74,7 +81,9 @@ namespace Orbit_Character
 				{
 					HealthPoints = 0f;
 					Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
-				}
+					if (isArete == true)
+                        arete.Destroy_Arete();
+                }
 			}
 		}
 	}
