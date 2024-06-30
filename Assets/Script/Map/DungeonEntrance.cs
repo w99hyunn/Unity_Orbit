@@ -81,7 +81,7 @@ public class DungeonEntrance : MonoBehaviour
 
     void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        PlayerController.Instance.SetPos(new Vector3(0.501f, 0, -4.213f));
+        PlayerController.Instance.SetPos(new Vector3(19.42f, 0, 9.09f));
         isLoading = false;
     }
 
