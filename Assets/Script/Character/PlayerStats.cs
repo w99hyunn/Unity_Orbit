@@ -11,15 +11,15 @@ public class PlayerStats : MonoBehaviour
     private Slider healthBar;
     [SerializeField]
     private Slider manaBar;
-    [SerializeField]
-    private Slider experienceBar; // 경험치 슬라이더 추가
 
     [SerializeField]
     private TMP_Text healthText;
     [SerializeField]
     private TMP_Text manaText;
     [SerializeField]
-    private TMP_Text levelText; // 레벨 텍스트 추가
+    private TMP_Text levelText;
+    [SerializeField]
+    private TMP_Text xpText;
 
     [SerializeField]
     private CanvasGroup screenFlashCanvasGroup;
@@ -89,11 +89,9 @@ public class PlayerStats : MonoBehaviour
 
         healthBar.maxValue = maxHealth;
         manaBar.maxValue = maxMana;
-        experienceBar.maxValue = maxExperience;
 
         healthBar.value = currentHealth;
         manaBar.value = currentMana;
-        experienceBar.value = currentExperience;
 
         UpdateHealthText();
         UpdateManaText();
@@ -110,11 +108,9 @@ public class PlayerStats : MonoBehaviour
 
         healthBar.maxValue = maxHealth;
         manaBar.maxValue = maxMana;
-        experienceBar.maxValue = maxExperience;
 
         healthBar.value = currentHealth;
         manaBar.value = currentMana;
-        experienceBar.value = currentExperience;
 
         UpdateHealthText();
         UpdateManaText();
@@ -161,7 +157,6 @@ public class PlayerStats : MonoBehaviour
         {
             LevelUp();
         }
-        StartCoroutine(SmoothSliderChange(experienceBar, currentExperience));
         UpdateExperienceText();
     }
 
@@ -170,7 +165,6 @@ public class PlayerStats : MonoBehaviour
         PlayerController.Instance.PlaySound(levelUpSound);
         level++;
         currentExperience -= maxExperience; // 남은 경험치는 다음 레벨로 이월
-        StartCoroutine(SmoothSliderChange(experienceBar, currentExperience));
         UpdateLevelText();
 
         for (int i = 0; i < levelUpPrefabs.Length; i++)
@@ -198,7 +192,7 @@ public class PlayerStats : MonoBehaviour
 
     void UpdateExperienceText()
     {
-        experienceBar.value = currentExperience;
+        xpText.text = currentExperience.ToString();
     }
 
     void UpdateLevelText()
