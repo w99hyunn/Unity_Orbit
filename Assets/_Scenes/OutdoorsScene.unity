@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 10637.711, g: 8516.082, b: 7455.1836, a: 1}
+  m_IndirectSpecularColor: {r: 5408.2812, g: 3336.2656, b: 2228.045, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9968,7 +9968,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -23590,7 +23590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4994583
+      value: 3.4994535
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -27933,7 +27933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 130000
+  m_Intensity: 0
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -27994,15 +27994,15 @@ MonoBehaviour:
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
-    m_Level: 0
+    m_UseOverride: 0
+    m_Level: 1
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
-    m_UseOverride: 1
-    m_Level: 0
+    m_Override: 1
+    m_UseOverride: 0
+    m_Level: 1
   m_RayTracedContactShadow: 0
   m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
   m_PenumbraTint: 0
@@ -28055,7 +28055,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 130000
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -31142,6 +31142,7 @@ MonoBehaviour:
   m_Script: {fileID: 230307345}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &202750097
 Transform:
   m_ObjectHideFlags: 19
@@ -38652,7 +38653,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -61658,6 +61659,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -66173,7 +66178,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -67337,7 +67342,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -90766,7 +90771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735577, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2510965
+      value: -2.251106
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735578, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -93379,6 +93384,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -108330,7 +108339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224962817517893130, guid: 7ea731f501442984589dad30e8f89c28, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1780.9664
+      value: 1667.7384
       objectReference: {fileID: 0}
     - target: {fileID: 224962817517893130, guid: 7ea731f501442984589dad30e8f89c28, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -109797,7 +109806,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -111205,6 +111214,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -112166,6 +112179,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -122797,6 +122814,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 9000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 6122506.5
@@ -126644,7 +126665,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -138884,9 +138905,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: e71b2c37ddc2fde44a6172a77ea8827b, type: 2}
-  m_StaticLightingSkyUniqueID: 0
+  m_StaticLightingSkyUniqueID: 1
   m_StaticLightingCloudsUniqueID: 0
-  m_StaticLightingVolumetricClouds: 0
+  m_StaticLightingVolumetricClouds: 1
 --- !u!4 &731306260
 Transform:
   m_ObjectHideFlags: 1
@@ -140670,7 +140691,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -144393,7 +144414,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -147153,6 +147174,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -148664,6 +148689,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 9000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -153171,7 +153200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &830655770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160375,6 +160404,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -161881,7 +161914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346255886126744833, guid: 4444473c827e8b340b0b647bb076297d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5002217
+      value: 2.5002265
       objectReference: {fileID: 0}
     - target: {fileID: 1346255886126744833, guid: 4444473c827e8b340b0b647bb076297d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -189134,11 +189167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5021744
+      value: 3.5021935
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5010872
+      value: -2.5010967
       objectReference: {fileID: 0}
     - target: {fileID: 797359725493438330, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -194595,7 +194628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5789540717658368352, guid: 2915ce289c8f7b34e9ef0127c5c28a57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.3910954
+      value: -3.391105
       objectReference: {fileID: 0}
     - target: {fileID: 5789540717658368353, guid: 2915ce289c8f7b34e9ef0127c5c28a57, type: 3}
       propertyPath: m_Mode
@@ -208825,7 +208858,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -212638,6 +212671,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -219052,6 +219089,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -219618,7 +219659,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -231481,6 +231522,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -240906,7 +240951,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -274770,6 +274815,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -279678,7 +279727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1535862305139006276, guid: 13af89ededcf09f41ac6293044bb1c19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5021744
+      value: 3.5021935
       objectReference: {fileID: 0}
     - target: {fileID: 1535862305139006276, guid: 13af89ededcf09f41ac6293044bb1c19, type: 3}
       propertyPath: m_LocalPosition.z
@@ -282438,6 +282487,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -287049,6 +287102,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -293015,6 +293072,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -300667,6 +300728,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -305346,6 +305411,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 9000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 6122506.5
@@ -307599,7 +307668,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -313069,7 +313138,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -318202,6 +318271,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -319452,6 +319525,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3000000
       objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 2040835.5
@@ -320573,7 +320650,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -345343,6 +345420,18 @@ PrefabInstance:
       propertyPath: m_ProbeSettings.influence.m_EditorAdvancedModeBlendDistancePositive.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 374237165, guid: ecdcd402819e6124f994c5693c540c18, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 544333831, guid: ecdcd402819e6124f994c5693c540c18, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094494681, guid: ecdcd402819e6124f994c5693c540c18, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4490026577783344477, guid: ecdcd402819e6124f994c5693c540c18, type: 3}
       propertyPath: m_Lightmapping
       value: 2
@@ -349680,7 +349769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1492220765373919287, guid: c3a115a2c5d391147979d8f59d1bccf0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2505484
+      value: -2.2505531
       objectReference: {fileID: 0}
     - target: {fileID: 2101783429961428856, guid: c3a115a2c5d391147979d8f59d1bccf0, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -350124,6 +350213,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 9000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -352258,6 +352351,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 3000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -357494,7 +357591,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -357616,7 +357713,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
@@ -360092,7 +360189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735577, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2510965
+      value: -2.251106
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735578, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -373041,7 +373138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5021744
+      value: 3.5021935
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -378032,7 +378129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5021765
+      value: 3.5021956
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -390643,6 +390740,10 @@ PrefabInstance:
     - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
       value: 9000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578023564442166857, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
+      propertyPath: m_UseContactShadow.m_Override
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f, type: 3}
       propertyPath: m_Intensity
@@ -428466,7 +428567,7 @@ MonoBehaviour:
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
+    m_Override: 1
     m_UseOverride: 1
     m_Level: 0
   m_RayTracedContactShadow: 0
