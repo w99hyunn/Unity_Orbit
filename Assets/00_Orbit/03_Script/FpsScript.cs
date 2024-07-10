@@ -37,7 +37,7 @@ public class FpsScript : MonoBehaviour
             }
             else
             {
-                fpsText.text = string.Format("FPS {0:0.} | ≈∏∞Ÿ {1:0} ", fps, Application.targetFrameRate);
+                fpsText.text = string.Format("FPS {0:0.} | ∞Ì¡§ {1:0} ", fps, Application.targetFrameRate);
             }
             fpsText.fontSize = size;
             fpsText.color = color;
