@@ -48,7 +48,7 @@ public class DungeonExit : MonoBehaviour
                     DungeonLoadingScreenTimedEvent.StopIEnumerator();
                     Text1.text = "아레테가 파괴되었습니다.";
                     Text2.text = GameManager.Instance.currentZoneName + " 구역이 해방됩니다!";
-                    Text3.text = "";
+                    Text3.text = "원래 있던 곳으로 돌아갑니다.";
                     DungeonLoadingScreenAnimator.Play("Loading");
                     DungeonLoadingScreenTimedEvent.StartIEnumerator();
                     UIManager.Instance.TipKey_Disable();
