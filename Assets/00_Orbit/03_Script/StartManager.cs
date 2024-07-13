@@ -3,7 +3,11 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
+
+/*
+ * MainScene에서 게임 시작 과정을 위한 코드
+ * 시작과 동시에 세이브파일 존재 유무를 파악하여 정보 로드
+ */
 
 public class StartManager : MonoBehaviour
 {
@@ -18,8 +22,6 @@ public class StartManager : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
         CheckForSavedGame();
     }
 
@@ -53,7 +55,6 @@ public class StartManager : MonoBehaviour
 
         if (data != null)
         {
-        
             int hours = (int)(data.gameTime / 3600) % 24;
             int minutes = (int)(data.gameTime % 3600 / 60);
 
@@ -79,10 +80,6 @@ public class StartManager : MonoBehaviour
             levelText.text = data.level.ToString() + "레벨 (" + data.currentExperience.ToString() + "%)";
             hpText.text = data.currentHealth.ToString() + "%";
             mpText.text = data.currentMana.ToString() + "%";
-        }
-        else
-        {
-            Debug.LogError("Failed to load game data.");
         }
     }
 

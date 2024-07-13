@@ -5,11 +5,8 @@ namespace Orbit_Character
 	public partial class PlayerController : MonoBehaviour
 	{
         private AudioSource audioSource;
-
         public static event System.Action OnPlayerControllerInitialized;
         public static PlayerController Instance { get; private set; }
-
-
 
         private void Awake()
         {

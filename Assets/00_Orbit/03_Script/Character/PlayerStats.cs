@@ -7,30 +7,20 @@ using Orbit_Character;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField]
-    private Slider healthBar;
-    [SerializeField]
-    private Slider manaBar;
+    public Slider healthBar;
+    public Slider manaBar;
 
-    [SerializeField]
-    private TMP_Text healthText;
-    [SerializeField]
-    private TMP_Text manaText;
-    [SerializeField]
-    private TMP_Text levelText;
-    [SerializeField]
-    private TMP_Text xpText;
+    public TMP_Text healthText;
+    public TMP_Text manaText;
+    public TMP_Text levelText;
+    public TMP_Text xpText;
 
-    [SerializeField]
-    private CanvasGroup screenFlashCanvasGroup;
+    public CanvasGroup screenFlashCanvasGroup;
 
     [Header("레벨업")]
-    [SerializeField]
-    private AudioClip levelUpSound;
-    [SerializeField]
-    private GameObject[] levelUpPrefabs; // Level Up 시 나타날 프리팹들
-    [SerializeField]
-    private Transform[] levelUpPositions; // 프리팹이 나타날 위치들
+    public AudioClip levelUpSound;
+    public GameObject[] levelUpPrefabs; // Level Up 시 나타날 프리팹들
+    public Transform[] levelUpPositions; // 프리팹이 나타날 위치들
 
     private int maxHealth = 100;
     private int maxMana = 100;
@@ -293,6 +283,4 @@ public class PlayerStats : MonoBehaviour
         // 파티클 시스템 제거
         Destroy(instance);
     }
-
-
 }

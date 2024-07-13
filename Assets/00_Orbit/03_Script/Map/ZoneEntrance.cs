@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/* 
+ * 맵의 존 트리거에 닿았을 때 현재 존 출력 및 GameManager에 전달
+ */
 public class ZoneEntrance : MonoBehaviour
 {
     public string zoneName;
@@ -8,7 +11,6 @@ public class ZoneEntrance : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // UI 업데이트
             GameManager.Instance.currentZoneName = zoneName;
             bool isLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
             UIManager.Instance.UpdateZoneInfo(zoneName, isLiberated);

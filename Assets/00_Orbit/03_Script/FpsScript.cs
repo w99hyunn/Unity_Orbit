@@ -1,23 +1,17 @@
 using Michsky.UI.Shift;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FpsScript : MonoBehaviour
 {
+    public TextMeshProUGUI fpsText;
+    public GameObject FpsSwitch;
+    [Header("Font Set")]
+    public int size = 50;
+    public Color color = Color.white;
+
     private float deltaTime = 0f;
     private SwitchManager SwitchManager;
-
-    [SerializeField]
-    private TextMeshProUGUI fpsText;
-    [SerializeField]
-    private GameObject FpsSwitch;
-
-    [Header("Font Set")]
-    [SerializeField, Range(10, 50)]
-    private int size = 50;
-    [SerializeField]
-    private Color color = Color.white;
 
     private void Start()
     {

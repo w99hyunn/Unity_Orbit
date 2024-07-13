@@ -29,10 +29,6 @@ public class GameData
 
 public class GameManager : MonoBehaviour
 {
-    private string saveFilePath;
-    private bool isPlayerStatsInitialized = false;
-    private bool isPlayerControllerInitialized = false;
-
     // 인스턴스 던전관련
     public List<ZoneData> zones; //디버그용 public
     public string currentZoneName;
@@ -40,18 +36,12 @@ public class GameManager : MonoBehaviour
 
     [Header("설정된 시간마다 자동저장(초 단위)")]
     public float interval = 180f;
-
     public bool isGameOver = false;
 
-    public void SavePlayerPosition(Vector3 position)
-    {
-        lastPlayerPosition = position;
-    }
-
-    public Vector3 LoadPlayerPosition()
-    {
-        return lastPlayerPosition;
-    }
+    private AudioSource audioSource;
+    private string saveFilePath;
+    private bool isPlayerStatsInitialized = false;
+    private bool isPlayerControllerInitialized = false;
 
     public static GameManager Instance { get; private set; }
 
@@ -73,6 +63,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(AutoClick());
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -87,6 +78,15 @@ public class GameManager : MonoBehaviour
         PlayerController.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
     }
 
+    public void SavePlayerPosition(Vector3 position)
+    {
+        lastPlayerPosition = position;
+    }
+
+    public Vector3 LoadPlayerPosition()
+    {
+        return lastPlayerPosition;
+    }
     private void OnPlayerStatsInitialized()
     {
         isPlayerStatsInitialized = true;
@@ -150,27 +150,16 @@ public class GameManager : MonoBehaviour
             string encryptedJson = File.ReadAllText(saveFilePath);
             string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-            Debug.Log("Loaded JSON: " + json); // 데이터가 제대로 읽혔는지 로그 확인
+            //Debug.Log("Loaded JSON: " + json);
 
             GameData data = JsonUtility.FromJson<GameData>(json);
-
             if (data != null)
             {
                 UIManager.Instance.GameTime = data.gameTime;
                 PlayerStats.Instance.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
                 PlayerController.Instance.SetPos(data.playerPosition);
                 zones = data.zones;
-
-                Debug.Log("Game loaded successfully.");
             }
-            else
-            {
-                Debug.LogError("Failed to parse JSON data.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Save file does not exist!");
         }
     }
 
@@ -197,6 +186,14 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 
     /* Auto Save Manager */

@@ -1,26 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* 
+ * 던전 씬에서 비활성화 하고 싶은 PauseMenu 버튼들
+ */
+
 public class PauseMenuManager : MonoBehaviour
 {
-    public GameObject gameObject1;
-    public GameObject gameObject2;
+    public GameObject[] hideBtns;
 
     private void OnEnable()
     {
-        // 씬 로드 이벤트에 콜백 등록
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // 씬 로드 이벤트에서 콜백 해제
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 씬 이름에 따라 GameObject 활성화/비활성화
         if (scene.name == "DungeonScene")
         {
             SetGameObjectsActive(false);
@@ -33,7 +33,10 @@ public class PauseMenuManager : MonoBehaviour
 
     private void SetGameObjectsActive(bool isActive)
     {
-        gameObject1.SetActive(isActive);
-        gameObject2.SetActive(isActive);
+        for (int i = 0; i < hideBtns.Length; i++)
+        {
+            GameObject btn = hideBtns[i];
+            btn.SetActive(isActive);
+        }
     }
 }

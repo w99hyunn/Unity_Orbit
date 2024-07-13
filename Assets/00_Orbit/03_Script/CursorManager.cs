@@ -39,7 +39,6 @@ public class CursorManager : MonoBehaviour
 
     public void BackToMain()
     {
-        Time.timeScale = 1f;
         PauseMenu = true;
         SceneManager.LoadScene("MainScene");
 
@@ -47,11 +46,10 @@ public class CursorManager : MonoBehaviour
          * 계속 추가 되어야함 */
         Destroy(GameObject.Find("GameManager"));
         Destroy(GameObject.Find("Player"));
-        Destroy(GameObject.Find("CursorManager"));
         Destroy(GameObject.Find("UIManager"));
         Destroy(GameObject.Find("Pause Menu Manager"));
         Destroy(GameObject.Find("QualityManager"));
-
+        Destroy(GameObject.Find("CursorManager"));
     }
 
     public void CustomResume()

@@ -1,27 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LookUI : MonoBehaviour
 {
-    private Camera cam;
+    private Camera camera;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (cam == null)
+        if (camera == null)
         {
-            cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (cam != null )
+        if (camera != null )
         {
-            transform.LookAt(transform.position + cam.transform.rotation * Vector3.forward,
-                cam.transform.rotation * Vector3.up); 
+            transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward,
+                camera.transform.rotation * Vector3.up); 
         }
     }
 }
