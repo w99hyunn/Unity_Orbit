@@ -40,7 +40,6 @@ public class DungeonExit : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.F) && !isLoading)
         {
             HandleDungeonExit();
-            GameManager.Instance.PlaySound(exitSound);
         }
     }
 
@@ -66,6 +65,7 @@ public class DungeonExit : MonoBehaviour
     {
         if (GameObject.FindWithTag("Arete") == null)
         {
+            GameManager.Instance.PlaySound(exitSound);
             isLoading = true;
             dungeonLoadingScreenTimedEvent.StopIEnumerator();
             text1.text = "아레테가 파괴되었습니다.";

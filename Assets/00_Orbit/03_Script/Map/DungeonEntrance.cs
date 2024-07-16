@@ -41,7 +41,6 @@ public class DungeonEntrance : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.F) && !isLoading)
         {
             HandleDungeonEntrance();
-            GameManager.Instance.PlaySound(entranceSound);
         }
     }
 
@@ -74,6 +73,7 @@ public class DungeonEntrance : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.PlaySound(entranceSound);
             isLoading = true;
             dungeonLoadingScreenTimedEvent.StopIEnumerator();
             text1.text = "주어진 시간 내에";
