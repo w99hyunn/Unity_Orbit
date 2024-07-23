@@ -96,6 +96,37 @@ MonoBehaviour:
   receiverMotionRejection:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &-6737955618796860898
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d877a03bef431a847adca8ab343db3e1, type: 3}
+  m_Name: RayTracingSettings
+  m_EditorClassIdentifier: 
+  active: 0
+  rayBias:
+    m_OverrideState: 0
+    m_Value: 0.001
+  distantRayBias:
+    m_OverrideState: 0
+    m_Value: 0.001
+  extendShadowCulling:
+    m_OverrideState: 0
+    m_Value: 1
+  extendCameraCulling:
+    m_OverrideState: 0
+    m_Value: 0
+  directionalShadowRayLength:
+    m_OverrideState: 0
+    m_Value: 1000
+  directionalShadowFallbackIntensity:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &-6258163434502042367
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -449,6 +480,7 @@ MonoBehaviour:
   - {fileID: 4219686759318255520}
   - {fileID: 6859393883391042751}
   - {fileID: -3075851125934782911}
+  - {fileID: -6737955618796860898}
 --- !u!114 &747098994415714109
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -796,7 +828,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   tracing:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   m_MinSmoothness:
     m_OverrideState: 1
@@ -812,10 +844,10 @@ MonoBehaviour:
     m_Value: 0
   depthBufferThickness:
     m_OverrideState: 1
-    m_Value: 0.282
+    m_Value: 0.001
   screenFadeDistance:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0
   accumulationFactor:
     m_OverrideState: 0
     m_Value: 0.75
@@ -1324,10 +1356,10 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   shadows:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   shadowResolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 256
   shadowPlaneHeightOffset:
     m_OverrideState: 0
