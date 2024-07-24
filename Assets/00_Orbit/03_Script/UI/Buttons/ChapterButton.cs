@@ -47,9 +47,9 @@ namespace Michsky.UI.Shift
 
             if (enableStatus == true)
             {
-                statusNone = gameObject.transform.Find("Content/Texts/Status/None").GetComponent<Transform>();
-                statusLocked = gameObject.transform.Find("Content/Texts/Status/Locked").GetComponent<Transform>();
-                statusCompleted = gameObject.transform.Find("Content/Texts/Status/Completed").GetComponent<Transform>();
+                statusNone = gameObject.transform.Find("Content/Status/None").GetComponent<Transform>();
+                statusLocked = gameObject.transform.Find("Content/Status/Locked").GetComponent<Transform>();
+                statusCompleted = gameObject.transform.Find("Content/Status/Completed").GetComponent<Transform>();
 
                 if (statusItem == StatusItem.None)
                 {
