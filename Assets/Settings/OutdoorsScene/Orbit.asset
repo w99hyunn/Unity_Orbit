@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8091174191405726967
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384c4d03a551c44448145f4093304119, type: 3}
+  m_Name: ScreenSpaceReflection
+  m_EditorClassIdentifier: 
+  active: 0
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 0
+  enabledTransparent:
+    m_OverrideState: 0
+    m_Value: 0
+  tracing:
+    m_OverrideState: 0
+    m_Value: 1
+  m_MinSmoothness:
+    m_OverrideState: 0
+    m_Value: 0.9
+  m_SmoothnessFadeStart:
+    m_OverrideState: 0
+    m_Value: 0.9
+  reflectSky:
+    m_OverrideState: 0
+    m_Value: 1
+  usedAlgorithm:
+    m_OverrideState: 0
+    m_Value: 0
+  depthBufferThickness:
+    m_OverrideState: 0
+    m_Value: 0.01
+  screenFadeDistance:
+    m_OverrideState: 0
+    m_Value: 0.1
+  accumulationFactor:
+    m_OverrideState: 0
+    m_Value: 0.75
+  m_RayMaxIterations:
+    m_OverrideState: 0
+    m_Value: 32
+  rayMiss:
+    m_OverrideState: 0
+    m_Value: 3
+  lastBounceFallbackHierarchy:
+    m_OverrideState: 0
+    m_Value: 3
+  ambientProbeDimmer:
+    m_OverrideState: 0
+    m_Value: 1
+  layerMask:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  textureLodBias:
+    m_OverrideState: 0
+    m_Value: 1
+  m_RayLength:
+    m_OverrideState: 0
+    m_Value: 50
+  m_ClampValue:
+    m_OverrideState: 0
+    m_Value: 1
+  m_Denoise:
+    m_OverrideState: 0
+    m_Value: 1
+  m_DenoiserRadius:
+    m_OverrideState: 0
+    m_Value: 8
+  m_AffectSmoothSurfaces:
+    m_OverrideState: 0
+    m_Value: 0
+  mode:
+    m_OverrideState: 0
+    m_Value: 2
+  m_FullResolution:
+    m_OverrideState: 0
+    m_Value: 0
+  sampleCount:
+    m_OverrideState: 0
+    m_Value: 1
+  bounceCount:
+    m_OverrideState: 0
+    m_Value: 1
+  m_RayMaxIterationsRT:
+    m_OverrideState: 0
+    m_Value: 48
+--- !u!114 &-7408231725700952391
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf384b154398e341b6b29969c078198, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 2
+  intensity:
+    m_OverrideState: 1
+    m_Value: 5
+  maximumVelocity:
+    m_OverrideState: 0
+    m_Value: 200
+  minimumVelocity:
+    m_OverrideState: 0
+    m_Value: 2
+  cameraMotionBlur:
+    m_OverrideState: 0
+    m_Value: 1
+  specialCameraClampMode:
+    m_OverrideState: 0
+    m_Value: 0
+  cameraVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraTranslationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraRotationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.03
+  depthComparisonExtent:
+    m_OverrideState: 0
+    m_Value: 1
+  m_SampleCount:
+    m_OverrideState: 1
+    m_Value: 12
+--- !u!114 &-6967614836202682513
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e17fad69ea181b4483974138b566975, type: 3}
+  m_Name: ScreenSpaceRefraction
+  m_EditorClassIdentifier: 
+  active: 0
+  screenFadeDistance:
+    m_OverrideState: 0
+    m_Value: 0.1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Orbit
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -7408231725700952391}
+  - {fileID: 6059529463406892137}
+  - {fileID: -8091174191405726967}
+  - {fileID: -6967614836202682513}
+  - {fileID: 7674620473389352751}
+--- !u!114 &6059529463406892137
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f077503be6ae942a1e1245dbd53ea9, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 0
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 0
+    m_Value: 0
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  scatter:
+    m_OverrideState: 0
+    m_Value: 0.7
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
+  anamorphic:
+    m_OverrideState: 0
+    m_Value: 1
+  m_Resolution:
+    m_OverrideState: 0
+    m_Value: 2
+  m_HighQualityPrefiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  m_HighQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 1
+--- !u!114 &7674620473389352751
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddcec8a8eb2d684d833ac8f5d26aebd, type: 3}
+  m_Name: HDShadowSettings
+  m_EditorClassIdentifier: 
+  active: 0
+  interCascadeBorders: 1
+  maxShadowDistance:
+    m_OverrideState: 1
+    m_Value: 0
+  directionalTransmissionMultiplier:
+    m_OverrideState: 0
+    m_Value: 1
+  cascadeShadowSplitCount:
+    m_OverrideState: 0
+    m_Value: 4
+  cascadeShadowSplit0:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cascadeShadowSplit1:
+    m_OverrideState: 0
+    m_Value: 0.15
+  cascadeShadowSplit2:
+    m_OverrideState: 0
+    m_Value: 0.3
+  cascadeShadowBorder0:
+    m_OverrideState: 0
+    m_Value: 0
+  cascadeShadowBorder1:
+    m_OverrideState: 0
+    m_Value: 0
+  cascadeShadowBorder2:
+    m_OverrideState: 0
+    m_Value: 0
+  cascadeShadowBorder3:
+    m_OverrideState: 0
+    m_Value: 0
