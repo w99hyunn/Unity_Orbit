@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 5412.1406, g: 3337.6484, b: 2227.371, a: 1}
+  m_IndirectSpecularColor: {r: 5408.1875, g: 3334.8008, b: 2225.4062, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23970,7 +23970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4992666
+      value: 3.4992652
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31554,7 +31554,6 @@ MonoBehaviour:
   m_Script: {fileID: 230307345}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries: []
 --- !u!4 &202750097
 Transform:
   m_ObjectHideFlags: 19
@@ -37069,6 +37068,10 @@ PrefabInstance:
     - target: {fileID: 2683121832066746349, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_Name
       value: Lighting_Deco002_lgt_00 Variant (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2697110284890304149, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5697969368844518957, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_Intensity
@@ -91766,7 +91769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735577, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2514799
+      value: -2.2514827
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735578, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -163715,11 +163718,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346255886126744833, guid: 4444473c827e8b340b0b647bb076297d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5004134
+      value: 2.5004148
       objectReference: {fileID: 0}
     - target: {fileID: 1346255886126744833, guid: 4444473c827e8b340b0b647bb076297d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4999998
+      value: -2.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 3684729789317151103, guid: 4444473c827e8b340b0b647bb076297d, type: 3}
       propertyPath: m_RootOrder
@@ -179346,34 +179349,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1843708823}
     m_Modifications:
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_Intensity
-      value: 295688.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_Lightmapping
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_BoundingSphereOverride.w
-      value: 2.790878e+29
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_BoundingSphereOverride.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_BoundingSphereOverride.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2646887991732057279, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_BoundingSphereOverride.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2678341853098324693, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -179421,10 +179396,6 @@ PrefabInstance:
     - target: {fileID: 2683121832066746349, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_Name
       value: Lighting_Deco002_lgt_00 Variant (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697969368844518957, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
-      propertyPath: m_Intensity
-      value: 1000000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
@@ -191052,11 +191023,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5029411
+      value: 3.5029469
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5014706
+      value: -2.5014734
       objectReference: {fileID: 0}
     - target: {fileID: 797359725493438330, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -196513,7 +196484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5789540717658368352, guid: 2915ce289c8f7b34e9ef0127c5c28a57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.3914788
+      value: -3.3914816
       objectReference: {fileID: 0}
     - target: {fileID: 5789540717658368353, guid: 2915ce289c8f7b34e9ef0127c5c28a57, type: 3}
       propertyPath: m_Mode
@@ -243033,6 +243004,18 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 8.34e-43
       objectReference: {fileID: 0}
+    - target: {fileID: 7262347839245974052, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990143508682581705, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998930630680875228, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
       propertyPath: m_Intensity
       value: 1000000
@@ -274285,6 +274268,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2697110284890304149, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5697969368844518957, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_Intensity
       value: 1000000
@@ -283535,7 +283522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1535862305139006276, guid: 13af89ededcf09f41ac6293044bb1c19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5029411
+      value: 3.5029469
       objectReference: {fileID: 0}
     - target: {fileID: 1535862305139006276, guid: 13af89ededcf09f41ac6293044bb1c19, type: 3}
       propertyPath: m_LocalPosition.z
@@ -353917,7 +353904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1492220765373919287, guid: c3a115a2c5d391147979d8f59d1bccf0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.25074
+      value: -2.2507415
       objectReference: {fileID: 0}
     - target: {fileID: 2101783429961428856, guid: c3a115a2c5d391147979d8f59d1bccf0, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -364777,7 +364764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735577, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2514799
+      value: -2.2514827
       objectReference: {fileID: 0}
     - target: {fileID: 5931866826634735578, guid: f733ca02047fd324eb532458e9c3f0c1, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -377743,7 +377730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5029411
+      value: 3.5029469
       objectReference: {fileID: 0}
     - target: {fileID: 5019792179977286062, guid: 69619bdb980862d4d9aa18bcc2eef9be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -381258,6 +381245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lighting_Deco002_lgt_00 Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2697110284890304149, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5697969368844518957, guid: b7ed48db90369a64fb7f65334f13cf35, type: 3}
       propertyPath: m_Intensity
       value: 1000000
@@ -382753,7 +382744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5029433
+      value: 3.502949
       objectReference: {fileID: 0}
     - target: {fileID: 195567590635395372, guid: 1a4ec85de0be735439a506adb3b11ed8, type: 3}
       propertyPath: m_LocalPosition.z
