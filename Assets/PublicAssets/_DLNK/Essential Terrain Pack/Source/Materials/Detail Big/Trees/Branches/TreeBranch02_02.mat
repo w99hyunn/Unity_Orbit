@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3609724054786769333
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 12
-  hdPluginSubTargetMaterialVersions:
-    m_Keys: []
-    m_Values: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -24,13 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TreeBranch02_02
-  m_Shader: {fileID: -6465566751694194690, guid: 4819724840ee9444f9da841b477038ce, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1943d357ba4d6c8438f2b80309da5570, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
-  - _WINDQUALITY_BEST
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ADD_PRECOMPUTED_VELOCITY
+  - _DISABLE_SSR_TRANSPARENT
+  - _USEALPHA_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -40,9 +25,6 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - TransparentBackface
-  - TransparentDepthPrepass
-  - TransparentDepthPostpass
-  - RayTracingPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -63,10 +45,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ExtraTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -94,10 +72,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: d2ad93f637cc82d44aa274b4683c55b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SubsurfaceTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _WorldNoise:
         m_Texture: {fileID: 2800000, guid: 131ead629c2e6564495278c1209e99b3, type: 3}
         m_Scale: {x: 0.1, y: 0.1}
@@ -120,12 +94,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Diffusion_Profile: 0
-    - EFFECT_BILLBOARD: 0
-    - EFFECT_EXTRA_TEX: 1
     - _AOPower: 0.5
-    - _AddPrecomputedVelocity: 0
-    - _AlphaClipThreshold: 0.1
+    - _AddPrecomputedVelocity: 1
     - _AlphaCutoff: 0.775
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 0
@@ -135,11 +105,9 @@ Material:
     - _AnimIntensity: 2
     - _BlendMode: 0
     - _BumpScale: 1
-    - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
     - _Cutoff: 0.775
-    - _DepthOffsetEnable: 0
     - _DetailNormalMapScale: 1
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
@@ -151,7 +119,6 @@ Material:
     - _Float0: 2.6486764
     - _Fresnel: 0.31
     - _Glossiness: 0.48
-    - _HueVariationKwToggle: 1
     - _InvertAxis: 0
     - _LenghtAnim: -0.15
     - _LengthOffset: 0
@@ -162,16 +129,13 @@ Material:
     - _MovementAOMask: 2.8
     - _NoiseScale: 1
     - _Noisespeed: 1
-    - _NormalMapKwToggle: 1
     - _NormalScale: 1
     - _OcclusionStrenght: 1
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
     - _Parallax: 0.02
-    - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
-    - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _RimPower: 0.99
@@ -187,13 +151,10 @@ Material:
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 14
     - _StencilWriteMaskMV: 40
-    - _SubsurfaceScale: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
-    - _TransparentDepthPostpassEnable: 0
-    - _TransparentDepthPrepassEnable: 0
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
@@ -202,10 +163,8 @@ Material:
     - _UseAlpha: 1
     - _UseShadowThreshold: 0
     - _Velocity: 10
-    - _WINDQUALITY: 4
     - _WeightAnim: 0.28
     - _WeightOffset: 0.81
-    - _WindQuality: 1
     - _WorldNoiseVelocity: 0.1
     - _WorldNoiseVelocity_copy: 20.65
     - _ZTestDepthEqualForOpaque: 3
@@ -214,7 +173,6 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - Diffusion_Profile_Asset: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.86409736, g: 0.5514706, b: 0.88235295, a: 1}
     - _ColorA: {r: 1, g: 1, b: 1, a: 0}
     - _ColorB: {r: 0.5417747, g: 0.25943398, b: 1, a: 1}
@@ -222,7 +180,6 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Float0_Asset: {r: -3.698545e+22, g: 20.616848, b: -5.291675e-28, a: -1.3520143e+18}
-    - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.2}
     - _LeavesGradientxy: {r: 0, g: 1, b: 0, a: 0}
     - _MotionValue: {r: 0.1, g: 0.2, b: 0, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,4 +1,4 @@
-// Made with Amplify Shader Editor v1.9.2.2
+// Made with Amplify Shader Editor v1.9.1.5
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 {
@@ -21,7 +21,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 		_Depth("Depth", Float) = 0
 		_DepthOffset("Depth Offset", Float) = 0
 		_DepthCutout("Depth Cutout", Float) = 0
-		_WindWaveSpeedScale("Wind Wave Speed Scale", Vector) = (1,1,1,1)
+		[ASEEnd]_WindWaveSpeedScale("Wind Wave Speed Scale", Vector) = (1,1,1,1)
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 		[HideInInspector] _RenderQueueType("Render Queue Type", Float) = 1
@@ -126,7 +126,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			float RefractionDistance;
 			//SSS/Translucent
 			float DiffusionProfile;
-			float TransmissionMask;
 			// Transmission + Diffusion Profile
 			float Thickness;
 			float SubsurfaceMask;
@@ -304,6 +303,8 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			}
 
 
+			
+
 			HLSLPROGRAM
 
             #define _SPECULAR_OCCLUSION_FROM_AO 1
@@ -311,15 +312,17 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #pragma instancing_options renderinglayer
             #define _AMBIENT_OCCLUSION 1
             #define HAVE_MESH_MODIFICATION
-            #define ASE_SRP_VERSION 150007
+            #define ASE_SRP_VERSION 120110
 
 
             #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
             #pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
             #pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma multi_compile_fragment _ SHADOWS_SHADOWMASK
-			#pragma multi_compile_fragment _ RENDERING_LAYERS
+			#pragma multi_compile_fragment _ LIGHT_LAYERS
 			#pragma multi_compile_fragment PROBE_VOLUMES_OFF PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
 			#pragma multi_compile _ DEBUG_DISPLAY
 			#pragma multi_compile _ LIGHTMAP_ON
@@ -338,7 +341,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -504,7 +507,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				float3 positionRWS : TEXCOORD0;
 				float3 normalWS : TEXCOORD1;
 				float4 tangentWS : TEXCOORD2;
@@ -569,9 +572,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#endif
 				#if defined(_HAS_REFRACTION) || defined(_MATERIAL_FEATURE_TRANSMISSION)
 				surfaceData.thickness =					surfaceDescription.Thickness;
-				#endif
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceData.transmissionMask =			surfaceDescription.TransmissionMask;
 				#endif
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceData.diffusionProfileHash =		asuint(surfaceDescription.DiffusionProfile);
@@ -650,35 +650,20 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
 				normalTS = surfaceDescription.Normal;
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
-				surfaceData.geomNormalWS = fragInputs.tangentToWorld[ 2 ];
+				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
-				
+
 				bentNormalWS = surfaceData.normalWS;
 
 				#ifdef ASE_BENT_NORMAL
@@ -701,6 +686,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				surfaceData.perceptualSmoothness = GeometricNormalFiltering( surfaceData.perceptualSmoothness, fragInputs.tangentToWorld[ 2 ], surfaceDescription.SpecularAAScreenSpaceVariance, surfaceDescription.SpecularAAThreshold );
 				#endif
 
+				// debug
 				#if defined(DEBUG_DISPLAY)
 				if (_DebugMipMapMode != DEBUGMIPMAPMODE_NONE)
 				{
@@ -921,7 +907,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			void Frag( PackedVaryingsMeshToPS packedInput,
 						OUTPUT_GBUFFER(outGBuffer)
 						#ifdef _DEPTHOFFSET_ON
-						, out float outputDepth : DEPTH_OFFSET_SEMANTIC
+						, out float outputDepth : SV_Depth
 						#endif
 						
 						)
@@ -1028,10 +1014,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				surfaceDescription.SubsurfaceMask = 1;
 				#endif
 
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceDescription.TransmissionMask = 1;
-				#endif
-
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceDescription.DiffusionProfile = 0;
 				#endif
@@ -1087,14 +1069,16 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#pragma instancing_options renderinglayer
 			#define _AMBIENT_OCCLUSION 1
 			#define HAVE_MESH_MODIFICATION
-			#define ASE_SRP_VERSION 150007
+			#define ASE_SRP_VERSION 120110
 
 
 			#pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
-			#pragma shader_feature EDITOR_VISUALIZATION
+			#pragma shader_feature _ EDITOR_VISUALIZATION
 
 			#pragma vertex Vert
 			#pragma fragment Frag
@@ -1106,7 +1090,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -1268,7 +1252,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				#ifdef EDITOR_VISUALIZATION
 				float2 VizUV : TEXCOORD0;
 				float4 LightCoord : TEXCOORD1;
@@ -1330,9 +1314,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#endif
 				#if defined(_HAS_REFRACTION) || defined(_MATERIAL_FEATURE_TRANSMISSION)
 				surfaceData.thickness = 				surfaceDescription.Thickness;
-				#endif
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceData.transmissionMask =			surfaceDescription.TransmissionMask;
 				#endif
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceData.diffusionProfileHash =		asuint(surfaceDescription.DiffusionProfile);
@@ -1409,34 +1390,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
 				normalTS = surfaceDescription.Normal;
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 
@@ -1760,10 +1726,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				surfaceDescription.SubsurfaceMask = 1;
 				#endif
 
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceDescription.TransmissionMask = 1;
-				#endif
-
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceDescription.DiffusionProfile = 0;
 				#endif
@@ -1820,12 +1782,14 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#pragma instancing_options renderinglayer
 			#define _AMBIENT_OCCLUSION 1
 			#define HAVE_MESH_MODIFICATION
-			#define ASE_SRP_VERSION 150007
+			#define ASE_SRP_VERSION 120110
 
 
 			#pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma multi_compile_fragment _ SHADOWS_SHADOWMASK
 
@@ -1840,7 +1804,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			//#define USE_LEGACY_UNITY_MATRIX_VARIABLES
 
@@ -2004,7 +1968,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				float3 positionRWS : TEXCOORD0;
 				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -2108,34 +2072,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 				surfaceData.tangentWS = Orthonormalize( surfaceData.tangentWS, surfaceData.normalWS );
@@ -2358,7 +2307,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 						#endif
 
 						#if defined(_DEPTHOFFSET_ON) && !defined(SCENEPICKINGPASS)
-						, out float outputDepth : DEPTH_OFFSET_SEMANTIC
+						, out float outputDepth : SV_Depth
 						#endif
 						
 					)
@@ -2435,17 +2384,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surfaceData), outNormalBuffer);
 				#endif
 
-                #if (defined(WRITE_DECAL_BUFFER) && !defined(_DISABLE_DECALS)) || defined(WRITE_RENDERING_LAYER)
-				    DecalPrepassData decalPrepassData;
-                    #ifdef _DISABLE_DECALS
-				    ZERO_INITIALIZE(DecalPrepassData, decalPrepassData);
-                    #else
-				    decalPrepassData.geomNormalWS = surfaceData.geomNormalWS;
-                    #endif
-				    decalPrepassData.renderingLayerMask = GetMeshRenderingLayerMask();
-				    EncodeIntoDecalPrepassBuffer(decalPrepassData, outDecalBuffer);
-                #endif
-
+				#if defined(WRITE_DECAL_BUFFER) && !defined(_DISABLE_DECALS)
+				DecalPrepassData decalPrepassData;
+				decalPrepassData.geomNormalWS = surfaceData.geomNormalWS;
+				decalPrepassData.decalLayerMask = GetMeshRenderingDecalLayer();
+				EncodeIntoDecalPrepassBuffer(decalPrepassData, outDecalBuffer);
+				#endif
 			}
 			ENDHLSL
 		}
@@ -2466,12 +2410,14 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #pragma instancing_options renderinglayer
             #define _AMBIENT_OCCLUSION 1
             #define HAVE_MESH_MODIFICATION
-            #define ASE_SRP_VERSION 150007
+            #define ASE_SRP_VERSION 120110
 
 
             #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma editor_sync_compilation
 
@@ -2485,7 +2431,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -2649,7 +2595,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				float3 positionRWS : TEXCOORD0;
 				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -2753,34 +2699,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 				surfaceData.tangentWS = Orthonormalize( surfaceData.tangentWS, surfaceData.normalWS );
@@ -2981,7 +2912,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			void Frag( PackedVaryingsMeshToPS packedInput
 						, out float4 outColor : SV_Target0
 						#if defined(_DEPTHOFFSET_ON) && !defined(SCENEPICKINGPASS)
-						, out float outputDepth : DEPTH_OFFSET_SEMANTIC
+						, out float outputDepth : SV_Depth
 						#endif
 						
 					)
@@ -3072,16 +3003,18 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #pragma instancing_options renderinglayer
             #define _AMBIENT_OCCLUSION 1
             #define HAVE_MESH_MODIFICATION
-            #define ASE_SRP_VERSION 150007
+            #define ASE_SRP_VERSION 120110
 
 
             #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma multi_compile _ WRITE_NORMAL_BUFFER
 			#pragma multi_compile_fragment _ WRITE_MSAA_DEPTH
-			#pragma multi_compile _ WRITE_DECAL_BUFFER WRITE_RENDERING_LAYER
+			#pragma multi_compile _ WRITE_DECAL_BUFFER
 
 			#pragma vertex Vert
 			#pragma fragment Frag
@@ -3093,7 +3026,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -3257,7 +3190,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				float3 positionRWS : TEXCOORD0;
 				float3 normalWS : TEXCOORD1;
 				float4 tangentWS : TEXCOORD2;
@@ -3365,34 +3298,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
 				normalTS = surfaceDescription.Normal;
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 				surfaceData.tangentWS = Orthonormalize( surfaceData.tangentWS, surfaceData.normalWS );
@@ -3624,7 +3542,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 						#endif
 
 						#if defined(_DEPTHOFFSET_ON) && !defined(SCENEPICKINGPASS)
-						, out float outputDepth : DEPTH_OFFSET_SEMANTIC
+						, out float outputDepth : SV_Depth
 						#endif
 						
 					)
@@ -3703,17 +3621,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				EncodeIntoNormalBuffer(ConvertSurfaceDataToNormalData(surfaceData), outNormalBuffer);
 				#endif
 
-                #if (defined(WRITE_DECAL_BUFFER) && !defined(_DISABLE_DECALS)) || defined(WRITE_RENDERING_LAYER)
-				    DecalPrepassData decalPrepassData;
-                    #ifdef _DISABLE_DECALS
-				    ZERO_INITIALIZE(DecalPrepassData, decalPrepassData);
-                    #else
-				    decalPrepassData.geomNormalWS = surfaceData.geomNormalWS;
-                    #endif
-				    decalPrepassData.renderingLayerMask = GetMeshRenderingLayerMask();
-				    EncodeIntoDecalPrepassBuffer(decalPrepassData, outDecalBuffer);
-                #endif
-
+				#if defined(WRITE_DECAL_BUFFER) && !defined(_DISABLE_DECALS)
+				DecalPrepassData decalPrepassData;
+				decalPrepassData.geomNormalWS = surfaceData.geomNormalWS;
+				decalPrepassData.decalLayerMask = GetMeshRenderingDecalLayer();
+				EncodeIntoDecalPrepassBuffer(decalPrepassData, outDecalBuffer);
+				#endif
 			}
 
 			ENDHLSL
@@ -3723,7 +3636,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 		Pass
 		{
 			
-			Name "MotionVectors"
+			Name "Motion Vectors"
 			Tags { "LightMode"="MotionVectors" }
 
 			Cull [_CullMode]
@@ -3746,20 +3659,18 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #pragma instancing_options renderinglayer
             #define _AMBIENT_OCCLUSION 1
             #define HAVE_MESH_MODIFICATION
-            #define ASE_SRP_VERSION 150007
+            #define ASE_SRP_VERSION 120110
 
 
             #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma multi_compile _ WRITE_NORMAL_BUFFER
 			#pragma multi_compile_fragment _ WRITE_MSAA_DEPTH
-			#pragma multi_compile _ WRITE_DECAL_BUFFER WRITE_RENDERING_LAYER
-
-			#ifdef WRITE_DECAL_BUFFER_AND_RENDERING_LAYER
-			#define WRITE_DECAL_BUFFER
-			#endif
+			#pragma multi_compile _ WRITE_DECAL_BUFFER
 
 			#pragma vertex Vert
 			#pragma fragment Frag
@@ -3771,7 +3682,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -3897,7 +3808,9 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			int _PassValue;
             #endif
 
-			
+			sampler2D _BumpMap;
+			sampler2D _MainTex;
+
 
             #ifdef DEBUG_DISPLAY
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Debug/DebugDisplay.hlsl"
@@ -3915,7 +3828,8 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Decal/DecalUtilities.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Lit/LitDecalData.hlsl"
 
-			
+			#define ASE_NEEDS_VERT_POSITION
+
 
 			#if defined(_DOUBLESIDED_ON) && !defined(ASE_NEED_CULLFACE)
 			#define ASE_NEED_CULLFACE 1
@@ -3927,17 +3841,17 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				float3 normalOS : NORMAL;
 				float3 previousPositionOS : TEXCOORD4;
 				float3 precomputedVelocity : TEXCOORD5;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 vmeshPositionCS : SV_Position;
+				float4 vmeshPositionCS : SV_Position;
 				float3 vmeshInterp00 : TEXCOORD0;
 				float3 vpassInterpolators0 : TEXCOORD1; //interpolators0
 				float3 vpassInterpolators1 : TEXCOORD2; //interpolators1
-				
+				float4 ase_texcoord3 : TEXCOORD3;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 				#if defined(SHADER_STAGE_FRAGMENT) && defined(ASE_NEED_CULLFACE)
@@ -3945,7 +3859,35 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#endif
 			};
 
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
 			
+
 			void BuildSurfaceData(FragInputs fragInputs, inout SmoothSurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
 			{
 				ZERO_INITIALIZE(SurfaceData, surfaceData);
@@ -4012,34 +3954,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
 				normalTS = surfaceDescription.Normal;
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 				surfaceData.tangentWS = Orthonormalize( surfaceData.tangentWS, surfaceData.normalWS );
@@ -4095,14 +4022,36 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			AttributesMesh ApplyMeshModification(AttributesMesh inputMesh, float3 timeParameters, inout PackedVaryingsMeshToPS outputPackedVaryingsMeshToPS )
 			{
 				_TimeParameters.xyz = timeParameters;
+				float2 texCoord18 = inputMesh.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_cast_0 = (_WindWaveSpeedScale.y).xx;
+				float2 break19_g10 = temp_cast_0;
+				float2 temp_cast_1 = (_WindWaveSpeedScale.z).xx;
+				float2 panner56 = ( 1.0 * _Time.y * temp_cast_1 + texCoord18);
+				float simplePerlin2D57 = snoise( panner56*_WindWaveSpeedScale.w );
+				simplePerlin2D57 = simplePerlin2D57*0.5 + 0.5;
+				float temp_output_1_0_g10 = simplePerlin2D57;
+				float sinIn7_g10 = sin( temp_output_1_0_g10 );
+				float sinInOffset6_g10 = sin( ( temp_output_1_0_g10 + 1.0 ) );
+				float lerpResult20_g10 = lerp( break19_g10.x , break19_g10.y , frac( ( sin( ( ( sinIn7_g10 - sinInOffset6_g10 ) * 91.2228 ) ) * 43758.55 ) ));
+				float temp_output_129_0 = ( ( ( texCoord18.y + -0.5 ) * (0.0 + (( sin( _TimeParameters.x * 0.5 ) + 1.0 ) - 0.0) * (_WindWaveSpeedScale.z - 0.0) / (2.0 - 0.0)) * _WindWaveSpeedScale.x ) * ( lerpResult20_g10 + sinIn7_g10 ) );
+				float4 appendResult170 = (float4(temp_output_129_0 , 0.0 , temp_output_129_0 , 0.0));
+				float4 lerpResult180 = lerp( appendResult170 , float4( 0,0,0,0 ) , ( ( texCoord18.y * -1.0 ) + 1.0 ));
 				
+				float3 customSurfaceDepth161 = inputMesh.positionOS;
+				float customEye161 = -TransformWorldToView(TransformObjectToWorld(customSurfaceDepth161)).z;
+				outputPackedVaryingsMeshToPS.ase_texcoord3.z = customEye161;
+				
+				outputPackedVaryingsMeshToPS.ase_texcoord3.xy = inputMesh.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				outputPackedVaryingsMeshToPS.ase_texcoord3.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				float3 defaultVertexValue = inputMesh.positionOS.xyz;
 				#else
 				float3 defaultVertexValue = float3( 0, 0, 0 );
 				#endif
-				float3 vertexValue =  defaultVertexValue ;
+				float3 vertexValue = lerpResult180.xyz;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 				inputMesh.positionOS.xyz = vertexValue;
@@ -4165,7 +4114,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 					#endif
 
 					#if defined(HAVE_VERTEX_MODIFICATION)
-						ApplyVertexModification(inputMesh, normalWS, previousPositionRWS, _LastTimeParameters.xyz);
+						//ApplyVertexModification(inputMesh, normalWS, previousPositionRWS, _LastTimeParameters.xyz);
 					#endif
 
 					#ifdef _WRITE_TRANSPARENT_MOTION_VECTOR
@@ -4190,14 +4139,15 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Material/Decal/DecalPrepassBuffer.hlsl"
 			#endif
 
-			#if ( 0 ) // TEMPORARY: defined(ASE_TESSELLATION)
+			#if defined(ASE_TESSELLATION)
 			struct VertexControl
 			{
 				float3 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
 				float3 previousPositionOS : TEXCOORD4;
 				float3 precomputedVelocity : TEXCOORD5;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -4218,7 +4168,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 				o.precomputedVelocity = v.precomputedVelocity;
 				#endif
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -4266,7 +4216,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#if defined (_ADD_PRECOMPUTED_VELOCITY)
 					o.precomputedVelocity = patch[0].precomputedVelocity * bary.x + patch[1].precomputedVelocity * bary.y + patch[2].precomputedVelocity * bary.z;
 				#endif
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -4311,7 +4261,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 					#endif
 
 					#ifdef _DEPTHOFFSET_ON
-					, out float outputDepth : DEPTH_OFFSET_SEMANTIC
+					, out float outputDepth : SV_Depth
 					#endif
 				
 				)
@@ -4332,10 +4282,22 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				BuiltinData builtinData;
 
 				SmoothSurfaceDescription surfaceDescription = (SmoothSurfaceDescription)0;
+				float2 uv_BumpMap = packedInput.ase_texcoord3.xy * _BumpMap_ST.xy + _BumpMap_ST.zw;
+				float3 unpack11 = UnpackNormalScale( tex2D( _BumpMap, uv_BumpMap ), _NormalScale );
+				unpack11.z = lerp( 1, unpack11.z, saturate(_NormalScale) );
 				
-				surfaceDescription.Normal = float3( 0, 0, 1 );
-				surfaceDescription.Smoothness = 1;
-				surfaceDescription.Alpha = 1;
+				float2 uv_MainTex = packedInput.ase_texcoord3.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+				float4 tex2DNode7 = tex2D( _MainTex, uv_MainTex );
+				float customEye161 = packedInput.ase_texcoord3.z;
+				float cameraDepthFade161 = (( customEye161 -_ProjectionParams.y - _DepthOffset ) / _DepthCutout);
+				float3 temp_cast_0 = (cameraDepthFade161).xxx;
+				float temp_output_2_0_g9 = tex2DNode7.a;
+				float temp_output_3_0_g9 = ( 1.0 - temp_output_2_0_g9 );
+				float3 appendResult7_g9 = (float3(temp_output_3_0_g9 , temp_output_3_0_g9 , temp_output_3_0_g9));
+				
+				surfaceDescription.Normal = unpack11;
+				surfaceDescription.Smoothness = _Smoothness;
+				surfaceDescription.Alpha = saturate( ( tex2DNode7.a * ( 1.0 - ( ( temp_cast_0 * temp_output_2_0_g9 ) + appendResult7_g9 ) ) ) ).x;
 
 				#ifdef _ALPHATEST_ON
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
@@ -4366,9 +4328,10 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#ifdef WRITE_MSAA_DEPTH
 					// In case we are rendering in MSAA, reading the an MSAA depth buffer is way too expensive. To avoid that, we export the depth to a color buffer
 					depthColor = packedInput.vmeshPositionCS.z;
-
+					#ifdef _ALPHATOMASK_ON
 					// Alpha channel is used for alpha to coverage
 					depthColor.a = SharpenAlpha(builtinData.opacity, builtinData.alphaClipTreshold);
+					#endif
 				#endif
 
 				// Normal Buffer Processing
@@ -4382,9 +4345,14 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 					ZERO_INITIALIZE(DecalPrepassData, decalPrepassData);
 					#else
 					decalPrepassData.geomNormalWS = surfaceData.geomNormalWS;
-                    #endif
-					decalPrepassData.renderingLayerMask = GetMeshRenderingLayerMask();
+					decalPrepassData.decalLayerMask = GetMeshRenderingDecalLayer();
+					#endif
 					EncodeIntoDecalPrepassBuffer(decalPrepassData, outDecalBuffer);
+
+					#if ASE_SRP_VERSION >= 120107
+					// make sure we don't overwrite light layers
+					outDecalBuffer.w = (GetMeshRenderingLightLayer() & 0x000000FF) / 255.0;
+					#endif
 				#endif
 
 				#ifdef _DEPTHOFFSET_ON
@@ -4403,7 +4371,8 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			Tags { "LightMode"="Forward" }
 
 			Blend [_SrcBlend] [_DstBlend], [_AlphaSrcBlend] [_AlphaDstBlend]
-			Blend 1 SrcAlpha OneMinusSrcAlpha
+
+			
 
 			Cull [_CullModeForward]
 			ZTest [_ZTestDepthEqualForOpaque]
@@ -4418,8 +4387,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			}
 
 
+			
+
+			
             ColorMask [_ColorMaskTransparentVelOne] 1
             ColorMask [_ColorMaskTransparentVelTwo] 2
+		
 
 			HLSLPROGRAM
 
@@ -4428,16 +4401,17 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #pragma instancing_options renderinglayer
             #define _AMBIENT_OCCLUSION 1
             #define HAVE_MESH_MODIFICATION
-            #define ASE_SRP_VERSION 150007
+            #define ASE_SRP_VERSION 120110
 
 
             #pragma shader_feature _SURFACE_TYPE_TRANSPARENT
 			#pragma shader_feature_local _TRANSPARENT_WRITES_MOTION_VEC
 			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
+			#pragma shader_feature_local _DOUBLESIDED_ON
+			#pragma shader_feature_local _ALPHATEST_ON
 
 			#pragma multi_compile_fragment _ SHADOWS_SHADOWMASK
-			#pragma multi_compile_fragment SHADOW_LOW SHADOW_MEDIUM SHADOW_HIGH
-			#pragma multi_compile_fragment AREA_SHADOW_MEDIUM AREA_SHADOW_HIGH
+			#pragma multi_compile_fragment SHADOW_LOW SHADOW_MEDIUM SHADOW_HIGH SHADOW_VERY_HIGH
 			#pragma multi_compile_fragment PROBE_VOLUMES_OFF PROBE_VOLUMES_L1 PROBE_VOLUMES_L2
             #pragma multi_compile_fragment SCREEN_SPACE_SHADOWS_OFF SCREEN_SPACE_SHADOWS_ON
             #pragma multi_compile_fragment USE_FPTL_LIGHTLIST USE_CLUSTERED_LIGHTLIST
@@ -4463,7 +4437,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/FragInputs.hlsl"
 
@@ -4638,7 +4612,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 			struct PackedVaryingsMeshToPS
 			{
-				SV_POSITION_QUALIFIERS float4 positionCS : SV_Position;
+				float4 positionCS : SV_Position;
 				float3 positionRWS : TEXCOORD0;
 				float3 normalWS : TEXCOORD1;
 				float4 tangentWS : TEXCOORD2;
@@ -4706,9 +4680,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				#endif
 				#if defined(_HAS_REFRACTION) || defined(_MATERIAL_FEATURE_TRANSMISSION)
 				surfaceData.thickness = 				surfaceDescription.Thickness;
-				#endif
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceData.transmissionMask =			surfaceDescription.TransmissionMask;
 				#endif
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceData.diffusionProfileHash =		asuint(surfaceDescription.DiffusionProfile);
@@ -4786,34 +4757,19 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				// normals
 				float3 normalTS = float3(0.0f, 0.0f, 1.0f);
 				normalTS = surfaceDescription.Normal;
+				GetNormalWS( fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants );
 
 				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
 				surfaceData.tangentWS = normalize( fragInputs.tangentToWorld[ 0 ].xyz );
 
 				// decals
-			#ifdef DECAL_NORMAL_BLENDING
-				if (_EnableDecals)
-				{
-					#ifndef SURFACE_GRADIENT
-					normalTS = SurfaceGradientFromTangentSpaceNormalAndFromTBN(normalTS, fragInputs.tangentToWorld[0], fragInputs.tangentToWorld[1]);
-					#endif
-
-					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
-					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData, normalTS);
-				}
-
-				GetNormalWS_SG(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-			#else
-				GetNormalWS(fragInputs, normalTS, surfaceData.normalWS, doubleSidedConstants);
-
 				#if HAVE_DECALS
-				if (_EnableDecals)
+				if( _EnableDecals )
 				{
 					DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
 					ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
 				}
 				#endif
-			#endif
 
 				bentNormalWS = surfaceData.normalWS;
 
@@ -4996,7 +4952,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 					#endif
 
 					#if defined(HAVE_VERTEX_MODIFICATION)
-						ApplyVertexModification(inputMesh, normalWS, previousPositionRWS, _LastTimeParameters.xyz);
+						//ApplyVertexModification(inputMesh, normalWS, previousPositionRWS, _LastTimeParameters.xyz);
 					#endif
 
 					VPASSpreviousPositionCS = mul(UNITY_MATRIX_PREV_VP, float4(previousPositionRWS, 1.0));
@@ -5025,6 +4981,8 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				float4 tangentOS : TANGENT;
 				float4 uv1 : TEXCOORD1;
 				float4 uv2 : TEXCOORD2;
+				float3 previousPositionOS : TEXCOORD4;
+				float3 precomputedVelocity : TEXCOORD5;
 				float4 ase_texcoord : TEXCOORD0;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -5046,6 +5004,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				o.tangentOS = v.tangentOS;
 				o.uv1 = v.uv1;
 				o.uv2 = v.uv2;
+				#ifdef _WRITE_TRANSPARENT_MOTION_VECTOR
+					o.previousPositionOS = v.previousPositionOS;
+					#if defined (_ADD_PRECOMPUTED_VELOCITY)
+						o.precomputedVelocity = v.precomputedVelocity;
+					#endif
+				#endif
 				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
@@ -5093,6 +5057,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
 				o.uv1 = patch[0].uv1 * bary.x + patch[1].uv1 * bary.y + patch[2].uv1 * bary.z;
 				o.uv2 = patch[0].uv2 * bary.x + patch[1].uv2 * bary.y + patch[2].uv2 * bary.z;
+				#ifdef _WRITE_TRANSPARENT_MOTION_VECTOR
+					o.previousPositionOS = patch[0].previousPositionOS * bary.x + patch[1].previousPositionOS * bary.y + patch[2].previousPositionOS * bary.z;
+					#if defined (_ADD_PRECOMPUTED_VELOCITY)
+						o.precomputedVelocity = patch[0].precomputedVelocity * bary.x + patch[1].precomputedVelocity * bary.y + patch[2].precomputedVelocity * bary.z;
+					#endif
+				#endif
 				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
@@ -5112,22 +5082,23 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#endif
 
             #ifdef UNITY_VIRTUAL_TEXTURING
-                #ifdef OUTPUT_SPLIT_LIGHTING
-                   #define DIFFUSE_LIGHTING_TARGET SV_Target2
-                   #define SSS_BUFFER_TARGET SV_Target3
-                #elif defined(_WRITE_TRANSPARENT_MOTION_VECTOR)
-                   #define MOTION_VECTOR_TARGET SV_Target2
-            	#endif
+            #ifdef OUTPUT_SPLIT_LIGHTING
+            #define DIFFUSE_LIGHTING_TARGET SV_Target2
+            #define SSS_BUFFER_TARGET SV_Target3
+            #elif defined(_WRITE_TRANSPARENT_MOTION_VECTOR)
+            #define MOTION_VECTOR_TARGET SV_Target2
+            #endif
             #if defined(SHADER_API_PSSL)
-            	#pragma PSSL_target_output_format(target 1 FMT_32_ABGR)
+
+            #pragma PSSL_target_output_format(target 1 FMT_32_ABGR)
             #endif
             #else
-                #ifdef OUTPUT_SPLIT_LIGHTING
-                #define DIFFUSE_LIGHTING_TARGET SV_Target1
-                #define SSS_BUFFER_TARGET SV_Target2
-                #elif defined(_WRITE_TRANSPARENT_MOTION_VECTOR)
-                #define MOTION_VECTOR_TARGET SV_Target1
-                #endif
+            #ifdef OUTPUT_SPLIT_LIGHTING
+            #define DIFFUSE_LIGHTING_TARGET SV_Target1
+            #define SSS_BUFFER_TARGET SV_Target2
+            #elif defined(_WRITE_TRANSPARENT_MOTION_VECTOR)
+            #define MOTION_VECTOR_TARGET SV_Target1
+            #endif
             #endif
 
 			void Frag(PackedVaryingsMeshToPS packedInput
@@ -5141,14 +5112,16 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #elif defined(_WRITE_TRANSPARENT_MOTION_VECTOR)
 				, out float4 outMotionVec : MOTION_VECTOR_TARGET
             #endif
+
             #ifdef _DEPTHOFFSET_ON
 				, out float outputDepth : DEPTH_OFFSET_SEMANTIC
             #endif
+
 		    
 						)
 			{
 				#ifdef _WRITE_TRANSPARENT_MOTION_VECTOR
-					outMotionVec = float4(2.0, 0.0, 0.0, 1.0);
+					outMotionVec = float4(2.0, 0.0, 0.0, 0.0);
 				#endif
 
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX( packedInput );
@@ -5248,10 +5221,6 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				surfaceDescription.SubsurfaceMask = 1;
 				#endif
 
-				#ifdef _MATERIAL_FEATURE_TRANSMISSION
-				surfaceDescription.TransmissionMask = 1;
-				#endif
-
 				#if defined( _MATERIAL_FEATURE_SUBSURFACE_SCATTERING ) || defined( _MATERIAL_FEATURE_TRANSMISSION )
 				surfaceDescription.DiffusionProfile = 0;
 				#endif
@@ -5295,7 +5264,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #ifdef OUTPUT_SPLIT_LIGHTING
 				outDiffuseLighting = float4(0, 0, 0, 1);
 				ENCODE_INTO_SSSBUFFER(surfaceData, posInput.positionSS, outSSSBuffer);
-			#endif
+                #endif
 
 				bool viewMaterial = false;
 				int bufferSize = _DebugViewMaterialArray[0].x;
@@ -5379,10 +5348,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 						float4 VPASSpreviousPositionCS = float4(packedInput.vpassPreviousPositionCS.xy, 0.0, packedInput.vpassPreviousPositionCS.z);
 
 						bool forceNoMotion = any(unity_MotionVectorsParams.yw == 0.0);
-                #if defined(HAVE_VFX_MODIFICATION) && !VFX_FEATURE_MOTION_VECTORS
-                        forceNoMotion = true;
-                #endif
-				        if (!forceNoMotion)
+						if (!forceNoMotion)
 						{
 							float2 motionVec = CalculateMotionVector(VPASSpositionCS, VPASSpreviousPositionCS);
 							EncodeMotionVector(motionVec * 0.5, outMotionVec);
@@ -5403,6 +5369,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 					outVTFeedback = builtinData.vtPackedFeedback;
 				#endif
 
+			#if ASE_SRP_VERSION >= 130000
                 #ifdef UNITY_VIRTUAL_TEXTURING
 				    float vtAlphaValue = builtinData.opacity;
                     #if defined(HAS_REFRACTION) && HAS_REFRACTION
@@ -5410,6 +5377,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
                 #endif
 				outVTFeedback = PackVTFeedbackWithAlpha(builtinData.vtPackedFeedback, input.positionSS.xy, vtAlphaValue);
                 #endif
+			#endif
 			}
 			ENDHLSL
 		}
@@ -5430,7 +5398,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#pragma instancing_options renderinglayer
 			#define _AMBIENT_OCCLUSION 1
 			#define HAVE_MESH_MODIFICATION
-			#define ASE_SRP_VERSION 150007
+			#define ASE_SRP_VERSION 120110
 
 
 			#pragma editor_sync_compilation
@@ -5445,7 +5413,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
             #include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
             #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+            #include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#define ATTRIBUTES_NEED_NORMAL
 			#define ATTRIBUTES_NEED_TANGENT
@@ -5571,6 +5539,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			{
 				float3 positionOS : POSITION;
 				float3 normalOS : NORMAL;
+				float4 tangentOS : TANGENT;
 				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
@@ -5579,6 +5548,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			{
 				float4 positionCS : SV_POSITION;
 				float3 normalWS : TEXCOORD0;
+				float4 tangentWS : TEXCOORD1;
 				float4 ase_texcoord2 : TEXCOORD2;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
@@ -5617,9 +5587,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			{
 				float Alpha;
 				float AlphaClipThreshold;
-				float DepthOffset;
 			};
-
 			struct SurfaceDescriptionInputs
 			{
 				float3 ObjectSpaceNormal;
@@ -5686,7 +5654,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
                 builtinData.opacity = surfaceDescription.Alpha;
 
                 #if defined(DEBUG_DISPLAY)
-				builtinData.renderingLayers = GetMeshRenderingLayerMask();
+				builtinData.renderingLayers = GetMeshRenderingLightLayer();
                 #endif
 
                 #ifdef _ALPHATEST_ON
@@ -5765,10 +5733,12 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 
 				float3 positionRWS = TransformObjectToWorld(inputMesh.positionOS);
 				float3 normalWS = TransformObjectToWorldNormal(inputMesh.normalOS);
-				
+				float4 tangentWS = float4(TransformObjectToWorldDir(inputMesh.tangentOS.xyz), inputMesh.tangentOS.w);
+
 				o.positionCS = TransformWorldToHClip(positionRWS);
 				o.normalWS.xyz =  normalWS;
-				
+				o.tangentWS.xyzw =  tangentWS;
+
 				return o;
 			}
 
@@ -5777,6 +5747,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			{
 				float3 positionOS : INTERNALTESSPOS;
 				float3 normalOS : NORMAL;
+				float4 tangentOS : TANGENT;
 				float4 ase_texcoord : TEXCOORD0;
 
 				UNITY_VERTEX_INPUT_INSTANCE_ID
@@ -5795,6 +5766,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.positionOS = v.positionOS;
 				o.normalOS = v.normalOS;
+				o.tangentOS = v.tangentOS;
 				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
@@ -5839,6 +5811,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				VertexInput o = (VertexInput) 0;
 				o.positionOS = patch[0].positionOS * bary.x + patch[1].positionOS * bary.y + patch[2].positionOS * bary.z;
 				o.normalOS = patch[0].normalOS * bary.x + patch[1].normalOS * bary.y + patch[2].normalOS * bary.z;
+				o.tangentOS = patch[0].tangentOS * bary.x + patch[1].tangentOS * bary.y + patch[2].tangentOS * bary.z;
 				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
@@ -5869,6 +5842,8 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				ZERO_INITIALIZE(FragInputs, input);
 				input.tangentToWorld = k_identity3x3;
 				input.positionSS = packedInput.positionCS;
+
+				input.tangentToWorld = BuildTangentToWorld(packedInput.tangentWS.xyzw, packedInput.normalWS.xyz);
 
 				PositionInputs posInput = GetPositionInput(input.positionSS.xy, _ScreenSize.zw, input.positionSS.z, input.positionSS.w, input.positionRWS);
 
@@ -5901,10 +5876,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
         {
 
             Name "FullScreenDebug"
-            Tags 
-			{ 
-				"LightMode" = "FullScreenDebug" 
-            }
+            Tags { "LightMode" = "FullScreenDebug" }
 
             Cull [_CullMode]
 			ZTest LEqual
@@ -5928,7 +5900,7 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderVariables.hlsl"
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/RenderPipeline/ShaderPass/ShaderPass.cs.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/ShaderLibrary/ShaderGraphHeader.hlsl"
 
 			#define ATTRIBUTES_NEED_NORMAL
 			#define ATTRIBUTES_NEED_TANGENT
@@ -6124,12 +6096,209 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 				return output;
 			}
 
+
 			FragInputs UnpackVaryingsMeshToFragInputs(PackedVaryingsMeshToPS input)
 			{
 				UNITY_SETUP_INSTANCE_ID(input);
 				VaryingsMeshToPS unpacked = UnpackVaryingsMeshToPS(input);
 				return BuildFragInputs(unpacked);
 			}
+
+
+            SurfaceDescriptionInputs FragInputsToSurfaceDescriptionInputs(FragInputs input, float3 viewWS)
+			{
+				SurfaceDescriptionInputs output;
+				ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
+
+				#if defined(SHADER_STAGE_RAY_TRACING)
+				#else
+				#endif
+				output.TangentSpaceNormal =                         float3(0.0f, 0.0f, 1.0f);
+				return output;
+			}
+
+			void BuildSurfaceData(FragInputs fragInputs, inout SurfaceDescription surfaceDescription, float3 V, PositionInputs posInput, out SurfaceData surfaceData, out float3 bentNormalWS)
+			{
+				ZERO_INITIALIZE(SurfaceData, surfaceData);
+
+				surfaceData.specularOcclusion = 1.0;
+
+				surfaceData.baseColor =                 surfaceDescription.BaseColor;
+				surfaceData.perceptualSmoothness =      surfaceDescription.Smoothness;
+				surfaceData.ambientOcclusion =          surfaceDescription.Occlusion;
+				surfaceData.metallic =                  surfaceDescription.Metallic;
+
+				#if defined(_REFRACTION_PLANE) || defined(_REFRACTION_SPHERE) || defined(_REFRACTION_THIN)
+					if (_EnableSSRefraction)
+					{
+
+						surfaceData.transmittanceMask = (1.0 - surfaceDescription.Alpha);
+						surfaceDescription.Alpha = 1.0;
+					}
+					else
+					{
+						surfaceData.ior = 1.0;
+						surfaceData.transmittanceColor = float3(1.0, 1.0, 1.0);
+						surfaceData.atDistance = 1.0;
+						surfaceData.transmittanceMask = 0.0;
+						surfaceDescription.Alpha = 1.0;
+					}
+				#else
+					surfaceData.ior = 1.0;
+					surfaceData.transmittanceColor = float3(1.0, 1.0, 1.0);
+					surfaceData.atDistance = 1.0;
+					surfaceData.transmittanceMask = 0.0;
+				#endif
+
+
+				surfaceData.materialFeatures = MATERIALFEATUREFLAGS_LIT_STANDARD;
+				#ifdef _MATERIAL_FEATURE_SUBSURFACE_SCATTERING
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_SUBSURFACE_SCATTERING;
+				#endif
+				#ifdef _MATERIAL_FEATURE_TRANSMISSION
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_TRANSMISSION;
+				#endif
+                #ifdef _MATERIAL_FEATURE_ANISOTROPY
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_ANISOTROPY;
+					surfaceData.normalWS = float3(0, 1, 0);
+                #endif
+				#ifdef _MATERIAL_FEATURE_IRIDESCENCE
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_IRIDESCENCE;
+				#endif
+				#ifdef _MATERIAL_FEATURE_SPECULAR_COLOR
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_SPECULAR_COLOR;
+				#endif
+				#ifdef _MATERIAL_FEATURE_CLEAR_COAT
+					surfaceData.materialFeatures |= MATERIALFEATUREFLAGS_LIT_CLEAR_COAT;
+				#endif
+				#if defined (_MATERIAL_FEATURE_SPECULAR_COLOR) && defined (_ENERGY_CONSERVING_SPECULAR)
+					surfaceData.baseColor *= (1.0 - Max3(surfaceData.specularColor.r, surfaceData.specularColor.g, surfaceData.specularColor.b));
+				#endif
+				#ifdef _DOUBLESIDED_ON
+					float3 doubleSidedConstants = _DoubleSidedConstants.xyz;
+				#else
+					float3 doubleSidedConstants = float3(1.0, 1.0, 1.0);
+				#endif
+
+
+				GetNormalWS(fragInputs, surfaceDescription.NormalTS, surfaceData.normalWS, doubleSidedConstants);
+
+				surfaceData.geomNormalWS = fragInputs.tangentToWorld[2];
+
+				surfaceData.tangentWS = normalize(fragInputs.tangentToWorld[0].xyz);
+
+
+				#if HAVE_DECALS
+					if (_EnableDecals)
+					{
+						DecalSurfaceData decalSurfaceData = GetDecalSurfaceData(posInput, fragInputs, surfaceDescription.Alpha);
+						ApplyDecalToSurfaceData(decalSurfaceData, fragInputs.tangentToWorld[2], surfaceData);
+					}
+				#endif
+
+				bentNormalWS = surfaceData.normalWS;
+
+				surfaceData.tangentWS = Orthonormalize(surfaceData.tangentWS, surfaceData.normalWS);
+
+				#ifdef DEBUG_DISPLAY
+					if (_DebugMipMapMode != DEBUGMIPMAPMODE_NONE)
+					{
+
+						surfaceData.metallic = 0;
+					}
+
+					ApplyDebugToSurfaceData(fragInputs.tangentToWorld, surfaceData);
+				#endif
+
+                #if defined(_SPECULAR_OCCLUSION_CUSTOM)
+                #elif defined(_SPECULAR_OCCLUSION_FROM_AO_BENT_NORMAL)
+				surfaceData.specularOcclusion = GetSpecularOcclusionFromBentAO(V, bentNormalWS, surfaceData.normalWS, surfaceData.ambientOcclusion, PerceptualSmoothnessToPerceptualRoughness(surfaceData.perceptualSmoothness));
+                #elif defined(_AMBIENT_OCCLUSION) && defined(_SPECULAR_OCCLUSION_FROM_AO)
+				surfaceData.specularOcclusion = GetSpecularOcclusionFromAmbientOcclusion(ClampNdotV(dot(surfaceData.normalWS, V)), surfaceData.ambientOcclusion, PerceptualSmoothnessToRoughness(surfaceData.perceptualSmoothness));
+                #endif
+			}
+
+            void GetSurfaceAndBuiltinData(FragInputs fragInputs, float3 V, inout PositionInputs posInput, out SurfaceData surfaceData, out BuiltinData builtinData RAY_TRACING_OPTIONAL_PARAMETERS)
+            {
+
+                #if !defined(SHADER_STAGE_RAY_TRACING) && !defined(_TESSELLATION_DISPLACEMENT)
+                #ifdef LOD_FADE_CROSSFADE
+                LODDitheringTransition(ComputeFadeMaskSeed(V, posInput.positionSS), unity_LODFade.x);
+                #endif
+                #endif
+
+                #ifndef SHADER_UNLIT
+                #ifdef _DOUBLESIDED_ON
+                    float3 doubleSidedConstants = _DoubleSidedConstants.xyz;
+                #else
+                    float3 doubleSidedConstants = float3(1.0, 1.0, 1.0);
+                #endif
+
+                ApplyDoubleSidedFlipOrMirror(fragInputs, doubleSidedConstants);
+                #endif
+
+                SurfaceDescriptionInputs surfaceDescriptionInputs = FragInputsToSurfaceDescriptionInputs(fragInputs, V);
+
+                SurfaceDescription surfaceDescription = SurfaceDescriptionFunction(surfaceDescriptionInputs);
+
+                #ifdef _ALPHATEST_ON
+				float alphaCutoff = surfaceDescription.AlphaClipThreshold;
+                #if SHADERPASS == SHADERPASS_TRANSPARENT_DEPTH_PREPASS
+                #elif SHADERPASS == SHADERPASS_TRANSPARENT_DEPTH_POSTPASS
+				alphaCutoff = surfaceDescription.AlphaClipThresholdDepthPostpass;
+                #elif (SHADERPASS == SHADERPASS_SHADOWS) || (SHADERPASS == SHADERPASS_RAYTRACING_VISIBILITY)
+                #endif
+				GENERIC_ALPHA_TEST(surfaceDescription.Alpha, alphaCutoff);
+                #endif
+
+                #if !defined(SHADER_STAGE_RAY_TRACING) && _DEPTHOFFSET_ON
+                ApplyDepthOffsetPositionInput(V, surfaceDescription.DepthOffset, GetViewForwardDir(), GetWorldToHClipMatrix(), posInput);
+                #endif
+
+                #ifndef SHADER_UNLIT
+                float3 bentNormalWS;
+                BuildSurfaceData(fragInputs, surfaceDescription, V, posInput, surfaceData, bentNormalWS);
+
+                InitBuiltinData(posInput, surfaceDescription.Alpha, bentNormalWS, -fragInputs.tangentToWorld[2], fragInputs.texCoord1, fragInputs.texCoord2, builtinData);
+
+                #else
+                BuildSurfaceData(fragInputs, surfaceDescription, V, posInput, surfaceData);
+
+                ZERO_BUILTIN_INITIALIZE(builtinData);
+                builtinData.opacity = surfaceDescription.Alpha;
+
+                #if defined(DEBUG_DISPLAY)
+                    builtinData.renderingLayers = GetMeshRenderingLightLayer();
+                #endif
+
+                #endif
+
+                #ifdef _ALPHATEST_ON
+
+                    builtinData.alphaClipTreshold = alphaCutoff;
+                #endif
+
+
+                builtinData.emissiveColor = surfaceDescription.Emission;
+
+                #if _DEPTHOFFSET_ON
+                builtinData.depthOffset = surfaceDescription.DepthOffset;
+                #endif
+
+
+                #if (SHADERPASS == SHADERPASS_DISTORTION)
+                builtinData.distortion = surfaceDescription.Distortion;
+                builtinData.distortionBlur = surfaceDescription.DistortionBlur;
+                #endif
+
+                #ifndef SHADER_UNLIT
+
+                PostInitBuiltinData(V, posInput, surfaceData, builtinData);
+                #else
+                ApplyDebugToBuiltinData(builtinData);
+                #endif
+
+            }
 
 			#define DEBUG_DISPLAY
 			#include "Packages/com.unity.render-pipelines.high-definition/Runtime/Debug/DebugDisplay.hlsl"
@@ -6171,29 +6340,29 @@ Shader "DLNK Shaders/ASE/Nature/GrassAnim"
 	Fallback Off
 }
 /*ASEBEGIN
-Version=19202
-Node;AmplifyShaderEditor.RangedFloatNode;105;-721.3457,-658.4017;Inherit;False;Property;_ColorOffset;Color Offset;2;0;Create;True;0;0;0;False;0;False;0;0.06;0;0;0;1;FLOAT;0
+Version=19105
+Node;AmplifyShaderEditor.RangedFloatNode;105;-721.3457,-658.4017;Inherit;False;Property;_ColorOffset;Color Offset;3;0;Create;True;0;0;0;False;0;False;0;0.06;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;104;-535.4762,-739.7249;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;107;-586.1996,-521.7991;Inherit;False;Property;_ColorRange;Color Range;3;0;Create;True;0;0;0;False;0;False;1;1.87;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;107;-586.1996,-521.7991;Inherit;False;Property;_ColorRange;Color Range;4;0;Create;True;0;0;0;False;0;False;1;1.87;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.PowerNode;106;-402.8112,-569.6089;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PosVertexDataNode;144;-101.505,-0.3937836;Inherit;False;0;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;50;-211.1837,-870.3237;Inherit;False;Property;_ColorA;Color A;0;0;Create;True;0;0;0;False;0;False;0.5943396,0.5943396,0.5943396,0;0.5760189,0.5849056,0.5545566,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;51;-200.1164,-698.1395;Inherit;False;Property;_ColorB;Color B;1;0;Create;True;0;0;0;False;0;False;1,1,1,0;0.6515704,0.7169812,0.6391955,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;139;-285.705,64.80618;Inherit;False;Property;_Depth;Depth;13;0;Create;True;0;0;0;False;0;False;0;10.5;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;145;-289.205,136.8062;Inherit;False;Property;_DepthOffset;Depth Offset;14;0;Create;True;0;0;0;False;0;False;0;26.59;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.ColorNode;50;-211.1837,-870.3237;Inherit;False;Property;_ColorA;Color A;1;0;Create;True;0;0;0;False;0;False;0.5943396,0.5943396,0.5943396,0;0.5760189,0.5849056,0.5545566,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;51;-200.1164,-698.1395;Inherit;False;Property;_ColorB;Color B;2;0;Create;True;0;0;0;False;0;False;1,1,1,0;0.6515704,0.7169812,0.6391955,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;139;-285.705,64.80618;Inherit;False;Property;_Depth;Depth;14;0;Create;True;0;0;0;False;0;False;0;10.5;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;145;-289.205,136.8062;Inherit;False;Property;_DepthOffset;Depth Offset;15;0;Create;True;0;0;0;False;0;False;0;26.59;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;110;-229.9544,-518.4434;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;7;-484.1969,-443.2019;Inherit;True;Property;_MainTex;Albedo;7;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;7;-484.1969,-443.2019;Inherit;True;Property;_MainTex;Albedo;8;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;177;-806.9655,603.8821;Inherit;False;Constant;_Float3;Float 3;18;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SinTimeNode;24;-794.0515,330.3641;Inherit;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;18;-623.4268,307.7039;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.Vector4Node;132;-635.1202,717.1869;Inherit;False;Property;_WindWaveSpeedScale;Wind Wave Speed Scale;16;0;Create;True;0;0;0;False;0;False;1,1,1,1;1,2,1,1;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.Vector4Node;132;-635.1202,717.1869;Inherit;False;Property;_WindWaveSpeedScale;Wind Wave Speed Scale;17;0;Create;True;0;0;0;False;0;False;1,1,1,1;1,2,1,1;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.LerpOp;49;35.67157,-718.1121;Inherit;True;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.RangedFloatNode;120;-394.0696,-251.7675;Inherit;False;Property;_TextureOverride;Texture Override;8;0;Create;True;0;0;0;False;0;False;0.5;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;120;-394.0696,-251.7675;Inherit;False;Property;_TextureOverride;Texture Override;9;0;Create;True;0;0;0;False;0;False;0.5;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.CameraDepthFade;141;-110.5049,165.2062;Inherit;False;3;2;FLOAT3;0,0,0;False;0;FLOAT;1;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PowerNode;122;-0.06840897,-375.7645;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;156;-286.5335,216.9983;Inherit;False;Property;_FarFresnel;Far Fresnel;5;0;Create;True;0;0;0;False;0;False;1;0.7;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;156;-286.5335,216.9983;Inherit;False;Property;_FarFresnel;Far Fresnel;6;0;Create;True;0;0;0;False;0;False;1;0.7;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;148;134.2328,211.3803;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;160;453.6664,465.0983;Inherit;False;Property;_DepthCutout;Depth Cutout;15;0;Create;True;0;0;0;False;0;False;0;100;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;160;453.6664,465.0983;Inherit;False;Property;_DepthCutout;Depth Cutout;16;0;Create;True;0;0;0;False;0;False;0;100;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;48;-198.3129,-439.1495;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;176;-794.9291,485.5205;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PannerNode;56;-356.4822,722.2799;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
@@ -6205,7 +6374,7 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;155;136.4668,109.9977;Inherit;Fals
 Node;AmplifyShaderEditor.CameraDepthFade;161;572.6664,314.0983;Inherit;False;3;2;FLOAT3;0,0,0;False;0;FLOAT;1;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;164;632.6663,440.0983;Inherit;False;Lerp White To;-1;;9;047d7c189c36a62438973bad9d37b1c2;0;2;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SaturateNode;167;323.0635,125.5362;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ColorNode;151;-301.3671,-102.5198;Inherit;False;Property;_ColorFar;Color Far;4;0;Create;True;0;0;0;False;0;False;1,1,1,0;0.3769134,0.6603774,0.4978581,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;151;-301.3671,-102.5198;Inherit;False;Property;_ColorFar;Color Far;5;0;Create;True;0;0;0;False;0;False;1,1,1,0;0.3769134,0.6603774,0.4978581,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;25;-341.2679,509.8662;Inherit;False;3;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;101;14.10099,-156.7143;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.FunctionNode;130;-185.9182,587.89;Inherit;False;Noise Sine Wave;-1;;10;a6eff29f739ced848846e3b648af87bd;0;2;1;FLOAT;0;False;2;FLOAT2;-0.5,0.5;False;1;FLOAT;0
@@ -6213,8 +6382,8 @@ Node;AmplifyShaderEditor.OneMinusNode;165;797.6663,445.0983;Inherit;False;1;0;FL
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;184;-216.5374,352.582;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;-1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;129;51.98076,695.9817;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.LerpOp;152;131.2351,-30.92023;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.RangedFloatNode;127;460.9714,-71.90961;Inherit;False;Property;_Occlusion;Occlusion;9;0;Create;True;0;0;0;False;0;False;0;0.3;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;154;455.3664,-414.6017;Inherit;False;Property;_BlendOriginal;Blend Original;6;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;127;460.9714,-71.90961;Inherit;False;Property;_Occlusion;Occlusion;10;0;Create;True;0;0;0;False;0;False;0;0.3;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;154;455.3664,-414.6017;Inherit;False;Property;_BlendOriginal;Blend Original;7;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;158;223.1662,-134.4099;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;185;-85.53735,348.582;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;162;828.6663,330.0983;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT3;0,0,0;False;1;FLOAT3;0
@@ -6223,21 +6392,21 @@ Node;AmplifyShaderEditor.PowerNode;128;460.0421,1.35038;Inherit;False;False;2;0;
 Node;AmplifyShaderEditor.LerpOp;180;192.0533,499.1671;Inherit;False;3;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0,0,0,0;False;2;FLOAT;0;False;1;FLOAT4;0
 Node;AmplifyShaderEditor.LerpOp;153;461.4664,-331.1017;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;168;923.1877,-86.07186;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.RangedFloatNode;55;896.3099,-191.9004;Inherit;False;Property;_Smoothness;Smoothness;11;0;Create;True;0;0;0;False;0;False;0;0.58;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;55;896.3099,-191.9004;Inherit;False;Property;_Smoothness;Smoothness;12;0;Create;True;0;0;0;False;0;False;0;0.58;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SaturateNode;196;912.0049,38.40065;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.SamplerNode;11;820.0551,-499.7119;Inherit;True;Property;_BumpMap;Normal;10;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.RangedFloatNode;16;628.7266,-534.3882;Inherit;False;Property;_NormalScale;NormalScale;12;0;Create;True;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;197;1263.998,-297.8712;Float;False;True;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;12;DLNK Shaders/ASE/Nature/GrassAnim;53b46d85872c5b24c8f4f0a1c3fe4c87;True;GBuffer;0;0;GBuffer;34;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefGBuffer;255;False;;255;True;_StencilWriteMaskGBuffer;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;False;True;0;True;_ZTestGBuffer;False;True;1;LightMode=GBuffer;False;False;0;;0;0;Standard;39;Surface Type;0;0;  Rendering Pass;1;0;  Refraction Model;0;0;    Blending Mode;0;0;    Blend Preserves Specular;1;0;  Back Then Front Rendering;0;0;  Transparent Depth Prepass;0;0;  Transparent Depth Postpass;0;0;  ZWrite;0;0;  Z Test;4;0;Double-Sided;0;0;Alpha Clipping;0;0;  Use Shadow Threshold;0;0;Material Type,InvertActionOnDeselection;0;0;  Energy Conserving Specular;1;0;  Transmission,InvertActionOnDeselection;0;0;Forward Only;0;0;Receive Decals;1;0;Receives SSR;1;0;Receive SSR Transparent;0;0;Motion Vectors;1;0;  Add Precomputed Velocity;0;0;Specular AA;0;0;Specular Occlusion Mode;1;0;Override Baked GI;0;0;Depth Offset;0;0;DOTS Instancing;0;0;GPU Instancing;1;0;LOD CrossFade;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position;1;0;0;11;True;True;True;True;True;True;False;False;False;True;True;False;;False;0
+Node;AmplifyShaderEditor.SamplerNode;11;820.0551,-499.7119;Inherit;True;Property;_BumpMap;Normal;11;0;Create;False;0;0;0;False;0;False;-1;None;None;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;16;628.7266,-534.3882;Inherit;False;Property;_NormalScale;NormalScale;13;0;Create;True;0;0;0;False;0;False;0;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;197;1263.998,-297.8712;Float;False;True;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;12;DLNK Shaders/ASE/Nature/GrassAnim;53b46d85872c5b24c8f4f0a1c3fe4c87;True;GBuffer;0;0;GBuffer;33;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefGBuffer;255;False;;255;True;_StencilWriteMaskGBuffer;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;False;True;0;True;_ZTestGBuffer;False;True;1;LightMode=GBuffer;False;False;0;;0;0;Standard;39;Surface Type;0;0;  Rendering Pass;1;0;  Refraction Model;0;0;    Blending Mode;0;0;    Blend Preserves Specular;1;0;  Back Then Front Rendering;0;0;  Transparent Depth Prepass;0;0;  Transparent Depth Postpass;0;0;  ZWrite;0;0;  Z Test;4;0;Double-Sided;0;0;Alpha Clipping;0;0;  Use Shadow Threshold;0;0;Material Type,InvertActionOnDeselection;0;0;  Energy Conserving Specular;1;0;  Transmission,InvertActionOnDeselection;0;0;Forward Only;0;0;Receive Decals;1;0;Receives SSR;1;0;Receive SSR Transparent;0;0;Motion Vectors;1;0;  Add Precomputed Velocity;0;0;Specular AA;0;0;Specular Occlusion Mode;1;0;Override Baked GI;0;0;Depth Offset;0;0;DOTS Instancing;0;0;GPU Instancing;1;0;LOD CrossFade;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position;1;0;0;11;True;True;True;True;True;True;False;False;False;True;True;False;;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;198;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;META;0;1;META;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;199;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;200;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;SceneSelectionPass;0;3;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;201;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;DepthOnly;0;4;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefDepth;255;False;;255;True;_StencilWriteMaskDepth;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;1;False;;False;False;True;1;LightMode=DepthOnly;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;203;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentBackface;0;6;TransparentBackface;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;True;2;5;False;;10;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelOne;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelTwo;False;False;False;False;False;True;0;True;_ZWrite;True;0;True;_ZTestTransparent;False;True;1;LightMode=TransparentBackface;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;202;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Motion Vectors;0;5;Motion Vectors;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefMV;255;False;;255;True;_StencilWriteMaskMV;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;1;False;;False;False;True;1;LightMode=MotionVectors;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;203;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentBackface;0;6;TransparentBackface;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;True;1;0;True;_SrcBlend;0;True;_DstBlend;1;0;True;_AlphaSrcBlend;0;True;_AlphaDstBlend;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelOne;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelTwo;False;False;False;False;False;True;0;True;_ZWrite;True;0;True;_ZTestTransparent;False;True;1;LightMode=TransparentBackface;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;204;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPrepass;0;7;TransparentDepthPrepass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefDepth;255;False;;255;True;_StencilWriteMaskDepth;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;1;False;;False;False;True;1;LightMode=TransparentDepthPrepass;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;205;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;TransparentDepthPostpass;0;8;TransparentDepthPostpass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=TransparentDepthPostpass;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;206;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Forward;0;9;Forward;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;True;2;5;False;;10;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;True;0;True;_CullModeForward;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelOne;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelTwo;False;False;False;True;True;0;True;_StencilRef;255;False;;255;True;_StencilWriteMask;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;0;True;_ZWrite;True;0;True;_ZTestDepthEqualForOpaque;False;True;1;LightMode=Forward;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;206;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;Forward;0;9;Forward;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;True;1;0;True;_SrcBlend;0;True;_DstBlend;1;0;True;_AlphaSrcBlend;0;True;_AlphaDstBlend;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullModeForward;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelOne;False;True;True;True;True;True;0;True;_ColorMaskTransparentVelTwo;False;False;False;True;True;0;True;_StencilRef;255;False;;255;True;_StencilWriteMask;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;0;True;_ZWrite;True;0;True;_ZTestDepthEqualForOpaque;False;True;1;LightMode=Forward;False;False;0;;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;207;1263.998,-297.8712;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;ScenePickingPass;0;10;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;True;3;False;;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;208;1263.998,78.52884;Float;False;False;-1;2;Rendering.HighDefinition.LightingShaderGraphGUI;0;1;New Amplify Shader;53b46d85872c5b24c8f4f0a1c3fe4c87;True;MotionVectors;0;5;MotionVectors;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;False;False;False;False;False;False;False;False;True;True;0;True;_StencilRefMV;255;False;;255;True;_StencilWriteMaskMV;7;False;;3;False;;0;False;;0;False;;7;False;;3;False;;0;False;;0;False;;False;True;1;False;;False;False;True;1;LightMode=MotionVectors;False;False;0;;0;0;Standard;0;False;0
 WireConnection;104;1;105;0
 WireConnection;106;0;104;2
 WireConnection;106;1;107;0
@@ -6310,4 +6479,4 @@ WireConnection;197;8;168;0
 WireConnection;197;9;196;0
 WireConnection;197;11;180;0
 ASEEND*/
-//CHKSM=059350B7B4DCA11E07E99AF490D6796B6634C963
+//CHKSM=C8DA1B83EED3F9793599D2EA7024AFCDE6CFD541

@@ -15,12 +15,11 @@ Material:
   m_InvalidKeywords:
   - _ADD_PRECOMPUTED_VELOCITY
   - _DISABLE_SSR_TRANSPARENT
-  m_LightmapFlags: 2
-  m_EnableInstancingVariants: 1
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3400
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
   - TransparentBackface
@@ -106,7 +105,7 @@ Material:
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
-    - _AlphaSrcBlend: 0
+    - _AlphaSrcBlend: 1
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
@@ -187,8 +186,8 @@ Material:
     - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA: {r: 0.25490198, g: 0.45626572, b: 0.47058824, a: 1}
-    - _ColorB: {r: 0.18431371, g: 0.6775887, b: 0.7176471, a: 1}
+    - _ColorA: {r: 0.25587398, g: 0.4716981, b: 0.37755987, a: 1}
+    - _ColorB: {r: 0.18600929, g: 0.7169812, b: 0.31875226, a: 1}
     - _ColorFoam: {r: 0.9386792, g: 0.9671129, b: 1, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
