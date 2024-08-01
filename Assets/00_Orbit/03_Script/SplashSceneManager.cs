@@ -7,7 +7,7 @@ public class SplashSceneManager : MonoBehaviour
     public AudioClip warningAlarm;
     public GameObject canvasA;
     public GameObject canvasB;
-    public GameObject canvasC;
+    //public GameObject canvasC;
     public GameObject canvas_Loading;
     public string nextSceneName;
     public float delayBetweenCanvases = 6.0f;
@@ -21,7 +21,7 @@ public class SplashSceneManager : MonoBehaviour
 
         //canvasA.SetActive(true);
         canvasB.SetActive(false);
-        canvasC.SetActive(false);
+        //canvasC.SetActive(false);
         canvas_Loading.SetActive(false);
 
         Cursor.visible = false;
@@ -47,10 +47,10 @@ public class SplashSceneManager : MonoBehaviour
         audioSource.PlayOneShot(warningAlarm);
 
         yield return new WaitForSeconds(delayBetweenCanvases);
-        canvasB.SetActive(false);
-        canvasC.SetActive(true);
+        //canvasB.SetActive(false);
+        //canvasC.SetActive(true);
 
-        yield return new WaitForSeconds(delayBetweenCanvases);
+        //yield return new WaitForSeconds(delayBetweenCanvases);
 
         Cursor.visible = true;
         asyncLoad.allowSceneActivation = true;
