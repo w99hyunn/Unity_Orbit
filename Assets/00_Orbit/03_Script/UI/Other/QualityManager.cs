@@ -5,12 +5,10 @@ using UnityEngine.Audio;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 using Cinemachine;
 using Unity.VisualScripting;
 using Orbit_Character;
 using UnityEngine.Experimental.Rendering;
-using RayTracingMode = UnityEngine.Rendering.HighDefinition.RayTracingMode;
 using UnityEngine.UI;
 
 namespace Michsky.UI.Shift
@@ -70,8 +68,6 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
-
-
             mixer.SetFloat("Master", Mathf.Log10(PlayerPrefs.GetFloat(masterSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat(musicSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("SFX", Mathf.Log10(PlayerPrefs.GetFloat(sfxSlider.sliderTag + "SliderValue")) * 20);
@@ -144,14 +140,21 @@ namespace Michsky.UI.Shift
             foreach (Resolution res in allResolutions)
             {
                 var resolutionTuple = (res.width, res.height);
-                if (uniqueResolutionSet.Add(resolutionTuple))
+                float aspectRatio = (float)res.width / res.height;
+
+                // Check if the aspect ratio is 16:9 or 16:10
+                if ((Mathf.Approximately(aspectRatio, 16f / 9f)) || (Mathf.Approximately(aspectRatio, 16f / 10f)))
                 {
-                    uniqueResolutionList.Add(res);
+                    if (uniqueResolutionSet.Add(resolutionTuple))
+                    {
+                        uniqueResolutionList.Add(res);
+                    }
                 }
             }
 
             return uniqueResolutionList;
         }
+
 
         public void UpdateResolution()
         {
@@ -165,7 +168,7 @@ namespace Michsky.UI.Shift
                 Screen.fullScreen);
         }
 
-
+        /*
         public void AntiAliasingSet(int index) //안티앨리어싱 <테스트 후 확인 완료>
         {
             HDAdditionalCameraData cameraData;
@@ -202,7 +205,7 @@ namespace Michsky.UI.Shift
                 }
             }
 
-        }
+        }*/
 
         public void VsyncSet(int index) // 수직동기화 <테스트 후 확인 완료>
         {
@@ -245,7 +248,7 @@ namespace Michsky.UI.Shift
 
         public void TextureSet(int index) //텍스처 품질 <테스트 후 확인 완료>
         {
-            QualitySettings.masterTextureLimit = index;
+            QualitySettings.globalTextureMipmapLimit = index;
         }
 
         public void FieldOfViewSet(float index) //FOV 값 조절 <테스트 후 확인 완료>
@@ -262,7 +265,7 @@ namespace Michsky.UI.Shift
         {
             QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
         }
-
+        /*
         public void MotionBlurEnable(bool index) // 모션블러 <테스트 후 확인 완료>
         {
             VolumeProfile profile = globalVolume.sharedProfile;
@@ -271,7 +274,7 @@ namespace Michsky.UI.Shift
             {
                 motionBlur.active = index;
             }
-        }
+        }*/
 
         public void MinimapFOV(float index) //미니맵 확대/축소 <테스트 후 확인 완료>
         {
@@ -306,7 +309,7 @@ namespace Michsky.UI.Shift
   
 
      
-
+        /*
         public void ShadowsSet(bool index) //그림자 ON/OFF<<<<적용X>>>>
         {
             VolumeProfile profile = globalVolume.sharedProfile;
@@ -316,7 +319,7 @@ namespace Michsky.UI.Shift
                 hdShadowSettings.active = index;
             }
 
-        }
+        }*/
 
         public void ShadowsCascasedSet(int index) //그림자 카스케이드<<<<적용X>>>>
         {
