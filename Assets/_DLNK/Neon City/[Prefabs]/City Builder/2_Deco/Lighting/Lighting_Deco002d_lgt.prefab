@@ -59,15 +59,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4807502347102108, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_Range
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_Intensity
-      value: 200
+      value: 15799130
+      objectReference: {fileID: 0}
+    - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_SpotAngle
+      value: 91.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_ShadowRadius
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_Shadows.m_Bias
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
@@ -79,31 +103,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 30000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_ShapeRadius
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_InnerSpotPercent
+      value: 28.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_VolumetricDimmer
+      value: 2.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186985878831376024, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
+        type: 3}
+      propertyPath: m_VolumetricShadowDimmer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab, type: 3}
---- !u!1 &3243856489736588512 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1437618619039012, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 3242985132558414276}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3327727660947848684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3243856489736588512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 1
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}

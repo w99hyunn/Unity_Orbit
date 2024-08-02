@@ -206,7 +206,6 @@ public class UIManager : MonoBehaviour
     public void GameOverUI()
     {
         Animator GameOverScreenAnimator;
-        TimedEvent GameOverScreenTimedEvent;
 
         GameObject gameOverScreen = GameObject.Find("GameOverScreen");
         GameOverScreenAnimator = gameOverScreen.GetComponent<Animator>();
