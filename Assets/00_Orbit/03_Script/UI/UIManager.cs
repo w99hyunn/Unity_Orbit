@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
         TipKeys = TipKeysTransform.gameObject.GetComponent<TMP_Text>();
 
         GameObject lightObject = GameObject.Find("Directional Light");
-        directionalLight = lightObject.GetComponent<Light>();
+        //directionalLight = lightObject.GetComponent<Light>();
     }
 
     public void TipKey_Enable(string Title, string Key)
