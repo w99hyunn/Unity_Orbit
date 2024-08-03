@@ -1,6 +1,5 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using Orbit_Character;
 using System.Collections;
 using Michsky.UI.Shift;
 using TMPro;
@@ -101,7 +100,7 @@ public class DungeonEntrance : MonoBehaviour
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        PlayerController.Instance.SetPos(new Vector3(19.42f, 0, 9.09f));
+        //0803 PlayerController.Instance.SetPos(new Vector3(19.42f, 0, 9.09f));
         isLoading = false;
     }
 }

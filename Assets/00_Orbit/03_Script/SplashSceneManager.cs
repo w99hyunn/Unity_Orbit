@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class SplashSceneManager : MonoBehaviour
 {
-    public AudioClip warningAlarm;
     public GameObject canvasA;
     public GameObject canvasB;
     //public GameObject canvasC;
@@ -12,13 +11,10 @@ public class SplashSceneManager : MonoBehaviour
     public string nextSceneName;
     public float delayBetweenCanvases = 6.0f;
 
-    private AudioSource audioSource;
     private AsyncOperation asyncLoad;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-
         //canvasA.SetActive(true);
         canvasB.SetActive(false);
         //canvasC.SetActive(false);
@@ -44,7 +40,6 @@ public class SplashSceneManager : MonoBehaviour
         //canvasA.SetActive(false);
         canvasB.SetActive(true);
         canvas_Loading.SetActive(true);
-        audioSource.PlayOneShot(warningAlarm);
 
         yield return new WaitForSeconds(delayBetweenCanvases);
         //canvasB.SetActive(false);

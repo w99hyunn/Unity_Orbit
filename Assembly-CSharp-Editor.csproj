@@ -66,11 +66,11 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcustomInspector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
     <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\UIManagerEditor.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Editor\FPSControllerSettingsEditor.cs" />
     <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\ToolsMenu.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\GroupCheck.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDzonecustomInspector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDgroupcustomInspector.cs" />
-    <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDActiveElementCustinspector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDLevelCreator.cs" />
   </ItemGroup>
@@ -1083,12 +1083,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Searcher.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
@@ -1116,6 +1116,26 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{FABB1536-0C41-DE36-B72D-817A83F33E38}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="KAnimationCore.Runtime.csproj">
+      <Project>{8511E28F-0A29-6D1C-2945-B2BD8B48A384}</Project>
+      <Name>KAnimationCore.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="KAnimationCore.Editor.csproj">
+      <Project>{5705423E-B317-74BB-E831-1FDF2F42F3CE}</Project>
+      <Name>KAnimationCore.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Editor.csproj">
+      <Project>{491CDBEE-1E10-06CF-3EDB-2782461E24CB}</Project>
+      <Name>FPSAnimationFramework.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="ScriptableWidget.Editor.csproj">
+      <Project>{E055B6F0-5BE9-FC05-7A56-2CA1F957D0C0}</Project>
+      <Name>ScriptableWidget.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Runtime.csproj">
+      <Project>{5C3A13C3-56D8-C1BB-9D95-602B28709DF7}</Project>
+      <Name>FPSAnimationFramework.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

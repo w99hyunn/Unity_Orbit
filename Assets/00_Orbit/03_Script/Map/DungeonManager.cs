@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
-using Orbit_Character;
 using Michsky.UI.Shift;
 using TMPro;
 
@@ -98,6 +97,6 @@ public class DungeonManager : MonoBehaviour
     void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
-        PlayerController.Instance.SetPos(lastPosition);
+        //0803 PlayerController.Instance.SetPos(lastPosition);
     }
 }

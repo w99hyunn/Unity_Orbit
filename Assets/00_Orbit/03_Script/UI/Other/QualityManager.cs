@@ -5,9 +5,9 @@ using UnityEngine.Audio;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 using Cinemachine;
 using Unity.VisualScripting;
-using Orbit_Character;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 
@@ -37,7 +37,7 @@ namespace Michsky.UI.Shift
 
         //메인카메라
         [SerializeField]
-        private Camera MainCamera;
+        private Camera mainCamera;
 
         [SerializeField]
         private CinemachineVirtualCamera VirtualCamera;
@@ -68,6 +68,14 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
+            if (mainCamera == null)
+            {
+                mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            }
+            if (minimapCamera == null)
+            {
+                minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera").GetComponent<Camera>();
+            }
             mixer.SetFloat("Master", Mathf.Log10(PlayerPrefs.GetFloat(masterSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat(musicSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("SFX", Mathf.Log10(PlayerPrefs.GetFloat(sfxSlider.sliderTag + "SliderValue")) * 20);
@@ -168,11 +176,11 @@ namespace Michsky.UI.Shift
                 Screen.fullScreen);
         }
 
-        /*
+
         public void AntiAliasingSet(int index) //안티앨리어싱 <테스트 후 확인 완료>
         {
             HDAdditionalCameraData cameraData;
-            if (MainCamera.TryGetComponent(out cameraData))
+            if (mainCamera.TryGetComponent(out cameraData))
             {
                 switch (index)
                 {
@@ -205,7 +213,7 @@ namespace Michsky.UI.Shift
                 }
             }
 
-        }*/
+        }
 
         public void VsyncSet(int index) // 수직동기화 <테스트 후 확인 완료>
         {
@@ -253,7 +261,7 @@ namespace Michsky.UI.Shift
 
         public void FieldOfViewSet(float index) //FOV 값 조절 <테스트 후 확인 완료>
         {
-            CinemachineVirtualCameraInstance.Instance.defaultFovFps = index;
+            //0803 CinemachineVirtualCameraInstance.Instance.defaultFovFps = index;
         }
 
         public void AnisotropicFilteringEnable() //이방성 필터링 <테스트 후 확인 완료>

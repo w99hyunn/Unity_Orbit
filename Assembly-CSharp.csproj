@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\00_Orbit\03_Script\UI\Input\GamepadChecker.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\BaseAttachment.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerImage.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Event\HoldKeyEvent.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Crypto\CryptoUtility.cs" />
@@ -68,53 +69,50 @@
     <Compile Include="Assets\00_Orbit\03_Script\UI\LookUI.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerBackground.cs" />
-    <Compile Include="Assets\StarterAssets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\ScreenshotMaker.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Event\PressKeyEvent.cs" />
-    <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\FavoriteButton.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.Health.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Editor Handlers\ShiftUIEditorHandler.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\Arete.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\PlayerStats.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveEnableGo.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\UIElementSound.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.Movment.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\MainMenu.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Event\TimedEvent.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDScene.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\SliderManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SplashSceneManager.cs" />
-    <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerText.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightGroupController.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManager.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\EfxManager.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\CinemachineVirtualCameraInstance.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\StartManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonExit.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Input\VirtualCursorAnimate.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.Camera.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerBGMusic.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\_Debug.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Item\Weapon.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\QualityManager.cs" />
-    <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerParticle.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\LayoutGroupPositionFix.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDLevel.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\PlayerStats.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\ModalWindowManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Input\ScrollGamepadManager.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.Animation.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbit.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\NoisyShakeMovement.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSController.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Item\MeleeWeapon.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\ChapterButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonEntrance.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\MainPanelButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\TipText.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovementSettings.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\WaterDead.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveAnim.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\AttachmentGroup.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\SwitchHandler.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\SplashScreenManager.cs" />
@@ -125,14 +123,13 @@
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\CustomInputField.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\SettingsButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\MainPanelManager.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\ScopeAttachment.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\Source Demos\FreeCamera.cs" />
-    <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\FloorChangeTrigger.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\HorizontalSelector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\SplashScreenHelper.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\IKControl.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Rendering\UIParticleRenderer.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDCameraSwitchKey.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\MinimapFollow.cs" />
@@ -141,43 +138,37 @@
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\ServerBrowserManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDGroup.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveMaterial.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbitCollision.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSControllerSettings.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\SpotlightButton.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Audio\RandomPitch.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\ShortcutButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\EditorDemoPositionFix.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Item\FPSItem.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\DisableMeshRenderer.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\GameManager.cs" />
+    <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovement.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonManager.cs" />
-    <Compile Include="Assets\StarterAssets\Mobile\Scripts\Utilities\MobileDisableAutoSwitchControls.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\LaunchURL.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Event\PointerEnterEvents.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Audio\GunAudio.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\CanvasManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\CharControlSimple.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Player\PlayerController.Gun.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\ZoneEntrance.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Input\VirtualCursor.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Panel\FriendsPanelManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\FpsScript.cs" />
-    <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\CursorManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Buttons\MainButton.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\ObjectRemover.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Character\Health.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\ScrollForMore.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Rendering\GradientEffect.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\ScaleInLightmapSetter.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Rendering\BlurManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\Compass.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\Other\ExitToSystem.cs" />
-    <Compile Include="Assets\StarterAssets\InputSystem\StarterAssetsInputs.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UIManager.cs" />
-    <Compile Include="Assets\StarterAssets\ThirdPersonController\Scripts\ThirdPersonController.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\MinimapFollowIcon.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1161,12 +1152,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Searcher.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
@@ -1191,6 +1182,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="KAnimationCore.Runtime.csproj">
+      <Project>{8511E28F-0A29-6D1C-2945-B2BD8B48A384}</Project>
+      <Name>KAnimationCore.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="KAnimationCore.Editor.csproj">
+      <Project>{5705423E-B317-74BB-E831-1FDF2F42F3CE}</Project>
+      <Name>KAnimationCore.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Editor.csproj">
+      <Project>{491CDBEE-1E10-06CF-3EDB-2782461E24CB}</Project>
+      <Name>FPSAnimationFramework.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="ScriptableWidget.Editor.csproj">
+      <Project>{E055B6F0-5BE9-FC05-7A56-2CA1F957D0C0}</Project>
+      <Name>ScriptableWidget.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Runtime.csproj">
+      <Project>{5C3A13C3-56D8-C1BB-9D95-602B28709DF7}</Project>
+      <Name>FPSAnimationFramework.Runtime</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

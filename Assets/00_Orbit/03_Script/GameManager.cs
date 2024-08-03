@@ -1,4 +1,3 @@
-using Orbit_Character;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -69,13 +68,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-        PlayerController.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        //0803 PlayerController.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
     }
 
     private void OnDisable()
     {
         PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-        PlayerController.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+        //0803 PlayerController.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
     }
 
     public void SavePlayerPosition(Vector3 position)
@@ -131,7 +130,7 @@ public class GameManager : MonoBehaviour
             currentMana = PlayerStats.Instance.currentMana,
             currentExperience = PlayerStats.Instance.currentExperience,
             level = PlayerStats.Instance.level,
-            playerPosition = PlayerController.Instance.transform.position,
+            //0803 playerPosition = PlayerController.Instance.transform.position,
             zones = zones
         };
 
@@ -157,7 +156,7 @@ public class GameManager : MonoBehaviour
             {
                 UIManager.Instance.GameTime = data.gameTime;
                 PlayerStats.Instance.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                PlayerController.Instance.SetPos(data.playerPosition);
+                //0803  PlayerController.Instance.SetPos(data.playerPosition);
                 zones = data.zones;
             }
         }
