@@ -97,7 +97,16 @@ namespace Demo.Scripts.Runtime.Item
             UIManager.Instance.MaxBulletUpdate(maxBullet);
 
             //총 변경시 체크
-            if (!(currentBullet <= (maxBullet / 3)))
+            BulletCheck();
+        }
+
+        private void BulletCheck()
+        {
+            if (currentBullet <= (maxBullet / 3))
+            {
+                UIManager.Instance.TipKey_Enable("재장전", "R");
+            }
+            else
             {
                 UIManager.Instance.TipKey_Disable();
             }
@@ -315,7 +324,7 @@ namespace Demo.Scripts.Runtime.Item
         private void ReloadBullet()
         {
             currentBullet = maxBullet;
-            UIManager.Instance.TipKey_Disable();
+            BulletCheck();
             UIManager.Instance.CurrentBulletUpdate(currentBullet);
         }
 
@@ -346,10 +355,8 @@ namespace Demo.Scripts.Runtime.Item
                 OnFireReleased();
                 return;
             }
-            if (currentBullet <= (maxBullet / 3))
-            {
-                UIManager.Instance.TipKey_Enable("재장전", "R");
-            }
+
+            BulletCheck();
             UseBullet();
 
             if (_weaponAnimator != null)
