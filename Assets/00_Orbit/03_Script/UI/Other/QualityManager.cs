@@ -10,6 +10,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {
@@ -72,7 +73,7 @@ namespace Michsky.UI.Shift
             {
                 mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             }
-            if (minimapCamera == null)
+            if (minimapCamera == null && SceneManager.GetActiveScene().name == "OutdoorsScene")
             {
                 minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera").GetComponent<Camera>();
             }
