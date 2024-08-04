@@ -52,6 +52,15 @@ public class _Debug : MonoBehaviour
             SetDebugTime(6, 59, "¿ÀÈÄ");
         }
 
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Time.timeScale = 5f;
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            Time.timeScale = 1f;
+        }
+
     }
 
 

@@ -27,10 +27,10 @@ public class UIManager : MonoBehaviour
     [Header("스크립트 텍스트")]
     public GameObject scriptText;
 
-    private float gameTime = 21600f;
+    private float gameTime = 0f; // 21600
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
-    private Light directionalLight;
+    public Light sun; // SUN 오브젝트
 
     private void Start()
     {
@@ -78,6 +78,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         UpdateGameTime();
+        UpdateSunRotation();
     }
 
     public void UpdateGameTime()
@@ -111,22 +112,30 @@ public class UIManager : MonoBehaviour
         string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
         timeText.text = timeFormatted;
-
-        UpdateLightIntensity(hours, period);
     }
 
-    private void UpdateLightIntensity(int hours, string period)
+    private void UpdateSunRotation()
     {
-        if (directionalLight == null)
+        float hours = gameTime / 3600f;
+
+        //(05:00) = 0도, (12:00) = 90도, (18:00) = 180도
+        //0도에서 180도로 선형 보간
+        float rotationAngle = 0f;
+
+        if (hours >= 5f && hours <= 18f)
         {
-            return;
+            rotationAngle = ((hours - 5f) / 13f) * 180f;
+        }
+        else if (hours < 5f)
+        {
+            rotationAngle = ((hours + 19f) / 13f) * 180f; // 오후 6시 이후 ~ 오전 5시 전
+        }
+        else if (hours > 18f)
+        {
+            rotationAngle = ((hours - 19f) / 13f) * 180f; // 오후 6시 이후 ~ 오전 5시 전
         }
 
-        // 오전 7시부터 오후 7시까지는 낮, 나머지는 밤
-        float targetIntensity = (period == "오전" && hours >= 7 || period == "오후" && hours < 7) ? 130000f : 0f;
-
-        // Light intensity 조절
-        directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, targetIntensity, Time.deltaTime);
+        sun.transform.rotation = Quaternion.Euler(rotationAngle, 0, 0);
     }
 
     /* 존 이름 & 해방여부 업데이트 */
