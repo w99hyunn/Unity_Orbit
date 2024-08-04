@@ -258,11 +258,11 @@ namespace Michsky.UI.Shift
         {
             QualitySettings.globalTextureMipmapLimit = index;
         }
-
+        /*
         public void FieldOfViewSet(float index) //FOV 값 조절 <테스트 후 확인 완료>
         {
-            //0803 CinemachineVirtualCameraInstance.Instance.defaultFovFps = index;
-        }
+            mainCamera.fieldOfView = index;
+        }*/
 
         public void AnisotropicFilteringEnable() //이방성 필터링 <테스트 후 확인 완료>
         {
@@ -273,7 +273,7 @@ namespace Michsky.UI.Shift
         {
             QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
         }
-        /*
+
         public void MotionBlurEnable(bool index) // 모션블러 <테스트 후 확인 완료>
         {
             VolumeProfile profile = globalVolume.sharedProfile;
@@ -282,7 +282,7 @@ namespace Michsky.UI.Shift
             {
                 motionBlur.active = index;
             }
-        }*/
+        }
 
         public void MinimapFOV(float index) //미니맵 확대/축소 <테스트 후 확인 완료>
         {
@@ -314,10 +314,6 @@ namespace Michsky.UI.Shift
                 QualitySettings.shadowResolution = ShadowResolution.Low;
         }
 
-  
-
-     
-        /*
         public void ShadowsSet(bool index) //그림자 ON/OFF<<<<적용X>>>>
         {
             VolumeProfile profile = globalVolume.sharedProfile;
@@ -327,7 +323,7 @@ namespace Michsky.UI.Shift
                 hdShadowSettings.active = index;
             }
 
-        }*/
+        }
 
         public void ShadowsCascasedSet(int index) //그림자 카스케이드<<<<적용X>>>>
         {

@@ -139,8 +139,8 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
             _fpsAnimator = GetComponent<FPSAnimator>();

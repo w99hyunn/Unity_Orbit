@@ -1,3 +1,4 @@
+using Demo.Scripts.Runtime.Character;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,8 @@ public class GameData
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject player;
+    private FPSMovement _controller;
     // 인스턴스 던전관련
     public List<ZoneData> zones; //디버그용 public
     public string currentZoneName;
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _controller = player.GetComponent<FPSMovement>();
         StartCoroutine(AutoClick());
         audioSource = GetComponent<AudioSource>();
     }
@@ -68,13 +72,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-        //0803 PlayerController.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        FPSMovement.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
     }
 
     private void OnDisable()
     {
         PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-        //0803 PlayerController.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+        FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
     }
 
     public void SavePlayerPosition(Vector3 position)
@@ -130,7 +134,7 @@ public class GameManager : MonoBehaviour
             currentMana = PlayerStats.Instance.currentMana,
             currentExperience = PlayerStats.Instance.currentExperience,
             level = PlayerStats.Instance.level,
-            //0803 playerPosition = PlayerController.Instance.transform.position,
+            playerPosition = player.transform.position,
             zones = zones
         };
 
@@ -149,14 +153,14 @@ public class GameManager : MonoBehaviour
             string encryptedJson = File.ReadAllText(saveFilePath);
             string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-            //Debug.Log("Loaded JSON: " + json);
+            Debug.Log("Loaded JSON: " + json);
 
             GameData data = JsonUtility.FromJson<GameData>(json);
             if (data != null)
             {
                 UIManager.Instance.GameTime = data.gameTime;
                 PlayerStats.Instance.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                //0803  PlayerController.Instance.SetPos(data.playerPosition);
+                _controller.SetPos(data.playerPosition);
                 zones = data.zones;
             }
         }

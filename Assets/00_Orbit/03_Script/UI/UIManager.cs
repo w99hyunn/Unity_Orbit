@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text minimapZoneNameText; // 변수명 변경
     public TMP_Text liberatedText; // 변수명 변경
 
+    public TMP_Text currentBulletText;
+    public TMP_Text maxBulletText;
+
     [Header("팁가이드")]
     public GameObject TipKey;
     private TMP_Text TipText;
@@ -213,4 +216,13 @@ public class UIManager : MonoBehaviour
         GameOverScreenAnimator.Play("Loading");
     }
 
+    public void CurrentBulletUpdate(int current)
+    {
+        currentBulletText.text = current.ToString();
+    }
+
+    public void MaxBulletUpdate(int max)
+    {
+        maxBulletText.text = max.ToString();
+    }
 }

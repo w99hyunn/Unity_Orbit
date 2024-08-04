@@ -76,11 +76,53 @@ namespace Demo.Scripts.Runtime.Item
         
         private float _lastRecoilTime;
         private int _bursts;
-        private FireMode _fireMode = FireMode.Semi;
+        private FireMode _fireMode;
         
         private static readonly int OverlayType = Animator.StringToHash("OverlayType");
         private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
         private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
+
+        // Custom Sources
+        public int maxBullet = 30;
+        private int currentBullet;
+        public AudioClip shootSound;
+        public AudioClip reloadingSound;
+        public AudioClip reloadSound;
+        public AudioClip dryFireSound;
+
+        //무기 스왑시 UI업데이트
+        private void OnEnable()
+        {
+            UIManager.Instance.CurrentBulletUpdate(currentBullet);
+            UIManager.Instance.MaxBulletUpdate(maxBullet);
+
+            //총 변경시 체크
+            if (!(currentBullet <= (maxBullet / 3)))
+            {
+                UIManager.Instance.TipKey_Disable();
+            }
+        }
+
+        //게임 시작시 총알은 소지한채 시작.
+        private void Awake()
+        {
+            currentBullet = maxBullet;
+            if (true == supportsAuto)
+            {
+                _fireMode = FireMode.Auto;
+            }
+            else if (false == supportsAuto)
+            {
+                _fireMode = FireMode.Semi;
+            }
+        }
+
+        private void UseBullet()
+        {
+            GameManager.Instance.PlaySound(shootSound);
+            currentBullet--;
+            UIManager.Instance.CurrentBulletUpdate(currentBullet);
+        }
 
         private void OnActionEnded()
         {
@@ -208,12 +250,11 @@ namespace Demo.Scripts.Runtime.Item
             {
                 return false;
             }
-            
+
             _lastRecoilTime = Time.unscaledTime;
             _bursts = burstLength;
             
             OnFire();
-            
             return true;
         }
 
@@ -235,6 +276,10 @@ namespace Demo.Scripts.Runtime.Item
 
         public override bool OnReload()
         {
+            if (currentBullet == maxBullet)
+            {
+                return false;
+            }
             if (!FPSAnimationAsset.IsValid(reloadClip))
             {
                 return false;
@@ -252,11 +297,26 @@ namespace Demo.Scripts.Runtime.Item
             {
                 _fpsCameraController.PlayCameraAnimation(cameraReloadAnimation);
             }
-            
+            GameManager.Instance.PlaySound(reloadingSound);
             Invoke(nameof(OnActionEnded), reloadClip.clip.length * 0.85f);
+            Invoke("ReloadSound", reloadClip.clip.length * 0.65f);
+            Invoke("ReloadBullet", reloadClip.clip.length * 0.85f);
+            //총알 수 업데이트
 
             OnFireReleased();
             return true;
+        }
+
+        private void ReloadSound()
+        {
+            GameManager.Instance.PlaySound(reloadSound);
+        }
+
+        private void ReloadBullet()
+        {
+            currentBullet = maxBullet;
+            UIManager.Instance.TipKey_Disable();
+            UIManager.Instance.CurrentBulletUpdate(currentBullet);
         }
 
         public override bool OnGrenadeThrow()
@@ -279,6 +339,19 @@ namespace Demo.Scripts.Runtime.Item
         
         private void OnFire()
         {
+            // 잔탄 수가 모자르면 안쏴져야함.
+            if (currentBullet == 0)
+            {
+                GameManager.Instance.PlaySound(dryFireSound);
+                OnFireReleased();
+                return;
+            }
+            if (currentBullet <= (maxBullet / 3))
+            {
+                UIManager.Instance.TipKey_Enable("재장전", "R");
+            }
+            UseBullet();
+
             if (_weaponAnimator != null)
             {
                 _weaponAnimator.Play("Fire", 0, 0f);
@@ -305,7 +378,6 @@ namespace Demo.Scripts.Runtime.Item
             if (_recoilAnimation.fireMode == FireMode.Burst)
             {
                 _bursts--;
-                
                 if (_bursts == 0)
                 {
                     OnFireReleased();

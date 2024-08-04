@@ -91,6 +91,7 @@ namespace Demo.Scripts.Runtime.Character
         private bool _wasMoving = false;
 
         private UserInputController _inputController;
+        public static event System.Action OnPlayerControllerInitialized;
 
         public bool IsInAir()
         {
@@ -381,6 +382,7 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState.Standing;
 
             _desiredGait = movementSettings.walking;
+            OnPlayerControllerInitialized?.Invoke();
         }
         
         private void Update()
@@ -430,7 +432,19 @@ namespace Demo.Scripts.Runtime.Character
                 MovementState = FPSMovementState.Idle;
             }
         }
-        
+        public void SetPos(Vector3 pos)
+        {
+            _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
+            transform.position = pos;
+            _controller.enabled = true;  // 다시 활성화
+        }
+
+        public void ResetPos()
+        {
+            _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
+            transform.position = new Vector3(0, 1, 10);
+            _controller.enabled = true;  // 다시 활성화
+        }
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {

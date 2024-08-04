@@ -87,6 +87,11 @@ MonoBehaviour:
     - {fileID: 3910950344443100400}
   - attachments:
     - {fileID: 7297927594036225385}
+  maxBullet: 25
+  shootSound: {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
+  reloadingSound: {fileID: 8300000, guid: e5198250a6a57408bb36e14bc4a322c4, type: 3}
+  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
+  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
 --- !u!114 &4348425590622240509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +115,8 @@ AudioSource:
   m_GameObject: {fileID: 2208818845419045761}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243485103152924164, guid: a9e5d729576b0a5478cec30207263369,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: eba18c27b12982840af2ff1f0f505612, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
