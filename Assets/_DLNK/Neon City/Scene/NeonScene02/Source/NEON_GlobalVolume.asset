@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2
   enabled:
     m_OverrideState: 1
     m_Value: 1
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   depthBufferThickness:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.282
   screenFadeDistance:
     m_OverrideState: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
     m_Value: 89
   windSpeed:
     m_OverrideState: 1
-    m_Value: 300
+    m_Value: 150
   fogType:
     m_OverrideState: 0
     m_Value: 0
@@ -639,6 +639,67 @@ MonoBehaviour:
   reflectionProbeIntensityMultiplier:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &-301410051470716824
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa3b8214f75b354e9ba2caadd022259, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  quality:
+    m_OverrideState: 1
+    m_Value: 3
+  focusMode:
+    m_OverrideState: 1
+    m_Value: 2
+  focusDistance:
+    m_OverrideState: 0
+    m_Value: 10
+  focusDistanceMode:
+    m_OverrideState: 0
+    m_Value: 0
+  nearFocusStart:
+    m_OverrideState: 0
+    m_Value: 0.24
+  nearFocusEnd:
+    m_OverrideState: 1
+    m_Value: 0
+  farFocusStart:
+    m_OverrideState: 1
+    m_Value: 200
+  farFocusEnd:
+    m_OverrideState: 0
+    m_Value: 20
+  m_NearSampleCount:
+    m_OverrideState: 0
+    m_Value: 4
+  m_NearMaxBlur:
+    m_OverrideState: 0
+    m_Value: 4
+  m_FarSampleCount:
+    m_OverrideState: 1
+    m_Value: 6
+  m_FarMaxBlur:
+    m_OverrideState: 1
+    m_Value: 0.05
+  m_Resolution:
+    m_OverrideState: 0
+    m_Value: 2
+  m_HighQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 1
+  m_PhysicallyBased:
+    m_OverrideState: 0
+    m_Value: 0
+  m_LimitManualRangeNearBlur:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,6 +732,7 @@ MonoBehaviour:
   - {fileID: 7891834737922550633}
   - {fileID: 6457911075191754055}
   - {fileID: 3437726690718803595}
+  - {fileID: -301410051470716824}
 --- !u!114 &57090890490230883
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -886,7 +948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88178bb13f64a54f90d6cd6ef7aa9a1, type: 3}
   m_Name: CloudLayer
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   opacity:
     m_OverrideState: 0
     m_Value: 1
@@ -1084,8 +1146,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 100
   meanFreePath:
-    m_OverrideState: 1
-    m_Value: 200
+    m_OverrideState: 0
+    m_Value: 100
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
