@@ -427,10 +427,12 @@ namespace Demo.Scripts.Runtime.Character
             UpdateAnimatorParams();
 
             _cachedMovementState = MovementState;
+
             if (MovementState == FPSMovementState.InAir && !IsInAir())
             {
                 MovementState = FPSMovementState.Idle;
             }
+
         }
         public void SetPos(Vector3 pos)
         {

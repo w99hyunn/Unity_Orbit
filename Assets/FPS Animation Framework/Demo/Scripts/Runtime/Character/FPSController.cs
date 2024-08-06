@@ -297,8 +297,13 @@ namespace Demo.Scripts.Runtime.Character
         private void Update()
         {
             Time.timeScale = settings.timeScale;
-            UpdateLookInput();
-            OnMovementUpdated();
+
+            //Pause메뉴가 열려있으면 마우스회전 X
+            if (false == CursorManager.Instance.PauseMenu)
+            {
+                UpdateLookInput();
+                OnMovementUpdated();
+            }
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -333,8 +338,9 @@ namespace Demo.Scripts.Runtime.Character
         public void OnFire(InputValue value)
         {
             if (IsSprinting()) return;
-            
-            if (value.isPressed)
+
+            //Pause메뉴가 열려있으면 총알발사 X
+            if (value.isPressed && !(CursorManager.Instance.PauseMenu))
             {
                 OnFirePressed();
                 return;
