@@ -7,7 +7,6 @@ using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
