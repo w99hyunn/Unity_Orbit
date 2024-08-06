@@ -133,7 +133,10 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
 #if UNITY_EDITOR
         public virtual void OnDrawGizmos()
         {
-            
+        }
+        
+        public virtual void OnSceneGUI()
+        {
         }
 #endif
     }

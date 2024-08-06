@@ -1,11 +1,11 @@
 ﻿// Designed by KINEMATION, 2024.
 
+using KINEMATION.FPSAnimationFramework.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using System;
 using System.Collections.Generic;
-using KINEMATION.FPSAnimationFramework.Runtime.Attributes;
 using UnityEngine;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Core
@@ -41,7 +41,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
         
         [Tooltip("Will call OnUpdateSettings on the layer state if true.")]
         public bool linkDynamically;
-
+        
         public virtual FPSAnimatorLayerState CreateState() { return null; }
         
         public KRig GetRigAsset() { return rigAsset; }

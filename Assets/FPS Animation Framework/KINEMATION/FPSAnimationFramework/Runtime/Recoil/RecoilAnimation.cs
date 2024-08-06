@@ -74,7 +74,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Recoil
         public RecoilAnimData RecoilData { get; private set; }
         private float _fireRate;
         public FireMode fireMode;
-        public GameObject defaultAim;
         private List<AnimState> _stateMachine;
         private int _stateIndex;
 
@@ -180,16 +179,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Recoil
 
             OutRot = _smoothRotOut;
             OutLoc = finalLoc;
-
-            if (true == isAiming)
-            {
-                defaultAim.SetActive(false);
-            }
-            else if (false == isAiming)
-            {
-                defaultAim.SetActive(true);
-            }
-
         }
 
         private void CalculateTargetData()

@@ -88,7 +88,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.PoseSamplerLayer
                 _pelvis.position = pelvisCache.position;
                 _pelvis.rotation = pelvisCache.rotation;
             }
-            
+
             _weaponBoneRight.position = _weaponBone.position;
             _weaponBoneRight.rotation = _weaponBone.rotation;
 

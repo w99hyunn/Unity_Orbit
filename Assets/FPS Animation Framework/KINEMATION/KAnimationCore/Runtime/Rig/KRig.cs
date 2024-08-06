@@ -18,6 +18,12 @@ namespace KINEMATION.KAnimationCore.Runtime.Rig
         public List<KRigElementChain> rigElementChains = new List<KRigElementChain>();
         public List<string> rigCurves = new List<string>();
 
+        public KRigElementChain GetElementChainByName(string chainName)
+        {
+            var chain = rigElementChains.Find(item => item.chainName.Equals(chainName));
+            return chain;
+        }
+
         public KTransformChain GetPopulatedChain(string chainName, KRigComponent rigComponent)
         {
             KTransformChain result = new KTransformChain();
@@ -60,7 +66,7 @@ namespace KINEMATION.KAnimationCore.Runtime.Rig
             NotifyObservers();
 
             EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssets();
+            AssetDatabase.SaveAssetIfDirty(this);
         }
         
         public KRigElement GetElementByName(string targetName)
@@ -91,7 +97,17 @@ namespace KINEMATION.KAnimationCore.Runtime.Rig
 
         public void NotifyObservers()
         {
-            foreach (var observer in _rigObservers) if (observer is IRigObserver obj) obj.OnRigUpdated();
+            List<Object> validObservers = new List<Object>();
+            foreach (var observer in _rigObservers)
+            {
+                if (observer is IRigObserver obj)
+                {
+                    obj.OnRigUpdated();
+                    validObservers.Add(observer);
+                }
+            }
+
+            _rigObservers = validObservers;
         }
 #endif
     }

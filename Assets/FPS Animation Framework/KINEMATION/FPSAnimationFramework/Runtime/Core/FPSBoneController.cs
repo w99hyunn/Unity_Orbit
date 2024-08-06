@@ -18,6 +18,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
         public EaseMode easeMode;
     }
     
+    [HelpURL("https://kinemation.gitbook.io/scriptable-animation-system/workflow/components")]
     public class FPSBoneController : MonoBehaviour
     {
         protected KRigComponent _rigComponent;
@@ -298,10 +299,12 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
         }
         
 #if UNITY_EDITOR
+        public void OnSceneGUI()
+        {
+        }
+        
         private void OnDrawGizmos()
         {
-            if (_layerStates == null) return;
-            foreach (var layer in _layerStates) layer?.OnDrawGizmos();
         }
 #endif
     }

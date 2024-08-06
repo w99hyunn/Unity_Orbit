@@ -6,7 +6,6 @@ using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Rig;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.PoseSamplerLayer
 {

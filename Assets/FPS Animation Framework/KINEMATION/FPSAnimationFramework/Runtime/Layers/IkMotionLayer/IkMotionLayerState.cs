@@ -70,7 +70,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.IkMotionLayer
             KAnimationMath.RotateInSpace(_owner.transform, _boneToAnimate, rotation, Weight);
             
             // Disable tick if reached the end of the track.
-            if (Mathf.Approximately(_playback, 1f))
+            if (Mathf.Approximately(_playback, 1f) && _settings.autoBlendOut)
             {
                 _isPlaying = false;
             }

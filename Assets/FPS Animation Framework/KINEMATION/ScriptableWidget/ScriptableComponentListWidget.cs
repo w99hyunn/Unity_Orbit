@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -14,11 +15,13 @@ namespace KINEMATION.ScriptableWidget
     public class ScriptableComponentListWidget
     {
         public delegate void ComponentAction();
-        public delegate string DrawElementName(SerializedProperty property);
+        public delegate void DrawElementHeader(SerializedProperty property, Rect rect);
+        public delegate void SelectionAction(int selectedIndex);
 
         public ComponentAction onComponentAdded;
         public ComponentAction onComponentRemoved;
-        public DrawElementName onDrawElementName;
+        public DrawElementHeader onDrawComponentHeader;
+        public SelectionAction onComponentSelected;
         
         private SerializedObject _serializedObject;
         private SerializedProperty _componentsProperty;
@@ -62,7 +65,7 @@ namespace KINEMATION.ScriptableWidget
             _serializedObject.ApplyModifiedProperties();
             
             EditorUtility.SetDirty(_asset);
-            AssetDatabase.SaveAssets();
+            AssetDatabase.SaveAssetIfDirty(_asset);
             
             onComponentAdded?.Invoke();
         }
@@ -165,14 +168,17 @@ namespace KINEMATION.ScriptableWidget
                 rect.y += 1;
                 Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2, singleHeight);
                 Rect buttonRect = new Rect(rect.x + rect.width / 2, rect.y, rect.width / 2, singleHeight);
-                
-                string elementName = onDrawElementName?.Invoke(element);
-                if (string.IsNullOrEmpty(elementName))
+
+                string elementName = element.objectReferenceValue.name;
+                if (onDrawComponentHeader != null)
                 {
-                    elementName = element.objectReferenceValue.name;
+                    onDrawComponentHeader.Invoke(element, labelRect);
+                }
+                else
+                {
+                    EditorGUI.LabelField(labelRect, elementName);
                 }
                 
-                EditorGUI.LabelField(labelRect, elementName);
                 if (GUI.Button(buttonRect, "Edit Layer", EditorStyles.miniButton))
                 {
                     if (_useStandaloneWindow)
@@ -191,6 +197,8 @@ namespace KINEMATION.ScriptableWidget
                     {
                         _editorIndex = index;
                     }
+                    
+                    onComponentSelected?.Invoke(index);
                 }
                 
                 if (Event.current.type == EventType.MouseUp && Event.current.button == 1 

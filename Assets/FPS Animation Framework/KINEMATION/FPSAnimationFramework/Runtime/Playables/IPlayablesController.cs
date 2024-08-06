@@ -1,15 +1,21 @@
 ﻿// Designed by KINEMATION, 2024
 
+using UnityEngine;
+using UnityEngine.Animations;
+
 namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 {
     public interface IPlayablesController
     {
+        public AnimatorControllerPlayable GetAnimator();
+        
         public bool InitializeController();
         
         public void SetControllerWeight(float weight);
         
         public bool PlayPose(FPSAnimationAsset asset);
         public bool PlayAnimation(FPSAnimationAsset asset, float startTime = 0f);
+        public void UpdateAnimatorController(RuntimeAnimatorController newController);
         public void StopAnimation(float blendOutTime);
         public bool IsPlaying();
 
