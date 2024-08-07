@@ -166,6 +166,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetPos()
+    {
+        _controller.ResetPos();
+    }
+
     public void LiberateZone(string zoneName)
     {
         foreach (ZoneData zone in zones)
