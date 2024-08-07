@@ -63,9 +63,9 @@ MonoBehaviour:
     supportRayTracing: 0
     supportedRayTracingMode: 3
     lightLoopSettings:
-      cookieAtlasSize: 512
+      cookieAtlasSize: 4096
       cookieFormat: 48
-      cookieAtlasLastValidMip: 0
+      cookieAtlasLastValidMip: 10
       cookieTexArraySize: 1
       planarReflectionAtlasSize: 0
       reflectionProbeCacheSize: 0
@@ -74,8 +74,8 @@ MonoBehaviour:
       reflectionCacheCompressed: 1
       reflectionProbeFormat: 48
       reflectionProbeTexCacheSize: 4096
-      reflectionProbeTexLastValidCubeMip: 3
-      reflectionProbeTexLastValidPlanarMip: 0
+      reflectionProbeTexLastValidCubeMip: 6
+      reflectionProbeTexLastValidPlanarMip: 6
       reflectionProbeDecreaseResToFit: 1
       skyReflectionSize: 128
       skyLightingOverrideLayerMask:
@@ -85,7 +85,7 @@ MonoBehaviour:
       maxDirectionalLightsOnScreen: 16
       maxPunctualLightsOnScreen: 512
       maxAreaLightsOnScreen: 64
-      maxCubeReflectionOnScreen: 100
+      maxCubeReflectionOnScreen: 128
       maxPlanarReflectionOnScreen: 16
       maxDecalsOnScreen: 512
       maxLightsPerClusterCell: 8
