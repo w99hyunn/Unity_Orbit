@@ -61,18 +61,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\ExtendedColorPicker.cs" />
-    <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\InitShiftUI.cs" />
-    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcreatorcustinsp.cs" />
-    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcustomInspector.cs" />
-    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
-    <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\UIManagerEditor.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Editor\FPSControllerSettingsEditor.cs" />
     <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\ToolsMenu.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\GroupCheck.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDzonecustomInspector.cs" />
+    <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\InitShiftUI.cs" />
+    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcreatorcustinsp.cs" />
+    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcustomInspector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDgroupcustomInspector.cs" />
+    <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDActiveElementCustinspector.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDLevelCreator.cs" />
+    <Compile Include="Assets\00_Orbit\05_UIKit\Editor\Scripts\UIManagerEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1043,20 +1043,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Searcher.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
