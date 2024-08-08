@@ -299,7 +299,7 @@ namespace Demo.Scripts.Runtime.Character
             Time.timeScale = settings.timeScale;
 
             //Pause메뉴가 열려있으면 마우스회전 X
-            if (false == CursorManager.Instance.PauseMenu)
+            if (false == CursorManager.Instance.pauseMenu)
             {
                 UpdateLookInput();
                 OnMovementUpdated();
@@ -340,7 +340,7 @@ namespace Demo.Scripts.Runtime.Character
             if (IsSprinting()) return;
 
             //Pause메뉴가 열려있으면 총알발사 X
-            if (value.isPressed && !(CursorManager.Instance.PauseMenu))
+            if (value.isPressed && !(CursorManager.Instance.pauseMenu))
             {
                 OnFirePressed();
                 return;

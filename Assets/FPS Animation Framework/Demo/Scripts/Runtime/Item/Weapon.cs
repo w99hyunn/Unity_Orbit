@@ -93,8 +93,8 @@ namespace Demo.Scripts.Runtime.Item
         //무기 스왑시 UI업데이트
         private void OnEnable()
         {
-            UIManager.Instance.CurrentBulletUpdate(currentBullet);
-            UIManager.Instance.MaxBulletUpdate(maxBullet);
+            UIManager.Instance.UpdateCurrentBullet(currentBullet);
+            UIManager.Instance.UpdateMaxBullet(maxBullet);
 
             //총 변경시 체크
             BulletCheck();
@@ -130,7 +130,7 @@ namespace Demo.Scripts.Runtime.Item
         {
             GameManager.Instance.PlaySound(shootSound);
             currentBullet--;
-            UIManager.Instance.CurrentBulletUpdate(currentBullet);
+            UIManager.Instance.UpdateCurrentBullet(currentBullet);
         }
 
         private void OnActionEnded()
@@ -325,7 +325,7 @@ namespace Demo.Scripts.Runtime.Item
         {
             currentBullet = maxBullet;
             BulletCheck();
-            UIManager.Instance.CurrentBulletUpdate(currentBullet);
+            UIManager.Instance.UpdateCurrentBullet(currentBullet);
         }
 
         public override bool OnGrenadeThrow()

@@ -46551,7 +46551,7 @@ GameObject:
   - component: {fileID: 325856063}
   - component: {fileID: 325856062}
   m_Layer: 5
-  m_Name: Text
+  m_Name: XpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57357,7 +57357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee7d874e0913ff4685e2cdab046e193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseMenu: 0
+  pauseMenu: 0
 --- !u!4 &362162899
 Transform:
   m_ObjectHideFlags: 0
@@ -57478,7 +57478,7 @@ GameObject:
   - component: {fileID: 362699806}
   - component: {fileID: 362699805}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: ManaSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60561,11 +60561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c4e75ddb8d67c45a26a7300024bfa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelUpSound: {fileID: 8300000, guid: eaa4eb15c8587db4db0540f944c7d33d, type: 3}
-  currentHealth: 100
-  currentMana: 100
-  currentExperience: 50
-  level: 1
 --- !u!1001 &384872286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86451,7 +86446,7 @@ PrefabInstance:
     - target: {fileID: 224258100162751188, guid: 7ea731f501442984589dad30e8f89c28,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 62.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224258100162751188, guid: 7ea731f501442984589dad30e8f89c28,
         type: 3}
@@ -86511,7 +86506,7 @@ PrefabInstance:
     - target: {fileID: 224574539757507590, guid: 7ea731f501442984589dad30e8f89c28,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 113.76
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224574539757507590, guid: 7ea731f501442984589dad30e8f89c28,
         type: 3}
@@ -122253,7 +122248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &830655770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122349,6 +122344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b7de4bb03a6b7489e391087541a51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
 --- !u!225 &830655775
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -136636,7 +136632,7 @@ GameObject:
   - component: {fileID: 928872113}
   - component: {fileID: 928872112}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147658,7 +147654,7 @@ GameObject:
   - component: {fileID: 995359223}
   - component: {fileID: 995359222}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195391,7 +195387,7 @@ PrefabInstance:
     - target: {fileID: 224327276144137194, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 113.76
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224327276144137194, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
@@ -195456,7 +195452,7 @@ PrefabInstance:
     - target: {fileID: 224570458617192498, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 113.76
       objectReference: {fileID: 0}
     - target: {fileID: 224570458617192498, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
@@ -195626,7 +195622,7 @@ PrefabInstance:
     - target: {fileID: 224786364785237556, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 113.76
       objectReference: {fileID: 0}
     - target: {fileID: 224786364785237556, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
@@ -264539,7 +264535,7 @@ PrefabInstance:
     - target: {fileID: 224327276144137194, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 113.76
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224327276144137194, guid: ff1f672cbc5b6234895e1078abb9185e,
         type: 3}
@@ -306262,12 +306258,12 @@ GameObject:
   - component: {fileID: 1900084572}
   - component: {fileID: 1900084571}
   m_Layer: 7
-  m_Name: MinimapCamera
+  m_Name: "MinimapCamera_\uB192\uC740 \uBD80\uD558"
   m_TagString: MinimapCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1900084571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317236,7 +317232,7 @@ GameObject:
   - component: {fileID: 1955048787}
   - component: {fileID: 1955048786}
   m_Layer: 5
-  m_Name: Text
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318412,7 +318408,7 @@ GameObject:
   - component: {fileID: 1976971534}
   - component: {fileID: 1976971533}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ManaText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359520,29 +359516,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8402161138144126610, guid: cd61cd44e8863fa4399a02de25402c00,
         type: 3}
+      propertyPath: sun
+      value: 
+      objectReference: {fileID: 1127733215}
+    - target: {fileID: 8402161138144126610, guid: cd61cd44e8863fa4399a02de25402c00,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 7102044144723379179}
     - target: {fileID: 8402161138144126610, guid: cd61cd44e8863fa4399a02de25402c00,
         type: 3}
-      propertyPath: interval
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8402161138144126610, guid: cd61cd44e8863fa4399a02de25402c00,
-        type: 3}
-      propertyPath: timeText
-      value: 
-      objectReference: {fileID: 484457847}
-    - target: {fileID: 8402161138144126610, guid: cd61cd44e8863fa4399a02de25402c00,
-        type: 3}
       propertyPath: SaveButton
       value: 
       objectReference: {fileID: 935260764}
-    - target: {fileID: 8402161138144126611, guid: cd61cd44e8863fa4399a02de25402c00,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8402161138144126611, guid: cd61cd44e8863fa4399a02de25402c00,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -359961,9 +359947,9 @@ SceneRoots:
   - {fileID: 1573017979}
   - {fileID: 1900084574}
   - {fileID: 1127043349}
+  - {fileID: 451892026}
   - {fileID: 1516776868}
   - {fileID: 8402161136849234094}
-  - {fileID: 451892026}
   - {fileID: 362162899}
   - {fileID: 1237165282}
   - {fileID: 731306260}
@@ -359974,8 +359960,8 @@ SceneRoots:
   - {fileID: 1181487830}
   - {fileID: 901005392}
   - {fileID: 1127733213}
-  - {fileID: 1833729002}
   - {fileID: 7621312306845129041}
+  - {fileID: 1833729002}
   - {fileID: 1658598181}
   - {fileID: 1470326377}
   - {fileID: 747479505}
