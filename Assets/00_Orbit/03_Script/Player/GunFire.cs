@@ -11,8 +11,9 @@ public class GunFire : MonoBehaviour
 
     public Transform FirePoint;
     public AudioClip shootSound;
-    public AudioClip reloadingSound;
-    public AudioClip reloadSound;
+    public AudioClip clipOutSound;
+    public AudioClip clipInSound;
+    public AudioClip clipArmingSound;
     public AudioClip dryFireSound;
 
     public LayerMask BulletCollisionLayers = ~0 & ~(1 << 31);
@@ -61,11 +62,6 @@ public class GunFire : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void ReloadSound()
-    {
-        GameManager.Instance.PlaySound(reloadSound);
     }
 
     public void ReloadBullet()

@@ -277,10 +277,11 @@ namespace Demo.Scripts.Runtime.Item
             {
                 _fpsCameraController.PlayCameraAnimation(cameraReloadAnimation);
             }
-            GameManager.Instance.PlaySound(gunFire.reloadingSound);
+            StartCoroutine(ReloadSoundWithDelay());
+
             Invoke(nameof(OnActionEnded), reloadClip.clip.length * 0.85f);
 
-            StartCoroutine(ReloadSoundWithDelay());
+            
             //총알 수 업데이트
 
             OnFireReleased();
@@ -289,8 +290,11 @@ namespace Demo.Scripts.Runtime.Item
 
         IEnumerator ReloadSoundWithDelay()
         {
-            yield return new WaitForSeconds(reloadClip.clip.length * 0.65f);
-            gunFire.ReloadSound();
+            GameManager.Instance.PlaySound(gunFire.clipOutSound);
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.25f);
+            GameManager.Instance.PlaySound(gunFire.clipInSound);
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.45f);
+            GameManager.Instance.PlaySound(gunFire.clipArmingSound);
             yield return new WaitForSeconds(0.2f);
             gunFire.ReloadBullet();
         }
