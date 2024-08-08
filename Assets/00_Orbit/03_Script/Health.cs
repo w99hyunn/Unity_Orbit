@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace Orbit_Character
+namespace AlterunaFPS
 {
 	public class Health : MonoBehaviour
 	{

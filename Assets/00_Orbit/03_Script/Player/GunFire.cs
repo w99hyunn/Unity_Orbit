@@ -1,4 +1,4 @@
-using Orbit_Character;
+using AlterunaFPS;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +80,9 @@ public class GunFire : MonoBehaviour
         FireBullet(0, FirePoint.position, FirePoint.forward);
     }
 
+
+    //EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
+
     private void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
     {
 
@@ -111,7 +114,7 @@ public class GunFire : MonoBehaviour
             }
             else
             {
-                if (hits[i].collider.gameObject.layer == 0)
+                if (hits[i].collider.gameObject.layer == 0 || hits[i].collider.gameObject.layer == 7)
                 {
                     EfxManager.Instance.PlayImpact(hits[i].point, hits[i].normal, hits[i].transform);
                     currentPenetration -= 5f;
