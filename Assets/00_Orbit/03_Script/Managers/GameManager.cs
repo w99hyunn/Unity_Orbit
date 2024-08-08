@@ -30,28 +30,23 @@ public class GameData
 public class GameManager : MonoBehaviour
 {
     public GameObject player;
-    public Light sun;
+    private FPSMovement _controller;
+    private PlayerStats _plyerStats;
 
-    [Header("설정된 시간마다 자동저장(초 단위)")]
-    public float interval = 180f;
+
     public bool isGameOver = false;
 
-    private FPSMovement _controller;
     // 인스턴스 던전관련
-    public List<ZoneData> zones; //디버그용 public
+    public List<ZoneData> zones { get; private set; } //디버그용 public
     public string currentZoneName;
-    public Vector3 lastPlayerPosition;
-
-
+    public Vector3 lastPlayerPosition { get; private set; }
 
     private AudioSource audioSource;
     private string saveFilePath;
     private bool isPlayerStatsInitialized = false;
     private bool isPlayerControllerInitialized = false;
 
-    private PlayerStats _plyerStats;
-
-    private float gameTime = 0f; // 21600
+    public float gameTime  = 0f; // 21600
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
 
@@ -76,14 +71,13 @@ public class GameManager : MonoBehaviour
     {
         _controller = player.GetComponent<FPSMovement>();
         _plyerStats = player.GetComponent<PlayerStats>();
-        StartCoroutine(AutoClick());
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         UpdateGameTime();
-        UpdateSunRotation();
+
     }
 
     private void OnEnable()
@@ -221,29 +215,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateTime(timeFormatted);
     }
 
-    private void UpdateSunRotation()
-    {
-        float hours = gameTime / 3600f;
 
-        //(05:00) = 0도, (12:00) = 90도, (18:00) = 180도
-        //0도에서 180도로 선형 보간
-        float rotationAngle = 0f;
-
-        if (hours >= 5f && hours <= 18f)
-        {
-            rotationAngle = ((hours - 5f) / 13f) * 180f;
-        }
-        else if (hours < 5f)
-        {
-            rotationAngle = ((hours + 19f) / 13f) * 180f; // 오후 6시 이후 ~ 오전 5시 전
-        }
-        else if (hours > 18f)
-        {
-            rotationAngle = ((hours - 19f) / 13f) * 180f; // 오후 6시 이후 ~ 오전 5시 전
-        }
-
-        sun.transform.rotation = Quaternion.Euler(rotationAngle, 0, 0);
-    }
 
     public void LiberateZone(string zoneName)
     {
@@ -275,25 +247,6 @@ public class GameManager : MonoBehaviour
         if (audioSource != null && clip != null)
         {
             audioSource.PlayOneShot(clip);
-        }
-    }
-
-    /* Auto Save Manager */
-    public Button SaveButton; // PauseMenu > Save 버튼 클릭 이벤트 발생
-
-    private IEnumerator AutoClick()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            if (SceneManager.GetActiveScene().name == "OutdoorsScene" && isGameOver == false)
-            {
-                SaveButton.onClick.Invoke();
-            }
-            else
-            {
-                Debug.Log("자동저장 요건 충족 X");
-            }
         }
     }
 }

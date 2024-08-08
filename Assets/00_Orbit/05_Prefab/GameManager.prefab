@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8402161138144126611}
   - component: {fileID: 8402161138144126610}
+  - component: {fileID: 1941749175348731467}
   - component: {fileID: 8402161138144126608}
   m_Layer: 0
   m_Name: GameManager
@@ -46,11 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  zones: []
-  currentZoneName: 
-  lastPlayerPosition: {x: 0, y: 0, z: 0}
-  interval: 100
   isGameOver: 0
+  currentZoneName: 
+--- !u!114 &1941749175348731467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8402161138144126613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7b5e532e9a4e441b94a8968047305b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: 100
   SaveButton: {fileID: 0}
 --- !u!82 &8402161138144126608
 AudioSource:
