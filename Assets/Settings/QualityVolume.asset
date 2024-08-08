@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5110509063974787941
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf384b154398e341b6b29969c078198, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 2
+  intensity:
+    m_OverrideState: 1
+    m_Value: 7
+  maximumVelocity:
+    m_OverrideState: 0
+    m_Value: 200
+  minimumVelocity:
+    m_OverrideState: 0
+    m_Value: 2
+  cameraMotionBlur:
+    m_OverrideState: 0
+    m_Value: 1
+  specialCameraClampMode:
+    m_OverrideState: 0
+    m_Value: 0
+  cameraVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraTranslationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cameraRotationVelocityClamp:
+    m_OverrideState: 0
+    m_Value: 0.03
+  depthComparisonExtent:
+    m_OverrideState: 0
+    m_Value: 1
+  m_SampleCount:
+    m_OverrideState: 1
+    m_Value: 12
 --- !u!114 &-4110541583464520906
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -112,169 +158,6 @@ MonoBehaviour:
   tint:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &-1890418542792755555
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88178bb13f64a54f90d6cd6ef7aa9a1, type: 3}
-  m_Name: CloudLayer
-  m_EditorClassIdentifier: 
-  active: 1
-  opacity:
-    m_OverrideState: 0
-    m_Value: 1
-  upperHemisphereOnly:
-    m_OverrideState: 0
-    m_Value: 1
-  layers:
-    m_OverrideState: 1
-    m_Value: 1
-  resolution:
-    m_OverrideState: 0
-    m_Value: 1024
-  shadowMultiplier:
-    m_OverrideState: 0
-    m_Value: 1
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
-  shadowResolution:
-    m_OverrideState: 0
-    m_Value: 256
-  shadowSize:
-    m_OverrideState: 0
-    m_Value: 500
-  layerA:
-    cloudMap:
-      m_OverrideState: 0
-      m_Value: {fileID: 2800000, guid: 57a33fc2476a01644865bfde5f06e2f4, type: 3}
-    opacityR:
-      m_OverrideState: 0
-      m_Value: 1
-    opacityG:
-      m_OverrideState: 0
-      m_Value: 0
-    opacityB:
-      m_OverrideState: 0
-      m_Value: 0
-    opacityA:
-      m_OverrideState: 0
-      m_Value: 0
-    altitude:
-      m_OverrideState: 0
-      m_Value: 2000
-    rotation:
-      m_OverrideState: 0
-      m_Value: 0
-    tint:
-      m_OverrideState: 1
-      m_Value: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
-    exposure:
-      m_OverrideState: 0
-      m_Value: 0
-    distortionMode:
-      m_OverrideState: 1
-      m_Value: 1
-    scrollOrientation:
-      m_OverrideState: 0
-      m_Value:
-        mode: 1
-        customValue: 0
-        additiveValue: 0
-        multiplyValue: 1
-    scrollSpeed:
-      m_OverrideState: 1
-      m_Value:
-        mode: 2
-        customValue: 100
-        additiveValue: 5
-        multiplyValue: 1
-    flowmap:
-      m_OverrideState: 0
-      m_Value: {fileID: 0}
-    lighting:
-      m_OverrideState: 1
-      m_Value: 1
-    steps:
-      m_OverrideState: 1
-      m_Value: 5
-    thickness:
-      m_OverrideState: 1
-      m_Value: 0.256
-    ambientProbeDimmer:
-      m_OverrideState: 0
-      m_Value: 1
-    castShadows:
-      m_OverrideState: 1
-      m_Value: 1
-  layerB:
-    cloudMap:
-      m_OverrideState: 0
-      m_Value: {fileID: 2800000, guid: 57a33fc2476a01644865bfde5f06e2f4, type: 3}
-    opacityR:
-      m_OverrideState: 0
-      m_Value: 1
-    opacityG:
-      m_OverrideState: 0
-      m_Value: 0
-    opacityB:
-      m_OverrideState: 0
-      m_Value: 0
-    opacityA:
-      m_OverrideState: 0
-      m_Value: 0
-    altitude:
-      m_OverrideState: 0
-      m_Value: 2000
-    rotation:
-      m_OverrideState: 1
-      m_Value: 171
-    tint:
-      m_OverrideState: 1
-      m_Value: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
-    exposure:
-      m_OverrideState: 0
-      m_Value: 0
-    distortionMode:
-      m_OverrideState: 1
-      m_Value: 1
-    scrollOrientation:
-      m_OverrideState: 1
-      m_Value:
-        mode: 2
-        customValue: 0
-        additiveValue: 1
-        multiplyValue: 1
-    scrollSpeed:
-      m_OverrideState: 1
-      m_Value:
-        mode: 2
-        customValue: 100
-        additiveValue: 2
-        multiplyValue: 1
-    flowmap:
-      m_OverrideState: 0
-      m_Value: {fileID: 0}
-    lighting:
-      m_OverrideState: 1
-      m_Value: 1
-    steps:
-      m_OverrideState: 0
-      m_Value: 4
-    thickness:
-      m_OverrideState: 0
-      m_Value: 0.5
-    ambientProbeDimmer:
-      m_OverrideState: 0
-      m_Value: 1
-    castShadows:
-      m_OverrideState: 0
-      m_Value: 0
 --- !u!114 &-1879731137154450985
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -344,10 +227,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Cloud
+  m_Name: QualityVolume
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -1890418542792755555}
+  - {fileID: -5110509063974787941}
+  - {fileID: 8133509688990761183}
 --- !u!114 &2036213060767657450
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -513,3 +397,47 @@ MonoBehaviour:
   scale:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &8133509688990761183
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddcec8a8eb2d684d833ac8f5d26aebd, type: 3}
+  m_Name: HDShadowSettings
+  m_EditorClassIdentifier: 
+  active: 0
+  interCascadeBorders: 1
+  maxShadowDistance:
+    m_OverrideState: 1
+    m_Value: 1
+  directionalTransmissionMultiplier:
+    m_OverrideState: 1
+    m_Value: 0
+  cascadeShadowSplitCount:
+    m_OverrideState: 1
+    m_Value: 1
+  cascadeShadowSplit0:
+    m_OverrideState: 0
+    m_Value: 0.05
+  cascadeShadowSplit1:
+    m_OverrideState: 0
+    m_Value: 0.15
+  cascadeShadowSplit2:
+    m_OverrideState: 0
+    m_Value: 0.3
+  cascadeShadowBorder0:
+    m_OverrideState: 0
+    m_Value: 1
+  cascadeShadowBorder1:
+    m_OverrideState: 0
+    m_Value: 0
+  cascadeShadowBorder2:
+    m_OverrideState: 0
+    m_Value: 0
+  cascadeShadowBorder3:
+    m_OverrideState: 0
+    m_Value: 0
