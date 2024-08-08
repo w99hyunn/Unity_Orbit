@@ -11,6 +11,7 @@ using Demo.Scripts.Runtime.AttachmentSystem;
 using System.Collections.Generic;
 using Demo.Scripts.Runtime.Character;
 using UnityEngine;
+using System.Collections;
 
 namespace Demo.Scripts.Runtime.Item
 {
@@ -82,40 +83,16 @@ namespace Demo.Scripts.Runtime.Item
         private static readonly int CurveEquip = Animator.StringToHash("CurveEquip");
         private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
 
-        // Custom Sources
-        public int maxBullet = 30;
-        private int currentBullet;
-        public AudioClip shootSound;
-        public AudioClip reloadingSound;
-        public AudioClip reloadSound;
-        public AudioClip dryFireSound;
+        private GunFire gunFire;
 
-        //무기 스왑시 UI업데이트
-        private void OnEnable()
+        private void Start()
         {
-            UIManager.Instance.UpdateCurrentBullet(currentBullet);
-            UIManager.Instance.UpdateMaxBullet(maxBullet);
-
-            //총 변경시 체크
-            BulletCheck();
-        }
-
-        private void BulletCheck()
-        {
-            if (currentBullet <= (maxBullet / 3))
-            {
-                UIManager.Instance.TipKey_Enable("재장전", "R");
-            }
-            else
-            {
-                UIManager.Instance.TipKey_Disable();
-            }
+            gunFire = GetComponent<GunFire>();
         }
 
         //게임 시작시 총알은 소지한채 시작.
         private void Awake()
         {
-            currentBullet = maxBullet;
             if (true == supportsAuto)
             {
                 _fireMode = FireMode.Auto;
@@ -126,12 +103,6 @@ namespace Demo.Scripts.Runtime.Item
             }
         }
 
-        private void UseBullet()
-        {
-            GameManager.Instance.PlaySound(shootSound);
-            currentBullet--;
-            UIManager.Instance.UpdateCurrentBullet(currentBullet);
-        }
 
         private void OnActionEnded()
         {
@@ -285,7 +256,7 @@ namespace Demo.Scripts.Runtime.Item
 
         public override bool OnReload()
         {
-            if (currentBullet == maxBullet)
+            if (gunFire.currentBullet == gunFire.maxBullet)
             {
                 return false;
             }
@@ -306,26 +277,22 @@ namespace Demo.Scripts.Runtime.Item
             {
                 _fpsCameraController.PlayCameraAnimation(cameraReloadAnimation);
             }
-            GameManager.Instance.PlaySound(reloadingSound);
+            GameManager.Instance.PlaySound(gunFire.reloadingSound);
             Invoke(nameof(OnActionEnded), reloadClip.clip.length * 0.85f);
-            Invoke("ReloadSound", reloadClip.clip.length * 0.65f);
-            Invoke("ReloadBullet", reloadClip.clip.length * 0.85f);
+
+            StartCoroutine(ReloadSoundWithDelay());
             //총알 수 업데이트
 
             OnFireReleased();
             return true;
         }
 
-        private void ReloadSound()
+        IEnumerator ReloadSoundWithDelay()
         {
-            GameManager.Instance.PlaySound(reloadSound);
-        }
-
-        private void ReloadBullet()
-        {
-            currentBullet = maxBullet;
-            BulletCheck();
-            UIManager.Instance.UpdateCurrentBullet(currentBullet);
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.65f);
+            gunFire.ReloadSound();
+            yield return new WaitForSeconds(0.2f);
+            gunFire.ReloadBullet();
         }
 
         public override bool OnGrenadeThrow()
@@ -349,15 +316,15 @@ namespace Demo.Scripts.Runtime.Item
         private void OnFire()
         {
             // 잔탄 수가 모자르면 안쏴져야함.
-            if (currentBullet == 0)
+            if (gunFire.currentBullet == 0)
             {
-                GameManager.Instance.PlaySound(dryFireSound);
+                GameManager.Instance.PlaySound(gunFire.dryFireSound);
                 OnFireReleased();
                 return;
             }
 
-            BulletCheck();
-            UseBullet();
+            gunFire.BulletCheck();
+            gunFire.UseBullet();
 
             if (_weaponAnimator != null)
             {

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &466572135259030593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 807225738118481201}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &807225738118481201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466572135259030593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0566, z: 0.3769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 881426349669975026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &677646318584344262
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 881426349669975026}
+  - component: {fileID: 5538142754886388013}
   - component: {fileID: 1520529762629545365}
   - component: {fileID: 3801993692961882802}
   m_Layer: 0
@@ -131,8 +163,31 @@ Transform:
   - {fileID: 3692386111114942010}
   - {fileID: 3273305671981169017}
   - {fileID: 6104587164186048036}
+  - {fileID: 807225738118481201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5538142754886388013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910695102810075455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8364306ee3c01864ba275514ef07b5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBullet: 12
+  currentBullet: 0
+  FirePoint: {fileID: 807225738118481201}
+  shootSound: {fileID: 8300000, guid: 230d59294c9857140b63dd308ea4bd63, type: 3}
+  reloadingSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
+  reloadSound: {fileID: 8300000, guid: 406c929b7299afb469c82778f8d15d5b, type: 3}
+  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
+  BulletCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1520529762629545365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,11 +226,6 @@ MonoBehaviour:
   scopeGroups:
   - attachments:
     - {fileID: 7649588884087146613}
-  maxBullet: 12
-  shootSound: {fileID: 8300000, guid: 74079e3b043b8a549a28e1350566b7e0, type: 3}
-  reloadingSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
-  reloadSound: {fileID: 8300000, guid: 406c929b7299afb469c82778f8d15d5b, type: 3}
-  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
 --- !u!114 &3801993692961882802
 MonoBehaviour:
   m_ObjectHideFlags: 0

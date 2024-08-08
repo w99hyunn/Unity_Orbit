@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2368811415538818050}
+  - component: {fileID: 7814292234229235876}
   - component: {fileID: 746774683944186785}
   - component: {fileID: 4348425590622240509}
   m_Layer: 0
@@ -66,8 +67,31 @@ Transform:
   - {fileID: 1811610364628189946}
   - {fileID: 5925410087226870628}
   - {fileID: 5257875551320502172}
+  - {fileID: 2487475792153720462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7814292234229235876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208818845419045761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8364306ee3c01864ba275514ef07b5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBullet: 30
+  currentBullet: 0
+  FirePoint: {fileID: 2487475792153720462}
+  shootSound: {fileID: 8300000, guid: f19e3fdb9c8082647a2c32beca28ba84, type: 3}
+  reloadingSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
+  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
+  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
+  BulletCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &746774683944186785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,11 +128,6 @@ MonoBehaviour:
     - {fileID: 7947531225450968422}
   - attachments:
     - {fileID: 5277201690058847100}
-  maxBullet: 25
-  shootSound: {fileID: 8300000, guid: f19e3fdb9c8082647a2c32beca28ba84, type: 3}
-  reloadingSound: {fileID: 8300000, guid: e5198250a6a57408bb36e14bc4a322c4, type: 3}
-  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
-  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
 --- !u!114 &4348425590622240509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +190,37 @@ MonoBehaviour:
   aimFovZoom: 0.8
   sensitivityMultiplier: 1
   aimPoint: {fileID: 1811610364628189946}
+--- !u!1 &4837536412744432197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2487475792153720462}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2487475792153720462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837536412744432197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5684}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2368811415538818050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1333604224273328907
 PrefabInstance:
   m_ObjectHideFlags: 0

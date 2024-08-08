@@ -63,6 +63,37 @@ Transform:
   - {fileID: 2087809155164447890}
   m_Father: {fileID: 6660123153519852015}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &2312277330311070713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2715795482767151549}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2715795482767151549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2312277330311070713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.529}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6660123153519852015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4532876977336290389
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6660123153519852015}
+  - component: {fileID: 4477158186969696175}
   - component: {fileID: 2036551495566810926}
   - component: {fileID: 2992999746701429528}
   - component: {fileID: 7307489893473480553}
@@ -194,8 +226,31 @@ Transform:
   - {fileID: 8453024151027088187}
   - {fileID: 8460813286131191906}
   - {fileID: 105817931825604440}
+  - {fileID: 2715795482767151549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4477158186969696175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279796977330283349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8364306ee3c01864ba275514ef07b5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBullet: 30
+  currentBullet: 0
+  FirePoint: {fileID: 2715795482767151549}
+  shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
+  reloadingSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
+  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
+  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
+  BulletCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &2036551495566810926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,11 +282,6 @@ MonoBehaviour:
   gripAttachments:
     attachments: []
   scopeGroups: []
-  maxBullet: 25
-  shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
-  reloadingSound: {fileID: 8300000, guid: e5198250a6a57408bb36e14bc4a322c4, type: 3}
-  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
-  dryFireSound: {fileID: 8300000, guid: b95525c3ac60f204c8128adba40b1e55, type: 3}
 --- !u!114 &2992999746701429528
 MonoBehaviour:
   m_ObjectHideFlags: 0
