@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     private bool isPlayerStatsInitialized = false;
     private bool isPlayerControllerInitialized = false;
 
-    public float gameTime  = 0f; // 21600
+    public float gameTime  = 13600f; // 21600
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
 

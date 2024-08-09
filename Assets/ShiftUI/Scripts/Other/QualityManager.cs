@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -39,8 +39,6 @@ namespace Michsky.UI.Shift
         [SerializeField]
         private Camera mainCamera;
 
-        [SerializeField]
-        private CinemachineVirtualCamera VirtualCamera;
         [Header("미니맵 카메라")]
         [SerializeField]
         private Camera minimapCamera;
