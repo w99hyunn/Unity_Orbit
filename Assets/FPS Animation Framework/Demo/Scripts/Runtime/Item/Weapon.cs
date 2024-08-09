@@ -90,7 +90,7 @@ namespace Demo.Scripts.Runtime.Item
             gunFire = GetComponent<GunFire>();
         }
 
-        //°ÔÀÓ ½ÃÀÛ½Ã ÃÑ¾ËÀº ¼ÒÁöÇÑÃ¤ ½ÃÀÛ.
+        //ê²Œì„ ì‹œì‘ì‹œ ì´ì•Œì€ ì†Œì§€í•œì±„ ì‹œì‘.
         private void Awake()
         {
             if (true == supportsAuto)
@@ -282,7 +282,7 @@ namespace Demo.Scripts.Runtime.Item
             Invoke(nameof(OnActionEnded), reloadClip.clip.length * 0.85f);
 
             
-            //ÃÑ¾Ë ¼ö ¾÷µ¥ÀÌÆ®
+            //ì´ì•Œ ìˆ˜ ì—…ë°ì´íŠ¸
 
             OnFireReleased();
             return true;
@@ -290,10 +290,11 @@ namespace Demo.Scripts.Runtime.Item
 
         IEnumerator ReloadSoundWithDelay()
         {
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.1f);
             GameManager.Instance.PlaySound(gunFire.clipOutSound);
-            yield return new WaitForSeconds(reloadClip.clip.length * 0.25f);
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.2f);
             GameManager.Instance.PlaySound(gunFire.clipInSound);
-            yield return new WaitForSeconds(reloadClip.clip.length * 0.45f);
+            yield return new WaitForSeconds(reloadClip.clip.length * 0.3f);
             GameManager.Instance.PlaySound(gunFire.clipArmingSound);
             yield return new WaitForSeconds(0.2f);
             gunFire.ReloadBullet();
@@ -319,7 +320,7 @@ namespace Demo.Scripts.Runtime.Item
         
         private void OnFire()
         {
-            // ÀÜÅº ¼ö°¡ ¸ğÀÚ¸£¸é ¾È½÷Á®¾ßÇÔ.
+            // ì”íƒ„ ìˆ˜ê°€ ëª¨ìë¥´ë©´ ì•ˆì´ì ¸ì•¼í•¨.
             if (gunFire.currentBullet == 0)
             {
                 GameManager.Instance.PlaySound(gunFire.dryFireSound);
