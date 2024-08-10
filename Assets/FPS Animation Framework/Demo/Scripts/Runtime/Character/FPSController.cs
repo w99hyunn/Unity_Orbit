@@ -12,6 +12,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using System.Reflection;
+using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.Rendering;
+using System.Collections;
 
 namespace Demo.Scripts.Runtime.Character
 {
@@ -67,6 +70,11 @@ namespace Demo.Scripts.Runtime.Character
 
         public event Action<int> OnActiveWeaponIndexChanged;
         public event Action<FPSAimState> OnActiveAiming;
+
+        [Header("달리기 화면 번짐 효과 관련")]
+        public Volume localVolume;
+        private VolumeProfile profile;
+        private ChromaticAberration chromaticAberration;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -162,6 +170,9 @@ namespace Demo.Scripts.Runtime.Character
             EquipWeapon();
 
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
+
+            //volume
+            profile = localVolume.sharedProfile;
         }
 
         private void UnequipWeapon()
@@ -225,6 +236,11 @@ namespace Demo.Scripts.Runtime.Character
             _userInput.SetValue(FPSANames.StabilizationWeight, 0f);
             _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
             _userInput.SetValue("LookLayerWeight", 0.3f);
+
+            if (profile.TryGet(out ChromaticAberration chromaticAberration))
+            {
+                chromaticAberration.intensity.value = 0.5f;
+            }
         }
 
         private void OnSprintEnded()
@@ -234,6 +250,11 @@ namespace Demo.Scripts.Runtime.Character
             _userInput.SetValue(FPSANames.StabilizationWeight, 1f);
             _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInput.SetValue("LookLayerWeight", 1f);
+
+            if (profile.TryGet(out ChromaticAberration chromaticAberration))
+            {
+                chromaticAberration.intensity.value = 0f;
+            }
         }
 
         private void OnCrouch()
