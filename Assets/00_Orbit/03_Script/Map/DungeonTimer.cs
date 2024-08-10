@@ -14,9 +14,18 @@ public class DungeonTimer : MonoBehaviour
     private bool timerRunning = false;
     public bool destroyArete = false;
 
+    [Header("´øÀü BGM")]
+    private AudioSource audioSource;
+    public AudioClip startDungeon;
+    public AudioClip clearDungeon;
+
     void Start()
     {
         StartTimer();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = startDungeon;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     void Update()
@@ -34,6 +43,11 @@ public class DungeonTimer : MonoBehaviour
                 timeRemaining = 0;
                 StartCoroutine(HandleFailure());
             }
+        }
+        if (true == destroyArete && audioSource.clip != clearDungeon)
+        {
+            audioSource.clip = clearDungeon;
+            audioSource.Play();
         }
     }
 
@@ -71,6 +85,7 @@ public class DungeonTimer : MonoBehaviour
     void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
-        //0803 PlayerController.Instance.SetPos(lastPosition);
+        GameManager.Instance.SetPos(lastPosition);
     }
+
 }
