@@ -43,7 +43,7 @@ namespace AlterunaFPS
         private void Start()
         {
 			MaxPoints = HealthPoints;
-			if (isArete = true)
+			if (isArete == true)
 			{
 				arete = GetComponent<Arete>();
 			}

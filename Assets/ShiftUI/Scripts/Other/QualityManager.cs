@@ -298,6 +298,28 @@ namespace Michsky.UI.Shift
             QualitySettings.SetQualityLevel(0);
         }
 
+        /* 그림자 On/Off 동작 O */
+        public void ShadowsSet(bool index)
+        {
+            VolumeProfile profile = globalVolume.sharedProfile;
+
+            if (profile.TryGet<HDShadowSettings>(out HDShadowSettings hdShadowSettings))
+            {
+                hdShadowSettings.active = index;
+            }
+        }
+
+        /* 비네트 On/Off 동작 O */
+        public void VignetteSet(bool index)
+        {
+            VolumeProfile profile = globalVolume.sharedProfile;
+
+            if (profile.TryGet<Vignette>(out Vignette vignette))
+            {
+                vignette.active = index; // isActive는 Vignette를 활성화(true) 또는 비활성화(false)하는 변수입니다.
+            }
+        }
+
         /* ------------------------------------------------------------------------------ */
 
         public void ShadowResolutionSet(int index) //그림자 품질<<<<적용X>>>>
@@ -312,16 +334,7 @@ namespace Michsky.UI.Shift
                 QualitySettings.shadowResolution = ShadowResolution.Low;
         }
 
-        public void ShadowsSet(bool index) //그림자 ON/OFF<<<<적용X>>>>
-        {
-            VolumeProfile profile = globalVolume.sharedProfile;
 
-            if (profile.TryGet<HDShadowSettings>(out HDShadowSettings hdShadowSettings))
-            {
-                hdShadowSettings.active = index;
-            }
-
-        }
 
         public void ShadowsCascasedSet(int index) //그림자 카스케이드<<<<적용X>>>>
         {
