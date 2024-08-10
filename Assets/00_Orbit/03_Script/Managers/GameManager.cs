@@ -1,12 +1,7 @@
 using Demo.Scripts.Runtime.Character;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class ZoneData
@@ -39,7 +34,7 @@ public class GameManager : MonoBehaviour
     // 인스턴스 던전관련
     public List<ZoneData> zones { get; private set; }
     public string currentZoneName;
-    public Vector3 lastPlayerPosition { get; private set; }
+    public Vector3 lastPlayerPosition;
 
     private AudioSource audioSource;
     private string saveFilePath;
@@ -175,6 +170,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void SetPos(Vector3 pos)
+    {
+        _controller.SetPos(pos);
+    }
+
 
     public void ResetPos()
     {

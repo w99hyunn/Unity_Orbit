@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Arete : MonoBehaviour
 {
-    public DungeonManager dungeonManager;
+    public DungeonTimer dungeonTimer;
 
     public void Destroy_Arete()
     {
-        dungeonManager.destroyArete = true;
+        dungeonTimer.destroyArete = true;
         string currentZoneName = GameManager.Instance.currentZoneName;
         GameManager.Instance.LiberateZone(currentZoneName);
 

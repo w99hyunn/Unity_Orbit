@@ -2,6 +2,7 @@ using Michsky.UI.Shift;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -41,6 +42,9 @@ public class UIManager : MonoBehaviour
 
     public CanvasGroup screenFlashCanvasGroup;
     private bool isFlashing = false;
+
+    public UnityEvent onGameover;
+
     private void Start()
     {
         Transform TipTextTransform = TipKey.transform.Find("TipText");
@@ -147,14 +151,10 @@ public class UIManager : MonoBehaviour
         scriptText.SetActive(false);
     }
 
+
     public void GameOverUI()
     {
-        Animator GameOverScreenAnimator;
-
-        GameObject gameOverScreen = GameObject.Find("GameOverScreen");
-        GameOverScreenAnimator = gameOverScreen.GetComponent<Animator>();
-
-        GameOverScreenAnimator.Play("Loading");
+        onGameover.Invoke();
     }
 
     public void UpdateTime(string time)

@@ -1,53 +1,34 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
-using Michsky.UI.Shift;
-using TMPro;
+
+/* 
+ * 던전 퇴장 Trigger 스크립트
+ * 최대한 던전 매니저에서 중앙 처리
+ */
 
 public class DungeonExit : MonoBehaviour
 {
     public AudioClip exitSound;
 
-    private Animator dungeonLoadingScreenAnimator;
-    private TimedEvent dungeonLoadingScreenTimedEvent;
-
-    private TMP_Text text1;
-    private TMP_Text text2;
-    private TMP_Text text3;
-
-    private Animator imgAni;
-
     private bool isLoading = false;
-    private bool playerInRange = false;
-
-    private void Start()
-    {
-        GameObject dungeonLoadingScreen = GameObject.Find("DungeonLoadingScreen");
-        dungeonLoadingScreenAnimator = dungeonLoadingScreen.GetComponent<Animator>();
-        dungeonLoadingScreenTimedEvent = dungeonLoadingScreen.GetComponent<TimedEvent>();
-
-        Transform loadingTransform = dungeonLoadingScreen.transform.Find("Loading");
-        Transform imageTransform = loadingTransform.transform.Find("Image");
-        text1 = imageTransform.Find("Text1")?.GetComponent<TMP_Text>();
-        imgAni = loadingTransform.Find("Image")?.GetComponent<Animator>();
-        text2 = imageTransform.Find("Text2")?.GetComponent<TMP_Text>();
-        text3 = imageTransform.Find("Text3")?.GetComponent<TMP_Text>();
-    }
-
-    private void Update()
-    {
-        if (playerInRange && Input.GetKeyDown(KeyCode.F) && !isLoading)
-        {
-            HandleDungeonExit();
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
             UIManager.Instance.TipKey_Enable("던전 퇴장", "F");
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (Input.GetKeyDown(KeyCode.F) && !isLoading)
+            {
+                HandleDungeonExit();
+            }
         }
     }
 
@@ -55,7 +36,6 @@ public class DungeonExit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
             UIManager.Instance.TipKey_Disable();
         }
     }
@@ -66,13 +46,7 @@ public class DungeonExit : MonoBehaviour
         {
             GameManager.Instance.PlaySound(exitSound);
             isLoading = true;
-            dungeonLoadingScreenTimedEvent.StopIEnumerator();
-            text1.text = "아레테가 파괴되었습니다.";
-            text2.text = GameManager.Instance.currentZoneName + " 구역이 해방됩니다!";
-            text3.text = "원래 있던 곳으로 돌아갑니다.";
-            dungeonLoadingScreenAnimator.Play("Loading");
-            imgAni.Play("LFadeIn", 0, 0f);
-            dungeonLoadingScreenTimedEvent.StartIEnumerator();
+            DungeonManager.Instance.UpdateDungeonLoading("아레테가 파괴되었습니다.", GameManager.Instance.currentZoneName + " 구역이 해방됩니다!", "원래 있던 곳으로 돌아갑니다.");
             UIManager.Instance.TipKey_Disable();
             StartCoroutine(LoadDungeonSceneAfterDelay(3f));
         }
@@ -96,7 +70,7 @@ public class DungeonExit : MonoBehaviour
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
-        //0803 PlayerController.Instance.SetPos(lastPosition);
+        GameManager.Instance.SetPos(lastPosition);
         isLoading = false;
     }
 }

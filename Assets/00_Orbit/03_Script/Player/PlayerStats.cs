@@ -1,8 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.Analytics;
 
 public class PlayerStats : MonoBehaviour
 {
