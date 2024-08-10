@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
 
         UIManager.Instance.UpdateStats("health", currentHealth);
         UIManager.Instance.UpdateStats("mana", currentMana);
-        UIManager.Instance.UpdateStats("exp", currentHealth);
+        UIManager.Instance.UpdateStats("exp", currentExperience);
         UIManager.Instance.UpdateStats("level", level);
     }
 

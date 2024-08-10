@@ -43,8 +43,6 @@ public class ShowGunControll : MonoBehaviour
 
     private void ChangeAimState(FPSAimState aimState)
     {
-        Debug.Log("에임상태: " + aimState.ToString());
-
         if (aimState == FPSAimState.Aiming)
         {
             aimImage.SetActive(true);
@@ -57,7 +55,6 @@ public class ShowGunControll : MonoBehaviour
 
     private void ChangeWeapon(int index)
     {
-        Debug.Log("무기 값 변경됨을 감지했음" + index);
         switch (index)
         {
             case 0:
