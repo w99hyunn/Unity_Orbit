@@ -96,7 +96,7 @@ MonoBehaviour:
       maxEnvLightsOnScreen: 0
       reflectionCacheCompressed: 1
       reflectionProbeFormat: 48
-      reflectionProbeTexCacheSize: 2048
+      reflectionProbeTexCacheSize: 1024
       reflectionProbeTexLastValidCubeMip: 6
       reflectionProbeTexLastValidPlanarMip: 6
       reflectionProbeDecreaseResToFit: 1
@@ -115,8 +115,8 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 0
       maxLocalVolumetricFogOnScreen: 256
     hdShadowInitParams:
-      maxShadowRequests: 60
-      directionalShadowsDepthBits: 32
+      maxShadowRequests: 30
+      directionalShadowsDepthBits: 16
       punctualShadowFilteringQuality: 1
       directionalShadowFilteringQuality: 1
       areaShadowFilteringQuality: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
         useDynamicViewportRescale: 1
       areaLightShadowAtlas:
         shadowAtlasResolution: 1024
-        shadowAtlasDepthBits: 32
+        shadowAtlasDepthBits: 16
         useDynamicViewportRescale: 1
       cachedPunctualLightShadowAtlas: 1024
       cachedAreaLightShadowAtlas: 1024
@@ -311,7 +311,7 @@ MonoBehaviour:
       mode: 1
       smallMeshScreenPercentage: 1.2
       enableOcclusionCullingInCameras: 1
-      useDepthPrepassForOccluders: 0
+      useDepthPrepassForOccluders: 1
     m_ObsoleteLightLayerName0: 
     m_ObsoleteLightLayerName1: 
     m_ObsoleteLightLayerName2: 
