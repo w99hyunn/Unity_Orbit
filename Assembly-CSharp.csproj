@@ -211,7 +211,6 @@
     <None Include="Assets\TextMesh Pro\TextMeshPro\Shaders\TextMeshPro\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\TextMeshPro\Shaders\TextMeshPro\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ShiftUI\Shaders\UI Blur.shader" />
-    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\TextMeshPro\Shaders\TextMeshPro\TMP_SDF-Mobile.shader" />
     <None Include="Assets\ShiftUI\Shaders\Glitch\Glitch.shader" />
     <None Include="Assets\TextMesh Pro\TextMeshPro\Shaders\TextMeshPro\TMP_Sprite.shader" />
@@ -1311,6 +1310,10 @@
     </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst">
