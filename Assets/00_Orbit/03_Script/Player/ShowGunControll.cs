@@ -1,14 +1,22 @@
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ShowAimControll : MonoBehaviour
+public class ShowGunControll : MonoBehaviour
 {
     public RecoilAnimation recoil;
     public GameObject aimImage;
+    public TMP_Text fireMode;
 
     void Update()
+    {
+        ShowDefaultAim();
+        ShowFireMode();
+    }
+
+    private void ShowDefaultAim()
     {
         if (false == recoil.isAiming)
         {
@@ -18,5 +26,10 @@ public class ShowAimControll : MonoBehaviour
         {
             aimImage.SetActive(false);
         }
+    }
+
+    private void ShowFireMode()
+    {
+        fireMode.text = recoil.fireMode.ToString().ToUpper();
     }
 }
