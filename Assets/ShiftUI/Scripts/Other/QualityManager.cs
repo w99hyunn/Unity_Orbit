@@ -226,7 +226,7 @@ namespace Michsky.UI.Shift
                 FrameObject.SetActive(true);
                 Application.targetFrameRate = (int)SaveFrameRate;
             }
-            
+
         }
 
         public void ShowFPSEnable() //FPS 레이트 켜기
@@ -391,5 +391,6 @@ namespace Michsky.UI.Shift
             Screen.fullScreen = false;
             Screen.fullScreenMode = FullScreenMode.Windowed;
         }
+
     }
 }
