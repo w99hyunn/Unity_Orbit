@@ -89,9 +89,10 @@ namespace AlterunaFPS
 			// if no free particles, create new one
 			if (efx == null || efx.Obj == null)
 			{
-				if (efx != null)
-					Debug.LogWarning(efx.Obj);
-				efx = new EfxPoolObject();
+                /* Debug 로그 작동 원인 분석 해야함 */
+                //if (efx != null)
+                //	Debug.LogWarning(efx.Obj);
+                efx = new EfxPoolObject();
 				efx.Obj = Instantiate(prefab);
 				efx.HaveParticle = efx.Obj.TryGetComponent(out efx.Particle);
 				
@@ -112,10 +113,10 @@ namespace AlterunaFPS
 			// if no free particles, create new one
 			if (efx == null || efx.Obj == null)
 			{
-				/* Debug 로그 작동 */
-				//if (efx != null)
-				//	Debug.LogWarning(efx.Obj);
-				efx = new EfxPoolObject();
+                /* Debug 로그 작동 원인 분석 해야함 */
+                //if (efx != null)
+                //	Debug.LogWarning(efx.Obj);
+                efx = new EfxPoolObject();
 				efx.Obj = Instantiate(BulletEFPrefab);
 				efx.HaveParticle = efx.Obj.TryGetComponent(out efx.Particle);
 				

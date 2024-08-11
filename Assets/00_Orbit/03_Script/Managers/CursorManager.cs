@@ -50,6 +50,7 @@ public class CursorManager : MonoBehaviour
         Destroy(GameObject.Find("Pause Menu Manager"));
         Destroy(GameObject.Find("QualityManager"));
         Destroy(GameObject.Find("CursorManager"));
+        Destroy(GameObject.Find("DungeonManager"));
     }
 
     public void CustomResume()

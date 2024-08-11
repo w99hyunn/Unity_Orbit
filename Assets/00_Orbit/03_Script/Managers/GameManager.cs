@@ -1,7 +1,9 @@
 using Demo.Scripts.Runtime.Character;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class ZoneData
@@ -118,7 +120,32 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         isGameOver = false;
-        LoadGame();
+        if (SceneManager.GetActiveScene().name == "DungeonScene")
+        {
+            AsyncLoadScene("OutdoorsScene");
+        }
+        else
+        {
+            LoadGame();
+        }
+    }
+
+    public void AsyncLoadScene(string name)
+    {
+        StartCoroutine(LoadSceneProcess(name));
+    }
+
+    private IEnumerator LoadSceneProcess(string name)
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(name);
+        op.allowSceneActivation = true;
+
+        yield return new WaitUntil(() => op.isDone);
+
+        if (name == "OutdoorsScene")
+        {
+            LoadGame();
+        }
     }
 
     public void SaveGame()

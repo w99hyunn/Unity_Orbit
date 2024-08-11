@@ -74,11 +74,11 @@ public class ShowGunControll : MonoBehaviour
                 break;
         }
     }
-
+    /*
     // 이벤트 구독 해제 (메모리 누수 방지)
     void OnDestroy()
     {
         fpsController.OnActiveWeaponIndexChanged -= ChangeWeapon;
         fpsController.OnActiveAiming -= ChangeAimState;
-    }
+    }*/
 }

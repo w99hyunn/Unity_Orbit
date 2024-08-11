@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HintTrigger : MonoBehaviour
 {
+    public string infoText;
     private string currentZoneName;
     private bool isLiberated;
 
@@ -12,7 +13,7 @@ public class HintTrigger : MonoBehaviour
 
         if (isLiberated == false && other.CompareTag("Player"))
         {
-            UIManager.Instance.ScriptText_Enable("여신상의 뒷편이 수상해 보인다.");
+            UIManager.Instance.ScriptText_Enable(infoText);
         }
     }
 }
