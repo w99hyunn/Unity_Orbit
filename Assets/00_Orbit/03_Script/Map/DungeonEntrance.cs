@@ -12,25 +12,19 @@ public class DungeonEntrance : MonoBehaviour
     public AudioClip entranceSound;
 
     private bool isLoading = false;
+    private bool isPlayerInTrigger = false;
+
     private string currentZoneName;
+    private Collider playerCollider;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInTrigger = true;
+            playerCollider = other;
             currentZoneName = GameManager.Instance.currentZoneName;
             UIManager.Instance.TipKey_Enable("던전 입장", "F");
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (Input.GetKeyDown(KeyCode.F) && !isLoading)
-            {
-                HandleDungeonEntrance(other);
-            }
         }
     }
 
@@ -38,7 +32,17 @@ public class DungeonEntrance : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInTrigger = false;
+            playerCollider = null;
             UIManager.Instance.TipKey_Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && !isLoading)
+        {
+            HandleDungeonEntrance(playerCollider);
         }
     }
 

@@ -12,11 +12,13 @@ public class DungeonExit : MonoBehaviour
     public AudioClip exitSound;
 
     private bool isLoading = false;
+    private bool isPlayerInTrigger = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInTrigger = true;
             UIManager.Instance.TipKey_Enable("´øÀü ÅðÀå", "F");
         }
     }
@@ -36,7 +38,16 @@ public class DungeonExit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayerInTrigger = false;
             UIManager.Instance.TipKey_Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && !isLoading)
+        {
+            HandleDungeonExit();
         }
     }
 
