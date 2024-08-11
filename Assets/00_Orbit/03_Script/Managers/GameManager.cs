@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
 
     // 인스턴스 던전관련
-    public List<ZoneData> zones { get; private set; }
+    public List<ZoneData> zones;
     public string currentZoneName;
     public Vector3 lastPlayerPosition { get; private set; }
 
