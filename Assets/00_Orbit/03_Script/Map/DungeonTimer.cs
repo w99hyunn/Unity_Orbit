@@ -5,6 +5,8 @@ using System.Collections;
 using Michsky.UI.Shift;
 using TMPro;
 
+/* 추후 아레테가 파괴됨을 이벤트 처리 필요 */
+
 public class DungeonTimer : MonoBehaviour
 {
     public TMP_Text timerText;
@@ -46,6 +48,7 @@ public class DungeonTimer : MonoBehaviour
         }
         if (true == destroyArete && audioSource.clip != clearDungeon)
         {
+            timerText.text = "CLEAR!";
             audioSource.clip = clearDungeon;
             audioSource.Play();
         }

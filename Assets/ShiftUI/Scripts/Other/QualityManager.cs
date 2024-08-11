@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
-using Unity.Cinemachine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {
@@ -36,16 +31,14 @@ namespace Michsky.UI.Shift
         List<string> options = new List<string>();
 
         //메인카메라
-        [SerializeField]
-        private Camera mainCamera;
+        public Camera mainCamera;
+        private HDAdditionalCameraData cameraData;
 
         [Header("미니맵 카메라")]
-        [SerializeField]
-        private Camera minimapCamera;
+        public Camera minimapCamera;
 
         //FPSRate
-        [SerializeField]
-        private GameObject FPSRate;
+        public GameObject FPSRate;
 
         public Volume globalVolume;
 
@@ -62,18 +55,12 @@ namespace Michsky.UI.Shift
             {
                 Destroy(gameObject);
             }
+            //mainCamera = Camera.main;
+            cameraData = mainCamera.GetComponent<HDAdditionalCameraData>();
         }
 
         void Start()
         {
-            if (mainCamera == null)
-            {
-                mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-            }
-            if (minimapCamera == null && SceneManager.GetActiveScene().name == "OutdoorsScene")
-            {
-                minimapCamera = GameObject.FindGameObjectWithTag("MinimapCamera").GetComponent<Camera>();
-            }
             mixer.SetFloat("Master", Mathf.Log10(PlayerPrefs.GetFloat(masterSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat(musicSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("SFX", Mathf.Log10(PlayerPrefs.GetFloat(sfxSlider.sliderTag + "SliderValue")) * 20);
@@ -177,40 +164,41 @@ namespace Michsky.UI.Shift
 
         public void AntiAliasingSet(int index) //안티앨리어싱 <테스트 후 확인 완료>
         {
-            HDAdditionalCameraData cameraData;
-            if (mainCamera.TryGetComponent(out cameraData))
+            switch (index)
             {
-                switch (index)
-                {
-                    case 0:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.None;
-                        break;
-                    case 1:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing;
-                        break;
-                    case 2:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.TemporalAntialiasing;
-                        break;
-                    case 3:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-                        cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.Low;
-                        break;
-                    case 4:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-                        cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.Medium;
-                        break;
-                    case 5:
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-                        cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.High;
-                        break;
+                case 0:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.None;
+                    break;
+                case 1:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing;
+                    break;
+                case 2:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.TemporalAntialiasing;
+                    break;
+                case 3:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                    cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.Low;
+                    break;
+                case 4:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                    cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.Medium;
+                    break;
+                case 5:
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                    cameraData.SMAAQuality = HDAdditionalCameraData.SMAAQualityLevel.High;
+                    break;
 
-                    default:
-                        Debug.LogWarning("Invalid anti-aliasing option. Using default: None.");
-                        cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.None;
-                        break;
-                }
+                default:
+                    Debug.LogWarning("Invalid anti-aliasing option. Using default: None.");
+                    cameraData.antialiasing = HDAdditionalCameraData.AntialiasingMode.None;
+                    break;
             }
+        }
 
+        // DLSS ON/OFF
+        public void DLSS(bool index)
+        {
+            cameraData.allowDynamicResolution = index;
         }
 
         public void VsyncSet(int index) // 수직동기화 <테스트 후 확인 완료>

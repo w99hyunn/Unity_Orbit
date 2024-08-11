@@ -69,8 +69,7 @@ public class DungeonExit : MonoBehaviour
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
-        GameManager.Instance.SetPos(lastPosition);
+        GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
         isLoading = false;
     }
 }

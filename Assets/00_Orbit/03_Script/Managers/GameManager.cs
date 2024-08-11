@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     // 인스턴스 던전관련
     public List<ZoneData> zones { get; private set; }
     public string currentZoneName;
-    public Vector3 lastPlayerPosition;
+    public Vector3 lastPlayerPosition { get; private set; }
 
     private AudioSource audioSource;
     private string saveFilePath;
@@ -86,15 +86,6 @@ public class GameManager : MonoBehaviour
         FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
     }
 
-    public void SavePlayerPosition(Vector3 position)
-    {
-        lastPlayerPosition = position;
-    }
-
-    public Vector3 LoadPlayerPosition()
-    {
-        return lastPlayerPosition;
-    }
     private void OnPlayerStatsInitialized()
     {
         isPlayerStatsInitialized = true;
@@ -158,7 +149,7 @@ public class GameManager : MonoBehaviour
             string encryptedJson = File.ReadAllText(saveFilePath);
             string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-            Debug.Log("Loaded JSON: " + json);
+            //Debug.Log("Loaded JSON: " + json);
 
             GameData data = JsonUtility.FromJson<GameData>(json);
             if (data != null)
@@ -175,10 +166,19 @@ public class GameManager : MonoBehaviour
         _controller.SetPos(pos);
     }
 
-
     public void ResetPos()
     {
         _controller.ResetPos();
+    }
+
+    public void SavePlayerPosition(Vector3 position)
+    {
+        lastPlayerPosition = position;
+    }
+
+    public Vector3 LoadPlayerPosition()
+    {
+        return lastPlayerPosition;
     }
 
     public void UpdateGameTime()
