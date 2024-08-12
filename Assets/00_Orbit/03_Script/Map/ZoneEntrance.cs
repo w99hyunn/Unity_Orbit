@@ -11,11 +11,9 @@ public class ZoneEntrance : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("111: " + zoneName);
             GameManager.Instance.currentZoneName = zoneName;
             bool isLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
             UIManager.Instance.UpdateZoneInfo(zoneName, isLiberated);
-            Debug.Log("222: " + zoneName);
         }
     }
 }
