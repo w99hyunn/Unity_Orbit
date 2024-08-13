@@ -68,7 +68,7 @@ public class DungeonTimer : MonoBehaviour
 
     IEnumerator HandleFailure()
     {
-        DungeonManager.Instance.UpdateDungeonLoading("시간이 초과되었습니다.", "아레테를 파괴하지 못했습니다!", "잠시 후 원래 있던 곳으로 돌아갑니다.", false);
+        DungeonManager.Instance.UpdateDungeonLoading("시간이 초과되었습니다.", "아레테를 파괴하지 못했습니다!", "잠시 후 원래 있던 곳으로 돌아갑니다.", 2);
         yield return new WaitForSeconds(0f);
 
         StartCoroutine(LoadOutdoorsSceneAfterDelay(3f));
