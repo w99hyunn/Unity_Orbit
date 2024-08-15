@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,10 +23,10 @@ public class AutoSaveManager : MonoBehaviour
             {
                 SaveButton.onClick.Invoke();
             }
-            else
-            {
-                Debug.Log("자동저장 요건 충족 X");
-            }
+            //else
+            //{
+            //    Debug.Log("자동저장 요건 충족 X");
+            //}
         }
     }
 }
