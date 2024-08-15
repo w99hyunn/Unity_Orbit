@@ -2,19 +2,35 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int maxHealth;
-    public int maxMana;
-    public int maxExperience;
-    public int currentHealth;
-    public int currentMana;
-    public int currentExperience;
-    public int level;
+    public AudioClip levelUpSound;
+    public int maxHealth {get; private set;}
+    public int maxMana { get; private set; }
+    public int maxExperience { get; private set; }
+    public int currentHealth { get; private set; }
+    public int currentMana { get; private set; }
+    public int currentExperience { get; private set; }
+    public int level { get; private set; }
 
     private float manaRegenRate = 10f;
     private float healthRegenRate = 5f;
     private float regenInterval = 10f;
 
     public static event System.Action OnPlayerStatsInitialized;
+
+    private static PlayerStats Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -36,7 +52,7 @@ public class PlayerStats : MonoBehaviour
 
         this.level = level;
 
-        UpdateUI(); // 퍼센트로 변환 후 UI 업데이트
+        UpdateUI();
     }
 
     public void InitializeStats()
@@ -106,7 +122,7 @@ public class PlayerStats : MonoBehaviour
     }
     void LevelUp()
     {
-        //0803 PlayerController.Instance.PlaySound(levelUpSound);
+        GameManager.Instance.PlaySound(levelUpSound);
         level++;
         currentExperience -= maxExperience; // 남은 경험치는 다음 레벨로 이월
 
