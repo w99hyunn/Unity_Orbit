@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
             string encryptedJson = File.ReadAllText(saveFilePath);
             string json = CryptoUtility.DecryptString(encryptedJson); // º¹È£È­
 
-            Debug.Log("Loaded JSON: " + json);
+            //Debug.Log("Loaded JSON: " + json);
 
             GameData data = JsonUtility.FromJson<GameData>(json);
             if (data != null)

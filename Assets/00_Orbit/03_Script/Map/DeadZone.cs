@@ -8,7 +8,7 @@ public class DeadZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerStats = other.GetComponent<PlayerStats>();
-            playerStats.TakeDamage(100);
+            playerStats.TakeDamage(-1);
         }
     }
 }

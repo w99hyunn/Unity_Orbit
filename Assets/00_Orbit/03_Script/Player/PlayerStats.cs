@@ -68,7 +68,14 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        if (amount == -1)
+        {
+            currentHealth -= maxHealth;
+        }
+        else
+        {
+            currentHealth -= amount;
+        }
         UpdateUI();
 
         if (currentHealth <= 0)
