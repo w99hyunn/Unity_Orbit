@@ -37,7 +37,7 @@ public class StartManager : MonoBehaviour
             LoadGameData(saveFilePath);
 
             FileInfo fileInfo = new FileInfo(saveFilePath);
-            lastModifiedText.text = fileInfo.LastWriteTime.ToString("G");
+            lastModifiedText.text = fileInfo.LastWriteTime.ToString("G") + "에 저장된 세이브파일입니다.";
         }
         else
         {
@@ -77,9 +77,9 @@ public class StartManager : MonoBehaviour
             string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
             gameTimeText.text = timeFormatted;
-            levelText.text = data.level.ToString() + "레벨 (" + data.currentExperience.ToString() + "%)";
-            hpText.text = data.currentHealth.ToString() + "%";
-            mpText.text = data.currentMana.ToString() + "%";
+            levelText.text = data.level.ToString() + "레벨 (" + ((int)((float)data.currentExperience / data.maxExperience * 100)).ToString() + "%)";
+            hpText.text = ((int)((float)data.currentHealth / data.maxHealth * 100)).ToString() + "%";
+            mpText.text = ((int)((float)data.currentMana / data.maxMana * 100)).ToString() + "%";
         }
     }
 

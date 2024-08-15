@@ -6,7 +6,6 @@ using System.Collections;
  * 던전 입장 Trigger 스크립트
  * 최대한 던전 매니저에서 중앙 처리
  */
-
 public class DungeonEntrance : MonoBehaviour
 {
     public AudioClip entranceSound;
@@ -45,7 +44,6 @@ public class DungeonEntrance : MonoBehaviour
             HandleDungeonEntrance(playerCollider);
         }
     }
-
     private void HandleDungeonEntrance(Collider other)
     {
         bool isLiberated = GameManager.Instance.IsZoneLiberated(currentZoneName);
@@ -75,7 +73,6 @@ public class DungeonEntrance : MonoBehaviour
         asyncLoad.allowSceneActivation = true;
         asyncLoad.completed += OnSceneLoaded;
     }
-
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         GameManager.Instance.SetPos(new Vector3(-31.353f, 7.588f, 3.23f));

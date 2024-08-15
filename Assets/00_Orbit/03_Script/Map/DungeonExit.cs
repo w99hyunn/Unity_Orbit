@@ -6,7 +6,6 @@ using System.Collections;
  * 던전 퇴장 Trigger 스크립트
  * 최대한 던전 매니저에서 중앙 처리
  */
-
 public class DungeonExit : MonoBehaviour
 {
     public AudioClip exitSound;
@@ -22,7 +21,6 @@ public class DungeonExit : MonoBehaviour
             UIManager.Instance.TipKey_Enable("던전 퇴장", "F");
         }
     }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))

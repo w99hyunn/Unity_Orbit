@@ -191,19 +191,22 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void UpdateHealthUI(int currentHealth)
+    private void UpdateHealthUI(int currentHealthPercentage)
     {
-        healthText.text = currentHealth.ToString();
-        StartCoroutine(SmoothSliderChange(healthBar, currentHealth));
-        if (currentHealth <= 20 && !isFlashing)
+        healthText.text = currentHealthPercentage.ToString();
+        StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
+
+        //체력이 20 미만이면 화면 깜빡임 시작
+        //추후 Vignette 효과로 대체하면 될듯함
+        if (currentHealthPercentage <= 20 && !isFlashing)
         {
-            StartCoroutine(FlashScreen()); // 체력이 30 미만이면 화면 깜빡임 시작
+            StartCoroutine(FlashScreen());
         }
     }
-    private void UpdateManaUI(int currentMana)
+    private void UpdateManaUI(int currentManaPercentage)
     {
-        manaText.text = currentMana.ToString();
-        StartCoroutine(SmoothSliderChange(manaBar, currentMana));
+        manaText.text = currentManaPercentage.ToString();
+        StartCoroutine(SmoothSliderChange(manaBar, currentManaPercentage));
     }
 
     private void UpdateExperienceUI(int currentExperience)

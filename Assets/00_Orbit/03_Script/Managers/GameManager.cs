@@ -16,9 +16,15 @@ public class ZoneData
 public class GameData
 {
     public float gameTime;
+
+    public int maxHealth;
+    public int maxMana;
+    public int maxExperience;
+
     public int currentHealth;
     public int currentMana;
     public int currentExperience;
+
     public int level;
     public Vector3 playerPosition;
     public List<ZoneData> zones;
@@ -28,7 +34,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject player;
     private FPSMovement _controller;
-    private PlayerStats _plyerStats;
+    private PlayerStats _playerStats;
 
 
     public bool isGameOver = false;
@@ -67,7 +73,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _controller = player.GetComponent<FPSMovement>();
-        _plyerStats = player.GetComponent<PlayerStats>();
+        _playerStats = player.GetComponent<PlayerStats>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -153,10 +159,15 @@ public class GameManager : MonoBehaviour
         GameData data = new GameData
         {
             gameTime = this.gameTime,
-            currentHealth = _plyerStats.currentHealth,
-            currentMana = _plyerStats.currentMana,
-            currentExperience = _plyerStats.currentExperience,
-            level = _plyerStats.level,
+
+            maxHealth = _playerStats.maxHealth,
+            maxMana = _playerStats.maxMana,
+            maxExperience = _playerStats.maxExperience,
+
+            currentHealth = _playerStats.currentHealth,
+            currentMana = _playerStats.currentMana,
+            currentExperience = _playerStats.currentExperience,
+            level = _playerStats.level,
             playerPosition = player.transform.position,
             zones = this.zones
         };
@@ -182,9 +193,10 @@ public class GameManager : MonoBehaviour
             if (data != null)
             {
                 this.gameTime = data.gameTime;
-                _plyerStats.SetStats(data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                _playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
                 _controller.SetPos(data.playerPosition);
                 this.zones = data.zones;
+
             }
         }
     }

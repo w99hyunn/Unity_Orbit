@@ -11,6 +11,7 @@ public class SunLight : MonoBehaviour
     {
         sun = GetComponent<Light>();
     }
+
     void Update()
     {
         UpdateSunRotation();

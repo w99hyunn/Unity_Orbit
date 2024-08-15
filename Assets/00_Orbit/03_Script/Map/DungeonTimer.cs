@@ -20,7 +20,6 @@ public class DungeonTimer : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip startDungeon;
     public AudioClip clearDungeon;
-
     void Start()
     {
         StartTimer();
@@ -29,7 +28,6 @@ public class DungeonTimer : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
     }
-
     void Update()
     {
         if (timerRunning && !(destroyArete))
@@ -84,7 +82,6 @@ public class DungeonTimer : MonoBehaviour
         asyncLoad.allowSceneActivation = true;
         asyncLoad.completed += OnSceneLoaded;
     }
-
     void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();

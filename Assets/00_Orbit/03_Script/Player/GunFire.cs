@@ -1,6 +1,4 @@
 using AlterunaFPS;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -27,6 +25,7 @@ public class GunFire : MonoBehaviour
         //총 변경시 체크
         BulletCheck();
     }
+
     private void Awake()
     {
         currentBullet = maxBullet;
@@ -51,19 +50,6 @@ public class GunFire : MonoBehaviour
         currentBullet--;
         UIManager.Instance.UpdateCurrentBullet(currentBullet);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ReloadBullet()
     {
         currentBullet = maxBullet;
@@ -76,9 +62,7 @@ public class GunFire : MonoBehaviour
         FireBullet(0, FirePoint.position, FirePoint.forward);
     }
 
-
     //EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
-
     private void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
     {
 
@@ -132,5 +116,4 @@ public class GunFire : MonoBehaviour
                 Debug.DrawLine(hits[i - 1].point, hits[i].point, color, duration);
         }
     }
-
 }
