@@ -5,8 +5,8 @@ public class PlayerStats : MonoBehaviour
     private int maxHealth = 100;
     private int maxMana = 100;
     private int maxExperience = 100;
-    public int currentHealth { get; private set; }
-    public int currentMana { get; private set; }
+    public int currentHealth { get; private set; } = 100;
+    public int currentMana { get; private set; } = 100;
     public int currentExperience { get; private set; } = 0;
     public int level { get; private set; } = 1;
 
@@ -46,7 +46,7 @@ public class PlayerStats : MonoBehaviour
 
         UIManager.Instance.UpdateStats("health", currentHealth);
         UIManager.Instance.UpdateStats("mana", currentMana);
-        UIManager.Instance.UpdateStats("exp", currentHealth);
+        UIManager.Instance.UpdateStats("exp", currentExperience);
         UIManager.Instance.UpdateStats("level", level);
     }
 
