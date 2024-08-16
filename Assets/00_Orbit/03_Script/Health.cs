@@ -20,8 +20,7 @@ namespace AlterunaFPS
 		public float HealthPoints = 0f;
 		private float MaxPoints = 0f;
 
-        [SerializeField]
-        private Slider HPBar;
+        public Slider HPBar;
 
         public UnityEvent<ushort> OnDeath;
 		
