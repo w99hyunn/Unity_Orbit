@@ -61,19 +61,58 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.14f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Presets.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Editor.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Separator.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_TagLayer.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Folder.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Initializer.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Separator.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_GameObject.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\InitShiftUI.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Folder.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Inspector_Folder.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Resources.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Tools.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_GeneralSettings.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Editor\FPSControllerSettingsEditor.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\UIManagerEditor.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\GroupCheck.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_AdvancedSettings.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_SerializableList.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDgroupcustomInspector.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_MenuItems.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDActiveElementCustinspector.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_RenameTool.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_GameObject.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_AdvancedSettings.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Constants.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_GeneralSettings.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ToolsMaster.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Attributes.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Presets.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_DesignSettings.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcreatorcustinsp.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcustomInspector.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Separator.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_ColorUtility.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_EnumFilter.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_TextureLoader.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Presets.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_ShortcutsSettings.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\ExtendedColorPicker.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Folder.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_DesignSettings.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\ToolsMenu.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Data.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDzonecustomInspector.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_GUI.cs" />
+    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ShortcutSettings.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDLevelCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Hierarchy Designer\Editor\Documentation\Hierarchy Designer Patch Notes.TXT" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
