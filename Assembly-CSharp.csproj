@@ -68,7 +68,6 @@
     <Compile Include="Assets\00_Orbit\03_Script\Crypto\CryptoUtility.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\LookUI.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\SplashSceneManager.cs" />
-    <Compile Include="Assets\00_Orbit\05_Prefab\Character\EfxManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\SunLight.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSController.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\UIElementSound.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonTimer.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\AutoSaver.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Manager\UIManager.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Panel\MainPanelButtonParent.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovementSettings.cs" />
@@ -150,6 +150,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonEntrance.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\TipText.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveAnim.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Player\EfxManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Player\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\ScopeAttachment.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\Source Demos\FreeCamera.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="Assets\ShiftUI\Scripts\Input\VirtualCursorAnimate.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\GameManager.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\Managers\AutoSaveManager.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\ShortcutButton.cs" />
@@ -190,7 +190,6 @@
     <None Include="Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap.shader" />
     <None Include="Assets\ShiftUI\Shaders\Masked UI Blur.shader" />
-    <None Include="Assets\SineVFX\TranslucentCrystals\_SRP\!!!_ReadBeforeImport_!!!.txt" />
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Surface-Mobile.shader" />
@@ -209,7 +208,6 @@
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
     <None Include="Assets\SineVFX\TranslucentCrystals\Resources\Shaders\Crystal.shader" />
     <None Include="Assets\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Surface.cginc" />
-    <None Include="Assets\Hierarchy Designer\Hierarchy Designer Welcome!.txt" />
     <None Include="Assets\TextMesh Pro\Regacy\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\WaterSimple.shader" />

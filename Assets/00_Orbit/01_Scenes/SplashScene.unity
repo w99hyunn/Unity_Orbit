@@ -1174,6 +1174,37 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4756529627017833054}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &750710573
+GameObject:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 750710574}
+  m_Layer: 0
+  m_Name: //Managers
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 2800000, guid: 4724f3b6006a28f4ca8f7de7bf926d39, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &750710574
+Transform:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750710573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &782774959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1366,37 @@ MonoBehaviour:
   useCustomColor: 0
   colorType: 1
   fontType: 1
+--- !u!1 &826701529
+GameObject:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 826701530}
+  m_Layer: 0
+  m_Name: //Canvas
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 2800000, guid: 4724f3b6006a28f4ca8f7de7bf926d39, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &826701530
+Transform:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826701529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1002275287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,7 +2200,7 @@ GameObject:
   - component: {fileID: 1836245013}
   - component: {fileID: 1836245015}
   m_Layer: 0
-  m_Name: SplashManager
+  m_Name: SplashSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2907,8 +2969,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 271671673}
+  - {fileID: 750710574}
+  - {fileID: 1836245014}
+  - {fileID: 826701530}
   - {fileID: 274449921}
   - {fileID: 1313541999}
-  - {fileID: 1836245014}
   - {fileID: 2016780393}
   - {fileID: 212351470}
