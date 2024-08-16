@@ -13,58 +13,72 @@ public class UIManager : MonoBehaviour
     public GameObject ZoneName;
     public GameObject lockBack;
     public GameObject unlockBack;
-    public TMP_Text zoneNameText; // 변수명 변경
-    public TMP_Text minimapZoneNameText; // 변수명 변경
-    public TMP_Text liberatedText; // 변수명 변경
+    public TMP_Text zoneNameText;
+    public TMP_Text minimapZoneNameText;
+    public TMP_Text liberatedText;
 
     public TMP_Text currentBulletText;
     public TMP_Text maxBulletText;
 
-    [Header("팁가이드")]
-    public GameObject TipKey;
-    private TMP_Text TipText;
-    private TMP_Text TipKeys;
+    [Header("우하단 키가이드")]
+    public GameObject tipKey;
+    private TMP_Text tipText;
+    private TMP_Text tipKeyText;
+
+    [Header("상호작용 키가이드")]
+    public GameObject interactionKey;
+    private TMP_Text interactionText;
+    private TMP_Text interactionKeyText;
 
     [Header("스크립트 텍스트")]
     public GameObject scriptText;
 
+    [Header("태양(직접광)")]
     public Light sun; // SUN 오브젝트
 
     [Header("플레이어 스탯")]
     public Slider healthBar;
     public Slider manaBar;
-
     public TMP_Text healthText;
     public TMP_Text manaText;
     public TMP_Text levelText;
     public TMP_Text xpText;
-
     public CanvasGroup screenFlashCanvasGroup;
     private bool isFlashing = false;
 
+    [Header("게임오버시")]
     public UnityEvent onGameover;
 
     private void Start()
     {
-        Transform TipTextTransform = TipKey.transform.Find("TipText");
-        TipText = TipTextTransform.gameObject.GetComponent<TMP_Text>();
-
-        Transform TipKeysTransform = TipKey.transform.Find("Tipkey");
-        TipKeys = TipKeysTransform.gameObject.GetComponent<TMP_Text>();
-
-        GameObject lightObject = GameObject.Find("Directional Light");
+        tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
+        tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
+        interactionText = interactionKey.transform.Find("interactionText").gameObject.GetComponent<TMP_Text>();
+        interactionKeyText = interactionKey.transform.Find("interactionKeyText").gameObject.GetComponent<TMP_Text>();
     }
 
-    public void TipKey_Enable(string Title, string Key)
+    public void interactionKeyEnable(string title, string key)
     {
-        TipKey.SetActive(true);
-        TipText.text = Title;
-        TipKeys.text = Key;
+        interactionKey.SetActive(true);
+        interactionText.text = title;
+        interactionKeyText.text = key;
     }
 
-    public void TipKey_Disable()
+    public void interactionKeyDisable()
     {
-        TipKey.SetActive(false);
+        interactionKey.SetActive(false);
+    }
+
+    public void tipKeyEnable(string title, string key)
+    {
+        tipKey.SetActive(true);
+        tipText.text = title;
+        tipKeyText.text = key;
+    }
+
+    public void tipKeyDisable()
+    {
+        tipKey.SetActive(false);
     }
 
     private void Awake()

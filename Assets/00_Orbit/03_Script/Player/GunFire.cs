@@ -7,7 +7,7 @@ public class GunFire : MonoBehaviour
     public int maxBullet = 30;
     public int currentBullet;
 
-    public Transform FirePoint;
+    public Transform firePoint;
     public AudioClip shootSound;
     public AudioClip clipOutSound;
     public AudioClip clipInSound;
@@ -35,11 +35,11 @@ public class GunFire : MonoBehaviour
     {
         if (currentBullet <= (maxBullet / 3))
         {
-            UIManager.Instance.TipKey_Enable("재장전", "R");
+            UIManager.Instance.tipKeyEnable("재장전", "R");
         }
         else
         {
-            UIManager.Instance.TipKey_Disable();
+            UIManager.Instance.tipKeyDisable();
         }
     }
 
@@ -59,7 +59,7 @@ public class GunFire : MonoBehaviour
 
     public void Fire()
     {
-        FireBullet(0, FirePoint.position, FirePoint.forward);
+        FireBullet(0, firePoint.position, firePoint.forward);
     }
 
     //EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시

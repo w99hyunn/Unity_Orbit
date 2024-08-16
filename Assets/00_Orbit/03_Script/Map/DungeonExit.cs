@@ -18,7 +18,7 @@ public class DungeonExit : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = true;
-            UIManager.Instance.TipKey_Enable("던전 퇴장", "F");
+            UIManager.Instance.interactionKeyEnable("던전 퇴장", "F");
         }
     }
     private void OnTriggerStay(Collider other)
@@ -37,7 +37,7 @@ public class DungeonExit : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = false;
-            UIManager.Instance.TipKey_Disable();
+            UIManager.Instance.interactionKeyDisable();
         }
     }
 
@@ -56,7 +56,7 @@ public class DungeonExit : MonoBehaviour
             GameManager.Instance.PlaySound(exitSound);
             isLoading = true;
             DungeonManager.Instance.UpdateDungeonLoading("아레테가 파괴되었습니다.", GameManager.Instance.currentZoneName + " 구역이 해방됩니다!", "원래 있던 곳으로 돌아갑니다.", 1);
-            UIManager.Instance.TipKey_Disable();
+            UIManager.Instance.interactionKeyDisable();
             StartCoroutine(LoadDungeonSceneAfterDelay(3f));
         }
         else

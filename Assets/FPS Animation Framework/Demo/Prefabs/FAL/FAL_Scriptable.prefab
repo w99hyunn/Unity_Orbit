@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBullet: 30
   currentBullet: 0
-  FirePoint: {fileID: 2715795482767151549}
+  firePoint: {fileID: 2715795482767151549}
   shootSound: {fileID: 8300000, guid: 8581f806dddef8046b4942de05b897be, type: 3}
   clipOutSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
   clipInSound: {fileID: 8300000, guid: eb5685b26a6494994af389a3293064e8, type: 3}
@@ -299,7 +299,7 @@ MonoBehaviour:
   defaultAimPoint: {fileID: 105817931825604440}
 --- !u!95 &7307489893473480553
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -313,6 +313,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -398,6 +399,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

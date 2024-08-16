@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBullet: 12
   currentBullet: 0
-  FirePoint: {fileID: 807225738118481201}
+  firePoint: {fileID: 807225738118481201}
   shootSound: {fileID: 8300000, guid: 230d59294c9857140b63dd308ea4bd63, type: 3}
   clipOutSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
   clipInSound: {fileID: 8300000, guid: eb5685b26a6494994af389a3293064e8, type: 3}
@@ -600,7 +600,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3602806972434536129
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -614,6 +614,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
