@@ -9,6 +9,9 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"last_search.66F56946" = "Cursor."
+	"OpenInspectorPreview.66F56946" = "0"
+	"currentGroup.66F56946" = null
 }
 providers = {
 	asset = {
@@ -56,10 +59,16 @@ providers = {
 		priority = 210
 		defaultAction = null
 	}
+	presets_provider = {
+		active = false
+		priority = -10
+		defaultAction = null
+	}
 }
 objectSelectors = {
 }
 recentSearches = [
+	"Cursor"
 ]
 searchItemFavorites = [
 ]

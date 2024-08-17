@@ -2,85 +2,72 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace AlterunaFPS
+public class Health : MonoBehaviour
 {
-	public class Health : MonoBehaviour
+	public Health Parent;
+		
+	[Space]
+	public EfxManager.ImpactType MaterialType = EfxManager.ImpactType.Stone;
+		
+	public float PenetrationResistance = 0.5f;
+	public float DamageMultiplier = 1f;
+	public float HealthPoints = 0f;
+	private float MaxPoints = 0f;
+
+    public Slider HPBar;
+
+    public UnityEvent<ushort> OnDeath;
+		
+	// Only apply once per health family.
+	private float _lastDamage;
+	private int _lastDamageIndex;
+
+	public bool Alive
 	{
-		[Header("아레테인지 유무")]
-		public bool isArete = false;
-		private Arete arete;
-
-		public Health Parent;
-		
-		[Space]
-		public EfxManager.ImpactType MaterialType = EfxManager.ImpactType.Stone;
-		
-		public float PenetrationResistance = 0.5f;
-		public float DamageMultiplier = 1f;
-		public float HealthPoints = 0f;
-		private float MaxPoints = 0f;
-
-        public Slider HPBar;
-
-        public UnityEvent<ushort> OnDeath;
-		
-		// Only apply once per health family.
-		private float _lastDamage;
-		private int _lastDamageIndex;
-
-		public bool Alive
+		get
 		{
-			get
-			{
-				return HealthPoints > 0f;
-			}
+			return HealthPoints > 0f;
 		}
+	}
 
-        private void Start()
-        {
-			MaxPoints = HealthPoints;
-			if (isArete == true)
-			{
-				arete = GetComponent<Arete>();
-			}
-        }
+    private void Start()
+    {
+		MaxPoints = HealthPoints;
+    }
 
-        public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
+    public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
 
-		private void TakeDamage(ushort senderID, float damage, int damageIndex)
+	private void TakeDamage(ushort senderID, float damage, int damageIndex)
+	{
+		damage *= DamageMultiplier;
+
+		// Check if damage is already applied.
+		if (_lastDamageIndex == damageIndex)
 		{
-			damage *= DamageMultiplier;
-
-			// Check if damage is already applied.
-			if (_lastDamageIndex == damageIndex)
-			{
-				// Undo last damage before applying new damage.
-				if (damage > _lastDamage)
-					TakeDamage(senderID, -_lastDamage, damageIndex);
-				// If new damage is less than last damage, ignore.
-				else return;
-			}
-			_lastDamage = damage;
-			_lastDamageIndex = damageIndex;
+			// Undo last damage before applying new damage.
+			if (damage > _lastDamage)
+				TakeDamage(senderID, -_lastDamage, damageIndex);
+			// If new damage is less than last damage, ignore.
+			else return;
+		}
+		_lastDamage = damage;
+		_lastDamageIndex = damageIndex;
 			
-			// apply damage
-			if (Parent != null)
-			{
-				Parent.TakeDamage(senderID, damage);
-			}
-			else if (Alive)
-			{
-				HealthPoints -= damage;
-                HPBar.value = HealthPoints / MaxPoints;
+		// apply damage
+		if (Parent != null)
+		{
+			Parent.TakeDamage(senderID, damage);
+		}
+		else if (Alive)
+		{
+			HealthPoints -= damage;
+            HPBar.value = HealthPoints / MaxPoints;
 
-				if (HealthPoints <= 0f)
-				{
-					HealthPoints = 0f;
-					Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
-					if (isArete == true)
-                        arete.Destroy_Arete();
-                }
-			}
+			if (HealthPoints <= 0f)
+			{
+				HealthPoints = 0f;
+				Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
+            }
 		}
 	}
 }

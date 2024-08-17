@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System.Collections;
-using Michsky.UI.Shift;
 using TMPro;
 
 /* 추후 아레테가 파괴됨을 이벤트 처리 필요 */
@@ -52,6 +50,17 @@ public class DungeonTimer : MonoBehaviour
         }
     }
 
+    public void Destroy_Arete()
+    {
+        destroyArete = true;
+        string currentZoneName = GameManager.Instance.currentZoneName;
+        GameManager.Instance.LiberateZone(currentZoneName);
+
+        // UI 업데이트
+        bool isLiberated = GameManager.Instance.IsZoneLiberated(currentZoneName);
+        UIManager.Instance.UpdateZoneInfo(currentZoneName, isLiberated);
+    }
+
     void StartTimer()
     {
         timerRunning = true;
@@ -87,5 +96,4 @@ public class DungeonTimer : MonoBehaviour
         Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
         GameManager.Instance.SetPos(lastPosition);
     }
-
 }

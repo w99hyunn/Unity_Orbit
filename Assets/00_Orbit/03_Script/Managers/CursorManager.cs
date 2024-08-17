@@ -1,6 +1,3 @@
-using Michsky.UI.Shift;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,11 +27,11 @@ public class CursorManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+        //if (Input.GetKey(KeyCode.LeftAlt))
+        //{
+        //    Cursor.visible = true;
+        //    Cursor.lockState = CursorLockMode.None;
+        //}
     }
 
     public void BackToMain()

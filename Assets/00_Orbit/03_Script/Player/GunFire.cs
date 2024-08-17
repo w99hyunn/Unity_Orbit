@@ -1,4 +1,3 @@
-using AlterunaFPS;
 using System.Linq;
 using UnityEngine;
 
