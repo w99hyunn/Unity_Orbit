@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6651019229847151980}
-  - component: {fileID: 4567859435762645468}
   - component: {fileID: 634773304105050297}
   - component: {fileID: 4696234172300342164}
   - component: {fileID: 5693957555855691593}
   - component: {fileID: 6805415605554177333}
+  - component: {fileID: 1209788110980257190}
   m_Layer: 0
   m_Name: "\uB4DC\uB860"
   m_TagString: Untagged
@@ -36,22 +36,9 @@ Transform:
   m_Children:
   - {fileID: 8075397619408977135}
   - {fileID: 9052085121721360360}
+  - {fileID: 1612617418872949662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4567859435762645468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268019018704504733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba18c8f0544b224c9687d27f58d4e07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 1.5
-  runSpeed: 3
 --- !u!114 &634773304105050297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6588a2901dc9f429dbeaf224878fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetRecognitionRange: 8
+  pursuitLimitRange: 10
+  projectilePrefab: {fileID: 450896457331262593, guid: 7ba686002306b494fbef0cc28eb3c8db,
+    type: 3}
+  projectileSpawnPoint: {fileID: 1612617418872949662}
+  attackRange: 5
+  attackRate: 1
 --- !u!195 &4696234172300342164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -129,6 +123,64 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 4, z: 0}
+--- !u!54 &1209788110980257190
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268019018704504733}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &508414982019804423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612617418872949662}
+  m_Layer: 0
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612617418872949662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508414982019804423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6651019229847151980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3866747123635090202
 PrefabInstance:
   m_ObjectHideFlags: 0

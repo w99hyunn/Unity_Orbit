@@ -4,19 +4,35 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public enum EnemyState { None = -1, Idle = 0, Wander, }
+public enum EnemyState { None = -1, Idle = 0, Wander, Pursuit, Attack, }
 
 public class EnemyFSM : MonoBehaviour
 {
-    private EnemyState enemyState = EnemyState.None;
-    private Status status;
-    private NavMeshAgent navMeshAgent;
+    [Header("Pursuit")]
+    public float targetRecognitionRange = 8; //pursuit으로 변경될 범위
+    public float pursuitLimitRange = 10; //추적 범위 > 이 범위 나가면 Wander
 
-    private void Awake()
+    [Header("Attack")]
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPoint;
+    public float attackRange = 5; // 공격 범위
+    public float attackRate = 1; // 공속
+
+
+    private EnemyState enemyState = EnemyState.None;
+    private float lastAttackTime = 0; //공격주기
+
+    //private Status status;
+    private NavMeshAgent navMeshAgent;
+    private Transform target; //적 공격 대상
+
+    //private void Awake()
+    public void Setup(Transform target)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        status = GetComponent<Status>();
+        //status = GetComponent<Status>();
         navMeshAgent.updateRotation = false;
+        this.target = target;
     }
 
     private void OnEnable()
@@ -46,6 +62,7 @@ public class EnemyFSM : MonoBehaviour
 
         while (true)
         {
+            CalculateDistanceToTargetAndSelectState();
             yield return null;
         }
 
@@ -67,7 +84,8 @@ public class EnemyFSM : MonoBehaviour
         float maxTime = 10;
 
         // 이동 속도 설정
-        navMeshAgent.speed = status.WalkSpeed;
+        //navMeshAgent.speed = status.WalkSpeed;
+        navMeshAgent.speed = 1.5f;
 
         // 목표 위치 설정
         navMeshAgent.SetDestination(CalculateWanderPosition());
@@ -88,6 +106,7 @@ public class EnemyFSM : MonoBehaviour
             {
                 ChangeState(EnemyState.Idle);
             }
+            CalculateDistanceToTargetAndSelectState();
             yield return null;
         }
     }
@@ -126,22 +145,96 @@ public class EnemyFSM : MonoBehaviour
         return position;
     }
 
-    /*
+    private IEnumerator Pursuit()
+    {
+        while (true)
+        {
+            navMeshAgent.speed = 3f;
+
+            navMeshAgent.SetDestination(target.position);
+
+            LookRotationToTarget(); //타겟방향 주시
+
+            CalculateDistanceToTargetAndSelectState(); //타겟과의 거리에 따라 행동 선택
+
+            yield return null;
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        navMeshAgent.ResetPath();
+
+        while(true)
+        {
+            LookRotationToTarget();
+            CalculateDistanceToTargetAndSelectState();
+
+            if (Time.time - lastAttackTime > attackRate)
+            {
+                lastAttackTime = Time.time;
+
+                GameObject clone = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                clone.GetComponent<EnemyProjectile>().Setup(target.position);
+            }
+            yield return null;
+        }
+    }
+
+    private void LookRotationToTarget()
+    {
+        // Target의 위치를 향한 벡터 계산 (x, y, z 모두 포함)
+        Vector3 directionToTarget = target.position - transform.position;
+
+        // directionToTarget 벡터의 길이를 1로 설정 (정규화)
+        directionToTarget.Normalize();
+
+        // 방향 벡터로부터의 회전 계산
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        // 회전을 적용하되, x축 회전을 포함하여 적용
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+
+    }
+
+    private void CalculateDistanceToTargetAndSelectState()
+    {
+        if (target == null) return;
+
+        //플레이어와 적 사이 거리
+        float distance = Vector3.Distance(target.position, transform.position);
+
+
+        if (distance <= attackRange)
+        {
+            ChangeState(EnemyState.Attack);
+        }
+        else if (distance <= targetRecognitionRange)
+        {
+            ChangeState(EnemyState.Pursuit);
+        }
+        else if (distance >= pursuitLimitRange)
+        {
+            ChangeState(EnemyState.Wander);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawRay(transform.position, navMeshAgent.destination - transform.position);
-    }
-    */
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y+4f, transform.position.z), navMeshAgent.destination - transform.position);
+
+        //목표인식 범위
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, targetRecognitionRange);
+
+        //추적범위
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, pursuitLimitRange);
+
+        //공격범위
+        Gizmos.color = new Color(0.39f, 0.04f, 0.04f);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
