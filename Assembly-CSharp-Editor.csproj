@@ -61,58 +61,58 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.15f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Presets.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Editor.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Separator.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_TagLayer.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Folder.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Initializer.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Separator.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_GameObject.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Separator.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_SerializableList.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_TagLayer.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Folder.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_EnumFilter.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ShortcutSettings.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_DesignSettings.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\InitShiftUI.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Folder.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Inspector_Folder.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Resources.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Tools.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_GeneralSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Attributes.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_ColorUtility.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_AdvancedSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Separator.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Presets.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Editor\FPSControllerSettingsEditor.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\UIManagerEditor.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\GroupCheck.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_AdvancedSettings.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_SerializableList.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDgroupcustomInspector.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_MenuItems.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Tools.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDActiveElementCustinspector.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_RenameTool.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_GameObject.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_AdvancedSettings.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Constants.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_GeneralSettings.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ToolsMaster.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Attributes.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Presets.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_DesignSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Separator.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Presets.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_GameObject.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_RenameTool.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_AdvancedSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Folder.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_DesignSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Data.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Inspector_Folder.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcreatorcustinsp.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Editor.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcustomInspector.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Separator.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_ColorUtility.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_EnumFilter.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_TextureLoader.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Presets.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_ShortcutsSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_GUI.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Resources.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Constants.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\ExtendedColorPicker.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Folder.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_DesignSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Presets.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Initializer.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_TextureLoader.cs" />
     <Compile Include="Assets\ShiftUI\Editor\Scripts\ToolsMenu.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Data.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDzonecustomInspector.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_GUI.cs" />
-    <Compile Include="Assets\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ShortcutSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_MenuItems.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_ShortcutsSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_GeneralSettings.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_GameObject.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ToolsMaster.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Folder.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDLevelCreator.cs" />
+    <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_GeneralSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Hierarchy Designer\Editor\Documentation\Hierarchy Designer Patch Notes.TXT" />
+    <None Include="Assets\Settings\Hierarchy Designer\Editor\Documentation\Hierarchy Designer Patch Notes.TXT" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1135,10 +1135,6 @@
       <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Splines.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.InputSystem.ForUI">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
       <Private>False</Private>
@@ -1151,24 +1147,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualEffectGraph.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+    <Reference Include="Unity.AI.Navigation">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Collections.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
@@ -1179,10 +1163,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
       <Private>False</Private>
@@ -1191,8 +1171,8 @@
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Timeline">
@@ -1203,28 +1183,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.Shared.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Splines">
@@ -1243,20 +1207,80 @@
       <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Rendering.LightTransport.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Rendering.LightTransport.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Splines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Splines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Collections.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Collections.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Updater">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst">
@@ -1267,16 +1291,8 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Rendering.LightTransport.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Rendering.LightTransport.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Rendering.LightTransport.Runtime">
@@ -1301,6 +1317,10 @@
       <Project>{E055B6F0-5BE9-FC05-7A56-2CA1F957D0C0}</Project>
       <Name>ScriptableWidget.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Editor.csproj">
+      <Project>{491CDBEE-1E10-06CF-3EDB-2782461E24CB}</Project>
+      <Name>FPSAnimationFramework.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="FPSAnimationFramework.Runtime.csproj">
       <Project>{5C3A13C3-56D8-C1BB-9D95-602B28709DF7}</Project>
       <Name>FPSAnimationFramework.Runtime</Name>
@@ -1308,10 +1328,6 @@
     <ProjectReference Include="KAnimationCore.Runtime.csproj">
       <Project>{8511E28F-0A29-6D1C-2945-B2BD8B48A384}</Project>
       <Name>KAnimationCore.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="FPSAnimationFramework.Editor.csproj">
-      <Project>{491CDBEE-1E10-06CF-3EDB-2782461E24CB}</Project>
-      <Name>FPSAnimationFramework.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

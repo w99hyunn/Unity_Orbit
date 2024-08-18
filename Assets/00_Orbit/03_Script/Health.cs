@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
 	public float HealthPoints = 0f;
 	private float MaxPoints = 0f;
 
+	public int expPoints = 100;
 	public GameObject enemyUI;
 	private EnemyUI enemyUIcanvas;
     private Slider hpSlider;
@@ -76,7 +77,9 @@ public class Health : MonoBehaviour
             if (HealthPoints <= 0f)
 			{
 				HealthPoints = 0f;
-				Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
+				PlayerStats.Instance.GainExperience(expPoints);
+
+                Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
             }
 		}
 	}

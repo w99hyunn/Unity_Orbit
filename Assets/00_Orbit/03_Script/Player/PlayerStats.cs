@@ -17,7 +17,7 @@ public class PlayerStats : MonoBehaviour
 
     public static event System.Action OnPlayerStatsInitialized;
 
-    private static PlayerStats Instance;
+    public static PlayerStats Instance;
 
     private void Awake()
     {

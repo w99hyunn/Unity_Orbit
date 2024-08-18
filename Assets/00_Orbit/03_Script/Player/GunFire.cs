@@ -5,6 +5,7 @@ public class GunFire : MonoBehaviour
 {
     public int maxBullet = 30;
     public int currentBullet;
+    public float damage = 10f;
 
     public Transform firePoint;
     public AudioClip shootSound;
@@ -58,7 +59,7 @@ public class GunFire : MonoBehaviour
 
     public void Fire()
     {
-        FireBullet(0, firePoint.position, firePoint.forward);
+        FireBullet(0, firePoint.position, firePoint.forward, 10f, damage);
     }
 
     //EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
