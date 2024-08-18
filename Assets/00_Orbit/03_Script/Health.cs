@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class Health : MonoBehaviour
 	public float HealthPoints = 0f;
 	private float MaxPoints = 0f;
 
-    public Slider HPBar;
+	public GameObject enemyUI;
+	private EnemyUI enemyUIcanvas;
+    private Slider hpSlider;
+    private TMP_Text enemyName;
 
     public UnityEvent<ushort> OnDeath;
 		
@@ -33,6 +37,11 @@ public class Health : MonoBehaviour
     private void Start()
     {
 		MaxPoints = HealthPoints;
+
+        hpSlider = enemyUI.GetComponentInChildren<Slider>();
+		enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
+        enemyName.text = this.gameObject.name;
+        enemyUIcanvas = enemyUI.GetComponent<EnemyUI>();
     }
 
     public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
@@ -61,9 +70,10 @@ public class Health : MonoBehaviour
 		else if (Alive)
 		{
 			HealthPoints -= damage;
-            HPBar.value = HealthPoints / MaxPoints;
+            enemyUIcanvas.ShowCanvasGroup();
+            hpSlider.value = HealthPoints / MaxPoints;
 
-			if (HealthPoints <= 0f)
+            if (HealthPoints <= 0f)
 			{
 				HealthPoints = 0f;
 				Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
