@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using static UnityEngine.UI.Image;
 
 public enum EnemyState { None = -1, Idle = 0, Wander, Pursuit, Attack, }
 
@@ -26,6 +27,12 @@ public class EnemyFSM : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Transform target; //적 공격 대상
 
+    private AudioSource audioSource;
+    public AudioClip shotSound;
+
+    [Header("하위 모델링 회전 관련")]
+    public Transform eyeTransform;
+
     //private void Awake()
     public void Setup(Transform target)
     {
@@ -33,6 +40,11 @@ public class EnemyFSM : MonoBehaviour
         //status = GetComponent<Status>();
         navMeshAgent.updateRotation = false;
         this.target = target;
+    }
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -74,7 +86,7 @@ public class EnemyFSM : MonoBehaviour
         int changeTime = Random.Range(1, 5);
 
         yield return new WaitForSeconds(changeTime);
-
+        RestoreRotationToTarget(); //회전값 원위치
         ChangeState(EnemyState.Wander);
     }
 
@@ -94,6 +106,7 @@ public class EnemyFSM : MonoBehaviour
         Vector3 to = new Vector3(navMeshAgent.destination.x, 0, navMeshAgent.destination.z);
         Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
         transform.rotation = Quaternion.LookRotation(to - from);
+
 
         while (true)
         {
@@ -176,6 +189,8 @@ public class EnemyFSM : MonoBehaviour
 
                 GameObject clone = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
                 clone.GetComponent<EnemyProjectile>().Setup(target.position);
+                EfxManager.Instance.PlayBullet(projectileSpawnPoint.position, projectileSpawnPoint.forward, 40f / 100f);
+                PlaySound(shotSound);
             }
             yield return null;
         }
@@ -183,18 +198,24 @@ public class EnemyFSM : MonoBehaviour
 
     private void LookRotationToTarget()
     {
-        // Target의 위치를 향한 벡터 계산 (x, y, z 모두 포함)
-        Vector3 directionToTarget = target.position - transform.position;
+        if (target == null || eyeTransform == null) return;
 
-        // directionToTarget 벡터의 길이를 1로 설정 (정규화)
+        // 타겟을 향한 방향 벡터 계산
+        Vector3 directionToTarget = target.position - eyeTransform.position;
+
+        // directionToTarget 벡터 정규화
         directionToTarget.Normalize();
 
-        // 방향 벡터로부터의 회전 계산
+        // 회전 계산
         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
 
-        // 회전을 적용하되, x축 회전을 포함하여 적용
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        // 눈의 회전을 부드럽게 조정
+        eyeTransform.rotation = Quaternion.Slerp(eyeTransform.rotation, targetRotation, Time.deltaTime * 5f);
+    }
 
+    private void RestoreRotationToTarget()
+    {
+        eyeTransform.rotation = Quaternion.Slerp(eyeTransform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 5f);
     }
 
     private void CalculateDistanceToTargetAndSelectState()
@@ -237,4 +258,11 @@ public class EnemyFSM : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
 }

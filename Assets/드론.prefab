@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4696234172300342164}
   - component: {fileID: 5693957555855691593}
   - component: {fileID: 6805415605554177333}
-  - component: {fileID: 1209788110980257190}
+  - component: {fileID: 1682687491525927840}
   m_Layer: 0
   m_Name: "\uB4DC\uB860"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 8075397619408977135}
   - {fileID: 9052085121721360360}
-  - {fileID: 1612617418872949662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &634773304105050297
@@ -53,11 +52,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRecognitionRange: 8
   pursuitLimitRange: 10
-  projectilePrefab: {fileID: 450896457331262593, guid: 7ba686002306b494fbef0cc28eb3c8db,
+  projectilePrefab: {fileID: 5416920202388465431, guid: 626dab4bed4d5ab4694973f446e2d8b2,
     type: 3}
   projectileSpawnPoint: {fileID: 1612617418872949662}
   attackRange: 5
   attackRate: 1
+  shotSound: {fileID: 8300000, guid: 2793c2fb16f84674d814e1492da970d2, type: 3}
+  eyeTransform: {fileID: 9052085121721360360}
 --- !u!195 &4696234172300342164
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -123,33 +124,104 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 4, z: 0}
---- !u!54 &1209788110980257190
-Rigidbody:
+--- !u!82 &1682687491525927840
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268019018704504733}
+  m_Enabled: 1
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
+  OutputAudioMixerGroup: {fileID: 243485103152924164, guid: a9e5d729576b0a5478cec30207263369,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
     serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &508414982019804423
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,12 +246,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508414982019804423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 1.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6651019229847151980}
+  m_Father: {fileID: 9052085121721360360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3866747123635090202
 PrefabInstance:
@@ -337,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 532181848740398251, guid: a2baf755580658246ab3d05ef253813d,
         type: 3}
       propertyPath: m_Name
-      value: Drone_LODs
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 876337426076098065, guid: a2baf755580658246ab3d05ef253813d,
         type: 3}
@@ -392,7 +464,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7564696133760199648, guid: a2baf755580658246ab3d05ef253813d, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 876337426076098065, guid: a2baf755580658246ab3d05ef253813d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612617418872949662}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2baf755580658246ab3d05ef253813d, type: 3}
 --- !u!4 &9052085121721360360 stripped

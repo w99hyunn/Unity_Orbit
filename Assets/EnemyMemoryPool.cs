@@ -6,12 +6,9 @@ public class EnemyMemoryPool : MonoBehaviour
     public Transform target;
 
     public GameObject enemySpawnPointPrefab; //적 등장 위치 알려주는 프리팹
-    [SerializeField]
-    private GameObject enemyPrefab; //적 프리팹
-    [SerializeField]
-    private float enemySpawnTime = 1; //적 생성 주기
-    [SerializeField]
-    private float enemySpawnLatency = 1; //타일 생성 후 적이 등장하기까지 대기 시간
+    public GameObject enemyPrefab; //적 프리팹
+    public float enemySpawnTime = 1; //적 생성 주기
+    public float enemySpawnLatency = 1; //타일 생성 후 적이 등장하기까지 대기 시간
 
     private MemoryPool spawnPointMemoryPool; //적 등장 위치를 알려주는 프리팹의 활성 비활성관리
     private MemoryPool enemyMemoryPool; //적 생성과 활성 비활성관리
