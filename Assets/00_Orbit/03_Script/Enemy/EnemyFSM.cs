@@ -19,11 +19,9 @@ public class EnemyFSM : MonoBehaviour
     public float attackRange = 5; // 공격 범위
     public float attackRate = 1; // 공속
 
-
     private EnemyState enemyState = EnemyState.None;
     private float lastAttackTime = 0; //공격주기
 
-    //private Status status;
     private NavMeshAgent navMeshAgent;
     private Transform target; //적 공격 대상
 
@@ -33,11 +31,12 @@ public class EnemyFSM : MonoBehaviour
     [Header("하위 모델링 회전 관련")]
     public Transform eyeTransform;
 
-    //private void Awake()
+    // 현재 실행 중인 코루틴을 추적
+    private IEnumerator currentCoroutine;
+
     public void Setup(Transform target)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //status = GetComponent<Status>();
         navMeshAgent.updateRotation = false;
         this.target = target;
     }
@@ -54,7 +53,12 @@ public class EnemyFSM : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(enemyState.ToString());
+        // 활성화된 모든 코루틴을 안전하게 종료
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
+        }
         enemyState = EnemyState.None;
     }
 
@@ -62,10 +66,35 @@ public class EnemyFSM : MonoBehaviour
     {
         if (enemyState == newState) return;
 
-        StopCoroutine(enemyState.ToString());
+        // 이전 코루틴을 안전하게 종료
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
+        }
+
         enemyState = newState;
 
-        StartCoroutine(enemyState.ToString());
+        // 새로운 상태에 맞는 코루틴을 시작
+        currentCoroutine = HandleState(newState);
+        StartCoroutine(currentCoroutine);
+    }
+
+    private IEnumerator HandleState(EnemyState state)
+    {
+        switch (state)
+        {
+            case EnemyState.Idle:
+                return Idle();
+            case EnemyState.Wander:
+                return Wander();
+            case EnemyState.Pursuit:
+                return Pursuit();
+            case EnemyState.Attack:
+                return Attack();
+            default:
+                return null;
+        }
     }
 
     IEnumerator Idle()
@@ -77,16 +106,14 @@ public class EnemyFSM : MonoBehaviour
             CalculateDistanceToTargetAndSelectState();
             yield return null;
         }
-
     }
 
     IEnumerator AutoChangeFromIdleToWander()
     {
-        // 1~4초 시간 대기
         int changeTime = Random.Range(1, 5);
 
         yield return new WaitForSeconds(changeTime);
-        RestoreRotationToTarget(); //회전값 원위치
+        RestoreRotationToTarget();
         ChangeState(EnemyState.Wander);
     }
 
@@ -95,24 +122,17 @@ public class EnemyFSM : MonoBehaviour
         float currentTime = 0;
         float maxTime = 10;
 
-        // 이동 속도 설정
-        //navMeshAgent.speed = status.WalkSpeed;
         navMeshAgent.speed = 1.5f;
-
-        // 목표 위치 설정
         navMeshAgent.SetDestination(CalculateWanderPosition());
 
-        // 목표 위치로 회전
         Vector3 to = new Vector3(navMeshAgent.destination.x, 0, navMeshAgent.destination.z);
         Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
         transform.rotation = Quaternion.LookRotation(to - from);
-
 
         while (true)
         {
             currentTime += Time.deltaTime;
 
-            // 목표위치에 근접하게 도달하거나 너무 오랜시간동안 배회하기 상태에 머물러 있으면
             to = new Vector3(navMeshAgent.destination.x, 0, navMeshAgent.destination.z);
             from = new Vector3(transform.position.x, 0, transform.position.z);
             if ((to - from).sqrMagnitude < 0.01f || currentTime >= maxTime)
@@ -126,21 +146,14 @@ public class EnemyFSM : MonoBehaviour
 
     private Vector3 CalculateWanderPosition()
     {
+        float wanderRadius = 10;
+        int wanderJitter = Random.Range(0, 360);
 
-        float wanderRadius = 10;// 현재 위치를 원점으로 하는 원의 반지름
-        int wanderJitter = 0;// 선택된 각도 (wanderJitterMin ~ wanderJitterMax)
-        int wanderJitterMin = 0;// 최소 각도
-        int wanderJitterMax = 360;// 최대 각도
-
-        // 현재 적 캐릭터가 있는 월드의 중심 위치와 크기 (구역을 벗어난 행동을 하지 않도록)
         Vector3 rangePosition = transform.position;
         Vector3 rangeScale = Vector3.one * 100.0f;
 
-        // 자신의 위치를 중심으로 반지름(wanderRadius) 거리, 선택된 각도(wanderJitter)에 위치한 좌표를 목표지점으로 설정
-        wanderJitter = Random.Range(wanderJitterMin, wanderJitterMax);
         Vector3 targetPosition = transform.position + SetAngle(wanderRadius, wanderJitter);
 
-        // 생성된 목표위치가 자신의 이동구역을 벗어나지 않게 조절
         targetPosition.x = Mathf.Clamp(targetPosition.x, rangePosition.x - rangeScale.x * 0.5f, rangePosition.x + rangeScale.x * 0.5f);
         targetPosition.y = 0.0f;
         targetPosition.z = Mathf.Clamp(targetPosition.z, rangePosition.z - rangeScale.z * 0.5f, rangePosition.z + rangeScale.z * 0.5f);
@@ -160,15 +173,17 @@ public class EnemyFSM : MonoBehaviour
 
     private IEnumerator Pursuit()
     {
+        navMeshAgent.speed = 3f;
+
         while (true)
         {
-            navMeshAgent.speed = 3f;
+            if (navMeshAgent.destination != target.position)
+            {
+                navMeshAgent.SetDestination(target.position);
+            }
 
-            navMeshAgent.SetDestination(target.position);
-
-            LookRotationToTarget(); //타겟방향 주시
-
-            CalculateDistanceToTargetAndSelectState(); //타겟과의 거리에 따라 행동 선택
+            LookRotationToTarget();
+            CalculateDistanceToTargetAndSelectState();
 
             yield return null;
         }
@@ -178,7 +193,7 @@ public class EnemyFSM : MonoBehaviour
     {
         navMeshAgent.ResetPath();
 
-        while(true)
+        while (true)
         {
             LookRotationToTarget();
             CalculateDistanceToTargetAndSelectState();
@@ -191,6 +206,8 @@ public class EnemyFSM : MonoBehaviour
                 clone.GetComponent<EnemyProjectile>().Setup(target.position);
                 EfxManager.Instance.PlayBullet(projectileSpawnPoint.position, projectileSpawnPoint.forward, 40f / 100f);
                 PlaySound(shotSound);
+
+                Destroy(clone, 5f); // 5초 후 발사체 제거
             }
             yield return null;
         }
@@ -200,16 +217,9 @@ public class EnemyFSM : MonoBehaviour
     {
         if (target == null || eyeTransform == null) return;
 
-        // 타겟을 향한 방향 벡터 계산
         Vector3 directionToTarget = target.position - eyeTransform.position;
-
-        // directionToTarget 벡터 정규화
         directionToTarget.Normalize();
-
-        // 회전 계산
         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-
-        // 눈의 회전을 부드럽게 조정
         eyeTransform.rotation = Quaternion.Slerp(eyeTransform.rotation, targetRotation, Time.deltaTime * 5f);
     }
 
@@ -222,9 +232,7 @@ public class EnemyFSM : MonoBehaviour
     {
         if (target == null) return;
 
-        //플레이어와 적 사이 거리
         float distance = Vector3.Distance(target.position, transform.position);
-
 
         if (distance <= attackRange)
         {
@@ -244,17 +252,14 @@ public class EnemyFSM : MonoBehaviour
     {
 #if UNITY_EDITOR
         Gizmos.color = Color.black;
-        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y+4f, transform.position.z), navMeshAgent.destination - transform.position);
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 4f, transform.position.z), navMeshAgent.destination - transform.position);
 
-        //목표인식 범위
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, targetRecognitionRange);
 
-        //추적범위
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, pursuitLimitRange);
 
-        //공격범위
         Gizmos.color = new Color(0.39f, 0.04f, 0.04f);
         Gizmos.DrawWireSphere(transform.position, attackRange);
 #endif

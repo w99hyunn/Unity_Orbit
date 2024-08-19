@@ -69,9 +69,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\Managers\SplashSceneManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\SunLight.cs" />
-    <Compile Include="Assets\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
-    <Compile Include="Assets\ShaderGraph_Dissolve\Utility\Scripts\Rotator.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Panel\SplashScreenManager.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\MainMenu.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDScene.cs" />
@@ -96,7 +94,6 @@
     <Compile Include="Assets\00_Orbit\03_Script\Managers\DungeonManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\UIManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\FloorChangeTrigger.cs" />
-    <Compile Include="Assets\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDCameraSwitchKey.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyProjectile.cs" />
@@ -169,7 +166,6 @@
     <Compile Include="Assets\ShiftUI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\ShortcutButton.cs" />
-    <Compile Include="Assets\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Event\PressKeyEvent.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Manager\UIManagerImage.cs" />
@@ -189,7 +185,6 @@
     <Compile Include="Assets\ShiftUI\Scripts\Event\PointerEnterEvents.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Manager\UIManagerText.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\FavoriteButton.cs" />
-    <Compile Include="Assets\ShaderGraph_Dissolve\Utility\Scripts\DissolveChilds.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\PauseMenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1231,6 +1226,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.MemoryProfiler.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.MemoryProfiler.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Cinemachine.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Cinemachine.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1261,6 +1260,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.MemoryProfiler">
+      <HintPath>Library\ScriptAssemblies\Unity.MemoryProfiler.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Splines">
@@ -1319,6 +1322,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1337,6 +1344,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.MemoryProfiler.Editor.MemoryProfilerModule">
+      <HintPath>Library\ScriptAssemblies\Unity.MemoryProfiler.Editor.MemoryProfilerModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
