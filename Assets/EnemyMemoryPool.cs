@@ -24,7 +24,11 @@ public class EnemyMemoryPool : MonoBehaviour
     {
         spawnPointMemoryPool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(enemySpawnPointPrefab),
-            actionOnGet: item => item.SetActive(true),
+            actionOnGet: item =>
+            {
+                item.SetActive(true);
+                item.name = enemySpawnPointPrefab.name; // 이름 변경
+            },
             actionOnRelease: item => item.SetActive(false),
             actionOnDestroy: Destroy,
             collectionCheck: false,
@@ -34,7 +38,11 @@ public class EnemyMemoryPool : MonoBehaviour
 
         enemyMemoryPool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(enemyPrefab),
-            actionOnGet: item => item.SetActive(true),
+            actionOnGet: item =>
+            {
+                item.SetActive(true);
+                item.name = enemyPrefab.name; // 이름 변경
+            },
             actionOnRelease: item => item.SetActive(false),
             actionOnDestroy: Destroy,
             collectionCheck: false,
