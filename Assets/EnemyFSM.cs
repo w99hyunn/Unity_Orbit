@@ -242,6 +242,7 @@ public class EnemyFSM : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         Gizmos.color = Color.black;
         Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y+4f, transform.position.z), navMeshAgent.destination - transform.position);
 
@@ -256,6 +257,7 @@ public class EnemyFSM : MonoBehaviour
         //공격범위
         Gizmos.color = new Color(0.39f, 0.04f, 0.04f);
         Gizmos.DrawWireSphere(transform.position, attackRange);
+#endif
     }
 
     public void PlaySound(AudioClip clip)
