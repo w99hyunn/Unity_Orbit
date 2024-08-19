@@ -9,6 +9,7 @@ using System.Collections;
 public class DungeonEntrance : MonoBehaviour
 {
     public AudioClip entranceSound;
+    public HintTrigger hintTrigger;
 
     private bool isLoading = false;
     private bool isPlayerInTrigger = false;
@@ -51,6 +52,10 @@ public class DungeonEntrance : MonoBehaviour
         if (isLiberated)
         {
             UIManager.Instance.ScriptText_Enable("이미 해방된 구역이다. 굳이 들어갈 필요 없겠어.");
+        }
+        else if (true == hintTrigger.IsEnemyInTrigger())
+        {
+            UIManager.Instance.ScriptText_Enable("근처에 감시 드론이 있어 들어가면 들킬 위험이 있겠어.");
         }
         else
         {
