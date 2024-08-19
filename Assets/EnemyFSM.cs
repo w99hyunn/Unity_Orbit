@@ -133,7 +133,7 @@ public class EnemyFSM : MonoBehaviour
         int wanderJitterMax = 360;// 최대 각도
 
         // 현재 적 캐릭터가 있는 월드의 중심 위치와 크기 (구역을 벗어난 행동을 하지 않도록)
-        Vector3 rangePosition = Vector3.zero;
+        Vector3 rangePosition = transform.position;
         Vector3 rangeScale = Vector3.one * 100.0f;
 
         // 자신의 위치를 중심으로 반지름(wanderRadius) 거리, 선택된 각도(wanderJitter)에 위치한 좌표를 목표지점으로 설정
@@ -150,7 +150,7 @@ public class EnemyFSM : MonoBehaviour
 
     Vector3 SetAngle(float radius, float angle)
     {
-        Vector3 position = Vector3.zero;
+        Vector3 position = transform.position;
 
         position.x = Mathf.Cos(angle) * radius;
         position.z = Mathf.Sin(angle) * radius;

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMemoryPool : MonoBehaviour
 {
@@ -14,7 +15,6 @@ public class EnemyMemoryPool : MonoBehaviour
     private MemoryPool enemyMemoryPool; //적 생성과 활성 비활성관리
 
     private int numberOfEnemiesSpawnedAtOnce = 1; //동시 생성되는 적 숫자
-    private Vector2Int mapSize = new Vector2Int(100, 100); //맵 크기
 
     private void Awake()
     {
@@ -36,17 +36,23 @@ public class EnemyMemoryPool : MonoBehaviour
             {
                 GameObject item = spawnPointMemoryPool.ActivatePoolItem();
 
-                item.transform.position = new Vector3(Random.Range(-mapSize.x * 0.49f, mapSize.x * 0.49f), 1,
-                                                      Random.Range(-mapSize.y * 0.49f, mapSize.y * 0.49f));
+                // 현재 오브젝트의 스케일 값을 사용하여 맵의 범위를 자동 설정
+                Vector3 scale = transform.localScale;
+                Vector3 spawnPosition = new Vector3(
+                    Random.Range(-scale.x * 0.5f, scale.x * 0.5f),
+                    1,
+                    Random.Range(-scale.z * 0.5f, scale.z * 0.5f)
+                );
+
+                item.transform.position = transform.position + spawnPosition;
 
                 StartCoroutine("SpawnEnemy", item);
-
             }
 
             currentNumber++;
 
             if (currentNumber >= maximumNumber)
-            { 
+            {
                 currentNumber = 0;
                 numberOfEnemiesSpawnedAtOnce++;
             }
@@ -61,7 +67,22 @@ public class EnemyMemoryPool : MonoBehaviour
 
         // 적 오브젝트를 생성하고, 적의 위치를 point의 위치로 설정
         GameObject item = enemyMemoryPool.ActivatePoolItem();
+
         item.transform.position = point.transform.position;
+
+        // NavMeshAgent를 비활성화 후 위치 설정 후 재활성화
+        var navMeshAgent = item.GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.enabled = false;
+        }
+
+        item.transform.position = point.transform.position;
+
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.enabled = true;
+        }
 
         item.GetComponent<EnemyFSM>().Setup(target);
 
