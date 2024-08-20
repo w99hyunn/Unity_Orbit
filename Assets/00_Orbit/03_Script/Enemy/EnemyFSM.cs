@@ -65,16 +65,6 @@ public class EnemyFSM : MonoBehaviour
         currentStateCoroutine = StartCoroutine(currentState.ToString());
     }
 
-    IEnumerator Idle()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(1, 5));
-            RestoreRotationToTarget();
-            yield return StartCoroutine(Wander());
-        }
-    }
-
     IEnumerator Wander()
     {
         float currentTime = 0;
@@ -90,18 +80,46 @@ public class EnemyFSM : MonoBehaviour
             Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 direction = to - from;
 
-            if (direction != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            }
-
             if (direction.sqrMagnitude < 0.01f)
             {
-                break;
+                // 목표 위치에 도착하면 Idle 상태로 전환
+                ChangeState(EnemyState.Idle);
+                yield break;
             }
 
+            if (CalculateDistanceToTargetAndSelectState() != EnemyState.Wander)
+            {
+                // 다른 상태로 전환해야 할 경우
+                ChangeState(CalculateDistanceToTargetAndSelectState());
+                yield break;
+            }
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+
             yield return null;
+        }
+
+        // 일정 시간이 지나면 Idle 상태로 전환
+        ChangeState(EnemyState.Idle);
+    }
+
+    IEnumerator Idle()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(1, 5));
+
+            // Idle 상태 중에도 상태를 계산해 전환
+            EnemyState newState = CalculateDistanceToTargetAndSelectState();
+            if (newState != EnemyState.Idle)
+            {
+                ChangeState(newState);
+                yield break;
+            }
+
+            RestoreRotationToTarget();
+            yield return StartCoroutine(Wander());
         }
     }
 
