@@ -18,16 +18,13 @@ public class EnemyMemoryPool : MonoBehaviour
     [Header("처음 시작시 생성할 몬스터 수")]
     public int initSpawnMonster = 3;
 
-    private void Start()
+    private void Awake()
     {
         if (target == null)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
-    }
 
-    private void Awake()
-    {
         enemyMemoryPool = new ObjectPool<GameObject>(
             createFunc: () => Instantiate(enemyPrefab),
             actionOnGet: item =>
