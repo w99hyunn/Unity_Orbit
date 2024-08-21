@@ -62,7 +62,14 @@ public class GunFire : MonoBehaviour
         FireBullet(0, firePoint.position, firePoint.forward, 10f, damage);
     }
 
-    //EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
+    /// <summary>
+    /// EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
+    /// </summary>
+    /// <param name="senderID"></param>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="penetration"></param>
+    /// <param name="damage"></param>
     private void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
     {
 

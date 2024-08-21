@@ -7,13 +7,18 @@ public class EnemyUI : MonoBehaviour
     private CanvasGroup canvasGroup;
     private Coroutine fadeCoroutine;
 
-    void Start()
+    void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
         }
         canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    public void OnDisable()
+    {
+        canvasGroup.alpha = 0;
     }
 
     public void ShowCanvasGroup()

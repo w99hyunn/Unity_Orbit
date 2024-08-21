@@ -12,22 +12,23 @@ public class Health : MonoBehaviour
 		
 	public float PenetrationResistance = 0.5f;
 	public float DamageMultiplier = 1f;
-	public float HealthPoints = 0f;
-	private float MaxPoints = 0f;
-
-	public int expPoints = 100;
+	private float HealthPoints = 0f;
+	[Header("몬스터 HP")]
+	public float MaxPoints = 0f;
+    [Header("몬스터가 주는 EXP")]
+    public int expPoints = 100;
 	public GameObject enemyUI;
 	private EnemyUI enemyUIcanvas;
     private Slider hpSlider;
     private TMP_Text enemyName;
 
-    public UnityEvent<ushort> OnDeath;
+	[Header("죽었을 때 이벤트")]
+    public UnityEvent OnDeath;
 		
-	// Only apply once per health family.
 	private float _lastDamage;
 	private int _lastDamageIndex;
 
-	public bool Alive
+    public bool Alive
 	{
 		get
 		{
@@ -35,14 +36,20 @@ public class Health : MonoBehaviour
 		}
 	}
 
-    private void Start()
+    private void Awake()
     {
-		MaxPoints = HealthPoints;
-
         hpSlider = enemyUI.GetComponentInChildren<Slider>();
-		enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
-        enemyName.text = this.gameObject.name;
+        enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
         enemyUIcanvas = enemyUI.GetComponent<EnemyUI>();
+
+        Setup();
+    }
+
+	public void Setup()
+	{
+        HealthPoints = MaxPoints;
+        hpSlider.value = HealthPoints / MaxPoints;
+        enemyName.text = this.gameObject.name;
     }
 
     public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
@@ -79,8 +86,11 @@ public class Health : MonoBehaviour
 				HealthPoints = 0f;
 				PlayerStats.Instance.GainExperience(expPoints);
 
-                Destroy(this.gameObject); // 피 0되면 파괴! 다른 로직도 추가하면될듯
+                //온데스 이벤트
+                OnDeath.Invoke();
+                // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
+                //Destroy(this.gameObject); 
             }
-		}
+        }
 	}
 }

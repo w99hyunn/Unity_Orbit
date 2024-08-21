@@ -2,10 +2,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
-/* 
- * 던전 입장 Trigger 스크립트
- * 최대한 던전 매니저에서 중앙 처리
- */
+/// <summary>
+/// 던전 입장 Trigger 스크립트
+/// 최대한 던전 매니저에서 중앙 처리
+/// </summary>
 public class DungeonEntrance : MonoBehaviour
 {
     public AudioClip entranceSound;

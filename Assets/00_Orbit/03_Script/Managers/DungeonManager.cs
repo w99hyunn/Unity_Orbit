@@ -30,10 +30,13 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    /* 
-     * 던전 로딩 화면
-     * UnityEvent로 애니메이션과 코루틴 처리
-     */
+    /// <summary>
+    /// 던전 로딩 화면 UnityEvent로 애니메이션과 코루틴 처리
+    /// </summary>
+    /// <param name="t1">UI 첫번째 줄(작은 글씨)</param>
+    /// <param name="t2">UI 두번째 줄(큰 글씨)</param>
+    /// <param name="t3">UI 세번째 줄(작은 글씨)</param>
+    /// <param name="success">0 = 기본 배경, 1 = 성공, 2 = 실패</param>
     public void UpdateDungeonLoading(string t1, string t2, string t3, int success = 0)
     {
         onDungeonEnter.Invoke();

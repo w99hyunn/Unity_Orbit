@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public enum EnemyState { None = -1, Idle = 0, Wander, Pursuit, Attack }
 
@@ -30,11 +31,33 @@ public class EnemyFSM : MonoBehaviour
 
     private Coroutine currentStateCoroutine;
 
-    public void Setup(Transform target)
+    public System.Action OnDeath;
+    private EnemyMemoryPool spawnPool; // 자신을 생성한 Pool을 기록(구역 트리거)
+
+    public UnityEvent OnSetup;
+
+    public void Setup(Transform target, EnemyMemoryPool pool)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         this.target = target;
+        spawnPool = pool; // 자신을 생성한 Pool 저장
+        ResetState();
+    }
+
+    // 몬스터의 상태를 초기화하는 메서드
+    public void ResetState()
+    {
+        transform.rotation = Quaternion.identity; // 회전값 초기화
+        eyeTransform.localRotation = Quaternion.identity; // 시선 방향 초기화
+        OnSetup.Invoke();
+    }
+
+    // 몬스터 죽었을 때
+    public void Die()
+    {
+        // 사망 처리 로직...
+        OnDeath?.Invoke(); // 사망 시 풀로 반환
     }
 
     private void Start()
