@@ -9168,12 +9168,24 @@ MonoBehaviour:
   MaterialType: 3
   PenetrationResistance: 0.5
   DamageMultiplier: 1
-  HealthPoints: 500
+  MaxPoints: 1000
   expPoints: 1200
   enemyUI: {fileID: 189686198}
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 960433952}
+        m_TargetAssemblyTypeName: Arete, Assembly-CSharp
+        m_MethodName: OnDestroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &960433954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9370,13 +9382,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  enemySpawnPointPrefab: {fileID: 6723558821900375353, guid: 6093cbc64b7c78647af1c1d5b1b6b705,
-    type: 3}
   enemyPrefab: {fileID: 268019018704504733, guid: a707d02d1ec8a9d429ab1dddd5a125a4,
     type: 3}
   enemySpawnTime: 10
   enemySpawnLatency: 1
   initSpawnMonster: 5
+  maxTotalEnemies: 20
 --- !u!65 &994158631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15707,7 +15718,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.25
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: ebd8c0ea4bef6bf4aa4d54bfcc2f09fd, type: 2}
   m_BuildHeightMesh: 0
@@ -16619,12 +16630,12 @@ PrefabInstance:
     - target: {fileID: 1146990920771725134, guid: e5208889ea100dd4b97d1faad9e3f31f,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1146990920771725134, guid: e5208889ea100dd4b97d1faad9e3f31f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5024013173215219701, guid: e5208889ea100dd4b97d1faad9e3f31f,
         type: 3}
