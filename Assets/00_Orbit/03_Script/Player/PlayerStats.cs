@@ -70,6 +70,12 @@ public class PlayerStats : MonoBehaviour
         UpdateUI();
     }
 
+    public void Healing(int index)
+    {
+        currentHealth = Mathf.Min(currentHealth + index, maxHealth);
+        UpdateUI();
+    }
+
     void RegenerateHealth()
     {
         currentHealth = Mathf.Min(currentHealth + (int)healthRegenRate, maxHealth);

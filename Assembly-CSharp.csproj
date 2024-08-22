@@ -88,6 +88,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\Arete.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovementSettings.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\AttachmentGroup.cs" />
+    <Compile Include="Assets\ViapixGames\HealingItem\Package Scripts\Viapix_HealingItem.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\HintTrigger.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Other\EditorDemoPositionFix.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\ShiftUI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\SettingsButton.cs" />
+    <Compile Include="Assets\RootBox.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\VirtualCursor.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\ScreenshotMaker.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
@@ -1324,10 +1326,6 @@
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor">
