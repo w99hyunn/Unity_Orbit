@@ -36,6 +36,32 @@ public class EnemyFSM : MonoBehaviour
 
     public UnityEvent OnSetup;
 
+    [Header("떠다니는 높이(y)")]
+    public float floatAmplitude = 0.5f; // 떠다니는 높이
+
+    [Header("떠다니는 속도(y)")]
+    public float floatFrequency = 1f; // 떠다니는 속도
+    private float timeOffset; // 각 오브젝트의 시간 오프셋
+
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        ChangeState(EnemyState.Idle);
+    }
+
+    private void Update()
+    {
+        EnemyState newState = CalculateDistanceToTargetAndSelectState();
+        if (newState != currentState)
+        {
+            ChangeState(newState);
+        }
+        // y축 움직임 (딜레이 적용)
+        float newY = transform.position.y + Mathf.Sin((Time.time + timeOffset) * floatFrequency) * floatAmplitude;
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+    }
+
     public void Setup(Transform target, EnemyMemoryPool pool)
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -43,6 +69,8 @@ public class EnemyFSM : MonoBehaviour
         this.target = target;
         spawnPool = pool; // 자신을 생성한 Pool 저장
         ResetState();
+
+        timeOffset = Random.Range(1f, 8f);
     }
 
     // 몬스터의 상태를 초기화하는 메서드
@@ -58,21 +86,6 @@ public class EnemyFSM : MonoBehaviour
     {
         // 사망 처리 로직...
         OnDeath?.Invoke(); // 사망 시 풀로 반환
-    }
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        ChangeState(EnemyState.Idle);
-    }
-
-    private void Update()
-    {
-        EnemyState newState = CalculateDistanceToTargetAndSelectState();
-        if (newState != currentState)
-        {
-            ChangeState(newState);
-        }
     }
 
     private void ChangeState(EnemyState newState)
