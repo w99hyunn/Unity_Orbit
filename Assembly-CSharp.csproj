@@ -88,7 +88,6 @@
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\Arete.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovementSettings.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\AttachmentGroup.cs" />
-    <Compile Include="Assets\ViapixGames\HealingItem\Package Scripts\Viapix_HealingItem.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\HintTrigger.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Other\EditorDemoPositionFix.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZoneTrigger.cs" />
@@ -96,6 +95,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\Managers\UIManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\FloorChangeTrigger.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveColGo.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Map\DungeonEntranceVFX.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDCameraSwitchKey.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyProjectile.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Other\ScrollForMore.cs" />
@@ -125,7 +125,6 @@
     <Compile Include="Assets\ShiftUI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\SettingsButton.cs" />
-    <Compile Include="Assets\RootBox.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\VirtualCursor.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\ScreenshotMaker.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\MainPanelButton.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Manager\UIManagerGameLogo.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\QuickMatchButton.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Item\RootBox.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDLevel.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\MovementTransform.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbit.cs" />
@@ -166,6 +166,7 @@
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\GameManager.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\SliderGamepadManager.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Item\RootBoxSpawner.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Buttons\ShortcutButton.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\CharControlSimple.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Panel\ModalWindowManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyFSM.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Item\HealingItem.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\ObjectRemover.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\ScaleInLightmapSetter.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Event\PointerEnterEvents.cs" />
@@ -192,7 +194,7 @@
   <ItemGroup>
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\SineVFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
+    <None Include="Assets\VFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap.shader" />
@@ -213,7 +215,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
-    <None Include="Assets\SineVFX\TranslucentCrystals\Resources\Shaders\Crystal.shader" />
+    <None Include="Assets\VFX\TranslucentCrystals\Resources\Shaders\Crystal.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Surface.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
@@ -224,6 +226,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ShiftUI\Shaders\UI Blur.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\VFX\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
     <None Include="Assets\ShiftUI\Shaders\Glitch\Glitch.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Sprite.shader" />
   </ItemGroup>
