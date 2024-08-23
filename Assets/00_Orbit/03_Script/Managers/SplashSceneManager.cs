@@ -4,26 +4,32 @@ using UnityEngine.SceneManagement;
 
 public class SplashSceneManager : MonoBehaviour
 {
-    public GameObject warningCanvas;
-    public string loadScene;
-    public float endDelay = 6.0f;
+    public GameObject canvasA;
+    public GameObject canvasB;
+    public GameObject canvasC;
+    public GameObject canvas_Loading;
+    public string nextSceneName;
+    public float delayBetweenCanvases = 6.0f;
 
     private AsyncOperation asyncLoad;
 
     private void Start()
     {
-        warningCanvas.SetActive(false);
+        //canvasA.SetActive(true);
+        canvasB.SetActive(false);
+        canvasC.SetActive(false);
+        canvas_Loading.SetActive(false);
 
         Cursor.visible = false;
         StartCoroutine(LoadSceneAsync());
+
         StartCoroutine(SwitchCanvasAndLoadScene());
     }
 
-    /* 비동기 씬 로딩 */
     private IEnumerator LoadSceneAsync()
     {
-        asyncLoad = SceneManager.LoadSceneAsync(loadScene);
-        asyncLoad.allowSceneActivation = false; 
+        asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
+        asyncLoad.allowSceneActivation = false;
         yield return asyncLoad;
     }
 
@@ -31,9 +37,15 @@ public class SplashSceneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        warningCanvas.SetActive(true);
+        //canvasA.SetActive(false);
+        canvasB.SetActive(true);
+        canvas_Loading.SetActive(true);
 
-        yield return new WaitForSeconds(endDelay);
+        yield return new WaitForSeconds(delayBetweenCanvases);
+        canvasB.SetActive(false);
+        canvasC.SetActive(true);
+
+        yield return new WaitForSeconds(delayBetweenCanvases);
 
         Cursor.visible = true;
         asyncLoad.allowSceneActivation = true;
