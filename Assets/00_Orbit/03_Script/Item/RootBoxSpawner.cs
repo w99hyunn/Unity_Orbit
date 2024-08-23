@@ -50,7 +50,14 @@ public class RootBoxSpawner : MonoBehaviour
 
         spawnedObject.GetComponent<RootBox>().OnDestroyed += () =>
         {
-            occupiedSpawnPoints.Remove(randomSpawnPoint);
+            StartCoroutine(HandleSpawnPointCooldown(randomSpawnPoint));
         };
+    }
+
+    IEnumerator HandleSpawnPointCooldown(Transform spawnPoint)
+    {
+        // 루트 상자 파괴 후 15초 지나야 스폰 포인트 다시 사용 가능(힐템이 15초간 지속)
+        yield return new WaitForSeconds(15f);
+        occupiedSpawnPoints.Remove(spawnPoint);
     }
 }
