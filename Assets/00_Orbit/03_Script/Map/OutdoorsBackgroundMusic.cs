@@ -27,7 +27,7 @@ public class OutdoorsBackgroundMusic : MonoBehaviour
 
         while (true)
         {
-            float waitTime = Random.Range(240f, 400f);
+            float waitTime = Random.Range(540f, 700f);
             yield return new WaitForSeconds(waitTime);
 
             randomClip = audioClips[Random.Range(0, audioClips.Count)];
