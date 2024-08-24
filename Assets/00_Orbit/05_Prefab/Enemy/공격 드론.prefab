@@ -56,8 +56,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5416920202388465431, guid: 626dab4bed4d5ab4694973f446e2d8b2,
     type: 3}
   projectileSpawnPoint: {fileID: 1612617418872949662}
-  attackRange: 5
-  attackRate: 1
+  attackRange: 4
+  attackRate: 5
   shotSound: {fileID: 8300000, guid: 2793c2fb16f84674d814e1492da970d2, type: 3}
   eyeTransform: {fileID: 9052085121721360360}
   OnSetup:
@@ -75,6 +75,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  floatAmplitude: 0.5
+  floatFrequency: 1
 --- !u!114 &5693957555855691593
 MonoBehaviour:
   m_ObjectHideFlags: 0
