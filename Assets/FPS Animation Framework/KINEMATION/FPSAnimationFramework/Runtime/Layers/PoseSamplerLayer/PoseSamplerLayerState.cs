@@ -89,6 +89,12 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.PoseSamplerLayer
                 _pelvis.rotation = pelvisCache.rotation;
             }
 
+            if (_settings.overwriteWeaponBone)
+            {
+                _weaponBone.position = root.TransformPoint(_settings.defaultWeaponPose.position);
+                _weaponBone.rotation = root.rotation * _settings.defaultWeaponPose.rotation;
+            }
+
             _weaponBoneRight.position = _weaponBone.position;
             _weaponBoneRight.rotation = _weaponBone.rotation;
 

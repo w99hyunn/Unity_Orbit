@@ -7,8 +7,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 {
     public interface IPlayablesController
     {
-        public AnimatorControllerPlayable GetAnimator();
-        
         public bool InitializeController();
         
         public void SetControllerWeight(float weight);

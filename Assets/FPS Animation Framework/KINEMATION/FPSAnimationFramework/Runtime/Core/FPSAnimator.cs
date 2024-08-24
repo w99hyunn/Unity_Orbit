@@ -106,47 +106,5 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
             
             _boneController.LinkAnimatorLayer(newSettings);
         }
-
-        public void SetFloat(int hash, float value)
-        {
-            playablesController.GetAnimator().SetFloat(hash, value);
-        }
-
-        public float GetFloat(int hash)
-        {
-            return playablesController.GetAnimator().GetFloat(hash);
-        }
-        
-        public void SetInt(int hash, int value)
-        {
-            playablesController.GetAnimator().SetInteger(hash, value);
-        }
-        
-        public int GetInt(int hash)
-        {
-            return playablesController.GetAnimator().GetInteger(hash);
-        }
-        
-        public void SetBool(int hash, bool value)
-        {
-            playablesController.GetAnimator().SetBool(hash, value);
-        }
-        
-        public bool GetBool(int hash)
-        {
-            return playablesController.GetAnimator().GetBool(hash);
-        }
-        
-        public void SetTrigger(int hash)
-        {
-            playablesController.GetAnimator().SetTrigger(hash);
-        }
-
-        public void CrossFade(int hash, float blendTime)
-        {
-            playablesController.GetAnimator().CrossFade(hash, blendTime);
-        }
-        
-        
     }
 }

@@ -4,8 +4,6 @@ using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Input;
 
-using System.Collections.Generic;
-
 using UnityEditor;
 using UnityEngine;
 
@@ -14,14 +12,6 @@ using UnityEngine.Playables;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 {
-    public struct CachedAnimatorParameter
-    {
-        public AnimatorControllerParameterType type;
-        public float floatValue;
-        public bool boolValue;
-        public int intValue;
-    }
-    
     [HelpURL("https://kinemation.gitbook.io/scriptable-animation-system/workflow/components")]
     public class FPSPlayablesController : MonoBehaviour, IPlayablesController
     {
@@ -49,14 +39,10 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
         protected AnimationLayerMixerPlayable _dynamicAnimationMixer;
         protected AnimationLayerMixerPlayable _masterMixer;
         
-        protected AnimatorControllerPlayable _controllerPlayable;
-        
         protected UserInputController _inputController;
         protected float _controllerWeight = 1f;
 
         protected int _playablesWeightPropertyIndex;
-
-        protected RuntimeAnimatorController _cachedController;
 
         protected virtual void Update()
         {
@@ -86,11 +72,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
             _playableGraph.Destroy();
         }
 
-        public AnimatorControllerPlayable GetAnimator()
-        {
-            return _controllerPlayable;
-        }
-
         public virtual bool InitializeController()
         {
             if (_playableGraph.IsValid())
@@ -99,7 +80,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
             }
             
             _animator = GetComponent<Animator>();
-            _playableGraph = PlayableGraph.Create("FPSAnimatorGraph");
+            _playableGraph = _animator.playableGraph;
 
             if (!_playableGraph.IsValid())
             {
@@ -115,18 +96,14 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
             _overlayPoseMixer = new FPSAnimatorMixer(_playableGraph, _maxPoseCount, 0);
             _slotMixer = new FPSAnimatorMixer(_playableGraph, _maxAnimCount, 1);
             _overrideMixer = new FPSAnimatorMixer(_playableGraph, _maxAnimCount, 1);
-
-            if (_animator.runtimeAnimatorController is var controller)
-            {
-                _cachedController = controller;
-                _controllerPlayable = AnimatorControllerPlayable.Create(_playableGraph, controller);
-            }
             
             _slotMixer.mixer.ConnectInput(0, _overlayPoseMixer.mixer, 0, 1f);
             _overrideMixer.mixer.ConnectInput(0, _slotMixer.mixer, 0, 1f);
             _dynamicAnimationMixer.ConnectInput(0, _overrideMixer.mixer, 0, 1f);
+
+            var animatorOutput = _playableGraph.GetOutput(0);
             
-            _masterMixer.ConnectInput(0, _controllerPlayable, 0, 1f);
+            _masterMixer.ConnectInput(0, animatorOutput.GetSourcePlayable(), 0, 1f);
             _masterMixer.ConnectInput(1, _dynamicAnimationMixer, 0, 1f);
             
             _masterMixer.SetLayerMaskFromAvatarMask(0, new AvatarMask());
@@ -134,7 +111,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
             
             var output = AnimationPlayableOutput.Create(_playableGraph, "FPSAnimatorGraph", _animator);
             output.SetSourcePlayable(_masterMixer);
-
+                      
             _playableGraph.Play();
             _inputController = GetComponent<UserInputController>();
 
@@ -146,87 +123,12 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 
         public virtual void UpdateAnimatorController(RuntimeAnimatorController newController)
         {
-            if (newController == null || _cachedController == newController)
+            if (newController == null)
             {
                 return;
             }
-
-            _cachedController = newController;
             
-            if (!_controllerPlayable.IsValid())
-            {
-                _controllerPlayable = AnimatorControllerPlayable.Create(_playableGraph, newController);
-                _masterMixer.ConnectInput(0, _controllerPlayable, 0, 1f);
-                return;
-            }
-            
-            Dictionary<int, CachedAnimatorParameter> cachedParams = new Dictionary<int, CachedAnimatorParameter>();
-            
-            int num = _controllerPlayable.GetParameterCount();
-            for (int i = 0; i < num; i++)
-            {
-                var parameter = _controllerPlayable.GetParameter(i);
-                cachedParams.TryAdd(parameter.nameHash, new CachedAnimatorParameter()
-                {
-                    type = parameter.type,
-                    intValue = parameter.type == AnimatorControllerParameterType.Int
-                        ? _controllerPlayable.GetInteger(parameter.nameHash)
-                        : 0,
-                    floatValue = parameter.type == AnimatorControllerParameterType.Float
-                        ? _controllerPlayable.GetFloat(parameter.nameHash)
-                        : 0f,
-                    boolValue = parameter.type == AnimatorControllerParameterType.Bool &&
-                                _controllerPlayable.GetBool(parameter.nameHash),
-                });
-            }
-
-            Dictionary<string, AnimatorStateInfo> cachedStateInfos = new Dictionary<string, AnimatorStateInfo>();
-            num = _controllerPlayable.GetLayerCount();
-            for (int i = 0; i < num; i++)
-            {
-                var stateInfo = _controllerPlayable.GetCurrentAnimatorStateInfo(i);
-                cachedStateInfos.TryAdd(_controllerPlayable.GetLayerName(i), stateInfo);
-            }
-            
-            _masterMixer.DisconnectInput(0);
-            _controllerPlayable = AnimatorControllerPlayable.Create(_playableGraph, newController);
-            
-            num = _controllerPlayable.GetParameterCount();
-            for (int i = 0; i < num; i++)
-            {
-                var parameter = _controllerPlayable.GetParameter(i);
-                if (cachedParams.TryGetValue(parameter.nameHash, out var cachedParameter)
-                    && parameter.type == cachedParameter.type)
-                {
-                    if (parameter.type == AnimatorControllerParameterType.Int)
-                    {
-                        _controllerPlayable.SetInteger(parameter.nameHash, cachedParameter.intValue);
-                    }
-                    
-                    if (parameter.type == AnimatorControllerParameterType.Float)
-                    {
-                        _controllerPlayable.SetFloat(parameter.nameHash, cachedParameter.floatValue);
-                    }
-
-                    if (parameter.type == AnimatorControllerParameterType.Bool)
-                    {
-                        _controllerPlayable.SetBool(parameter.nameHash, cachedParameter.boolValue);
-                    }
-                }
-            }
-            
-            num = _controllerPlayable.GetLayerCount();
-            for (int i = 0; i < num; i++)
-            {
-                string layerName = _controllerPlayable.GetLayerName(i);
-                
-                if (cachedStateInfos.TryGetValue(layerName, out var cachedStateInfo))
-                {
-                    _controllerPlayable.Play(cachedStateInfo.shortNameHash, i, cachedStateInfo.normalizedTime);
-                }
-            }
-            
-            _masterMixer.ConnectInput(0, _controllerPlayable, 0, 1f);
+            _animator.runtimeAnimatorController = newController;
         }
         
         public void SetControllerWeight(float weight)

@@ -1,5 +1,6 @@
 ﻿// Designed by KINEMATION, 2024.
 
+using System;
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Attributes;
 using KINEMATION.KAnimationCore.Runtime.Core;
@@ -40,6 +41,8 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
         protected PlayableGraph _cameraGraph;
 
         protected int _mouseInputPropertyIndex;
+
+        protected Vector3 _defaultPosition;
         
         protected virtual void UpdateCameraShake()
         {
@@ -105,6 +108,8 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
         
         public virtual void Initialize()
         {
+            _defaultPosition = transform.localPosition;
+            
             _camera = GetComponent<UnityEngine.Camera>();
             _inputController = transform.root.gameObject.GetComponentInChildren<UserInputController>();
             _cachedFov = _targetFov = _camera.fieldOfView;
@@ -181,6 +186,11 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Camera
             _cachedFov = _camera.fieldOfView;
             _targetFov = newFov;
             _fovPlayback = 0f;
+        }
+
+        private void Update()
+        {
+            transform.localPosition = _defaultPosition;
         }
 
         private void OnDestroy()

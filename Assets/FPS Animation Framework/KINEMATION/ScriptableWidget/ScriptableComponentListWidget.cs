@@ -14,7 +14,10 @@ namespace KINEMATION.ScriptableWidget
 {
     public class ScriptableComponentListWidget
     {
+        public float headerSpaceRatio = 0.5f;
+        
         public delegate void ComponentAction();
+        
         public delegate void DrawElementHeader(SerializedProperty property, Rect rect);
         public delegate void SelectionAction(int selectedIndex);
 
@@ -166,8 +169,12 @@ namespace KINEMATION.ScriptableWidget
 
                 float singleHeight = EditorGUIUtility.singleLineHeight;
                 rect.y += 1;
-                Rect labelRect = new Rect(rect.x, rect.y, rect.width / 2, singleHeight);
-                Rect buttonRect = new Rect(rect.x + rect.width / 2, rect.y, rect.width / 2, singleHeight);
+
+                float labelWidth = rect.width * headerSpaceRatio;
+                float buttonWidth = rect.width * (1f - headerSpaceRatio);
+                
+                Rect labelRect = new Rect(rect.x, rect.y, labelWidth, singleHeight);
+                Rect buttonRect = new Rect(rect.x + labelWidth, rect.y, buttonWidth, singleHeight);
 
                 string elementName = element.objectReferenceValue.name;
                 if (onDrawComponentHeader != null)

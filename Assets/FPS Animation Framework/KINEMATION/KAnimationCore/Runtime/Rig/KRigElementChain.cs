@@ -77,10 +77,36 @@ namespace KINEMATION.KAnimationCore.Runtime.Rig
             }
         }
 
+        public float GetLength(Transform root = null)
+        {
+            float chainLength = 0f;
+            int count = transformChain.Count;
+
+            if (count > 0 && root == null) root = transformChain[0];
+            
+            for (int i = 0; i < count; i++)
+            {
+                Transform targetBone = transformChain[i];
+                
+                if (count == 1)
+                {
+                    Vector3 targetMS = root.InverseTransformPoint(targetBone.position);
+                    chainLength = targetMS.magnitude;
+                }
+                
+                if (i > 0)
+                {
+                    chainLength += (targetBone.position - transformChain[i - 1].position).magnitude;
+                }
+            }
+
+            return chainLength;
+        }
+
         public bool IsValid()
         {
             if (transformChain == null || cachedTransforms == null) return false;
-            if (transformChain.Count == 0 || cachedTransforms.Count == 0) return false;
+            if (transformChain.Count == 0) return false;
             
             return true;
         }
