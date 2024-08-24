@@ -11,6 +11,11 @@ public class RootBox : MonoBehaviour
     public delegate void DestroyedEventHandler();
     public event DestroyedEventHandler OnDestroyed;
 
+    [Header("루트 사운드")]
+    public AudioClip rootSound;
+    public AudioSource audioSource;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -35,6 +40,7 @@ public class RootBox : MonoBehaviour
         {
             UIManager.Instance.interactionKeyDisable();
             StartCoroutine(dissolveChilds.AnimateDissolve());
+            PlaySound(rootSound);
             StartCoroutine(DestroyAfterDelay(1f));
         }
     }
@@ -53,5 +59,13 @@ public class RootBox : MonoBehaviour
 
         OnDestroyed?.Invoke();
         Destroy(gameObject);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

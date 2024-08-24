@@ -26,6 +26,7 @@ public class FloorChangeTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            UIManager.Instance.interactionKeyEnable("엘리베이터 이용", "F");
             Debug.Log("Press '" + floorChangeKey.ToString() + "' to change floor.");
         }
     }
@@ -35,6 +36,7 @@ public class FloorChangeTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            UIManager.Instance.interactionKeyDisable();
             Debug.Log("Player left the trigger.");
         }
     }

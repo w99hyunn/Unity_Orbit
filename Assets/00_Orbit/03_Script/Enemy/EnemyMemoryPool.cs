@@ -58,16 +58,27 @@ public class EnemyMemoryPool : MonoBehaviour
             maxSize: 30
         );
 
+
+        StartCoroutine(StartSpawnCoroutine());
+        StartCoroutine(SpawnEnemyRoutine());
+    }
+
+    IEnumerator StartSpawnCoroutine()
+    {
+        // 1초 대기
+        yield return new WaitForSeconds(0.5f);
+
+        // 지정된 횟수만큼 적을 생성
         for (int i = 0; i < initSpawnMonster; ++i)
         {
             SpawnEnemy();
         }
-
-        StartCoroutine(SpawnEnemyRoutine());
     }
 
     private IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(0.5f);
+
         int currentNumber = 0;
         int maximumNumber = 5;
 
