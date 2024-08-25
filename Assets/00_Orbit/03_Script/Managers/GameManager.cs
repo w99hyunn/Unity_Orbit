@@ -36,9 +36,6 @@ public class GameManager : MonoBehaviour
     private FPSMovement _controller;
     private PlayerStats _playerStats;
 
-
-    public bool isGameOver = false;
-
     // 인스턴스 던전관련
     public List<ZoneData> zones;
     public string currentZoneName;
@@ -117,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameOver = true;
+        PlayerStats.Instance.playerState = PlayerState.DIE;
         UIManager.Instance.GameOverUI();
         CursorManager.Instance.CustomPause();
     }
@@ -125,7 +122,6 @@ public class GameManager : MonoBehaviour
     // 게임 오버시 체크포인트 불러오기
     public void ContinueGame()
     {
-        isGameOver = false;
         if (SceneManager.GetActiveScene().name == "DungeonScene")
         {
             AsyncLoadScene("OutdoorsScene");
@@ -134,6 +130,7 @@ public class GameManager : MonoBehaviour
         {
             LoadGame();
         }
+
     }
 
     public void AsyncLoadScene(string name)

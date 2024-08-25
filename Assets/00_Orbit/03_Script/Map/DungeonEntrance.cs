@@ -59,6 +59,7 @@ public class DungeonEntrance : MonoBehaviour
         }
         else
         {
+            PlayerStats.Instance.playerState = PlayerState.LOADING;
             GameManager.Instance.PlaySound(entranceSound);
             isLoading = true;
             DungeonManager.Instance.UpdateDungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
@@ -80,6 +81,7 @@ public class DungeonEntrance : MonoBehaviour
     }
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
         GameManager.Instance.SetPos(new Vector3(-31.353f, 7.588f, 3.23f));
         isLoading = false;
     }

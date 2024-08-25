@@ -1,4 +1,13 @@
+using System.Collections;
 using UnityEngine;
+
+public enum PlayerState
+{
+    IDLE,
+    LOADING,
+    DIE,
+    GAMEMASTER,
+};
 
 public class PlayerStats : MonoBehaviour
 {
@@ -15,8 +24,10 @@ public class PlayerStats : MonoBehaviour
     private float healthRegenRate = 5f;
     private float regenInterval = 10f;
 
-    public static event System.Action OnPlayerStatsInitialized;
+    [Header("플레이어 상태")]
+    public PlayerState playerState;
 
+    public static event System.Action OnPlayerStatsInitialized;
     public static PlayerStats Instance;
 
     private void Awake()
@@ -34,9 +45,10 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        playerState = PlayerState.LOADING;
+
         InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
         InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
-
         InitializeStats();
         OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
     }
@@ -52,7 +64,17 @@ public class PlayerStats : MonoBehaviour
 
         this.level = level;
 
+        //시작시 5초간 무적
+        StartCoroutine(ChangePlayerState(5f, PlayerState.IDLE));
+
         UpdateUI();
+    }
+
+    IEnumerator ChangePlayerState(float time, PlayerState playerState)
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("지금..");
+        this.playerState = playerState;
     }
 
     public void InitializeStats()
@@ -67,6 +89,7 @@ public class PlayerStats : MonoBehaviour
 
         level = 1;
 
+        StartCoroutine(ChangePlayerState(5f, PlayerState.IDLE));
         UpdateUI();
     }
 
@@ -103,6 +126,7 @@ public class PlayerStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            playerState = PlayerState.DIE;
             GameManager.Instance.GameOver();
         }
         // 체력 <= 0 death 추가 해야함

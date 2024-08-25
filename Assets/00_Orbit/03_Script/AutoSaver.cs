@@ -19,14 +19,10 @@ public class AutoSaver : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            if (SceneManager.GetActiveScene().name == "OutdoorsScene" && GameManager.Instance.isGameOver == false)
+            if (SceneManager.GetActiveScene().name == "OutdoorsScene" && PlayerStats.Instance.playerState != PlayerState.DIE)
             {
                 SaveButton.onClick.Invoke();
             }
-            //else
-            //{
-            //    Debug.Log("자동저장 요건 충족 X");
-            //}
         }
     }
 }

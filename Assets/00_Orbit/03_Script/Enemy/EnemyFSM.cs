@@ -174,19 +174,26 @@ public class EnemyFSM : MonoBehaviour
     {
         while (true)
         {
-            navMeshAgent.ResetPath();
-            LookRotationToTarget();
-
-            if (Time.time - lastAttackTime > attackRate)
+            if (PlayerStats.Instance.playerState == PlayerState.IDLE)
             {
-                lastAttackTime = Time.time;
+                navMeshAgent.ResetPath();
+                LookRotationToTarget();
 
-                GameObject clone = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-                clone.GetComponent<EnemyProjectile>().Setup(target.position);
-                EfxManager.Instance.PlayBullet(projectileSpawnPoint.position, projectileSpawnPoint.forward, 40f / 100f);
-                PlaySound(shotSound);
+                if (Time.time - lastAttackTime > attackRate)
+                {
+                    lastAttackTime = Time.time;
+
+                    GameObject clone = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                    clone.GetComponent<EnemyProjectile>().Setup(target.position);
+                    EfxManager.Instance.PlayBullet(projectileSpawnPoint.position, projectileSpawnPoint.forward, 40f / 100f);
+                    PlaySound(shotSound);
+                }
+                yield return null;
             }
-            yield return null;
+            else
+            {
+                yield return null;
+            }
         }
     }
 
@@ -258,7 +265,7 @@ public class EnemyFSM : MonoBehaviour
             audioSource.PlayOneShot(clip);
         }
     }
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
@@ -273,4 +280,5 @@ public class EnemyFSM : MonoBehaviour
         Gizmos.color = new Color(0.39f, 0.04f, 0.04f);
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+#endif
 }
