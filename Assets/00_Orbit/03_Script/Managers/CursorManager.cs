@@ -21,17 +21,16 @@ public class CursorManager : MonoBehaviour
 
     void Update()
     {
-        if (pauseMenu == false)
+        if (Input.GetKey(KeyCode.LeftAlt) || pauseMenu == true)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if (pauseMenu == false)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
-
-        //if (Input.GetKey(KeyCode.LeftAlt))
-        //{
-        //    Cursor.visible = true;
-        //    Cursor.lockState = CursorLockMode.None;
-        //}
     }
 
     public void BackToMain()

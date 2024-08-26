@@ -22,6 +22,11 @@ namespace Michsky.UI.Shift
 
         void OnEnable()
         {
+            Setup();
+        }
+
+        public void Setup()
+        {
             if (switchAnimator == null) { switchAnimator = gameObject.GetComponent<Animator>(); }
             if (switchButton == null) { switchButton = gameObject.GetComponent<Button>(); switchButton.onClick.AddListener(AnimateSwitch); }
 

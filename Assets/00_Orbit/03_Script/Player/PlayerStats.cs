@@ -73,7 +73,6 @@ public class PlayerStats : MonoBehaviour
     IEnumerator ChangePlayerState(float time, PlayerState playerState)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("Áö±Ý..");
         this.playerState = playerState;
     }
 
@@ -121,6 +120,7 @@ public class PlayerStats : MonoBehaviour
         {
             currentHealth -= amount;
         }
+        StartCoroutine(UIManager.Instance.FlashScreen());
         UpdateUI();
 
         if (currentHealth <= 0)
@@ -164,16 +164,18 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
         currentMana = maxMana;
 
+        UIManager.Instance.LevelUpStatPlusAlert();
         UpdateUI();
     }
 
     public void UpdateUI()
     {
+        int currentExperiencePercentage = (int)((float)currentExperience / maxExperience *100); 
         int currentHealthPercentage = (int)((float)currentHealth / maxHealth * 100);
         int currentManaPercentage = (int)((float)currentMana / maxMana * 100);
 
         UIManager.Instance.UpdateStats("level", level);
-        UIManager.Instance.UpdateStats("exp", currentExperience);
+        UIManager.Instance.UpdateStats("exp", currentExperiencePercentage);
         UIManager.Instance.UpdateStats("health", currentHealthPercentage);
         UIManager.Instance.UpdateStats("mana", currentManaPercentage);
     }

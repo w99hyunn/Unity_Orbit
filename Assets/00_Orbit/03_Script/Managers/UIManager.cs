@@ -45,6 +45,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text xpText;
     public CanvasGroup screenFlashCanvasGroup;
     private bool isFlashing = false;
+    public CanvasGroup levelUpHpPlusAlert;
+    public CanvasGroup levelUpMpPlusAlert;
 
     [Header("게임오버시")]
     public UnityEvent onGameover;
@@ -211,10 +213,11 @@ public class UIManager : MonoBehaviour
 
         //체력이 20 미만이면 화면 깜빡임 시작
         //추후 Vignette 효과로 대체하면 될듯함
-        if (currentHealthPercentage <= 20 && !isFlashing)
-        {
-            StartCoroutine(FlashScreen());
-        }
+        //if (currentHealthPercentage <= 20 && !isFlashing)
+        //{
+        //    StartCoroutine(FlashScreen());
+        //}
+        //피격시마다 뜨게 변경
     }
     private void UpdateManaUI(int currentManaPercentage)
     {
@@ -230,6 +233,12 @@ public class UIManager : MonoBehaviour
     private void UpdateLevelUI(int level)
     {
         levelText.text = level.ToString();
+    }
+
+    public void LevelUpStatPlusAlert()
+    {
+        StartCoroutine(FadeCanvasGroup(levelUpHpPlusAlert));
+        StartCoroutine(FadeCanvasGroup(levelUpMpPlusAlert));
     }
 
     private IEnumerator SmoothSliderChange(Slider slider, float targetValue)
@@ -248,8 +257,9 @@ public class UIManager : MonoBehaviour
         slider.value = targetValue;
     }
 
-    private IEnumerator FlashScreen()
+    public IEnumerator FlashScreen()
     {
+        StopCoroutine(FlashScreen());
         isFlashing = true;
 
         float flashDuration = 2f;
@@ -278,5 +288,47 @@ public class UIManager : MonoBehaviour
 
         screenFlashCanvasGroup.alpha = 0f;
         isFlashing = false;
+    }
+
+    IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup)
+    {
+        StopCoroutine(FadeIn(canvasGroup));
+
+
+        yield return StartCoroutine(FadeIn(canvasGroup));
+
+        yield return new WaitForSeconds(5f);
+
+        yield return StartCoroutine(FadeOut(canvasGroup));
+    }
+
+    IEnumerator FadeIn(CanvasGroup canvasGroup)
+    {
+        float startAlpha = canvasGroup.alpha;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 1f, elapsedTime / 1f);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 1f;
+    }
+
+    IEnumerator FadeOut(CanvasGroup canvasGroup)
+    {
+        float startAlpha = canvasGroup.alpha;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / 1f);
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0f;
     }
 }
