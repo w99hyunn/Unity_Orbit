@@ -70,15 +70,14 @@ namespace Demo.Scripts.Runtime.Character
         private static int _inspectEndHash = Animator.StringToHash("InspectEnd");
         private static int _slideHash = Animator.StringToHash("Sliding");
 
-
+        /* STARTING: */
         public event Action<int> OnActiveWeaponIndexChanged;
         public event Action<FPSAimState> OnActiveAiming;
-
-
         [Header("달리기 화면 번짐 효과 관련")]
         public Volume localVolume;
         private VolumeProfile profile;
         private ChromaticAberration chromaticAberration;
+        /* */
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -102,7 +101,7 @@ namespace Demo.Scripts.Runtime.Character
 
         private bool IsAiming()
         {
-            //에임상태(줌) 변경될 때 이벤트 발생
+            //STARTING: 에임상태(줌) 변경될 때 이벤트 발생
             OnActiveAiming?.Invoke(_aimState);
             return _aimState is FPSAimState.Aiming or FPSAimState.PointAiming;
         }
@@ -284,8 +283,8 @@ namespace Demo.Scripts.Runtime.Character
             _previousWeaponIndex = _activeWeaponIndex;
             _activeWeaponIndex = newIndex;
 
-            //무기 변경시 이벤트 발생
-            // _activeWeaponIndex == 현재 무기 인덱스
+            //STARTING: 무기 변경시 이벤트 발생
+            //_activeWeaponIndex == 현재 무기 인덱스
             OnActiveWeaponIndexChanged?.Invoke(_activeWeaponIndex);
         }
 
@@ -325,8 +324,13 @@ namespace Demo.Scripts.Runtime.Character
         private void Update()
         {
             Time.timeScale = settings.timeScale;
-            UpdateLookInput();
-            OnMovementUpdated();
+
+            //STARTING: 퍼즈 메뉴가 열려있으면 마우스 회전 X
+            if (false == CursorManager.Instance.pauseMenu)
+            {
+                UpdateLookInput();
+                OnMovementUpdated();
+            }
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -346,7 +350,8 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (IsSprinting()) return;
 
-            if (value.isPressed)
+            //STARTING: Pause메뉴가 열려있으면 총알발사 X
+            if (value.isPressed && !(CursorManager.Instance.pauseMenu))
             {
                 OnFirePressed();
                 return;

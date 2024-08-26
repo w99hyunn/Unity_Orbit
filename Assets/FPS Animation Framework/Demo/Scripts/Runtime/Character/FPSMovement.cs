@@ -93,6 +93,7 @@ namespace Demo.Scripts.Runtime.Character
         private Animator _animator;
         private bool _consumeMoveInput = true;
 
+        // STARTING: 이벤트
         public static event System.Action OnPlayerControllerInitialized;
 
         private float _gaitProgress;
@@ -412,6 +413,7 @@ namespace Demo.Scripts.Runtime.Character
 
             _desiredGait = _cachedGait = movementSettings.idle;
 
+            //STARTING: 이벤트
             OnPlayerControllerInitialized?.Invoke();
         }
 
@@ -472,6 +474,10 @@ namespace Demo.Scripts.Runtime.Character
             }
         }
 
+        /// <summary>
+        /// STARTING: 위치 강제 설정
+        /// </summary>
+        /// <param name="pos"></param>
         public void SetPos(Vector3 pos)
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
@@ -479,10 +485,13 @@ namespace Demo.Scripts.Runtime.Character
             _controller.enabled = true;  // 다시 활성화
         }
 
+        /// <summary>
+        /// STARTING: 위치 리셋
+        /// </summary>
         public void ResetPos()
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
-            transform.position = new Vector3(0, 1, 10);
+            transform.position = new Vector3(32.12f, 2.1f, -47.5f);
             _controller.enabled = true;  // 다시 활성화
         }
 
