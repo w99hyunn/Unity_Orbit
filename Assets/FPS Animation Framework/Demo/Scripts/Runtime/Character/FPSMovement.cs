@@ -1,9 +1,10 @@
 // Designed by KINEMATION, 2024.
 
+using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
+
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Demo.Scripts.Runtime.Character
@@ -23,59 +24,59 @@ namespace Demo.Scripts.Runtime.Character
         Crouching,
         Prone
     }
-    
+
     public class FPSMovement : MonoBehaviour
     {
-        public delegate bool ConditionDelegate();
-        
+        public delegate bool ActionConditionDelegate();
+        public delegate void OnActionCallback();
+
         [SerializeField] private FPSMovementSettings movementSettings;
-        [SerializeField] public Transform rootBone;
-        
-        [SerializeField] public UnityEvent onStartMoving;
-        [SerializeField] public UnityEvent onStopMoving;
-        
-        [SerializeField] public UnityEvent onSprintStarted;
-        [SerializeField] public UnityEvent onSprintEnded;
 
-        [SerializeField] public UnityEvent onCrouch;
-        [SerializeField] public UnityEvent onUncrouch;
-        
-        [SerializeField] public UnityEvent onProneStarted;
-        [SerializeField] public UnityEvent onProneEnded;
+        public OnActionCallback onStartMoving;
+        public OnActionCallback onStopMoving;
 
-        [SerializeField] public UnityEvent onJump;
-        [SerializeField] public UnityEvent onLanded;
+        public OnActionCallback onSprintStarted;
+        public OnActionCallback onSprintEnded;
 
-        [SerializeField] public UnityEvent onSlideStarted;
-        [SerializeField] public UnityEvent onSlideEnded;
+        public OnActionCallback onCrouch;
+        public OnActionCallback onUncrouch;
 
-        public ConditionDelegate slideCondition;
-        public ConditionDelegate proneCondition;
-        public ConditionDelegate sprintCondition;
-        
+        public OnActionCallback onProneStarted;
+        public OnActionCallback onProneEnded;
+
+        public OnActionCallback onJump;
+        public OnActionCallback onLanded;
+
+        public OnActionCallback onSlideStarted;
+        public OnActionCallback onSlideEnded;
+
+        public ActionConditionDelegate _slideActionCondition;
+        public ActionConditionDelegate _proneActionCondition;
+        public ActionConditionDelegate _sprintActionCondition;
+
         public FPSMovementState MovementState { get; private set; }
         public FPSPoseState PoseState { get; private set; }
 
         public Vector2 AnimatorVelocity { get; private set; }
-        
+
         private CharacterController _controller;
-        private Animator _animator;
         private Vector2 _inputDirection;
 
         private FPSMovementState _cachedMovementState;
 
         public Vector3 MoveVector { get; private set; }
-        
+
         private Vector3 _velocity;
 
         private float _originalHeight;
         private Vector3 _originalCenter;
-        
+
         private GaitSettings _desiredGait;
+        private GaitSettings _cachedGait;
         private float _slideProgress = 0f;
 
         private Vector3 _prevPosition;
-        private Vector3 _velocityVector;
+        private Vector3 _slideVector;
 
         private static readonly int InAir = Animator.StringToHash("InAir");
         private static readonly int MoveX = Animator.StringToHash("MoveX");
@@ -83,80 +84,101 @@ namespace Demo.Scripts.Runtime.Character
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int Moving = Animator.StringToHash("Moving");
         private static readonly int Crouching = Animator.StringToHash("Crouching");
-        private static readonly int Sliding = Animator.StringToHash("Sliding");
         private static readonly int Sprinting = Animator.StringToHash("Sprinting");
         private static readonly int Proning = Animator.StringToHash("Proning");
 
-        private float _sprintAnimatorInterp = 8f;
         private bool _wasMoving = false;
 
         private UserInputController _inputController;
+        private Animator _animator;
+        private bool _consumeMoveInput = true;
+
         public static event System.Action OnPlayerControllerInitialized;
+
+        private float _gaitProgress;
 
         public bool IsInAir()
         {
             return !_controller.isGrounded;
         }
-        
+
         public bool IsMoving()
         {
             return !Mathf.Approximately(_inputDirection.normalized.magnitude, 0f);
         }
 
-        private float GetSpeedRatio()
+        private void AllowConsumingInput()
         {
-            return _velocity.magnitude / _desiredGait.velocity;
+            _consumeMoveInput = true;
+        }
+
+        public float GetSpeed()
+        {
+            return new Vector3(_velocity.x, 0f, _velocity.z).magnitude;
         }
 
         private bool CanSlide()
         {
             return MovementState == FPSMovementState.Sprinting && PoseState == FPSPoseState.Standing
-                                                               && (slideCondition == null || slideCondition.Invoke());
+                                                               && (_slideActionCondition == null || _slideActionCondition.Invoke());
         }
 
         private bool CanSprint()
         {
             bool conditionCheck = false;
-            if (sprintCondition != null)
+            if (_sprintActionCondition != null)
             {
-                conditionCheck = sprintCondition.Invoke();
+                conditionCheck = _sprintActionCondition.Invoke();
             }
-            
+
             return PoseState == FPSPoseState.Standing && conditionCheck;
         }
 
         private bool CanProne()
         {
-            return proneCondition == null || proneCondition.Invoke(); 
+            return _proneActionCondition == null || _proneActionCondition.Invoke();
         }
-        
+
         private bool CanUnCrouch()
         {
             float height = _originalHeight - _controller.radius * 2f;
-            Vector3 position = rootBone.TransformPoint(_originalCenter + Vector3.up * height / 2f);
+            Vector3 position = transform.TransformPoint(_originalCenter + Vector3.up * height / 2f);
             return !Physics.CheckSphere(position, _controller.radius);
         }
 
-        private void EnableProne()
+        private void OnProneEnabled()
         {
             Crouch();
             PoseState = FPSPoseState.Prone;
+
             _animator.SetBool(Crouching, false);
             _animator.SetBool(Proning, true);
-            
+
             onProneStarted?.Invoke();
             _desiredGait = movementSettings.prone;
+
+            _consumeMoveInput = false;
+            _inputDirection = Vector2.zero;
+            Invoke(nameof(AllowConsumingInput), movementSettings.proneTransitionDuration);
         }
 
-        private void CancelProne()
+        private void OnProneDisabled()
         {
-            if (!CanUnCrouch()) return;
+            if (!CanUnCrouch())
+            {
+                return;
+            }
+
             UnCrouch();
             PoseState = FPSPoseState.Standing;
             _animator.SetBool(Proning, false);
-            
+
             onProneEnded?.Invoke();
-            _desiredGait = movementSettings.walking;
+            _desiredGait = movementSettings.idle;
+
+            _consumeMoveInput = false;
+            _inputDirection = Vector2.zero;
+            Invoke(nameof(AllowConsumingInput), movementSettings.proneTransitionDuration);
         }
 
         private void Crouch()
@@ -172,22 +194,22 @@ namespace Demo.Scripts.Runtime.Character
             _controller.center = crouchedCenter;
 
             PoseState = FPSPoseState.Crouching;
-            
+
             _animator.SetBool(Crouching, true);
-            onCrouch.Invoke();
+            onCrouch?.Invoke();
         }
 
         private void UnCrouch()
         {
             _controller.height = _originalHeight;
             _controller.center = _originalCenter;
-            
+
             PoseState = FPSPoseState.Standing;
-            
+
             _animator.SetBool(Crouching, false);
-            onUncrouch.Invoke();
+            onUncrouch?.Invoke();
         }
-        
+
         private void UpdateMovementState()
         {
             if (MovementState == FPSMovementState.Sliding && !Mathf.Approximately(_slideProgress, 1f))
@@ -202,7 +224,7 @@ namespace Demo.Scripts.Runtime.Character
             }
 
             // If still can sprint, keep the sprinting state.
-            if (MovementState == FPSMovementState.Sprinting 
+            if (MovementState == FPSMovementState.Sprinting
                 && _inputDirection.y > 0f && Mathf.Approximately(_inputDirection.x, 0f))
             {
                 return;
@@ -213,7 +235,7 @@ namespace Demo.Scripts.Runtime.Character
                 MovementState = FPSMovementState.Idle;
                 return;
             }
-            
+
             MovementState = FPSMovementState.Walking;
         }
 
@@ -221,43 +243,41 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (_cachedMovementState == FPSMovementState.InAir)
             {
-                onLanded.Invoke();
+                onLanded?.Invoke();
             }
 
             if (_cachedMovementState == FPSMovementState.Sprinting)
             {
                 onSprintEnded?.Invoke();
-                _sprintAnimatorInterp = 7f;
             }
 
             if (_cachedMovementState == FPSMovementState.Sliding)
             {
-                _sprintAnimatorInterp = 15f;
-                onSlideEnded.Invoke();
+                onSlideEnded?.Invoke();
 
                 if (CanUnCrouch())
                 {
                     UnCrouch();
                 }
             }
-            
+
             if (MovementState == FPSMovementState.Idle)
             {
-                float prevVelocity = _desiredGait.velocity;
                 _desiredGait = movementSettings.idle;
-                _desiredGait.velocity = prevVelocity;
                 return;
             }
 
             if (MovementState == FPSMovementState.InAir)
             {
-                _velocity.y = movementSettings.jumpHeight;
-                onJump.Invoke();
+                onJump?.Invoke();
                 return;
             }
 
             if (MovementState == FPSMovementState.Sprinting)
             {
+                _gaitProgress = 0f;
+                _cachedGait = _desiredGait;
+
                 onSprintStarted?.Invoke();
                 _desiredGait = movementSettings.sprinting;
                 return;
@@ -266,8 +286,9 @@ namespace Demo.Scripts.Runtime.Character
             if (MovementState == FPSMovementState.Sliding)
             {
                 _desiredGait.velocitySmoothing = movementSettings.slideDirectionSmoothing;
+                _slideVector = _velocity;
                 _slideProgress = 0f;
-                onSlideStarted.Invoke();
+                onSlideStarted?.Invoke();
                 Crouch();
                 return;
             }
@@ -280,76 +301,86 @@ namespace Demo.Scripts.Runtime.Character
 
             if (PoseState == FPSPoseState.Prone)
             {
+                _gaitProgress = 0f;
+                _cachedGait = _desiredGait;
                 _desiredGait = movementSettings.prone;
                 return;
             }
-            
+
+            if (_cachedMovementState == FPSMovementState.Idle)
+            {
+                _gaitProgress = 0f;
+                _cachedGait = _desiredGait;
+            }
+
             // Walking state
             _desiredGait = movementSettings.walking;
         }
 
         private void UpdateSliding()
         {
-            // 1. Extract the slide animation.
-            float slideAmount = movementSettings.slideCurve.Evaluate(_slideProgress);
-            
-            // 2. Apply sliding to both current and desired velocity vectors.
-            // Here we just want to interpolate between the same velocities, but different directions.
-
-            _velocity *= slideAmount;
+            float slideAmount = movementSettings.slideCurve.Evaluate(_slideProgress) * movementSettings.slideSpeed;
+            _velocity = _slideVector.normalized * slideAmount;
 
             Vector3 desiredVelocity = _velocity;
-            desiredVelocity.y = -movementSettings.gravity;
+            desiredVelocity.y = -2f;
             MoveVector = desiredVelocity;
-            
-            _slideProgress = Mathf.Clamp01(_slideProgress + Time.deltaTime * movementSettings.slideSpeed);
+
+            _slideProgress = Mathf.Clamp01(_slideProgress + Time.deltaTime);
         }
-        
+
         private void UpdateGrounded()
         {
             var normInput = _inputDirection.normalized;
-            var desiredVelocity = rootBone.right * normInput.x + rootBone.forward * normInput.y;
+            var targetDirection = transform.right * normInput.x + transform.forward * normInput.y;
 
-            desiredVelocity *= _desiredGait.velocity;
+            float maxAccelTime = movementSettings.accelerationCurve.keys[^1].time;
+            _gaitProgress = Mathf.Min(_gaitProgress + Time.deltaTime, maxAccelTime);
 
-            desiredVelocity = Vector3.Lerp(_velocity, desiredVelocity, 
+            float t = movementSettings.accelerationCurve.Evaluate(_gaitProgress);
+            t = Mathf.Lerp(_cachedGait.velocity, _desiredGait.velocity, t);
+
+            targetDirection *= Mathf.Lerp(_cachedGait.velocity, _desiredGait.velocity, t);
+
+            targetDirection = Vector3.Lerp(_velocity, targetDirection,
                 KMath.ExpDecayAlpha(_desiredGait.velocitySmoothing, Time.deltaTime));
-            
-            _velocity = desiredVelocity;
 
-            desiredVelocity.y = -movementSettings.gravity;
-            MoveVector = desiredVelocity;
+            _velocity = targetDirection;
+
+            targetDirection.y = -2f;
+            MoveVector = targetDirection;
         }
-        
+
         private void UpdateInAir()
         {
             var normInput = _inputDirection.normalized;
             _velocity.y -= movementSettings.gravity * Time.deltaTime;
             _velocity.y = Mathf.Max(-movementSettings.maxFallVelocity, _velocity.y);
-            
-            var desiredVelocity = rootBone.right * normInput.x + rootBone.forward * normInput.y;
+
+            var desiredVelocity = transform.right * normInput.x + transform.forward * normInput.y;
             desiredVelocity *= _desiredGait.velocity;
 
-            desiredVelocity = Vector3.Lerp(_velocity, desiredVelocity * movementSettings.airFriction, 
+            desiredVelocity = Vector3.Lerp(_velocity, desiredVelocity * movementSettings.airFriction,
                 KMath.ExpDecayAlpha(movementSettings.airVelocity, Time.deltaTime));
 
             desiredVelocity.y = _velocity.y;
             _velocity = desiredVelocity;
-            
+
             MoveVector = desiredVelocity;
         }
-        
+
         private void UpdateMovement()
         {
             _controller.Move(MoveVector * Time.deltaTime);
         }
+
 
         private void UpdateAnimatorParams()
         {
             var animatorVelocity = _inputDirection;
             animatorVelocity *= MovementState == FPSMovementState.InAir ? 0f : 1f;
 
-            AnimatorVelocity = Vector2.Lerp(AnimatorVelocity, animatorVelocity, 
+            AnimatorVelocity = Vector2.Lerp(AnimatorVelocity, animatorVelocity,
                 KMath.ExpDecayAlpha(_desiredGait.velocitySmoothing, Time.deltaTime));
 
             _animator.SetFloat(MoveX, AnimatorVelocity.x);
@@ -358,44 +389,43 @@ namespace Demo.Scripts.Runtime.Character
             _animator.SetBool(InAir, IsInAir());
             _animator.SetBool(Moving, IsMoving());
 
-            // Sprinting needs to be blended manually
-            float a = _animator.GetFloat(Sprinting);
-            float b = MovementState == FPSMovementState.Sprinting ? 1f : 0f;
+            float sprintWeight = _animator.GetFloat(Sprinting);
+            float t = KMath.ExpDecayAlpha(_desiredGait.velocitySmoothing, Time.deltaTime);
+            sprintWeight = Mathf.Lerp(sprintWeight, MovementState == FPSMovementState.Sprinting ? 1f : 0f, t);
+            _animator.SetFloat(Sprinting, sprintWeight);
 
-            a = Mathf.Lerp(a, b, KMath.ExpDecayAlpha(_sprintAnimatorInterp, Time.deltaTime));
-            
-            _animator.SetFloat(Sprinting, a);
-            
-            _inputController.SetValue("MoveInput", new Vector4(AnimatorVelocity.x, AnimatorVelocity.y));
+            _inputController.SetValue(FPSANames.MoveInput,
+                new Vector4(AnimatorVelocity.x, AnimatorVelocity.y));
         }
 
         private void Start()
         {
             _controller = GetComponent<CharacterController>();
-            _animator = GetComponentInChildren<Animator>();
             _inputController = GetComponent<UserInputController>();
-            
+            _animator = GetComponent<Animator>();
+
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;
-            
-            MovementState = FPSMovementState.Idle;
+
+            _cachedMovementState = MovementState = FPSMovementState.Idle;
             PoseState = FPSPoseState.Standing;
 
-            _desiredGait = movementSettings.walking;
+            _desiredGait = _cachedGait = movementSettings.idle;
+
             OnPlayerControllerInitialized?.Invoke();
         }
-        
+
         private void Update()
         {
             UpdateMovementState();
-            
+
             if (_cachedMovementState != MovementState)
             {
                 OnMovementStateChanged();
             }
 
             bool isMoving = IsMoving();
-            
+
             if (_wasMoving != isMoving)
             {
                 if (isMoving)
@@ -407,7 +437,7 @@ namespace Demo.Scripts.Runtime.Character
                     onStopMoving?.Invoke();
                 }
             }
-            
+
             _wasMoving = isMoving;
 
             if (MovementState == FPSMovementState.InAir)
@@ -427,13 +457,21 @@ namespace Demo.Scripts.Runtime.Character
             UpdateAnimatorParams();
 
             _cachedMovementState = MovementState;
+        }
+
+        private void LateUpdate()
+        {
+            if (MovementState != FPSMovementState.InAir && IsInAir())
+            {
+                MovementState = FPSMovementState.InAir;
+            }
 
             if (MovementState == FPSMovementState.InAir && !IsInAir())
             {
                 MovementState = FPSMovementState.Idle;
             }
-
         }
+
         public void SetPos(Vector3 pos)
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
@@ -448,21 +486,23 @@ namespace Demo.Scripts.Runtime.Character
             _controller.enabled = true;  // 다시 활성화
         }
 
+
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
+            if (!_consumeMoveInput) return;
             _inputDirection = value.Get<Vector2>();
         }
 
         public void OnCrouch()
         {
-            if (_animator.GetFloat("OverlayType") < 1f) return;
-            
+            if (!_consumeMoveInput) return;
+
             if (MovementState is not (FPSMovementState.Idle or FPSMovementState.Walking))
             {
                 return;
             }
-            
+
             if (PoseState == FPSPoseState.Standing)
             {
                 Crouch();
@@ -474,15 +514,21 @@ namespace Demo.Scripts.Runtime.Character
             {
                 return;
             }
-            
+
+            if (PoseState == FPSPoseState.Prone)
+            {
+                OnProneDisabled();
+                return;
+            }
+
             UnCrouch();
             _desiredGait = movementSettings.walking;
         }
 
         public void OnProne()
         {
-            if (_animator.GetFloat("OverlayType") < 1f) return;
-            
+            if (!_consumeMoveInput) return;
+
             if (MovementState is FPSMovementState.Sprinting or FPSMovementState.InAir)
             {
                 return;
@@ -492,39 +538,40 @@ namespace Demo.Scripts.Runtime.Character
             {
                 return;
             }
-            
+
             if (PoseState == FPSPoseState.Prone)
             {
-                CancelProne();
+                OnProneDisabled();
                 return;
             }
-            
-            EnableProne();
+
+            OnProneEnabled();
         }
 
         public void OnJump()
         {
-            if (IsInAir() || PoseState == FPSPoseState.Crouching)
+            if (!_consumeMoveInput || MovementState == FPSMovementState.InAir || PoseState == FPSPoseState.Crouching)
             {
                 return;
             }
 
             if (PoseState == FPSPoseState.Prone)
             {
-                CancelProne();
+                OnProneDisabled();
                 return;
             }
-            
+
             MovementState = FPSMovementState.InAir;
+            _velocity.y = movementSettings.jumpHeight;
         }
 
         public void OnSprint(InputValue value)
         {
-            if (MovementState is FPSMovementState.InAir or FPSMovementState.Sliding)
+            if (!_consumeMoveInput || MovementState is FPSMovementState.InAir or FPSMovementState.Sliding)
             {
                 return;
             }
-            
+
             bool enableSprint = value.isPressed && CanSprint();
 
             if (enableSprint)
@@ -532,13 +579,13 @@ namespace Demo.Scripts.Runtime.Character
                 MovementState = FPSMovementState.Sprinting;
                 return;
             }
-            
+
             MovementState = FPSMovementState.Walking;
         }
 
         public void OnSlide()
         {
-            if (!CanSlide())
+            if (!_consumeMoveInput || !CanSlide())
             {
                 return;
             }

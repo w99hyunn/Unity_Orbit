@@ -10,11 +10,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
-using System.Reflection;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
-using System.Collections;
+using System;
 
 namespace Demo.Scripts.Runtime.Character
 {
@@ -38,7 +36,6 @@ namespace Demo.Scripts.Runtime.Character
     public class FPSController : MonoBehaviour
     {
         //~ Legacy Controller Interface
-
         [SerializeField] private FPSControllerSettings settings;
 
         private FPSMovement _movementComponent;
@@ -51,8 +48,7 @@ namespace Demo.Scripts.Runtime.Character
 
         private FPSAimState _aimState;
         private FPSActionState _actionState;
-        
-        private bool _isUnarmed;
+
         private Animator _animator;
 
         //~ Legacy Controller Interface
@@ -68,8 +64,16 @@ namespace Demo.Scripts.Runtime.Character
         private RecoilPattern _recoilPattern;
         private int _sensitivityMultiplierPropertyIndex;
 
+        private static int _fullBodyWeightHash = Animator.StringToHash("FullBodyWeight");
+        private static int _proneWeightHash = Animator.StringToHash("ProneWeight");
+        private static int _inspectStartHash = Animator.StringToHash("InspectStart");
+        private static int _inspectEndHash = Animator.StringToHash("InspectEnd");
+        private static int _slideHash = Animator.StringToHash("Sliding");
+
+
         public event Action<int> OnActiveWeaponIndexChanged;
         public event Action<FPSAimState> OnActiveAiming;
+
 
         [Header("달리기 화면 번짐 효과 관련")]
         public Volume localVolume;
@@ -82,7 +86,7 @@ namespace Demo.Scripts.Runtime.Character
             {
                 return;
             }
-            
+
             _fpsAnimator.LinkAnimatorLayer(layerSettings);
         }
 
@@ -90,7 +94,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             return _movementComponent.MovementState == FPSMovementState.Sprinting;
         }
-        
+
         private bool HasActiveAction()
         {
             return _actionState != FPSActionState.None;
@@ -106,31 +110,31 @@ namespace Demo.Scripts.Runtime.Character
         private void InitializeMovement()
         {
             _movementComponent = GetComponent<FPSMovement>();
-            
-            _movementComponent.onJump.AddListener(() => { PlayTransitionMotion(settings.jumpingMotion); });
-            _movementComponent.onLanded.AddListener(() => { PlayTransitionMotion(settings.jumpingMotion); });
 
-            _movementComponent.onCrouch.AddListener(OnCrouch);
-            _movementComponent.onUncrouch.AddListener(OnUncrouch);
+            _movementComponent.onJump = () => { PlayTransitionMotion(settings.jumpingMotion); };
+            _movementComponent.onLanded = () => { PlayTransitionMotion(settings.jumpingMotion); };
 
-            _movementComponent.onSprintStarted.AddListener(OnSprintStarted);
-            _movementComponent.onSprintEnded.AddListener(OnSprintEnded);
+            _movementComponent.onCrouch = OnCrouch;
+            _movementComponent.onUncrouch = OnUncrouch;
 
-            _movementComponent.onSlideStarted.AddListener(OnSlideStarted);
+            _movementComponent.onSprintStarted = OnSprintStarted;
+            _movementComponent.onSprintEnded = OnSprintEnded;
 
-            _movementComponent.slideCondition += () => !HasActiveAction();
-            _movementComponent.sprintCondition += () => !HasActiveAction();
-            _movementComponent.proneCondition += () => !HasActiveAction();
-            
-            _movementComponent.onStopMoving.AddListener(() =>
+            _movementComponent.onSlideStarted = OnSlideStarted;
+
+            _movementComponent._slideActionCondition += () => !HasActiveAction();
+            _movementComponent._sprintActionCondition += () => !HasActiveAction();
+            _movementComponent._proneActionCondition += () => !HasActiveAction();
+
+            _movementComponent.onStopMoving = () =>
             {
                 PlayTransitionMotion(settings.stopMotion);
-            });
-            
-            _movementComponent.onProneEnded.AddListener(() =>
+            };
+
+            _movementComponent.onProneEnded = () =>
             {
                 _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
-            });
+            };
         }
 
         private void InitializeWeapons()
@@ -154,13 +158,14 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
             _fpsAnimator = GetComponent<FPSAnimator>();
-            _userInput = GetComponent<UserInputController>();
             _animator = GetComponent<Animator>();
+
+            _userInput = GetComponent<UserInputController>();
             _recoilPattern = GetComponent<RecoilPattern>();
 
             InitializeMovement();
@@ -171,7 +176,6 @@ namespace Demo.Scripts.Runtime.Character
 
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
 
-            //volume
             profile = localVolume.sharedProfile;
         }
 
@@ -202,7 +206,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (GetActiveItem().OnAimReleased()) _aimState = FPSAimState.None;
         }
-        
+
         private void OnFirePressed()
         {
             if (_instantiatedWeapons.Count == 0 || HasActiveAction()) return;
@@ -220,10 +224,10 @@ namespace Demo.Scripts.Runtime.Character
             if (_instantiatedWeapons.Count == 0) return null;
             return _instantiatedWeapons[_activeWeaponIndex];
         }
-        
+
         private void OnSlideStarted()
         {
-            _animator.CrossFade("Sliding", 0.1f);
+            _animator.CrossFade(_slideHash, 0.2f);
         }
 
         private void OnSprintStarted()
@@ -234,7 +238,6 @@ namespace Demo.Scripts.Runtime.Character
             _aimState = FPSAimState.None;
 
             _userInput.SetValue(FPSANames.StabilizationWeight, 0f);
-            _userInput.SetValue(FPSANames.PlayablesWeight, 0f);
             _userInput.SetValue("LookLayerWeight", 0.3f);
 
             if (profile.TryGet(out ChromaticAberration chromaticAberration))
@@ -245,10 +248,7 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnSprintEnded()
         {
-            if (_animator.GetFloat("OverlayType") == 0) return;
-            
             _userInput.SetValue(FPSANames.StabilizationWeight, 1f);
-            _userInput.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInput.SetValue("LookLayerWeight", 1f);
 
             if (profile.TryGet(out ChromaticAberration chromaticAberration))
@@ -266,7 +266,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             PlayTransitionMotion(settings.crouchingMotion);
         }
-        
+
         private bool _isLeaning;
 
         private void StartWeaponChange(int newIndex)
@@ -292,50 +292,41 @@ namespace Demo.Scripts.Runtime.Character
         private void UpdateLookInput()
         {
             float scale = _userInput.GetValue<float>(_sensitivityMultiplierPropertyIndex);
-            
+
             float deltaMouseX = _lookDeltaInput.x * settings.sensitivity * scale;
             float deltaMouseY = -_lookDeltaInput.y * settings.sensitivity * scale;
-            
+
             _playerInput.y += deltaMouseY;
             _playerInput.x += deltaMouseX;
-            
+
             if (_recoilPattern != null)
             {
                 _playerInput += _recoilPattern.GetRecoilDelta();
                 deltaMouseX += _recoilPattern.GetRecoilDelta().x;
             }
 
-            float proneWeight = _animator.GetFloat("ProneWeight");
+            float proneWeight = _animator.GetFloat(_proneWeightHash);
             Vector2 pitchClamp = Vector2.Lerp(new Vector2(-90f, 90f), new Vector2(-30, 0f), proneWeight);
 
             _playerInput.y = Mathf.Clamp(_playerInput.y, pitchClamp.x, pitchClamp.y);
-            
+
             transform.rotation *= Quaternion.Euler(0f, deltaMouseX, 0f);
-            
+
             _userInput.SetValue(FPSANames.MouseDeltaInput, new Vector4(deltaMouseX, deltaMouseY));
             _userInput.SetValue(FPSANames.MouseInput, new Vector4(_playerInput.x, _playerInput.y));
         }
 
         private void OnMovementUpdated()
         {
-            if (_movementComponent.PoseState == FPSPoseState.Prone)
-            {
-                float targetWeight = _movementComponent.IsMoving() ? 0f : 1f;
-                _userInput.SetValue(FPSANames.PlayablesWeight, targetWeight);
-                _userInput.SetValue(FPSANames.StabilizationWeight, targetWeight);
-            }
+            float playablesWeight = 1f - _animator.GetFloat(_fullBodyWeightHash);
+            _userInput.SetValue(FPSANames.PlayablesWeight, playablesWeight);
         }
 
         private void Update()
         {
             Time.timeScale = settings.timeScale;
-
-            //Pause메뉴가 열려있으면 마우스회전 X
-            if (false == CursorManager.Instance.pauseMenu)
-            {
-                UpdateLookInput();
-                OnMovementUpdated();
-            }
+            UpdateLookInput();
+            OnMovementUpdated();
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -347,37 +338,20 @@ namespace Demo.Scripts.Runtime.Character
 
         public void OnThrowGrenade()
         {
-            if (IsSprinting()|| HasActiveAction() || !GetActiveItem().OnGrenadeThrow()) return;
+            if (IsSprinting() || HasActiveAction() || !GetActiveItem().OnGrenadeThrow()) return;
             _actionState = FPSActionState.PlayingAnimation;
-        }
-
-        public void OnToggleUnarmed()
-        {
-            _isUnarmed = !_isUnarmed;
-
-            if (_isUnarmed)
-            {
-                GetActiveItem().gameObject.SetActive(false);
-                GetActiveItem().OnUnarmedEnabled();
-                _fpsAnimator.LinkAnimatorProfile(settings.unarmedProfile);
-                return;
-            }
-
-            GetActiveItem().gameObject.SetActive(true);
-            GetActiveItem().OnUnarmedDisabled();
         }
 
         public void OnFire(InputValue value)
         {
             if (IsSprinting()) return;
 
-            //Pause메뉴가 열려있으면 총알발사 X
-            if (value.isPressed && !(CursorManager.Instance.pauseMenu))
+            if (value.isPressed)
             {
                 OnFirePressed();
                 return;
             }
-            
+
             OnFireReleased();
         }
 
@@ -403,7 +377,7 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (_movementComponent.PoseState == FPSPoseState.Prone) return;
             if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
-            
+
             StartWeaponChange(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1 ? 0 : _activeWeaponIndex + 1);
         }
 
@@ -421,7 +395,7 @@ namespace Demo.Scripts.Runtime.Character
         public void OnCycleScope()
         {
             if (!IsAiming()) return;
-            
+
             GetActiveItem().OnCycleScope();
             PlayTransitionMotion(settings.aimingMotion);
         }
@@ -434,23 +408,23 @@ namespace Demo.Scripts.Runtime.Character
         public void OnToggleAttachmentEditing()
         {
             if (HasActiveAction() && _actionState != FPSActionState.AttachmentEditing) return;
-            
-            _actionState = _actionState == FPSActionState.AttachmentEditing 
+
+            _actionState = _actionState == FPSActionState.AttachmentEditing
                 ? FPSActionState.None : FPSActionState.AttachmentEditing;
 
             if (_actionState == FPSActionState.AttachmentEditing)
             {
-                _animator.CrossFade("InspectStart", 0.2f);
+                _animator.CrossFade(_inspectStartHash, 0.2f);
                 return;
             }
-            
-            _animator.CrossFade("InspectEnd", 0.3f);
+
+            _animator.CrossFade(_inspectEndHash, 0.3f);
         }
 
         public void OnDigitAxis(InputValue value)
         {
             if (!value.isPressed || _actionState != FPSActionState.AttachmentEditing) return;
-            GetActiveItem().OnAttachmentChanged((int) value.Get<float>());
+            GetActiveItem().OnAttachmentChanged((int)value.Get<float>());
         }
 #endif
     }
