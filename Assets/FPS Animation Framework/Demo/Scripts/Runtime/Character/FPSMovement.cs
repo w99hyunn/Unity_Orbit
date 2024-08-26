@@ -447,6 +447,7 @@ namespace Demo.Scripts.Runtime.Character
             transform.position = new Vector3(0, 1, 10);
             _controller.enabled = true;  // 다시 활성화
         }
+
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
