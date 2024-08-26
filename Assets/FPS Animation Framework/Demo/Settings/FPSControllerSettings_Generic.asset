@@ -13,7 +13,24 @@ MonoBehaviour:
   m_Name: FPSControllerSettings_Generic
   m_EditorClassIdentifier: 
   rigAsset: {fileID: 11400000, guid: 20c86149126a2b24cb88e9fc185cbd50, type: 2}
-  unarmedController: {fileID: 0}
+  unarmedProfile: {fileID: 11400000, guid: efef821363862f34fa7d317ea008cb11, type: 2}
+  turnInPlaceAngle: 0
+  turnCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  turnSpeed: 1
   aimingMotion: {fileID: 11400000, guid: 2951c90938854f24c935627d36bbc3cd, type: 2}
   crouchingMotion: {fileID: 11400000, guid: fa23e63ff38a3bb4f9f7bca500ced7ce, type: 2}
   jumpingMotion: {fileID: 11400000, guid: 93be04a77e31740498d5c7d7e8286ab5, type: 2}
