@@ -43,11 +43,21 @@ public class EnemyFSM : MonoBehaviour
     public float floatFrequency = 1f; // 떠다니는 속도
     private float timeOffset; // 각 오브젝트의 시간 오프셋
 
+    [Header("플레이어 인식시 몬스터 머티리얼 변경")]
+    public Material newMaterial;           // 새로 교체할 Material
+    public MeshRenderer meshRenderer;     // MeshRenderer 참조를 저장할 변수
+    private Material[] originalMaterials;  // 원래의 모든 Material을 저장할 배열
+
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         ChangeState(EnemyState.Idle);
+
+        if (meshRenderer != null)
+        {
+            originalMaterials = meshRenderer.materials;
+        }
     }
 
     private void Update()
@@ -142,6 +152,7 @@ public class EnemyFSM : MonoBehaviour
 
     IEnumerator Idle()
     {
+        RestoreOriginalMaterial();
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(1, 5));
@@ -161,6 +172,7 @@ public class EnemyFSM : MonoBehaviour
 
     IEnumerator Pursuit()
     {
+        ChangeMaterial();
         while (true)
         {
             navMeshAgent.speed = 3f;
@@ -194,6 +206,29 @@ public class EnemyFSM : MonoBehaviour
             {
                 yield return null;
             }
+        }
+    }
+
+    public void ChangeMaterial()
+    {
+        if (meshRenderer != null && newMaterial != null)
+        {
+            Material[] materials = meshRenderer.materials;
+
+            if (2 >= 0 && 2 < materials.Length)
+            {
+                materials[2] = newMaterial;
+                meshRenderer.materials = materials;
+            }
+
+        }
+    }
+
+    public void RestoreOriginalMaterial()
+    {
+        if (meshRenderer != null && originalMaterials != null)
+        {
+            meshRenderer.materials = originalMaterials;
         }
     }
 
