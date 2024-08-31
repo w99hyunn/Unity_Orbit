@@ -120,6 +120,7 @@ public class PlayerStats : MonoBehaviour
         {
             currentHealth -= amount;
         }
+        //UIManager.Instance.hudMovement.Shake();
         StartCoroutine(UIManager.Instance.FlashScreen());
         UpdateUI();
 

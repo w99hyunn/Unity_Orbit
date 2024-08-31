@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
     [Header("게임오버시")]
     public UnityEvent onGameover;
 
+    public HUDMovement hudMovement;
+
     private void Start()
     {
         tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
