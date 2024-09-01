@@ -1,12 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CursorManager : MonoBehaviour
 {
-    public bool pauseMenu = false;
     public List<GameObject> objectsToDestroy = new List<GameObject>();
     public GameObject tooltip;
+    public GameObject pauseMenuHotkey;
     public static CursorManager Instance { get; private set; }
 
 
@@ -30,6 +31,14 @@ public class CursorManager : MonoBehaviour
 
     void Update()
     {
+        if (PlayerStats.Instance.playerState == PlayerState.DIE)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenuHotkey.SetActive(false);
+            StartCoroutine(CheckPlayerState());
+        }
+
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             ShowTooltip();
@@ -40,9 +49,21 @@ public class CursorManager : MonoBehaviour
         }
     }
 
+    private IEnumerator CheckPlayerState()
+    {
+        while (true)
+        {
+            if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+            {
+                pauseMenuHotkey.SetActive(true);
+                yield break; 
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     public void BackToMain()
     {
-        pauseMenu = true;
         SceneManager.LoadScene("MainScene");
 
         DestroyObjectsInList();
@@ -62,14 +83,14 @@ public class CursorManager : MonoBehaviour
 
     public void CustomResume()
     {
-        pauseMenu = false;
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void CustomPause()
     {
-        pauseMenu = true;
+        PlayerStats.Instance.playerState = PlayerState.PAUSE;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }

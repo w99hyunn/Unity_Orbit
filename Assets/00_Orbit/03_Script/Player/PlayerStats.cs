@@ -4,9 +4,10 @@ using UnityEngine;
 public enum PlayerState
 {
     IDLE,
+    INIT,
     LOADING,
     DIE,
-    GAMEMASTER,
+    PAUSE
 };
 
 public class PlayerStats : MonoBehaviour
@@ -45,7 +46,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        playerState = PlayerState.LOADING;
+        playerState = PlayerState.INIT;
 
         InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
         InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
@@ -73,7 +74,10 @@ public class PlayerStats : MonoBehaviour
     IEnumerator ChangePlayerState(float time, PlayerState playerState)
     {
         yield return new WaitForSeconds(time);
-        this.playerState = playerState;
+        if (this.playerState == PlayerState.INIT)
+        {
+            this.playerState = playerState;
+        }
     }
 
     public void InitializeStats()
@@ -127,7 +131,6 @@ public class PlayerStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            playerState = PlayerState.DIE;
             GameManager.Instance.GameOver();
         }
         // 체력 <= 0 death 추가 해야함

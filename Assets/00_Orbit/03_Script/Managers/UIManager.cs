@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text minimapZoneNameText;
     public TMP_Text liberatedText;
 
+    public GameObject minimapLockBack;
+    public GameObject minimapUnlockBack;
+
     public TMP_Text currentBulletText;
     public TMP_Text maxBulletText;
 
@@ -116,11 +119,15 @@ public class UIManager : MonoBehaviour
         { //해방됨
             unlockBack.SetActive(true);
             lockBack.SetActive(false);
+            minimapUnlockBack.SetActive(true);
+            minimapLockBack.SetActive(false);
         }
         else
         {
             unlockBack.SetActive(false);
             lockBack.SetActive(true);
+            minimapUnlockBack.SetActive(false);
+            minimapLockBack.SetActive(true);
         }
 
         liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";

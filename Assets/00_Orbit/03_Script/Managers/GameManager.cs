@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
 
+    public Michsky.UI.Shift.PressKeyEvent pressKeyEvent;
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -114,9 +115,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (PlayerStats.Instance.playerState == PlayerState.PAUSE)
+        {
+            pressKeyEvent.pressAction.Invoke();
+        }
         PlayerStats.Instance.playerState = PlayerState.DIE;
         UIManager.Instance.GameOverUI();
-        CursorManager.Instance.CustomPause();
+
     }
 
     // 게임 오버시 체크포인트 불러오기
