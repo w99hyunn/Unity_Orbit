@@ -1,10 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CursorManager : MonoBehaviour
 {
     public bool pauseMenu = false;
+    public List<GameObject> objectsToDestroy = new List<GameObject>();
     public static CursorManager Instance { get; private set; }
+
 
     private void Awake()
     {
@@ -38,15 +41,19 @@ public class CursorManager : MonoBehaviour
         pauseMenu = true;
         SceneManager.LoadScene("MainScene");
 
-        /* 메인화면 이동시 DontDestroyOnLoad 오브젝트들 삭제함
-         * 계속 추가 되어야함 */
-        Destroy(GameObject.Find("GameManager"));
-        Destroy(GameObject.Find("Player"));
-        Destroy(GameObject.Find("UIManager"));
-        Destroy(GameObject.Find("Pause Menu Manager"));
-        Destroy(GameObject.Find("QualityManager"));
-        Destroy(GameObject.Find("CursorManager"));
-        Destroy(GameObject.Find("DungeonManager"));
+        DestroyObjectsInList();
+    }
+
+    public void DestroyObjectsInList()
+    {
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+        objectsToDestroy.Clear();
     }
 
     public void CustomResume()

@@ -42,6 +42,8 @@ namespace Michsky.UI.Shift
 
         public Volume globalVolume;
 
+       //[Header("감도 조절")]
+
         public static QualityManager Instance { get; private set; }
 
         private void Awake()
@@ -306,6 +308,13 @@ namespace Michsky.UI.Shift
             {
                 vignette.active = index; // isActive는 Vignette를 활성화(true) 또는 비활성화(false)하는 변수입니다.
             }
+        }
+
+        public Demo.Scripts.Runtime.Character.FPSControllerSettings settings;
+
+        public void SensitivitySpeedSet(float index)
+        {
+            settings.sensitivity = index;
         }
 
         /* ------------------------------------------------------------------------------ */

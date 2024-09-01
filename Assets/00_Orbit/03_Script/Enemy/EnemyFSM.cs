@@ -94,7 +94,6 @@ public class EnemyFSM : MonoBehaviour
     // 몬스터 죽었을 때
     public void Die()
     {
-        // 사망 처리 로직...
         OnDeath?.Invoke(); // 사망 시 풀로 반환
     }
 
