@@ -4,7 +4,7 @@ using UnityEngine;
 public class DissolveChildsPingPong : MonoBehaviour
 {
     List<Material> materials = new List<Material>();
-    bool PingPong = false;
+
     void Start()
     {
         var renders = GetComponents<Renderer>();

@@ -43,10 +43,14 @@ public class UIManager : MonoBehaviour
     public TMP_Text manaText;
     public TMP_Text levelText;
     public TMP_Text xpText;
+    public TMP_Text xpDetailText;
+    public TMP_Text healthDetailText;
+    public TMP_Text manaDetailText;
     public CanvasGroup screenFlashCanvasGroup;
-    private bool isFlashing = false;
     public CanvasGroup levelUpHpPlusAlert;
     public CanvasGroup levelUpMpPlusAlert;
+
+    private bool isFlashing = false;
 
     [Header("게임오버시")]
     public UnityEvent onGameover;
@@ -189,28 +193,31 @@ public class UIManager : MonoBehaviour
         maxBulletText.text = max.ToString();
     }
 
-    public void UpdateStats(string order, int index)
+    public void UpdateStats(string order, int currentindex, int maxindex = 0)
     {
         switch (order)
         {
             case "health":
-                UpdateHealthUI(index);
+                UpdateHealthUI(currentindex, maxindex);
                 break;
             case "mana":
-                UpdateManaUI(index);
+                UpdateManaUI(currentindex, maxindex);
                 break;
             case "exp":
-                UpdateExperienceUI(index);
+                UpdateExperienceUI(currentindex, maxindex);
                 break;
             case "level":
-                UpdateLevelUI(index);
+                UpdateLevelUI(currentindex);
                 break;
         }
     }
 
-    private void UpdateHealthUI(int currentHealthPercentage)
+    private void UpdateHealthUI(int currentindex, int maxindex)
     {
+        int currentHealthPercentage = (int)((float)currentindex / maxindex * 100);
+
         healthText.text = currentHealthPercentage.ToString();
+        healthDetailText.text = $"{currentindex} / {maxindex}";
         StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
 
         //체력이 20 미만이면 화면 깜빡임 시작
@@ -221,15 +228,21 @@ public class UIManager : MonoBehaviour
         //}
         //피격시마다 뜨게 변경
     }
-    private void UpdateManaUI(int currentManaPercentage)
+    private void UpdateManaUI(int currentindex, int maxindex)
     {
+        int currentManaPercentage = (int)((float)currentindex / maxindex * 100);
+
         manaText.text = currentManaPercentage.ToString();
+        manaDetailText.text = $"{currentindex} / {maxindex}";
         StartCoroutine(SmoothSliderChange(manaBar, currentManaPercentage));
     }
 
-    private void UpdateExperienceUI(int currentExperience)
+    private void UpdateExperienceUI(int currentindex, int maxindex)
     {
-        xpText.text = currentExperience.ToString();
+        int currentExperiencePercentage = (int)((float)currentindex / maxindex * 100);
+
+        xpDetailText.text = $"{currentindex} / {maxindex}";
+        xpText.text = currentExperiencePercentage.ToString();
     }
 
     private void UpdateLevelUI(int level)

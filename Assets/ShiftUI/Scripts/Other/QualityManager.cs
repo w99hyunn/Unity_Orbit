@@ -34,9 +34,6 @@ namespace Michsky.UI.Shift
         public Camera mainCamera;
         private HDAdditionalCameraData cameraData;
 
-        [Header("미니맵 카메라")]
-        public Camera minimapCamera;
-
         //FPSRate
         public GameObject FPSRate;
 
@@ -271,11 +268,6 @@ namespace Michsky.UI.Shift
             {
                 motionBlur.active = index;
             }
-        }
-
-        public void MinimapFOV(float index) //미니맵 확대/축소 <테스트 후 확인 완료>
-        {
-            minimapCamera.orthographicSize = index;
         }
 
         /* 레이트레이싱 관련 */

@@ -171,13 +171,9 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateUI()
     {
-        int currentExperiencePercentage = (int)((float)currentExperience / maxExperience *100); 
-        int currentHealthPercentage = (int)((float)currentHealth / maxHealth * 100);
-        int currentManaPercentage = (int)((float)currentMana / maxMana * 100);
-
         UIManager.Instance.UpdateStats("level", level);
-        UIManager.Instance.UpdateStats("exp", currentExperiencePercentage);
-        UIManager.Instance.UpdateStats("health", currentHealthPercentage);
-        UIManager.Instance.UpdateStats("mana", currentManaPercentage);
+        UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
+        UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
+        UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
     }
 }

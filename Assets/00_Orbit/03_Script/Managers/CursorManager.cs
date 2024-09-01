@@ -6,6 +6,7 @@ public class CursorManager : MonoBehaviour
 {
     public bool pauseMenu = false;
     public List<GameObject> objectsToDestroy = new List<GameObject>();
+    public GameObject tooltip;
     public static CursorManager Instance { get; private set; }
 
 
@@ -22,17 +23,20 @@ public class CursorManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        CustomResume();
+    }
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftAlt) || pauseMenu == true)
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            ShowTooltip();
         }
-        else if (pauseMenu == false)
+        else
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            HideTooltip();
         }
     }
 
@@ -68,5 +72,13 @@ public class CursorManager : MonoBehaviour
         pauseMenu = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+    public void ShowTooltip()
+    {
+        tooltip.SetActive(true);
+    }
+    public void HideTooltip()
+    {
+        tooltip.SetActive(false);
     }
 }

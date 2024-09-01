@@ -5,7 +5,6 @@ using UnityEngine;
 public class DissolveChilds : MonoBehaviour
 {
     List<Material> materials = new List<Material>();
-    bool PingPong = false;
 
     void Start()
     {
