@@ -22,11 +22,16 @@ public class Health : MonoBehaviour
     private Slider hpSlider;
     private TMP_Text enemyName;
 
-	[Header("죽었을 때 이벤트")]
+    private AudioSource audioSource;
+    public AudioClip hitSound;
+
+    [Header("죽었을 때 이벤트")]
     public UnityEvent OnDeath;
 		
 	private float _lastDamage;
 	private int _lastDamageIndex;
+
+
 
     public bool Alive
 	{
@@ -38,6 +43,7 @@ public class Health : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         hpSlider = enemyUI.GetComponentInChildren<Slider>();
         enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
         enemyUIcanvas = enemyUI.GetComponent<EnemyUI>();
@@ -47,6 +53,7 @@ public class Health : MonoBehaviour
 
 	public void Setup()
 	{
+		StopSound();
         HealthPoints = MaxPoints;
         hpSlider.value = HealthPoints / MaxPoints;
         enemyName.text = this.gameObject.name;
@@ -77,6 +84,7 @@ public class Health : MonoBehaviour
 		}
 		else if (Alive)
 		{
+			PlaySound(hitSound);
 			HealthPoints -= damage;
             enemyUIcanvas.ShowCanvasGroup();
             hpSlider.value = HealthPoints / MaxPoints;
@@ -86,11 +94,26 @@ public class Health : MonoBehaviour
 				HealthPoints = 0f;
 				PlayerStats.Instance.GainExperience(expPoints);
 
-                //온데스 이벤트
+				//온데스 이벤트
                 OnDeath.Invoke();
                 // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
                 //Destroy(this.gameObject); 
             }
         }
 	}
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.Stop(); // 기존에 재생 중이던 사운드를 멈춤
+            audioSource.clip = clip; // 새로운 클립 할당
+            audioSource.Play(); // 새로운 클립 재생
+        }
+    }
+
+	public void StopSound()
+	{
+        audioSource.Stop();
+    }
 }
