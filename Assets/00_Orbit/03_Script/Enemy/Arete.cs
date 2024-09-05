@@ -4,7 +4,7 @@ using UnityEngine;
 public class Arete : MonoBehaviour
 {
     public DungeonTimer dungeonTimer;
-    public EnemyMemoryPool enemySpawner;
+    public GameObject enemySpawner;
 
     public float moveRange = 0.5f; // 위아래로 이동하는 범위
     public float moveSpeed = 2f; // Lerp로 이동하는 속도
@@ -53,7 +53,7 @@ public class Arete : MonoBehaviour
     public void OnDestroy()
     {
         Destroy(enemySpawner);
-        UIManager.Instance.ScriptText_Enable($"{GameManager.Instance.currentZoneName}이(가) 해방됐다. 더 이상 드론이 소환되지 않을거야.");
+        UIManager.Instance.ScriptText_Enable($"{GameManager.Instance.currentZoneName} 구역이 해방됐다. 더 이상 드론이 소환되지 않을거야.");
         dungeonTimer.Destroy_Arete();
         Destroy(this.gameObject);
     }

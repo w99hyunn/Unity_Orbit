@@ -2,10 +2,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
-/* 
- * 던전 퇴장 Trigger 스크립트
- * 최대한 던전 매니저에서 중앙 처리
- */
+/// <summary>
+/// 던전 퇴장 Trigger
+/// </summary>
 public class DungeonExit : MonoBehaviour
 {
     public AudioClip exitSound;
@@ -51,7 +50,15 @@ public class DungeonExit : MonoBehaviour
 
     private void HandleDungeonExit()
     {
-        if (GameObject.FindWithTag("Arete") == null)
+        if (GameObject.FindWithTag("Arete") != null)
+        {
+            UIManager.Instance.ScriptText_Enable("아레테를 파괴하지 않으면 돌아갈 수 없어.");
+        }
+        else if (GameObject.FindWithTag("Enemy") != null)
+        {
+            UIManager.Instance.ScriptText_Enable("들킬 위험이 있겠어... 드론을 모두 제거하자.");
+        }
+        else
         {
             PlayerStats.Instance.playerState = PlayerState.LOADING;
             GameManager.Instance.PlaySound(exitSound);
@@ -59,10 +66,6 @@ public class DungeonExit : MonoBehaviour
             DungeonManager.Instance.UpdateDungeonLoading("아레테가 파괴되었습니다.", GameManager.Instance.currentZoneName + " 구역이 해방됩니다!", "원래 있던 곳으로 돌아갑니다.", 1);
             UIManager.Instance.interactionKeyDisable();
             StartCoroutine(LoadDungeonSceneAfterDelay(3f));
-        }
-        else
-        {
-            UIManager.Instance.ScriptText_Enable("아레테를 파괴하지 않으면 돌아갈 수 없어.");
         }
     }
 

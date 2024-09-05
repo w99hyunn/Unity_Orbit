@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 
-/* 추후 아레테가 파괴됨을 이벤트 처리 필요 */
-
+/// <summary>
+/// 던전 내부 Timer
+/// </summary>
 public class DungeonTimer : MonoBehaviour
 {
     public TMP_Text timerText;
