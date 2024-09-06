@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class UIManager : MonoBehaviour
 
     [Header("플레이어 스탯")]
     public Slider healthBar;
+    private Image fillImage; // 슬라이더 내부 Bar의 이미지
+    private Color originalColor; // 원래의 색상을 저장하기 위한 변수
+    private int loopCount = Mathf.CeilToInt(1f / (0.1f * 2)); // 왕복하는 데 걸리는 시간을 고려하여 반복 횟수 계산
+
     public Slider manaBar;
     public TMP_Text healthText;
     public TMP_Text manaText;
@@ -66,6 +71,17 @@ public class UIManager : MonoBehaviour
         tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
         interactionText = interactionKey.transform.Find("interactionText").gameObject.GetComponent<TMP_Text>();
         interactionKeyText = interactionKey.transform.Find("interactionKeyText").gameObject.GetComponent<TMP_Text>();
+
+
+        minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
+             .SetLoops(-1, LoopType.Incremental) // 무한 반복
+             .SetEase(Ease.Linear); // 일정한 속도로 회전
+        minimapLockBack.transform.DORotate(new Vector3(0, 0, 360), 60f, RotateMode.FastBeyond360)
+             .SetLoops(-1, LoopType.Incremental) // 무한 반복
+             .SetEase(Ease.Linear); // 일정한 속도로 회전
+
+        fillImage = healthBar.fillRect.GetComponent<Image>();
+        originalColor = fillImage.color; // 원래 색상을 저장
     }
 
     public void interactionKeyEnable(string title, string key)
@@ -115,19 +131,28 @@ public class UIManager : MonoBehaviour
         minimapZoneNameText.text = zoneName;
         zoneNameText.text = zoneName;
 
+        //해방됨
         if (isLiberated)
-        { //해방됨
+        {
             unlockBack.SetActive(true);
             lockBack.SetActive(false);
-            minimapUnlockBack.SetActive(true);
-            minimapLockBack.SetActive(false);
+            timeText.color = new Color(21f / 255f, 184f / 255f, 198f / 255f);
+
+            minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
+            minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
+            //minimapUnlockBack.SetActive(true);
+            //minimapLockBack.SetActive(false);
         }
-        else
+        else //해방안됨
         {
             unlockBack.SetActive(false);
             lockBack.SetActive(true);
-            minimapUnlockBack.SetActive(false);
-            minimapLockBack.SetActive(true);
+            timeText.color = new Color(251f / 255f, 92f / 255f, 87f / 255f);
+
+            minimapUnlockBack.GetComponent<Image>().DOFade(0, 1f);
+            minimapLockBack.GetComponent<Image>().DOFade(1, 1f);
+            //minimapUnlockBack.SetActive(false);
+            //minimapLockBack.SetActive(true);
         }
 
         liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
@@ -178,7 +203,6 @@ public class UIManager : MonoBehaviour
     {
         scriptText.SetActive(false);
     }
-
 
     public void GameOverUI()
     {
@@ -235,6 +259,15 @@ public class UIManager : MonoBehaviour
         //}
         //피격시마다 뜨게 변경
     }
+
+    public void StartBlinking()
+    {
+        fillImage.DOColor(new Color(251f / 255f, 92f / 255f, 87f / 255f), 0.1f)
+                 .SetLoops(loopCount, LoopType.Yoyo) // 2초 동안 반복
+                 .SetEase(Ease.Linear)
+                 .OnComplete(() => fillImage.color = originalColor);
+    }
+
     private void UpdateManaUI(int currentindex, int maxindex)
     {
         int currentManaPercentage = (int)((float)currentindex / maxindex * 100);
@@ -263,6 +296,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(FadeCanvasGroup(levelUpMpPlusAlert));
     }
 
+
     private IEnumerator SmoothSliderChange(Slider slider, float targetValue)
     {
         float elapsedTime = 0f;
@@ -283,6 +317,7 @@ public class UIManager : MonoBehaviour
     {
         StopCoroutine(FlashScreen());
         isFlashing = true;
+        StartBlinking();
 
         float flashDuration = 2f;
         float fadeInDuration = 0.5f;

@@ -2,11 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DungeonManager : MonoBehaviour
 {
     public static DungeonManager Instance { get; private set; }
 
+    public Text loadingText;
     public TMP_Text text1;
     public TMP_Text text2;
     public TMP_Text text3;
@@ -36,6 +38,8 @@ public class DungeonManager : MonoBehaviour
     {
         onDungeonEnter.Invoke();
 
+
+        loadingText.DOText("NOW LOADING", 2, true, ScrambleMode.All).SetDelay(0.5f);
         text1.text = t1;
         text2.text = t2;
         text3.text = t3;
