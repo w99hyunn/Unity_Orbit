@@ -42,6 +42,9 @@ namespace Michsky.UI.Shift
         [Header("감도 조절")]
         public Demo.Scripts.Runtime.Character.FPSControllerSettings settings;
 
+        [Header("움직이는 UI")]
+        public bool isMovementUI;
+
         public static QualityManager Instance { get; private set; }
 
         private void Awake()
@@ -61,6 +64,15 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
+            if ("true" == PlayerPrefs.GetString("moveUISwitch"))
+            {
+                isMovementUI = true;
+            }
+            else if ("false" == PlayerPrefs.GetString("moveUISwitch"))
+            {
+                isMovementUI = false;
+            }
+
             mixer.SetFloat("Master", Mathf.Log10(PlayerPrefs.GetFloat(masterSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat(musicSlider.sliderTag + "SliderValue")) * 20);
             mixer.SetFloat("SFX", Mathf.Log10(PlayerPrefs.GetFloat(sfxSlider.sliderTag + "SliderValue")) * 20);
@@ -303,9 +315,16 @@ namespace Michsky.UI.Shift
             }
         }
 
+        //마우스 감도
         public void SensitivitySpeedSet(float index)
         {
             settings.sensitivity = index;
+        }
+
+        // 움직이는 UI On/Off
+        public void MoveUISet(bool index)
+        {
+            isMovementUI = index;
         }
 
         /* ------------------------------------------------------------------------------ */

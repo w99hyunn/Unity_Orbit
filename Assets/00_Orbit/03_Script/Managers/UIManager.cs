@@ -58,8 +58,6 @@ public class UIManager : MonoBehaviour
     public CanvasGroup levelUpHpPlusAlert;
     public CanvasGroup levelUpMpPlusAlert;
 
-    private bool isFlashing = false;
-
     [Header("게임오버시")]
     public UnityEvent onGameover;
 
@@ -316,7 +314,6 @@ public class UIManager : MonoBehaviour
     public IEnumerator FlashScreen()
     {
         StopCoroutine(FlashScreen());
-        isFlashing = true;
         StartBlinking();
 
         float flashDuration = 2f;
@@ -344,7 +341,6 @@ public class UIManager : MonoBehaviour
         }
 
         screenFlashCanvasGroup.alpha = 0f;
-        isFlashing = false;
     }
 
     IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup)

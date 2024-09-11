@@ -1,3 +1,4 @@
+using Michsky.UI.Shift;
 using UnityEngine;
 
 public class HUDMovement : MonoBehaviour
@@ -11,12 +12,16 @@ public class HUDMovement : MonoBehaviour
 
     void Start()
     {
-        // 초기 목표 위치는 현재 HUD 위치로 설정
         targetPosition = hud.anchoredPosition;
     }
 
     void Update()
     {
+        if (false == QualityManager.Instance.isMovementUI)
+        {
+            return;
+        }
+
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
