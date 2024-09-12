@@ -259,6 +259,37 @@ MonoScript:
   m_ClassName: SceneObjectIDMapSceneAsset
   m_Namespace: UnityEngine.Rendering.HighDefinition
   m_AssemblyName: 
+--- !u!1 &34799431
+GameObject:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34799432}
+  m_Layer: 0
+  m_Name: //-
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 2800000, guid: 4724f3b6006a28f4ca8f7de7bf926d39, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &34799432
+Transform:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34799431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &62618109
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +603,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1519024853}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &253971788
 GameObject:
@@ -11140,6 +11171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 203811332}
   - {fileID: 2060642647}
   - {fileID: 376526257}
   - {fileID: 1546227252}
@@ -17255,7 +17287,7 @@ GameObject:
   - component: {fileID: 1812347384}
   - component: {fileID: 1812347383}
   m_Layer: 0
-  m_Name: NavMeshSurface
+  m_Name: NavMeshSurface<Ground>
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18458,19 +18490,19 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 434003128}
+  - {fileID: 34799432}
   - {fileID: 743083641}
   - {fileID: 2029430061}
-  - {fileID: 203811332}
   - {fileID: 1782384669}
   - {fileID: 62618110}
   - {fileID: 994158634}
   - {fileID: 199951838}
   - {fileID: 795311616}
   - {fileID: 1812347384}
+  - {fileID: 1033852692}
   - {fileID: 1519024853}
   - {fileID: 291442011}
   - {fileID: 2019582252}
   - {fileID: 788949536}
   - {fileID: 1970198039170077616}
-  - {fileID: 1033852692}
   - {fileID: 2003952151}
