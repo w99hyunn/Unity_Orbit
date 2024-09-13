@@ -56,27 +56,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Separator.cs" />
+    <Compile Include="Assets\_ShiftUI\Editor\Scripts\InitShiftUI.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_SerializableList.cs" />
+    <Compile Include="Assets\_ShiftUI\Editor\Scripts\ToolsMenu.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_TagLayer.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_Folder.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_EnumFilter.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_ShortcutSettings.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDscenecustinsp.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_DesignSettings.cs" />
-    <Compile Include="Assets\ShiftUI\Editor\Scripts\InitShiftUI.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Attributes.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_ColorUtility.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_AdvancedSettings.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Separator.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Presets.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Editor\FPSControllerSettingsEditor.cs" />
-    <Compile Include="Assets\ShiftUI\Editor\Scripts\UIManagerEditor.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\GroupCheck.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDgroupcustomInspector.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Utility_Tools.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_AdvancedSettings.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Folder.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_DesignSettings.cs" />
+    <Compile Include="Assets\_ShiftUI\Editor\Scripts\ExtendedColorPicker.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Data.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Inspector_Folder.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDlevelcreatorcustinsp.cs" />
@@ -96,11 +98,10 @@
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_GUI.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Resources.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_Constants.cs" />
-    <Compile Include="Assets\ShiftUI\Editor\Scripts\ExtendedColorPicker.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Window_Presets.cs" />
+    <Compile Include="Assets\_ShiftUI\Editor\Scripts\UIManagerEditor.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Manager_Initializer.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_TextureLoader.cs" />
-    <Compile Include="Assets\ShiftUI\Editor\Scripts\ToolsMenu.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\Editor\TDzonecustomInspector.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Shared_MenuItems.cs" />
     <Compile Include="Assets\Settings\Hierarchy Designer\Editor\Scripts\HierarchyDesigner_Configurable_ShortcutsSettings.cs" />
@@ -1267,12 +1268,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.MemoryProfiler.Editor.MemoryProfilerModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
-      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
@@ -1325,13 +1326,13 @@
       <Project>{491CDBEE-1E10-06CF-3EDB-2782461E24CB}</Project>
       <Name>FPSAnimationFramework.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="FPSAnimationFramework.Runtime.csproj">
-      <Project>{5C3A13C3-56D8-C1BB-9D95-602B28709DF7}</Project>
-      <Name>FPSAnimationFramework.Runtime</Name>
-    </ProjectReference>
     <ProjectReference Include="KAnimationCore.Runtime.csproj">
       <Project>{8511E28F-0A29-6D1C-2945-B2BD8B48A384}</Project>
       <Name>KAnimationCore.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="FPSAnimationFramework.Runtime.csproj">
+      <Project>{5C3A13C3-56D8-C1BB-9D95-602B28709DF7}</Project>
+      <Name>FPSAnimationFramework.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
