@@ -66,13 +66,13 @@
     <Compile Include="Assets\ShiftUI\Scripts\Other\QualityManager.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\SwitchHandler.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Crypto\CryptoUtility.cs" />
+    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\OutdoorsBackgroundMusic.cs" />
+    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\SplashSceneManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\DissolveChildsPingPong.cs" />
-    <Compile Include="Assets\VFX\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\SunLight.cs" />
-    <Compile Include="Assets\VFX\ShaderGraph_Dissolve\Utility\Scripts\Rotator.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Panel\SplashScreenManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDScene.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\_Debug.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyUI.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Item\Weapon.cs" />
+    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\Rotator.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Player\ShowGunControll.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSController.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\UIElementSound.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDCameraSwitchKey.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyProjectile.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Other\ScrollForMore.cs" />
-    <Compile Include="Assets\VFX\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\MinimapFollow.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Panel\ServerBrowserManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDGroup.cs" />
@@ -113,6 +113,7 @@
     <Compile Include="Assets\ShiftUI\Scripts\Rendering\GradientEffect.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\CustomInputField.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Rendering\BlurManager.cs" />
+    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\HUDMovement.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\ZoneEntrance.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="Assets\ShiftUI\Scripts\Other\LayoutGroupPositionFix.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\VirtualCursorAnimate.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\UI Element\SwitchManager.cs" />
-    <Compile Include="Assets\VFX\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\GameManager.cs" />
     <Compile Include="Assets\ShiftUI\Scripts\Input\SliderGamepadManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Item\RootBoxSpawner.cs" />
@@ -199,7 +199,7 @@
   <ItemGroup>
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\VFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
+    <None Include="Assets\00_Orbit\06_VFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap.shader" />
@@ -219,7 +219,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
-    <None Include="Assets\VFX\TranslucentCrystals\Resources\Shaders\Crystal.shader" />
+    <None Include="Assets\00_Orbit\06_VFX\TranslucentCrystals\Resources\Shaders\Crystal.shader" />
     <None Include="Assets\Ida Faber\Shaders\Built-in\GR_StandardS_DS.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Surface.cginc" />
     <None Include="Assets\Ida Faber\Shaders\Built-in\Double-sided.shader" />
@@ -232,7 +232,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ShiftUI\Shaders\UI Blur.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\VFX\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
+    <None Include="Assets\00_Orbit\06_VFX\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
     <None Include="Assets\ShiftUI\Shaders\Glitch\Glitch.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Sprite.shader" />
   </ItemGroup>
