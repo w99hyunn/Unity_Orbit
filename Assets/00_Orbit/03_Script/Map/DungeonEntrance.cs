@@ -71,14 +71,21 @@ public class DungeonEntrance : MonoBehaviour
 
     private IEnumerator LoadDungeonSceneAfterDelay(float delay)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("DungeonScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("DungeonScene", LoadSceneMode.Additive);
         asyncLoad.allowSceneActivation = false;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
 
         asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        //yield return new WaitForSeconds(delay);
+
         asyncLoad.completed += OnSceneLoaded;
+        SceneManager.UnloadSceneAsync("WorldScene");
     }
+
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         PlayerStats.Instance.playerState = PlayerState.IDLE;

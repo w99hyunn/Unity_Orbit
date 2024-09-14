@@ -86,21 +86,14 @@ public class StartManager : MonoBehaviour
 
     private IEnumerator LoadWorldScene()
     {
-        // 씬 로딩을 위한 AsyncOperation 객체 생성
         AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
         op.allowSceneActivation = false;
 
-
-
-        // 모든 씬이 0.9f 이상 로드될 때까지 대기
         yield return new WaitUntil(() => op.progress >= 0.9f);
-        Debug.Log("모든 씬 로딩 완료");
 
         SceneManager.LoadScene("Element_UI", LoadSceneMode.Additive);
         op.allowSceneActivation = true;
-
         GameManager.Instance.LoadGame();
-
     }
 
     public void StartNewGame()

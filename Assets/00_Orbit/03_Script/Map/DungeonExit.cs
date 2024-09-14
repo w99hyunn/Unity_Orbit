@@ -64,19 +64,25 @@ public class DungeonExit : MonoBehaviour
             isLoading = true;
             UIManager.Instance.DungeonLoading("아레테가 파괴되었습니다.", GameManager.Instance.currentZoneName + " 구역이 해방됩니다!", "원래 있던 곳으로 돌아갑니다.");
             UIManager.Instance.interactionKeyDisable();
-            StartCoroutine(LoadDungeonSceneAfterDelay(3f));
+            StartCoroutine(LoadWorldSceneAfterDelay(3f));
         }
     }
 
-    private IEnumerator LoadDungeonSceneAfterDelay(float delay)
+    private IEnumerator LoadWorldSceneAfterDelay(float delay)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
         asyncLoad.allowSceneActivation = false;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
 
         asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        //yield return new WaitForSeconds(delay);
+
         asyncLoad.completed += OnSceneLoaded;
+        SceneManager.UnloadSceneAsync("DungeonScene");
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)

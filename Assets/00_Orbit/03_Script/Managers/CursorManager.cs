@@ -13,6 +13,8 @@ public class CursorManager : MonoBehaviour
     private void Start()
     {
         CustomResume();
+        objectsToDestroy.Add(GameManager.Instance.gameObject);
+        objectsToDestroy.Add(PlayerStats.Instance.gameObject);
     }
 
     void Update()
