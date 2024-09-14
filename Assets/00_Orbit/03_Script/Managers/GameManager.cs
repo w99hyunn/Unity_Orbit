@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class ZoneData
 {
     public string zoneName;
-    public bool isLiberated;
+    public bool isLiberated { get; set; }
 }
 
 [System.Serializable]

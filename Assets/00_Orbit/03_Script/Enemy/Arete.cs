@@ -50,7 +50,7 @@ public class Arete : MonoBehaviour
         }
     }
 
-    public void OnDestroy()
+    public void AreteDestroy()
     {
         Destroy(enemySpawner);
         UIManager.Instance.ScriptText_Enable($"{GameManager.Instance.currentZoneName} 구역이 해방됐다. 더 이상 드론이 소환되지 않을거야.");
