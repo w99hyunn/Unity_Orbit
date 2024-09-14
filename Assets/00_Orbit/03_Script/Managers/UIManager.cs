@@ -37,9 +37,6 @@ public class UIManager : MonoBehaviour
     [Header("스크립트 텍스트")]
     public GameObject scriptText;
 
-    [Header("태양(직접광)")]
-    public Light sun; // SUN 오브젝트
-
     [Header("플레이어 스탯")]
     public Slider healthBar;
     private Image fillImage; // 슬라이더 내부 Bar의 이미지
@@ -61,7 +58,12 @@ public class UIManager : MonoBehaviour
     [Header("게임오버시")]
     public UnityEvent onGameover;
 
-    public HUDMovement hudMovement;
+    [Header("던전 관련")]
+    public Text loadingText;
+    public TMP_Text text1;
+    public TMP_Text text2;
+    public TMP_Text text3;
+    public UnityEvent onDungeonEnter;
 
     private void Start()
     {
@@ -80,6 +82,16 @@ public class UIManager : MonoBehaviour
 
         fillImage = healthBar.fillRect.GetComponent<Image>();
         originalColor = fillImage.color; // 원래 색상을 저장
+    }
+
+    public void DungeonLoading(string t1, string t2, string t3)
+    {
+        onDungeonEnter.Invoke();
+
+        loadingText.DOText("NOW LOADING", 2, true, ScrambleMode.All).SetDelay(0.5f);
+        text1.text = t1;
+        text2.text = t2;
+        text3.text = t3;
     }
 
     public void interactionKeyEnable(string title, string key)
@@ -111,11 +123,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
         }
     }
 

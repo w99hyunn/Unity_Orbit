@@ -30,9 +30,7 @@ namespace Michsky.UI.Shift
         List<Resolution> uniqueResolutions;
         List<string> options = new List<string>();
 
-        //메인카메라
-        public Camera mainCamera;
-        private HDAdditionalCameraData cameraData;
+        public HDAdditionalCameraData cameraData;
 
         //FPSRate
         public GameObject FPSRate;
@@ -45,21 +43,9 @@ namespace Michsky.UI.Shift
         [Header("움직이는 UI")]
         public bool isMovementUI;
 
-        public static QualityManager Instance { get; private set; }
-
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-            //mainCamera = Camera.main;
-            cameraData = mainCamera.GetComponent<HDAdditionalCameraData>();
+            cameraData = FindAnyObjectByType<HDAdditionalCameraData>();
         }
 
         void Start()

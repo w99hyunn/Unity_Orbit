@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
 
     public Michsky.UI.Shift.PressKeyEvent pressKeyEvent;
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
         _playerStats = player.GetComponent<PlayerStats>();
         audioSource = GetComponent<AudioSource>();
     }
+
+
 
     private void Update()
     {
@@ -115,13 +118,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (PlayerStats.Instance.playerState == PlayerState.PAUSE)
-        {
-            pressKeyEvent.pressAction.Invoke();
-        }
-        PlayerStats.Instance.playerState = PlayerState.DIE;
+        Debug.Log("게임매니저 게임오버 ");
         UIManager.Instance.GameOverUI();
-
+        PlayerStats.Instance.playerState = PlayerState.DIE;
     }
 
     // 게임 오버시 체크포인트 불러오기
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "DungeonScene")
         {
-            AsyncLoadScene("OutdoorsScene");
+            AsyncLoadScene("WorldScene");
         }
         else
         {
@@ -150,7 +149,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitUntil(() => op.isDone);
 
-        if (name == "OutdoorsScene")
+        if (name == "WorldScene")
         {
             LoadGame();
         }
@@ -177,6 +176,8 @@ public class GameManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
 
+        Debug.Log("saved JSON: " + json);
+
         File.WriteAllText(saveFilePath, encryptedJson);
         PlayerPrefs.SetInt("ContinueGame", 1);
         PlayerPrefs.Save();
@@ -189,7 +190,7 @@ public class GameManager : MonoBehaviour
             string encryptedJson = File.ReadAllText(saveFilePath);
             string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-            //Debug.Log("Loaded JSON: " + json);
+            Debug.Log("Loaded JSON: " + json);
 
             GameData data = JsonUtility.FromJson<GameData>(json);
             if (data != null)
@@ -252,7 +253,10 @@ public class GameManager : MonoBehaviour
 
         string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
-        UIManager.Instance.UpdateTime(timeFormatted);
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateTime(timeFormatted);
+        }
     }
 
     public void LiberateZone(string zoneName)

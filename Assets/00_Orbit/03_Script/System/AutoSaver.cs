@@ -14,12 +14,17 @@ public class AutoSaver : MonoBehaviour
         StartCoroutine(AutoClick());
     }
 
+    public void GameSave()
+    {
+        GameManager.Instance.SaveGame();
+    }
+
     private IEnumerator AutoClick()
     {
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            if (SceneManager.GetActiveScene().name == "OutdoorsScene" && PlayerStats.Instance.playerState != PlayerState.DIE)
+            if (SceneManager.GetActiveScene().name == "WorldScene" && PlayerStats.Instance.playerState != PlayerState.DIE)
             {
                 SaveButton.onClick.Invoke();
             }

@@ -25,7 +25,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             SetGameObjectsActive(false);
         }
-        else if (scene.name == "OutdoorsScene")
+        else if (scene.name == "WorldScene")
         {
             SetGameObjectsActive(true);
         }

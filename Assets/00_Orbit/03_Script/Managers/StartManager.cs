@@ -83,22 +83,24 @@ public class StartManager : MonoBehaviour
         }
     }
 
-    public void AsyncLoadScene(string name)
-    {
-        StartCoroutine(LoadSceneProcess(name));
-    }
 
-    private IEnumerator LoadSceneProcess(string name)
+    private IEnumerator LoadWorldScene()
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(name);
+        // 씬 로딩을 위한 AsyncOperation 객체 생성
+        AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
+        op.allowSceneActivation = false;
+
+
+
+        // 모든 씬이 0.9f 이상 로드될 때까지 대기
+        yield return new WaitUntil(() => op.progress >= 0.9f);
+        Debug.Log("모든 씬 로딩 완료");
+
+        SceneManager.LoadScene("Element_UI", LoadSceneMode.Additive);
         op.allowSceneActivation = true;
 
-        yield return new WaitUntil(() => op.isDone);
+        GameManager.Instance.LoadGame();
 
-        if (name == "OutdoorsScene")
-        {
-            GameManager.Instance.LoadGame();
-        }
     }
 
     public void StartNewGame()
@@ -111,12 +113,12 @@ public class StartManager : MonoBehaviour
 
         PlayerPrefs.DeleteKey("ContinueGame");
 
-        AsyncLoadScene("OutdoorsScene");
+        StartCoroutine(LoadWorldScene());
     }
 
     public void ContinueGame()
     {
-        AsyncLoadScene("OutdoorsScene");
+        StartCoroutine(LoadWorldScene());
     }
 
     public void DevSite(string url)

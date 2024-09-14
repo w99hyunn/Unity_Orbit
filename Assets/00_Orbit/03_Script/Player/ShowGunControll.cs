@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ShowGunControll : MonoBehaviour
 {
-    public GameObject Player;
+    private GameObject Player;
     private RecoilAnimation recoil;
     private FPSController fpsController;
     public GameObject aimImage;
@@ -21,6 +21,7 @@ public class ShowGunControll : MonoBehaviour
 
     private void Start()
     {
+        Player = GameObject.FindWithTag("Player");
         recoil = Player.GetComponent<RecoilAnimation>();
         fpsController = Player.GetComponent<FPSController>();
 

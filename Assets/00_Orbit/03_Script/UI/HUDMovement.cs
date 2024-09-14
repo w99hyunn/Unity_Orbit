@@ -7,17 +7,19 @@ public class HUDMovement : MonoBehaviour
     public float moveSpeed = 1f;
     public Vector2 minPosition;
     public Vector2 maxPosition;
+    private QualityManager qualityManager;
 
     private Vector2 targetPosition;
 
     void Start()
     {
+        qualityManager = FindAnyObjectByType<QualityManager>();
         targetPosition = hud.anchoredPosition;
     }
 
     void Update()
     {
-        if (false == QualityManager.Instance.isMovementUI)
+        if (false == qualityManager.isMovementUI)
         {
             return;
         }

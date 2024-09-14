@@ -35,5 +35,10 @@ namespace Michsky.UI.Shift
                     pressAction.Invoke();
             }
         }
+
+        public void PressEvent()
+        {
+            pressAction.Invoke();
+        }
     }
 }

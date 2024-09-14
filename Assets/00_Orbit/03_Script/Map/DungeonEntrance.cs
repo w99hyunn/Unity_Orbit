@@ -62,7 +62,7 @@ public class DungeonEntrance : MonoBehaviour
             PlayerStats.Instance.playerState = PlayerState.LOADING;
             GameManager.Instance.PlaySound(entranceSound);
             isLoading = true;
-            DungeonManager.Instance.UpdateDungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
+            UIManager.Instance.DungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
             GameManager.Instance.SavePlayerPosition(other.transform.position);
             UIManager.Instance.interactionKeyDisable();
             StartCoroutine(LoadDungeonSceneAfterDelay(3f));
