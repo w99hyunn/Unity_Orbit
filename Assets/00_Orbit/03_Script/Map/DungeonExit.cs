@@ -83,6 +83,7 @@ public class DungeonExit : MonoBehaviour
 
         asyncLoad.completed += OnSceneLoaded;
         SceneManager.UnloadSceneAsync("DungeonScene");
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)

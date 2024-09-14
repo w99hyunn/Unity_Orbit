@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public string currentZoneName;
     public Vector3 lastPlayerPosition { get; private set; }
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private string saveFilePath;
     private bool isPlayerStatsInitialized = false;
     private bool isPlayerControllerInitialized = false;
@@ -49,8 +49,6 @@ public class GameManager : MonoBehaviour
     public float gameTime  = 13600f; // 21600
     private const float realSecondsPerGameDay = 3 * 60 * 60;
     private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
-
-    public Michsky.UI.Shift.PressKeyEvent pressKeyEvent;
 
     public static GameManager Instance { get; private set; }
 
@@ -73,11 +71,7 @@ public class GameManager : MonoBehaviour
     {
         _controller = player.GetComponent<FPSMovement>();
         _playerStats = player.GetComponent<PlayerStats>();
-        audioSource = GetComponent<AudioSource>();
     }
-
-
-
     private void Update()
     {
         UpdateGameTime();
@@ -128,7 +122,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "DungeonScene")
         {
-            AsyncLoadScene("WorldScene");
+            StartCoroutine(LoadWorldSceneAfterDelay(3f));
         }
         else
         {
@@ -137,22 +131,28 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AsyncLoadScene(string name)
+    private IEnumerator LoadWorldSceneAfterDelay(float delay)
     {
-        StartCoroutine(LoadSceneProcess(name));
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+        asyncLoad.allowSceneActivation = false;
+
+        yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
+
+        asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        //yield return new WaitForSeconds(delay);
+        asyncLoad.completed += OnSceneLoaded;
+        SceneManager.UnloadSceneAsync("DungeonScene");
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
     }
 
-    private IEnumerator LoadSceneProcess(string name)
+    private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(name);
-        op.allowSceneActivation = true;
-
-        yield return new WaitUntil(() => op.isDone);
-
-        if (name == "WorldScene")
-        {
-            LoadGame();
-        }
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
+        LoadGame();
     }
 
     public void SaveGame()

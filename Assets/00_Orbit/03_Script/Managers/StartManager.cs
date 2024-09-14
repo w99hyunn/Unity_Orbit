@@ -94,6 +94,7 @@ public class StartManager : MonoBehaviour
         SceneManager.LoadScene("Element_UI", LoadSceneMode.Additive);
         op.allowSceneActivation = true;
         GameManager.Instance.LoadGame();
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
     }
 
     public void StartNewGame()
