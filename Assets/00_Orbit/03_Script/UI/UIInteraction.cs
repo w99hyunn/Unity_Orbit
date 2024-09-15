@@ -11,4 +11,9 @@ public class UIInteraction : MonoBehaviour
     {
         GameManager.Instance.ContinueGame();
     }
+
+    public void ChangePlayerStateIDLE()
+    {
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
+    }
 }

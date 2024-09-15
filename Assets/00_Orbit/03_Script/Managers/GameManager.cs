@@ -145,9 +145,9 @@ public class GameManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
 
         LoadGame();
+        SceneManager.UnloadSceneAsync("DungeonScene");
 
         yield return new WaitForSeconds(delay);
-        SceneManager.UnloadSceneAsync("DungeonScene");
         asyncLoad.completed += OnSceneLoaded;
     }
 

@@ -19,14 +19,6 @@ public class CursorManager : MonoBehaviour
 
     void Update()
     {
-        if (PlayerStats.Instance.playerState == PlayerState.DIE)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            pauseMenuHotkey.SetActive(false);
-            StartCoroutine(CheckPlayerState());
-        }
-
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             ShowTooltip();
@@ -67,6 +59,19 @@ public class CursorManager : MonoBehaviour
             }
         }
         objectsToDestroy.Clear();
+    }
+    public void DieGame()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        pauseMenuHotkey.SetActive(false);
+    }
+
+    public void ContinueGame()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        pauseMenuHotkey.SetActive(true);
     }
 
     public void CustomResume()
