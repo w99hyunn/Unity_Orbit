@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4881f9a2c4d568047b316028d20a8dca, type: 3}
   m_Name: DungeonScene Baking Set
   m_EditorClassIdentifier: 
-  singleSceneMode: 1
+  singleSceneMode: 0
   dialogNoProbeVolumeInSetShown: 1
   settings:
     m_Version: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
       dilationIterations: 1
       squaredDistWeighting: 1
     virtualOffsetSettings:
-      useVirtualOffset: 1
+      useVirtualOffset: 0
       validityThreshold: 0.25
       outOfGeoOffset: 0.01
       searchMultiplier: 0.2
@@ -242,19 +242,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   minRendererVolumeSize: 0.1
-  skyOcclusion: 0
+  skyOcclusion: 1
   skyOcclusionBakingSamples: 2048
   skyOcclusionBakingBounces: 2
   skyOcclusionAverageAlbedo: 0.6
   skyOcclusionBackFaceCulling: 0
-  skyOcclusionShadingDirection: 0
+  skyOcclusionShadingDirection: 1
   useRenderingLayers: 0
   renderingLayerMasks: []
   m_SceneBakeData:
     m_Keys:
     - f0d1a01a8b7e80340806845e9790bd3a
     m_Values:
-    - hasProbeVolume: 1
+    - hasProbeVolume: 0
       bakeScene: 1
       bounds:
         m_Center: {x: -40.5, y: 0, z: 0}
