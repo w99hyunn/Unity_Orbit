@@ -59,7 +59,6 @@ public class UIManager : MonoBehaviour
     public UnityEvent onGameover;
 
     [Header("던전 관련")]
-    public GameObject dungeonTimer;
     public Text loadingText;
     public TMP_Text text1;
     public TMP_Text text2;
