@@ -112,9 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("게임매니저 게임오버 ");
         UIManager.Instance.GameOverUI();
-        PlayerStats.Instance.playerState = PlayerState.DIE;
     }
 
     // 게임 오버시 체크포인트 불러오기
@@ -148,11 +146,6 @@ public class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync("DungeonScene");
 
         yield return new WaitForSeconds(delay);
-        asyncLoad.completed += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(AsyncOperation asyncOperation)
-    {
         PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
     }
 
