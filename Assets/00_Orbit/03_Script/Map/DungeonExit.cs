@@ -79,17 +79,19 @@ public class DungeonExit : MonoBehaviour
 
         yield return new WaitUntil(() => asyncLoad.isDone);
 
-        //yield return new WaitForSeconds(delay);
-
-        asyncLoad.completed += OnSceneLoaded;
-        SceneManager.UnloadSceneAsync("DungeonScene");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+
+        GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
+
+        yield return new WaitForSeconds(delay);
+        SceneManager.UnloadSceneAsync("DungeonScene");
+        asyncLoad.completed += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
-        GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
         isLoading = false;
+        UIManager.Instance.DungeonLoadingComplete();
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
     }
 }

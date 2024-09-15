@@ -8,6 +8,7 @@ using System.Collections;
 /// </summary>
 public class DungeonEntrance : MonoBehaviour
 {
+    public Vector3 spawnPos;
     public AudioClip entranceSound;
     public HintTrigger hintTrigger;
 
@@ -80,17 +81,19 @@ public class DungeonEntrance : MonoBehaviour
 
         yield return new WaitUntil(() => asyncLoad.isDone);
 
-        //yield return new WaitForSeconds(delay);
-
-        asyncLoad.completed += OnSceneLoaded;
-        SceneManager.UnloadSceneAsync("WorldScene");
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("DungeonScene"));
+
+        GameManager.Instance.SetPos(spawnPos);
+
+        yield return new WaitForSeconds(delay);
+        SceneManager.UnloadSceneAsync("WorldScene");
+        asyncLoad.completed += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
-        GameManager.Instance.SetPos(new Vector3(-31.353f, 7.588f, 3.23f));
         isLoading = false;
+        UIManager.Instance.DungeonLoadingComplete();
+        PlayerStats.Instance.playerState = PlayerState.IDLE;
     }
 }

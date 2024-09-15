@@ -59,11 +59,13 @@ public class UIManager : MonoBehaviour
     public UnityEvent onGameover;
 
     [Header("던전 관련")]
+    public GameObject dungeonTimer;
     public Text loadingText;
     public TMP_Text text1;
     public TMP_Text text2;
     public TMP_Text text3;
     public UnityEvent onDungeonEnter;
+    public UnityEvent onDungeonLoadingComplete;
 
     private void Start()
     {
@@ -93,6 +95,12 @@ public class UIManager : MonoBehaviour
         text2.text = t2;
         text3.text = t3;
     }
+
+    public void DungeonLoadingComplete()
+    {
+        onDungeonLoadingComplete.Invoke();
+    }
+
 
     public void interactionKeyEnable(string title, string key)
     {
@@ -300,7 +308,6 @@ public class UIManager : MonoBehaviour
         StartCoroutine(FadeCanvasGroup(levelUpHpPlusAlert));
         StartCoroutine(FadeCanvasGroup(levelUpMpPlusAlert));
     }
-
 
     private IEnumerator SmoothSliderChange(Slider slider, float targetValue)
     {

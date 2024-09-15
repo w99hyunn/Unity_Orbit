@@ -142,17 +142,18 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitUntil(() => asyncLoad.isDone);
 
-        //yield return new WaitForSeconds(delay);
-        asyncLoad.completed += OnSceneLoaded;
-        SceneManager.UnloadSceneAsync("DungeonScene");
-
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+
+        LoadGame();
+
+        yield return new WaitForSeconds(delay);
+        SceneManager.UnloadSceneAsync("DungeonScene");
+        asyncLoad.completed += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
         PlayerStats.Instance.playerState = PlayerState.IDLE;
-        LoadGame();
     }
 
     public void SaveGame()
