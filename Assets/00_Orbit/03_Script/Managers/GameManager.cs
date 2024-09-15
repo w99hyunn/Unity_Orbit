@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
+        PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
     }
 
     public void SaveGame()

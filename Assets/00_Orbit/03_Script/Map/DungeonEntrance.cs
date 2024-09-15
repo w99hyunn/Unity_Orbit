@@ -94,6 +94,7 @@ public class DungeonEntrance : MonoBehaviour
     {
         isLoading = false;
         UIManager.Instance.DungeonLoadingComplete();
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
+
+        PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
     }
 }

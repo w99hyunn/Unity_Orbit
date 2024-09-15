@@ -73,13 +73,24 @@ public class PlayerStats : MonoBehaviour
         UpdateUI();
     }
 
-    IEnumerator ChangePlayerState(float time, PlayerState playerState)
+    public IEnumerator ChangePlayerState(float time, PlayerState playerState)
     {
         yield return new WaitForSeconds(time);
         if (this.playerState == PlayerState.INIT)
         {
             this.playerState = playerState;
         }
+    }
+
+    public void ChangeState(float seconds, PlayerState playerState)
+    {
+        StartCoroutine(ChangePlayerStateAbsolute(seconds, playerState));
+    }
+
+    public IEnumerator ChangePlayerStateAbsolute(float seconds, PlayerState playerState)
+    {
+        yield return new WaitForSeconds(seconds);
+        this.playerState = playerState;
     }
 
     public void InitializeStats()
