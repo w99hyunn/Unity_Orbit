@@ -1,8 +1,8 @@
 using System.Collections;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 /*
  * MainScene에서 게임 시작 과정을 위한 코드
@@ -19,6 +19,8 @@ public class StartManager : MonoBehaviour
     public TMP_Text hpText;
     public TMP_Text mpText;
     public TMP_Text lastModifiedText;
+    public TMP_Text loadingPercentText;
+    private AsyncOperation op;
 
     private void Start()
     {
@@ -86,11 +88,26 @@ public class StartManager : MonoBehaviour
 
     private IEnumerator LoadWorldScene()
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
+        // 씬을 비동기적으로 로드하고, 즉시 활성화되지 않도록 설정
+        op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
         op.allowSceneActivation = false;
 
-        yield return new WaitUntil(() => op.progress >= 0.9f);
+        // 로딩이 완료될 때까지 루프
+        while (op.progress < 0.9f)
+        {
+            // 진행 상황을 퍼센트로 변환하여 텍스트 업데이트
+            float progress = Mathf.Clamp01(op.progress / 0.9f);
+            loadingPercentText.text = (progress * 100).ToString("F0"); // 소수점 없이 퍼센트 표시
 
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        // 로딩이 90% 이상일 때 추가 작업
+        loadingPercentText.text = "100";
+
+        yield return new WaitForSeconds(1f); // 3초 대기
+
+        // 추가 씬 로드 및 활성화
         SceneManager.LoadScene("Element_UI", LoadSceneMode.Additive);
         op.allowSceneActivation = true;
         GameManager.Instance.LoadGame();
