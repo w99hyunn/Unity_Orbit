@@ -185,7 +185,7 @@ public class EnemyFSM : MonoBehaviour
     {
         while (true)
         {
-            if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+            if (PlayerStats.Instance.playerState == PlayerState.IDLE || PlayerStats.Instance.playerState == PlayerState.PAUSE)
             {
                 navMeshAgent.ResetPath();
                 LookRotationToTarget();

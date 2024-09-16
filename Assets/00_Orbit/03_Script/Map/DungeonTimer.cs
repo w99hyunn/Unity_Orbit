@@ -29,7 +29,7 @@ public class DungeonTimer : MonoBehaviour
     }
     void Update()
     {
-        if (timerRunning && !(destroyArete))
+        if (timerRunning && !(destroyArete) && PlayerStats.Instance.playerState != PlayerState.DIE)
         {
             if (timeRemaining > 1)
             {
@@ -78,23 +78,34 @@ public class DungeonTimer : MonoBehaviour
     {
         UIManager.Instance.DungeonLoading("시간이 초과되었습니다.", "아레테를 파괴하지 못했습니다!", "잠시 후 원래 있던 곳으로 돌아갑니다.");
         yield return new WaitForSeconds(0f);
-
+        PlayerStats.Instance.playerState = PlayerState.LOADING;
         StartCoroutine(LoadWorldSceneAfterDelay(3f));
     }
 
     private IEnumerator LoadWorldSceneAfterDelay(float delay)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
         asyncLoad.allowSceneActivation = false;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
 
         asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+
+        GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
+
+        yield return new WaitForSeconds(delay);
+        SceneManager.UnloadSceneAsync("DungeonScene");
         asyncLoad.completed += OnSceneLoaded;
     }
+
     void OnSceneLoaded(AsyncOperation asyncOperation)
     {
-        Vector3 lastPosition = GameManager.Instance.LoadPlayerPosition();
-        GameManager.Instance.SetPos(lastPosition);
+        GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
+        UIManager.Instance.DungeonLoadingComplete();
+        PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
     }
 }

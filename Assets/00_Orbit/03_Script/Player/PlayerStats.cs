@@ -49,7 +49,6 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         playerState = PlayerState.INIT;
-        Debug.Log(PlayerStats.Instance.playerState);
         InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
         InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
         InitializeStats();
