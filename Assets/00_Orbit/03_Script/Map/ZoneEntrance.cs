@@ -1,19 +1,22 @@
 using UnityEngine;
 
-/* 
- * 맵의 존 트리거에 닿았을 때 현재 존 출력 및 GameManager에 전달
- */
-public class ZoneEntrance : MonoBehaviour
+namespace STARTING
 {
-    public string zoneName;
-
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// 맵의 존 트리거에 닿았을 때 출력 및 GameManager에 전달
+    /// </summary>
+    public class ZoneEntrance : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        public string zoneName;
+
+        private void OnTriggerEnter(Collider other)
         {
-            GameManager.Instance.currentZoneName = zoneName;
-            bool isLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
-            UIManager.Instance.UpdateZoneInfo(zoneName, isLiberated);
+            if (other.CompareTag("Player"))
+            {
+                GameManager.Instance.currentZoneName = zoneName;
+                bool isLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
+                UIManager.Instance.UpdateZoneInfo(zoneName, isLiberated);
+            }
         }
     }
 }

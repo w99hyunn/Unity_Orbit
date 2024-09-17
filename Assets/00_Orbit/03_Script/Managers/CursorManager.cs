@@ -3,96 +3,99 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CursorManager : MonoBehaviour
+namespace STARTING
 {
-    public List<GameObject> objectsToDestroy = new List<GameObject>();
-    public GameObject tooltip;
-    public GameObject pauseMenuHotkey;
-
-
-    private void Start()
+    public class CursorManager : MonoBehaviour
     {
-        ContinueGame();
-        objectsToDestroy.Add(GameManager.Instance.gameObject);
-        objectsToDestroy.Add(PlayerStats.Instance.gameObject);
-    }
+        public List<GameObject> objectsToDestroy = new List<GameObject>();
+        public GameObject tooltip;
+        public GameObject pauseMenuHotkey;
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftAlt))
+
+        private void Start()
         {
-            ShowTooltip();
+            ContinueGame();
+            objectsToDestroy.Add(GameManager.Instance.gameObject);
+            objectsToDestroy.Add(PlayerStats.Instance.gameObject);
         }
-        else
-        {
-            HideTooltip();
-        }
-    }
 
-    private IEnumerator CheckPlayerState()
-    {
-        while (true)
+        void Update()
         {
-            if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+            if (Input.GetKey(KeyCode.LeftAlt))
             {
-                pauseMenuHotkey.SetActive(true);
-                yield break; 
+                ShowTooltip();
             }
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    public void BackToMain()
-    {
-        SceneManager.LoadScene("MainScene");
-
-        DestroyObjectsInList();
-    }
-
-    public void DestroyObjectsInList()
-    {
-        foreach (GameObject obj in objectsToDestroy)
-        {
-            if (obj != null)
+            else
             {
-                Destroy(obj);
+                HideTooltip();
             }
         }
-        objectsToDestroy.Clear();
-    }
-    public void DieGame()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        pauseMenuHotkey.SetActive(false);
-    }
 
-    public void ContinueGame()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        pauseMenuHotkey.SetActive(true);
-    }
+        private IEnumerator CheckPlayerState()
+        {
+            while (true)
+            {
+                if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+                {
+                    pauseMenuHotkey.SetActive(true);
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
 
-    public void CustomResume()
-    {
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+        public void BackToMain()
+        {
+            SceneManager.LoadScene("MainScene");
 
-    public void CustomPause()
-    {
-        PlayerStats.Instance.playerState = PlayerState.PAUSE;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-    public void ShowTooltip()
-    {
-        tooltip.SetActive(true);
-    }
-    public void HideTooltip()
-    {
-        tooltip.SetActive(false);
+            DestroyObjectsInList();
+        }
+
+        public void DestroyObjectsInList()
+        {
+            foreach (GameObject obj in objectsToDestroy)
+            {
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
+            }
+            objectsToDestroy.Clear();
+        }
+        public void DieGame()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenuHotkey.SetActive(false);
+        }
+
+        public void ContinueGame()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            pauseMenuHotkey.SetActive(true);
+        }
+
+        public void CustomResume()
+        {
+            PlayerStats.Instance.playerState = PlayerState.IDLE;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public void CustomPause()
+        {
+            PlayerStats.Instance.playerState = PlayerState.PAUSE;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        public void ShowTooltip()
+        {
+            tooltip.SetActive(true);
+        }
+        public void HideTooltip()
+        {
+            tooltip.SetActive(false);
+        }
     }
 }

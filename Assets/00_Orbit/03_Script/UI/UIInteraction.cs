@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class UIInteraction : MonoBehaviour
+namespace STARTING
 {
-    public void ResetPos()
+    public class UIInteraction : MonoBehaviour
     {
-        GameManager.Instance.ResetPos();
-    }
+        public void ResetPos()
+        {
+            GameManager.Instance.ResetPos();
+        }
 
-    public void ContinueGame()
-    {
-        GameManager.Instance.ContinueGame();
-    }
+        public void ContinueGame()
+        {
+            GameManager.Instance.ContinueGame();
+        }
 
-    public void ChangePlayerStateDIE()
-    {
-        PlayerStats.Instance.playerState = PlayerState.DIE;
-    }
+        public void ChangePlayerStateDIE()
+        {
+            PlayerStats.Instance.playerState = PlayerState.DIE;
+        }
 
-    public void ChangePlayerStateIDLE()
-    {
-        PlayerStats.Instance.playerState = PlayerState.IDLE;
+        public void ChangePlayerStateIDLE()
+        {
+            PlayerStats.Instance.playerState = PlayerState.IDLE;
+        }
     }
 }

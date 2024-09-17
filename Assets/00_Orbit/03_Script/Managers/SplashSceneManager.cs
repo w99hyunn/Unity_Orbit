@@ -2,52 +2,55 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SplashSceneManager : MonoBehaviour
+namespace STARTING
 {
-    public GameObject canvasA;
-    public GameObject canvasB;
-    public GameObject canvasC;
-    public GameObject canvas_Loading;
-    public string nextSceneName;
-    public float delayBetweenCanvases = 6.0f;
-
-    private AsyncOperation asyncLoad;
-
-    private void Start()
+    public class SplashSceneManager : MonoBehaviour
     {
-        //canvasA.SetActive(true);
-        canvasB.SetActive(false);
-        canvasC.SetActive(false);
-        canvas_Loading.SetActive(false);
+        public GameObject canvasA;
+        public GameObject canvasB;
+        public GameObject canvasC;
+        public GameObject canvas_Loading;
+        public string nextSceneName;
+        public float delayBetweenCanvases = 6.0f;
 
-        Cursor.visible = false;
-        StartCoroutine(LoadSceneAsync());
+        private AsyncOperation asyncLoad;
 
-        StartCoroutine(SwitchCanvasAndLoadScene());
-    }
+        private void Start()
+        {
+            //canvasA.SetActive(true);
+            canvasB.SetActive(false);
+            canvasC.SetActive(false);
+            canvas_Loading.SetActive(false);
 
-    private IEnumerator LoadSceneAsync()
-    {
-        asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
-        asyncLoad.allowSceneActivation = false;
-        yield return asyncLoad;
-    }
+            Cursor.visible = false;
+            StartCoroutine(LoadSceneAsync());
 
-    private IEnumerator SwitchCanvasAndLoadScene()
-    {
-        yield return new WaitForSeconds(5);
+            StartCoroutine(SwitchCanvasAndLoadScene());
+        }
 
-        //canvasA.SetActive(false);
-        canvasB.SetActive(true);
-        canvas_Loading.SetActive(true);
+        private IEnumerator LoadSceneAsync()
+        {
+            asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
+            asyncLoad.allowSceneActivation = false;
+            yield return asyncLoad;
+        }
 
-        yield return new WaitForSeconds(delayBetweenCanvases);
-        canvasB.SetActive(false);
-        canvasC.SetActive(true);
+        private IEnumerator SwitchCanvasAndLoadScene()
+        {
+            yield return new WaitForSeconds(5);
 
-        yield return new WaitForSeconds(delayBetweenCanvases);
+            //canvasA.SetActive(false);
+            canvasB.SetActive(true);
+            canvas_Loading.SetActive(true);
 
-        Cursor.visible = true;
-        asyncLoad.allowSceneActivation = true;
+            yield return new WaitForSeconds(delayBetweenCanvases);
+            canvasB.SetActive(false);
+            canvasC.SetActive(true);
+
+            yield return new WaitForSeconds(delayBetweenCanvases);
+
+            Cursor.visible = true;
+            asyncLoad.allowSceneActivation = true;
+        }
     }
 }

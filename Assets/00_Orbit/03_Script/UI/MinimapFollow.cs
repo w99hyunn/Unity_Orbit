@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class MinimapFollow : MonoBehaviour
+namespace STARTING
 {
-    public RectTransform playerIcon;
-    private Transform player;
-    private Camera minimapCamera;
-
-    private void Start()
+    public class MinimapFollow : MonoBehaviour
     {
-        minimapCamera = GetComponent<Camera>();
-        player = GameObject.FindWithTag("Player").transform;
-    }
-    void LateUpdate()
-    {
-        Vector3 newPosition = player.position;
-        newPosition.y = transform.position.y;
-        transform.position = newPosition;
-        transform.rotation = Quaternion.Euler(90f, player.eulerAngles.y, 0f);
+        public RectTransform playerIcon;
+        private Transform player;
+        private Camera minimapCamera;
 
-        Vector3 playerPosition = minimapCamera.WorldToViewportPoint(player.position);
+        private void Start()
+        {
+            minimapCamera = GetComponent<Camera>();
+            player = GameObject.FindWithTag("Player").transform;
+        }
+        void LateUpdate()
+        {
+            Vector3 newPosition = player.position;
+            newPosition.y = transform.position.y;
+            transform.position = newPosition;
+            transform.rotation = Quaternion.Euler(90f, player.eulerAngles.y, 0f);
 
-        playerIcon.anchorMin = playerPosition;
-        playerIcon.anchorMax = playerPosition;
-        playerIcon.anchoredPosition = Vector2.zero;
+            Vector3 playerPosition = minimapCamera.WorldToViewportPoint(player.position);
+
+            playerIcon.anchorMin = playerPosition;
+            playerIcon.anchorMax = playerPosition;
+            playerIcon.anchoredPosition = Vector2.zero;
+        }
     }
 }

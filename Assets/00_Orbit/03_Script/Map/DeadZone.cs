@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class DeadZone : MonoBehaviour
+namespace STARTING
 {
-    PlayerStats playerStats;
-    private void OnTriggerEnter(Collider other)
+    public class DeadZone : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        PlayerStats playerStats;
+        private void OnTriggerEnter(Collider other)
         {
-            playerStats = other.GetComponent<PlayerStats>();
-            playerStats.TakeDamage(-1);
+            if (other.CompareTag("Player"))
+            {
+                playerStats = other.GetComponent<PlayerStats>();
+                playerStats.TakeDamage(-1);
+            }
         }
     }
 }

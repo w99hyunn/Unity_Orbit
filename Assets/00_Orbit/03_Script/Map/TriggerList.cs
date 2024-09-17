@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerList : MonoBehaviour
+namespace STARTING
 {
-    public List<GameObject> gameObjects;
-
-    void Start()
+    public class TriggerList : MonoBehaviour
     {
-        StartCoroutine(ActivateObjectsAfterDelay(0.1f));
-    }
+        public List<GameObject> gameObjects;
 
-    IEnumerator ActivateObjectsAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        foreach (GameObject obj in gameObjects)
+        void Start()
         {
-            if (obj != null)
+            StartCoroutine(ActivateObjectsAfterDelay(0.1f));
+        }
+
+        IEnumerator ActivateObjectsAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            foreach (GameObject obj in gameObjects)
             {
-                obj.SetActive(true);
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
             }
         }
     }

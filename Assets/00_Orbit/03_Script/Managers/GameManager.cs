@@ -5,284 +5,287 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class ZoneData
+namespace STARTING
 {
-    public string zoneName;
-    public bool isLiberated { get; set; }
-}
-
-[System.Serializable]
-public class GameData
-{
-    public float gameTime;
-
-    public int maxHealth;
-    public int maxMana;
-    public int maxExperience;
-
-    public int currentHealth;
-    public int currentMana;
-    public int currentExperience;
-
-    public int level;
-    public Vector3 playerPosition;
-    public List<ZoneData> zones;
-}
-
-public class GameManager : MonoBehaviour
-{
-    public GameObject player;
-    private FPSMovement _controller;
-    private PlayerStats _playerStats;
-
-    // 인스턴스 던전관련
-    public List<ZoneData> zones;
-    public string currentZoneName;
-    public Vector3 lastPlayerPosition { get; private set; }
-
-    public AudioSource audioSource;
-    private string saveFilePath;
-    private bool isPlayerStatsInitialized = false;
-    private bool isPlayerControllerInitialized = false;
-
-    public float gameTime  = 13600f; // 21600
-    private const float realSecondsPerGameDay = 3 * 60 * 60;
-    private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
-
-    public static GameManager Instance { get; private set; }
-
-    private void Awake()
+    [System.Serializable]
+    public class ZoneData
     {
-        if (Instance == null)
+        public string zoneName;
+        public bool isLiberated { get; set; }
+    }
+
+    [System.Serializable]
+    public class GameData
+    {
+        public float gameTime;
+
+        public int maxHealth;
+        public int maxMana;
+        public int maxExperience;
+
+        public int currentHealth;
+        public int currentMana;
+        public int currentExperience;
+
+        public int level;
+        public Vector3 playerPosition;
+        public List<ZoneData> zones;
+    }
+
+    public class GameManager : MonoBehaviour
+    {
+        public GameObject player;
+        private FPSMovement _controller;
+        private PlayerStats _playerStats;
+
+        // 인스턴스 던전관련
+        public List<ZoneData> zones;
+        public string currentZoneName;
+        public Vector3 lastPlayerPosition { get; private set; }
+
+        public AudioSource audioSource;
+        private string saveFilePath;
+        private bool isPlayerStatsInitialized = false;
+        private bool isPlayerControllerInitialized = false;
+
+        public float gameTime = 13600f; // 21600
+        private const float realSecondsPerGameDay = 3 * 60 * 60;
+        private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
+
+        public static GameManager Instance { get; private set; }
+
+        private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         }
-        else
+
+        private void Start()
         {
-            Destroy(gameObject);
+            _controller = player.GetComponent<FPSMovement>();
+            _playerStats = player.GetComponent<PlayerStats>();
+        }
+        private void Update()
+        {
+            UpdateGameTime();
         }
 
-        saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
-    }
-
-    private void Start()
-    {
-        _controller = player.GetComponent<FPSMovement>();
-        _playerStats = player.GetComponent<PlayerStats>();
-    }
-    private void Update()
-    {
-        UpdateGameTime();
-    }
-
-    private void OnEnable()
-    {
-        PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-        FPSMovement.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
-    }
-
-    private void OnDisable()
-    {
-        PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-        FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
-    }
-
-    private void OnPlayerStatsInitialized()
-    {
-        isPlayerStatsInitialized = true;
-        TryLoadGame();
-    }
-
-    private void OnPlayerControllerInitialized()
-    {
-        isPlayerControllerInitialized = true;
-        TryLoadGame();
-    }
-
-    private void TryLoadGame()
-    {
-        if (isPlayerStatsInitialized && isPlayerControllerInitialized)
+        private void OnEnable()
         {
+            PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
+            FPSMovement.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        }
+
+        private void OnDisable()
+        {
+            PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
+            FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+        }
+
+        private void OnPlayerStatsInitialized()
+        {
+            isPlayerStatsInitialized = true;
+            TryLoadGame();
+        }
+
+        private void OnPlayerControllerInitialized()
+        {
+            isPlayerControllerInitialized = true;
+            TryLoadGame();
+        }
+
+        private void TryLoadGame()
+        {
+            if (isPlayerStatsInitialized && isPlayerControllerInitialized)
+            {
+                LoadGame();
+                SaveGame();
+            }
+        }
+
+        public void GameOver()
+        {
+            UIManager.Instance.GameOverUI();
+        }
+
+        // 게임 오버시 체크포인트 불러오기
+        public void ContinueGame()
+        {
+            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            {
+                StartCoroutine(LoadWorldSceneAfterDelay(3f));
+            }
+            else
+            {
+                LoadGame();
+            }
+
+        }
+
+        private IEnumerator LoadWorldSceneAfterDelay(float delay)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+            asyncLoad.allowSceneActivation = false;
+
+            yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
+
+            asyncLoad.allowSceneActivation = true;
+
+            yield return new WaitUntil(() => asyncLoad.isDone);
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+
             LoadGame();
-            SaveGame();
-        }
-    }
+            SceneManager.UnloadSceneAsync("DungeonScene");
 
-    public void GameOver()
-    {
-        UIManager.Instance.GameOverUI();
-    }
-
-    // 게임 오버시 체크포인트 불러오기
-    public void ContinueGame()
-    {
-        if (SceneManager.GetActiveScene().name == "DungeonScene")
-        {
-            StartCoroutine(LoadWorldSceneAfterDelay(3f));
-        }
-        else
-        {
-            LoadGame();
+            yield return new WaitForSeconds(delay);
+            PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
         }
 
-    }
-
-    private IEnumerator LoadWorldSceneAfterDelay(float delay)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
-        asyncLoad.allowSceneActivation = false;
-
-        yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
-
-        asyncLoad.allowSceneActivation = true;
-
-        yield return new WaitUntil(() => asyncLoad.isDone);
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
-
-        LoadGame();
-        SceneManager.UnloadSceneAsync("DungeonScene");
-
-        yield return new WaitForSeconds(delay);
-        PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
-    }
-
-    public void SaveGame()
-    {
-        GameData data = new GameData
+        public void SaveGame()
         {
-            gameTime = this.gameTime,
-
-            maxHealth = _playerStats.maxHealth,
-            maxMana = _playerStats.maxMana,
-            maxExperience = _playerStats.maxExperience,
-
-            currentHealth = _playerStats.currentHealth,
-            currentMana = _playerStats.currentMana,
-            currentExperience = _playerStats.currentExperience,
-            level = _playerStats.level,
-            playerPosition = player.transform.position,
-            zones = this.zones
-        };
-
-        string json = JsonUtility.ToJson(data);
-        string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
-
-        Debug.Log("saved JSON: " + json);
-
-        File.WriteAllText(saveFilePath, encryptedJson);
-        PlayerPrefs.SetInt("ContinueGame", 1);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadGame()
-    {
-        if (File.Exists(saveFilePath))
-        {
-            string encryptedJson = File.ReadAllText(saveFilePath);
-            string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
-
-            Debug.Log("Loaded JSON: " + json);
-
-            GameData data = JsonUtility.FromJson<GameData>(json);
-            if (data != null)
+            GameData data = new GameData
             {
-                this.gameTime = data.gameTime;
-                _playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                _controller.SetPos(data.playerPosition);
-                this.zones = data.zones;
+                gameTime = this.gameTime,
 
+                maxHealth = _playerStats.maxHealth,
+                maxMana = _playerStats.maxMana,
+                maxExperience = _playerStats.maxExperience,
+
+                currentHealth = _playerStats.currentHealth,
+                currentMana = _playerStats.currentMana,
+                currentExperience = _playerStats.currentExperience,
+                level = _playerStats.level,
+                playerPosition = player.transform.position,
+                zones = this.zones
+            };
+
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
+
+            Debug.Log("saved JSON: " + json);
+
+            File.WriteAllText(saveFilePath, encryptedJson);
+            PlayerPrefs.SetInt("ContinueGame", 1);
+            PlayerPrefs.Save();
+        }
+
+        public void LoadGame()
+        {
+            if (File.Exists(saveFilePath))
+            {
+                string encryptedJson = File.ReadAllText(saveFilePath);
+                string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
+
+                Debug.Log("Loaded JSON: " + json);
+
+                GameData data = JsonUtility.FromJson<GameData>(json);
+                if (data != null)
+                {
+                    this.gameTime = data.gameTime;
+                    _playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                    _controller.SetPos(data.playerPosition);
+                    this.zones = data.zones;
+
+                }
             }
         }
-    }
-    public void SetPos(Vector3 pos)
-    {
-        _controller.SetPos(pos);
-    }
-
-    public void ResetPos()
-    {
-        _controller.ResetPos();
-    }
-
-    public void SavePlayerPosition(Vector3 position)
-    {
-        lastPlayerPosition = position;
-    }
-
-    public Vector3 LoadPlayerPosition()
-    {
-        return lastPlayerPosition;
-    }
-
-    public void UpdateGameTime()
-    {
-        gameTime += Time.deltaTime * gameSecondsPerRealSecond;
-
-        if (gameTime >= 24 * 60 * 60)
+        public void SetPos(Vector3 pos)
         {
-            gameTime -= 24 * 60 * 60;
+            _controller.SetPos(pos);
         }
 
-        int hours = (int)(gameTime / 3600) % 24;
-        int minutes = (int)(gameTime % 3600 / 60);
-
-        string period = hours >= 12 ? "오후" : "오전";
-        hours = hours % 12;
-
-        if (period == "오전" && hours == 0)
+        public void ResetPos()
         {
-            hours = 0;
-        }
-        else if (period == "오후" && hours == 0)
-        {
-            hours = 12;
-        }
-        else if (hours == 0)
-        {
-            hours = 12;
+            _controller.ResetPos();
         }
 
-        string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
-
-        if (UIManager.Instance != null)
+        public void SavePlayerPosition(Vector3 position)
         {
-            UIManager.Instance.UpdateTime(timeFormatted);
+            lastPlayerPosition = position;
         }
-    }
 
-    public void LiberateZone(string zoneName)
-    {
-        foreach (ZoneData zone in zones)
+        public Vector3 LoadPlayerPosition()
         {
-            if (zone.zoneName == zoneName)
+            return lastPlayerPosition;
+        }
+
+        public void UpdateGameTime()
+        {
+            gameTime += Time.deltaTime * gameSecondsPerRealSecond;
+
+            if (gameTime >= 24 * 60 * 60)
             {
-                zone.isLiberated = true;
-                return;
+                gameTime -= 24 * 60 * 60;
+            }
+
+            int hours = (int)(gameTime / 3600) % 24;
+            int minutes = (int)(gameTime % 3600 / 60);
+
+            string period = hours >= 12 ? "오후" : "오전";
+            hours = hours % 12;
+
+            if (period == "오전" && hours == 0)
+            {
+                hours = 0;
+            }
+            else if (period == "오후" && hours == 0)
+            {
+                hours = 12;
+            }
+            else if (hours == 0)
+            {
+                hours = 12;
+            }
+
+            string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdateTime(timeFormatted);
             }
         }
-        zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
-    }
 
-    public bool IsZoneLiberated(string zoneName)
-    {
-        foreach (ZoneData zone in zones)
+        public void LiberateZone(string zoneName)
         {
-            if (zone.zoneName == zoneName)
+            foreach (ZoneData zone in zones)
             {
-                return zone.isLiberated;
+                if (zone.zoneName == zoneName)
+                {
+                    zone.isLiberated = true;
+                    return;
+                }
             }
+            zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
         }
-        return false;
-    }
 
-    public void PlaySound(AudioClip clip)
-    {
-        if (audioSource != null && clip != null)
+        public bool IsZoneLiberated(string zoneName)
         {
-            audioSource.PlayOneShot(clip);
+            foreach (ZoneData zone in zones)
+            {
+                if (zone.zoneName == zoneName)
+                {
+                    return zone.isLiberated;
+                }
+            }
+            return false;
+        }
+
+        public void PlaySound(AudioClip clip)
+        {
+            if (audioSource != null && clip != null)
+            {
+                audioSource.PlayOneShot(clip);
+            }
         }
     }
 }

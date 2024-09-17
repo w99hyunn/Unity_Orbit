@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class LibertyCheck : MonoBehaviour
+namespace STARTING
 {
-    private void OnTriggerEnter(Collider other)
+    public class LibertyCheck : MonoBehaviour
     {
-        ZoneEntrance zoneEntrance = other.GetComponent<ZoneEntrance>();
-        if (zoneEntrance != null)
+        private void OnTriggerEnter(Collider other)
         {
-            string zoneName = zoneEntrance.zoneName;
-            bool isZoneLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
-
-            if (isZoneLiberated)
+            ZoneEntrance zoneEntrance = other.GetComponent<ZoneEntrance>();
+            if (zoneEntrance != null)
             {
-                gameObject.SetActive(false);
+                string zoneName = zoneEntrance.zoneName;
+                bool isZoneLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
+
+                if (isZoneLiberated)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

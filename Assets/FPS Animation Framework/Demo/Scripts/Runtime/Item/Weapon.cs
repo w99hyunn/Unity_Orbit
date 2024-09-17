@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Demo.Scripts.Runtime.Character;
 using UnityEngine;
 using System.Collections;
+using STARTING;
 
 namespace Demo.Scripts.Runtime.Item
 {

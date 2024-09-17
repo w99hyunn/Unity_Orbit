@@ -1,49 +1,52 @@
 using UnityEngine;
 
-public class HintTrigger : MonoBehaviour
+namespace STARTING
 {
-    public string infoText;
-
-    private string currentZoneName;
-    private bool isLiberated;
-    private Collider triggerCollider;
-
-    private void Start()
+    public class HintTrigger : MonoBehaviour
     {
-        triggerCollider = GetComponent<Collider>();
-    }
+        public string infoText;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private string currentZoneName;
+        private bool isLiberated;
+        private Collider triggerCollider;
+
+        private void Start()
         {
-            currentZoneName = GameManager.Instance.currentZoneName;
-            isLiberated = GameManager.Instance.IsZoneLiberated(currentZoneName);
+            triggerCollider = GetComponent<Collider>();
         }
-        if (isLiberated == false && other.CompareTag("Player"))
+
+        private void OnTriggerEnter(Collider other)
         {
-            UIManager.Instance.ScriptText_Enable(infoText);
-        }
-    }
-
-    /// <summary>
-    /// 힌트 트리거 범위에 Enemy가 있을 경우 던전 입장 불가
-    /// </summary>
-    /// <returns></returns>
-    public bool IsEnemyInTrigger()
-    {
-        if (triggerCollider == null) return false;
-
-        Collider[] colliders = Physics.OverlapBox(triggerCollider.bounds.center, triggerCollider.bounds.extents, transform.rotation);
-
-        foreach (Collider col in colliders)
-        {
-            if (col.CompareTag("Enemy"))
+            if (other.CompareTag("Player"))
             {
-                return true;
+                currentZoneName = GameManager.Instance.currentZoneName;
+                isLiberated = GameManager.Instance.IsZoneLiberated(currentZoneName);
+            }
+            if (isLiberated == false && other.CompareTag("Player"))
+            {
+                UIManager.Instance.ScriptText_Enable(infoText);
             }
         }
 
-        return false;
+        /// <summary>
+        /// 힌트 트리거 범위에 Enemy가 있을 경우 던전 입장 불가
+        /// </summary>
+        /// <returns></returns>
+        public bool IsEnemyInTrigger()
+        {
+            if (triggerCollider == null) return false;
+
+            Collider[] colliders = Physics.OverlapBox(triggerCollider.bounds.center, triggerCollider.bounds.extents, transform.rotation);
+
+            foreach (Collider col in colliders)
+            {
+                if (col.CompareTag("Enemy"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

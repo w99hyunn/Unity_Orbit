@@ -1,47 +1,47 @@
 using System.Collections;
 using UnityEngine;
 
-
-public class HealingItem : MonoBehaviour
+namespace STARTING
 {
-    private bool isPlayerInRange = false;
-    public int healPerSec = 10;
-
-    void Start()
+    public class HealingItem : MonoBehaviour
     {
-        Destroy(gameObject, 15f);
-    }
+        private bool isPlayerInRange = false;
+        public int healPerSec = 10;
 
-    void Update()
-    {
-        transform.Rotate(0, 0.5f, 0);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        void Start()
         {
-            isPlayerInRange = true;
-            StartCoroutine(HealOverTime());
+            Destroy(gameObject, 15f);
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        void Update()
         {
-            isPlayerInRange = false;
+            transform.Rotate(0, 0.5f, 0);
         }
-    }
 
-    IEnumerator HealOverTime()
-    {
-        while (isPlayerInRange)
+        private void OnTriggerEnter(Collider other)
         {
-            PlayerStats.Instance.Healing(healPerSec);
-            yield return new WaitForSeconds(1f);
+            if (other.CompareTag("Player"))
+            {
+                isPlayerInRange = true;
+                StartCoroutine(HealOverTime());
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                isPlayerInRange = false;
+            }
+        }
+
+        IEnumerator HealOverTime()
+        {
+            while (isPlayerInRange)
+            {
+                PlayerStats.Instance.Healing(healPerSec);
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 }
-
-

@@ -14,6 +14,8 @@ using System;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering;
 
+using STARTING;
+
 namespace Demo.Scripts.Runtime.Character
 {
     public enum FPSAimState
