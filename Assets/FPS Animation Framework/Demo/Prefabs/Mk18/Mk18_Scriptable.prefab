@@ -761,6 +761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBullet: 42
   currentBullet: 0
+  damage: 10
   firePoint: {fileID: 5031744162405896342}
   shootSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
   clipOutSound: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
@@ -770,6 +771,9 @@ MonoBehaviour:
   BulletCollisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  muzzleFlashPrefab: {fileID: 2746013416367957743, guid: b92307f8f76cfea479aaaf851f4414f9,
+    type: 3}
+  muzzleFlashTime: 1
 --- !u!114 &-8068247560124432235
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,10 +21,14 @@ namespace STARTING
 		public float PenetrationResistance = 0.5f;
 		public float DamageMultiplier = 1f;
 		private float HealthPoints = 0f;
+
 		[Header("몬스터 HP")]
 		public float MaxPoints = 0f;
+
 		[Header("몬스터가 주는 EXP")]
 		public int expPoints = 100;
+
+		[Header("몬스터 UI")]
 		public GameObject enemyUI;
 		private EnemyUI enemyUIcanvas;
 		private Slider hpSlider;

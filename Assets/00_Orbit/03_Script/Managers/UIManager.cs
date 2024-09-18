@@ -78,8 +78,19 @@ namespace STARTING
         public UnityEvent onDungeonEnter;
         public UnityEvent onDungeonLoadingComplete;
 
+        /* 존 이름 & 해방여부 업데이트 */
+        private Coroutine deactivateCoroutine;
         private Coroutine killLogCoroutine;
 
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
+        
         private void Start()
         {
             tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
@@ -197,17 +208,6 @@ namespace STARTING
         {
             tipKey.SetActive(false);
         }
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-        }
-
-        /* 존 이름 & 해방여부 업데이트 */
-        private Coroutine deactivateCoroutine;
 
         public void UpdateZoneInfo(string zoneName, bool isLiberated)
         {

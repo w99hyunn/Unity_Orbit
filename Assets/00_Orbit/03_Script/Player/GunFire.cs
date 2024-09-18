@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace STARTING
@@ -18,6 +19,11 @@ namespace STARTING
 
         public LayerMask BulletCollisionLayers = ~0 & ~(1 << 31);
 
+        [Header("총구 화염")]
+        public GameObject muzzleFlashPrefab;
+        [Range(0f, 10f)]
+        public float muzzleFlashTime;
+
         //무기 스왑시 UI업데이트
         private void OnEnable()
         {
@@ -31,6 +37,7 @@ namespace STARTING
         private void Awake()
         {
             currentBullet = maxBullet;
+            
         }
 
         public void BulletCheck()
@@ -62,7 +69,16 @@ namespace STARTING
         public void Fire()
         {
             FireBullet(0, firePoint.position, firePoint.forward, 10f, damage);
+            ShowMuzzleFlash();
         }
+
+        void ShowMuzzleFlash()
+        {
+            Quaternion rotation = firePoint.rotation * Quaternion.Euler(0f, 180f, 0f);
+            GameObject muzzleFlashInstance = Instantiate(muzzleFlashPrefab, firePoint.position, rotation);
+            Destroy(muzzleFlashInstance, muzzleFlashTime);
+        }
+
 
         /// <summary>
         /// EFX 효과는 Health의 MaterialType보고 결정됨. 없으면 디폴트 스톤값이 들어감. 레이어 0, 7이 아니면 궤적만표시
