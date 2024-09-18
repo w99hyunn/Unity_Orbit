@@ -39,7 +39,12 @@ namespace STARTING
         [Header("몬스터 처치 알림")]
         public GameObject killLog;
         public AudioClip killLogSound;
+        private Image back1;
+        private Image back2;
+        private TMP_Text killLogTitle;
         private TMP_Text killLogText;
+        private Image killLogIcon;
+        private Sprite defaultIcon;
 
         [Header("스크립트 텍스트")]
         public GameObject scriptText;
@@ -81,7 +86,12 @@ namespace STARTING
             tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
             interactionText = interactionKey.transform.Find("interactionText").gameObject.GetComponent<TMP_Text>();
             interactionKeyText = interactionKey.transform.Find("interactionKeyText").gameObject.GetComponent<TMP_Text>();
+            killLogTitle = killLog.transform.Find("killLogTitle").gameObject.GetComponent<TMP_Text>();
             killLogText = killLog.transform.Find("killLogText").gameObject.GetComponent<TMP_Text>();
+            back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
+            back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
+            killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
+            defaultIcon = killLogIcon.sprite;
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -109,22 +119,54 @@ namespace STARTING
             onDungeonLoadingComplete.Invoke();
         }
 
-        public void ShowKillLog(string text)
+        public void ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
         {
+            Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f, 100f / 255f);
+            Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f, 100f / 255f);
+            Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f, 100f / 255f);
+
+            switch (backgroundColor)
+            {
+                case "red":
+                    back1.color = red;
+                    back2.color = red;
+                    break;
+                case "blue":
+                    back1.color = blue;
+                    back2.color = blue;
+                    break;
+                case "purple":
+                    back1.color = purple;
+                    back2.color = purple;
+                    break;
+            }
+
+            killLogTitle.text = title;
+            killLogText.text = text;
+
+            if (icon != null)
+            {
+                killLogIcon.sprite = icon;
+            }
+            else
+            {
+                killLogIcon.sprite = defaultIcon;
+            }
+
             if (killLogCoroutine != null)
             {
                 StopCoroutine(killLogCoroutine);
             }
+
             GameManager.Instance.PlaySound(killLogSound);
-            killLogCoroutine = StartCoroutine(ShowAndHideKillLog(text));
+            killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
         }
 
-        public IEnumerator ShowAndHideKillLog(string text)
+        public IEnumerator ShowAndHideKillLog(float time)
         {
             killLog.SetActive(true);
-            killLogText.text = text;
-
-            yield return new WaitForSeconds(3f);
+            
+            yield return new WaitForSeconds(time);
 
             killLog.SetActive(false);
 

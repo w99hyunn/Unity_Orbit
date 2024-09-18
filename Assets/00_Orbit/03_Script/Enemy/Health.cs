@@ -2,10 +2,15 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
-using System.Collections;
 
 namespace STARTING
 {
+	public enum KillLogType
+	{
+		NORMAL,
+		ARETE,
+	}
+
 	public class Health : MonoBehaviour
 	{
 		public Health Parent;
@@ -34,6 +39,9 @@ namespace STARTING
 		private float _lastDamage;
 		private int _lastDamageIndex;
 
+		[Header("죽었을 때 킬로그 종류")]
+		public KillLogType killLogType = STARTING.KillLogType.NORMAL;
+		public Sprite deathIcon;
 
 
 		public bool Alive
@@ -98,7 +106,7 @@ namespace STARTING
 					PlayerStats.Instance.GainExperience(expPoints);
 
 					//온데스 이벤트
-					UIManager.Instance.ShowKillLog(enemyName.text);
+					KillLogType();
                     OnDeath.Invoke();
                     // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
                     //Destroy(this.gameObject); 
@@ -106,13 +114,27 @@ namespace STARTING
 			}
 		}
 
+		public void KillLogType()
+		{
+			switch(killLogType)
+			{
+				case STARTING.KillLogType.NORMAL:
+                    UIManager.Instance.ShowKillLog(enemyName.text);
+                    break;
+                case STARTING.KillLogType.ARETE:
+                    UIManager.Instance.ShowKillLog(enemyName.text, "파괴", 5f, "purple", deathIcon);
+                    break;
+            }
+            
+        }
+
         public void PlaySound(AudioClip clip)
 		{
 			if (audioSource != null && clip != null)
 			{
-				audioSource.Stop(); // 기존에 재생 중이던 사운드를 멈춤
-				audioSource.clip = clip; // 새로운 클립 할당
-				audioSource.Play(); // 새로운 클립 재생
+				audioSource.Stop();
+				audioSource.clip = clip;
+				audioSource.Play();
 			}
 		}
 
