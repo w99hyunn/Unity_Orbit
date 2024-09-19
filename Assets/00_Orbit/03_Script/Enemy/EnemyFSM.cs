@@ -7,11 +7,11 @@ namespace STARTING
 {
     public enum EnemyState
     { 
-        None = -1, 
-        Idle = 0, 
-        Wander, 
-        Pursuit, 
-        Attack 
+        NONE = -1, 
+        IDLE = 0, 
+        WANDER, 
+        PURSUIT, 
+        ATTACK 
     }
 
     public class EnemyFSM : MonoBehaviour
@@ -26,7 +26,7 @@ namespace STARTING
         public float attackRange = 5;
         public float attackRate = 1;
 
-        private EnemyState currentState = EnemyState.None;
+        private EnemyState currentState = EnemyState.NONE;
         private float lastAttackTime = 0;
 
         private NavMeshAgent navMeshAgent;
@@ -61,7 +61,7 @@ namespace STARTING
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            ChangeState(EnemyState.Idle);
+            ChangeState(EnemyState.IDLE);
 
             if (meshRenderer != null)
             {
@@ -115,11 +115,18 @@ namespace STARTING
                 StopCoroutine(currentStateCoroutine);
             }
 
+            //PURSUIT → WANDER 전환시 모델의 회전값을 원래대로 돌련놓기 위함. 
+            if (currentState == EnemyState.PURSUIT && newState == EnemyState.WANDER)
+            {
+                //transform.rotation = Quaternion.identity;
+                eyeTransform.localRotation = Quaternion.identity;
+            }
+
             currentState = newState;
             currentStateCoroutine = StartCoroutine(currentState.ToString());
         }
 
-        IEnumerator Wander()
+        IEnumerator WANDER()
         {
             float currentTime = 0;
             float maxTime = 10;
@@ -136,11 +143,11 @@ namespace STARTING
                 if (direction.sqrMagnitude < 0.01f)
                 {
                     // 목표 위치에 도착하면 Idle 상태로 전환
-                    ChangeState(EnemyState.Idle);
+                    ChangeState(EnemyState.IDLE);
                     yield break;
                 }
 
-                if (CalculateDistanceToTargetAndSelectState() != EnemyState.Wander)
+                if (CalculateDistanceToTargetAndSelectState() != EnemyState.WANDER)
                 {
                     // 다른 상태로 전환해야 할 경우
                     ChangeState(CalculateDistanceToTargetAndSelectState());
@@ -151,17 +158,19 @@ namespace STARTING
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                    //enemy 하위 실제 모델 회전을 할 수 있음. 바닥의 요철을 모두 반영함.
+                    //eyeTransform.rotation = Quaternion.Slerp(eyeTransform.rotation, targetRotation, Time.deltaTime * 5f);
                 }
 
                 yield return null;
             }
 
             // 일정 시간이 지나면 Idle 상태로 전환
-            ChangeState(EnemyState.Idle);
+            ChangeState(EnemyState.IDLE);
         }
 
 
-        IEnumerator Idle()
+        IEnumerator IDLE()
         {
             RestoreOriginalMaterial();
             while (true)
@@ -170,18 +179,18 @@ namespace STARTING
 
                 // Idle 상태 중에도 상태를 계산해 전환
                 EnemyState newState = CalculateDistanceToTargetAndSelectState();
-                if (newState != EnemyState.Idle)
+                if (newState != EnemyState.IDLE)
                 {
                     ChangeState(newState);
                     yield break;
                 }
 
                 RestoreRotationToTarget();
-                yield return StartCoroutine(Wander());
+                yield return StartCoroutine(WANDER());
             }
         }
 
-        IEnumerator Pursuit()
+        IEnumerator PURSUIT()
         {
             ChangeMaterial();
             while (true)
@@ -193,7 +202,7 @@ namespace STARTING
             }
         }
 
-        IEnumerator Attack()
+        IEnumerator ATTACK()
         {
             while (true)
             {
@@ -266,15 +275,15 @@ namespace STARTING
 
             if (distance <= attackRange)
             {
-                return EnemyState.Attack;
+                return EnemyState.ATTACK;
             }
             else if (distance <= targetRecognitionRange)
             {
-                return EnemyState.Pursuit;
+                return EnemyState.PURSUIT;
             }
             else if (distance >= pursuitLimitRange)
             {
-                return EnemyState.Wander;
+                return EnemyState.WANDER;
             }
 
             return currentState;
@@ -311,6 +320,7 @@ namespace STARTING
                 audioSource.PlayOneShot(clip);
             }
         }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
