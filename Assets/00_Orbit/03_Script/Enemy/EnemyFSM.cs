@@ -130,9 +130,8 @@ namespace STARTING
             while (currentTime < maxTime)
             {
                 currentTime += Time.deltaTime;
-                Vector3 to = new Vector3(navMeshAgent.destination.x, 0, navMeshAgent.destination.z);
-                Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
-                Vector3 direction = to - from;
+
+                Vector3 direction = navMeshAgent.velocity;
 
                 if (direction.sqrMagnitude < 0.01f)
                 {
@@ -148,8 +147,11 @@ namespace STARTING
                     yield break;
                 }
 
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                if (direction.sqrMagnitude > 0.01f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                }
 
                 yield return null;
             }
@@ -157,6 +159,7 @@ namespace STARTING
             // 일정 시간이 지나면 Idle 상태로 전환
             ChangeState(EnemyState.Idle);
         }
+
 
         IEnumerator Idle()
         {
