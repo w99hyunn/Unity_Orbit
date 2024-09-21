@@ -33,6 +33,9 @@ public class UIInfoUpdate : MonoBehaviour
             case "mana":
                 manaDetailText.text = text;
                 break;
+            case "chip":
+                currentChipText.text = text;
+                break;
         }
         
     }

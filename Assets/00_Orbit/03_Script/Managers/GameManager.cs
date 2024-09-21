@@ -30,13 +30,15 @@ namespace STARTING
         public int level;
         public Vector3 playerPosition;
         public List<ZoneData> zones;
+        public int chip;
     }
 
     public class GameManager : MonoBehaviour
     {
         public GameObject player;
-        private FPSMovement _controller;
-        private PlayerStats _playerStats;
+        private FPSMovement controller;
+        private PlayerStats playerStats;
+        private Inventory inventory;
 
         // 인스턴스 던전관련
         public List<ZoneData> zones;
@@ -71,8 +73,9 @@ namespace STARTING
 
         private void Start()
         {
-            _controller = player.GetComponent<FPSMovement>();
-            _playerStats = player.GetComponent<PlayerStats>();
+            controller = player.GetComponent<FPSMovement>();
+            playerStats = player.GetComponent<PlayerStats>();
+            inventory = player.GetComponent<Inventory>();
         }
         private void Update()
         {
@@ -157,16 +160,17 @@ namespace STARTING
             {
                 gameTime = this.gameTime,
 
-                maxHealth = _playerStats.maxHealth,
-                maxMana = _playerStats.maxMana,
-                maxExperience = _playerStats.maxExperience,
+                maxHealth = playerStats.maxHealth,
+                maxMana = playerStats.maxMana,
+                maxExperience = playerStats.maxExperience,
 
-                currentHealth = _playerStats.currentHealth,
-                currentMana = _playerStats.currentMana,
-                currentExperience = _playerStats.currentExperience,
-                level = _playerStats.level,
+                currentHealth = playerStats.currentHealth,
+                currentMana = playerStats.currentMana,
+                currentExperience = playerStats.currentExperience,
+                level = playerStats.level,
                 playerPosition = player.transform.position,
-                zones = this.zones
+                zones = this.zones,
+                chip = inventory.chip,
             };
 
             string json = JsonUtility.ToJson(data);
@@ -192,21 +196,21 @@ namespace STARTING
                 if (data != null)
                 {
                     this.gameTime = data.gameTime;
-                    _playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                    _controller.SetPos(data.playerPosition);
+                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                    controller.SetPos(data.playerPosition);
                     this.zones = data.zones;
-
+                    inventory.SetInventory(data.chip);
                 }
             }
         }
         public void SetPos(Vector3 pos)
         {
-            _controller.SetPos(pos);
+            controller.SetPos(pos);
         }
 
         public void ResetPos()
         {
-            _controller.ResetPos();
+            controller.ResetPos();
         }
 
         public void SavePlayerPosition(Vector3 position)
@@ -254,6 +258,7 @@ namespace STARTING
                 UIManager.Instance.UpdateTime(timeFormatted);
             }
         }
+
 
         public void LiberateZone(string zoneName)
         {

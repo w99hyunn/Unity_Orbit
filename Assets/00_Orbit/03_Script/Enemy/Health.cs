@@ -47,8 +47,10 @@ namespace STARTING
 		public KillLogType killLogType = STARTING.KillLogType.NORMAL;
 		public Sprite deathIcon;
 
+		[Header("칩 획득 확률")]
+        [Range(0, 100)] public float probability = 15f;
 
-		public bool Alive
+        public bool Alive
 		{
 			get
 			{
@@ -110,7 +112,7 @@ namespace STARTING
 					PlayerStats.Instance.GainExperience(expPoints);
 
 					//온데스 이벤트
-					KillLogType();
+					KillLog();
                     OnDeath.Invoke();
                     // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
                     //Destroy(this.gameObject); 
@@ -118,15 +120,22 @@ namespace STARTING
 			}
 		}
 
-		public void KillLogType()
+		public void KillLog()
 		{
 			switch(killLogType)
 			{
-				case STARTING.KillLogType.NORMAL:
+				case KillLogType.NORMAL:
                     UIManager.Instance.ShowKillLog(enemyName.text);
+
+                    float randomValue = Random.Range(0f, 100f);
+					if (randomValue <= probability)
+					{
+						UIManager.Instance.StartCoroutine(UIManager.Instance.ChipLog(1.5f));
+                    }
                     break;
-                case STARTING.KillLogType.ARETE:
+                case KillLogType.ARETE:
                     UIManager.Instance.ShowKillLog(enemyName.text, "파괴", 5f, "purple", deathIcon);
+                    UIManager.Instance.StartCoroutine(UIManager.Instance.ChipLog(2f));
                     break;
             }
             

@@ -39,6 +39,7 @@ namespace STARTING
         [Header("몬스터 처치 알림")]
         public GameObject killLog;
         public AudioClip killLogSound;
+        private Animator killLogAnimator;
         private Image back1;
         private Image back2;
         private TMP_Text killLogTitle;
@@ -78,6 +79,7 @@ namespace STARTING
         [Header("캐릭터 상세 Info")]
         public GameObject infoUI;
         private UIInfoUpdate uIInfoUpdate;
+        private Animator infoUiAnimator;
 
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine deactivateCoroutine;
@@ -103,9 +105,11 @@ namespace STARTING
             back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
+            killLogAnimator = killLog.GetComponent<Animator>();
             defaultIcon = killLogIcon.sprite;
 
             uIInfoUpdate = infoUI.GetComponent<UIInfoUpdate>();
+            infoUiAnimator = infoUI.GetComponent<Animator>();
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -178,15 +182,20 @@ namespace STARTING
 
         public IEnumerator ShowAndHideKillLog(float time)
         {
-            killLog.SetActive(true);
-            
+            killLogAnimator.Play("Window In");
+
             yield return new WaitForSeconds(time);
 
-            killLog.SetActive(false);
+            killLogAnimator.Play("Window Out");
 
             killLogCoroutine = null;
         }
 
+        public IEnumerator ChipLog(float time)
+        {
+            yield return new WaitForSeconds(time);
+            Inventory.Instance.GetChip();
+        }
 
         public void interactionKeyEnable(string title, string key)
         {
@@ -231,7 +240,8 @@ namespace STARTING
                 //minimapUnlockBack.SetActive(true);
                 //minimapLockBack.SetActive(false);
             }
-            else //해방안됨
+            //해방안됨
+            else
             {
                 unlockBack.SetActive(false);
                 lockBack.SetActive(true);
@@ -328,7 +338,15 @@ namespace STARTING
                 case "level":
                     UpdateLevelUI(currentindex);
                     break;
+                case "chip":
+                    UpdateChipUI(currentindex);
+                    break;
             }
+        }
+
+        private void UpdateChipUI(int currentindex)
+        {
+            uIInfoUpdate.SetDetailText("chip", $"{currentindex}");
         }
 
         private void UpdateHealthUI(int currentindex, int maxindex)
@@ -386,7 +404,6 @@ namespace STARTING
 
         public void InfoUI(bool index)
         {
-            Animator infoUiAnimator = infoUI.GetComponent<Animator>();
             if (true == index)
             {
                 infoUiAnimator.Play("Window In");
@@ -395,7 +412,6 @@ namespace STARTING
             {
                 infoUiAnimator.Play("Window Out");
             }
-            //infoUI.SetActive(index);
         }
 
         private IEnumerator SmoothSliderChange(Slider slider, float targetValue)
