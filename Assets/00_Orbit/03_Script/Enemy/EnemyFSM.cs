@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -35,27 +35,27 @@ namespace STARTING
         private AudioSource audioSource;
         public AudioClip shotSound;
 
-        [Header("ÇÏÀ§ ¸ğµ¨¸µ È¸Àü °ü·Ã")]
+        [Header("í•˜ìœ„ ëª¨ë¸ë§ íšŒì „ ê´€ë ¨")]
         public Transform eyeTransform;
 
         private Coroutine currentStateCoroutine;
 
         public System.Action OnDeath;
-        private EnemyMemoryPool spawnPool; // ÀÚ½ÅÀ» »ı¼ºÇÑ PoolÀ» ±â·Ï(±¸¿ª Æ®¸®°Å)
+        private EnemyMemoryPool spawnPool; // ìì‹ ì„ ìƒì„±í•œ Poolì„ ê¸°ë¡(êµ¬ì—­ íŠ¸ë¦¬ê±°)
 
         public UnityEvent OnSetup;
 
-        [Header("¶°´Ù´Ï´Â ³ôÀÌ(y)")]
-        public float floatAmplitude = 0.5f; // ¶°´Ù´Ï´Â ³ôÀÌ
+        [Header("ë– ë‹¤ë‹ˆëŠ” ë†’ì´(y)")]
+        public float floatAmplitude = 0.5f; // ë– ë‹¤ë‹ˆëŠ” ë†’ì´
 
-        [Header("¶°´Ù´Ï´Â ¼Óµµ(y)")]
-        public float floatFrequency = 1f; // ¶°´Ù´Ï´Â ¼Óµµ
-        private float timeOffset; // °¢ ¿ÀºêÁ§Æ®ÀÇ ½Ã°£ ¿ÀÇÁ¼Â
+        [Header("ë– ë‹¤ë‹ˆëŠ” ì†ë„(y)")]
+        public float floatFrequency = 1f; // ë– ë‹¤ë‹ˆëŠ” ì†ë„
+        private float timeOffset; // ê° ì˜¤ë¸Œì íŠ¸ì˜ ì‹œê°„ ì˜¤í”„ì…‹
 
-        [Header("ÇÃ·¹ÀÌ¾î ÀÎ½Ä½Ã ¸ó½ºÅÍ ¸ÓÆ¼¸®¾ó º¯°æ")]
-        public Material newMaterial;           // »õ·Î ±³Ã¼ÇÒ Material
-        public MeshRenderer meshRenderer;     // MeshRenderer ÂüÁ¶¸¦ ÀúÀåÇÒ º¯¼ö
-        private Material[] originalMaterials;  // ¿ø·¡ÀÇ ¸ğµç MaterialÀ» ÀúÀåÇÒ ¹è¿­
+        [Header("í”Œë ˆì´ì–´ ì¸ì‹ì‹œ ëª¬ìŠ¤í„° ë¨¸í‹°ë¦¬ì–¼ ë³€ê²½")]
+        public Material newMaterial;           // ìƒˆë¡œ êµì²´í•  Material
+        public MeshRenderer meshRenderer;     // MeshRenderer ì°¸ì¡°ë¥¼ ì €ì¥í•  ë³€ìˆ˜
+        private Material[] originalMaterials;  // ì›ë˜ì˜ ëª¨ë“  Materialì„ ì €ì¥í•  ë°°ì—´
 
 
         private void Start()
@@ -76,7 +76,7 @@ namespace STARTING
             {
                 ChangeState(newState);
             }
-            // yÃà ¿òÁ÷ÀÓ (µô·¹ÀÌ Àû¿ë)
+            // yì¶• ì›€ì§ì„ (ë”œë ˆì´ ì ìš©)
             float newY = transform.position.y + Mathf.Sin((Time.time + timeOffset) * floatFrequency) * floatAmplitude;
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         }
@@ -86,24 +86,24 @@ namespace STARTING
             navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgent.updateRotation = false;
             this.target = target;
-            spawnPool = pool; // ÀÚ½ÅÀ» »ı¼ºÇÑ Pool ÀúÀå
+            spawnPool = pool; // ìì‹ ì„ ìƒì„±í•œ Pool ì €ì¥
             ResetState();
 
             timeOffset = Random.Range(1f, 8f);
         }
 
-        // ¸ó½ºÅÍÀÇ »óÅÂ¸¦ ÃÊ±âÈ­ÇÏ´Â ¸Ş¼­µå
+        // ëª¬ìŠ¤í„°ì˜ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•˜ëŠ” ë©”ì„œë“œ
         public void ResetState()
         {
-            transform.rotation = Quaternion.identity; // È¸Àü°ª ÃÊ±âÈ­
-            eyeTransform.localRotation = Quaternion.identity; // ½Ã¼± ¹æÇâ ÃÊ±âÈ­
+            transform.rotation = Quaternion.identity; // íšŒì „ê°’ ì´ˆê¸°í™”
+            eyeTransform.localRotation = Quaternion.identity; // ì‹œì„  ë°©í–¥ ì´ˆê¸°í™”
             OnSetup.Invoke();
         }
 
-        // ¸ó½ºÅÍ Á×¾úÀ» ¶§
+        // ëª¬ìŠ¤í„° ì£½ì—ˆì„ ë•Œ
         public void Die()
         {
-            OnDeath?.Invoke(); // »ç¸Á ½Ã Ç®·Î ¹İÈ¯
+            OnDeath?.Invoke(); // ì‚¬ë§ ì‹œ í’€ë¡œ ë°˜í™˜
         }
 
         private void ChangeState(EnemyState newState)
@@ -115,7 +115,7 @@ namespace STARTING
                 StopCoroutine(currentStateCoroutine);
             }
 
-            //PURSUIT ¡æ WANDER ÀüÈ¯½Ã ¸ğµ¨ÀÇ È¸Àü°ªÀ» ¿ø·¡´ë·Î µ¹·Ã³õ±â À§ÇÔ. 
+            //PURSUIT â†’ WANDER ì „í™˜ì‹œ ëª¨ë¸ì˜ íšŒì „ê°’ì„ ì›ë˜ëŒ€ë¡œ ëŒë ¨ë†“ê¸° ìœ„í•¨. 
             if (currentState == EnemyState.PURSUIT && newState == EnemyState.WANDER)
             {
                 //transform.rotation = Quaternion.identity;
@@ -142,14 +142,14 @@ namespace STARTING
 
                 if (direction.sqrMagnitude < 0.01f)
                 {
-                    // ¸ñÇ¥ À§Ä¡¿¡ µµÂøÇÏ¸é Idle »óÅÂ·Î ÀüÈ¯
+                    // ëª©í‘œ ìœ„ì¹˜ì— ë„ì°©í•˜ë©´ Idle ìƒíƒœë¡œ ì „í™˜
                     ChangeState(EnemyState.IDLE);
                     yield break;
                 }
 
                 if (CalculateDistanceToTargetAndSelectState() != EnemyState.WANDER)
                 {
-                    // ´Ù¸¥ »óÅÂ·Î ÀüÈ¯ÇØ¾ß ÇÒ °æ¿ì
+                    // ë‹¤ë¥¸ ìƒíƒœë¡œ ì „í™˜í•´ì•¼ í•  ê²½ìš°
                     ChangeState(CalculateDistanceToTargetAndSelectState());
                     yield break;
                 }
@@ -158,14 +158,14 @@ namespace STARTING
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(direction);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-                    //enemy ÇÏÀ§ ½ÇÁ¦ ¸ğµ¨ È¸ÀüÀ» ÇÒ ¼ö ÀÖÀ½. ¹Ù´ÚÀÇ ¿äÃ¶À» ¸ğµÎ ¹İ¿µÇÔ.
+                    //enemy í•˜ìœ„ ì‹¤ì œ ëª¨ë¸ íšŒì „ì„ í•  ìˆ˜ ìˆìŒ. ë°”ë‹¥ì˜ ìš”ì² ì„ ëª¨ë‘ ë°˜ì˜í•¨.
                     //eyeTransform.rotation = Quaternion.Slerp(eyeTransform.rotation, targetRotation, Time.deltaTime * 5f);
                 }
 
                 yield return null;
             }
 
-            // ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é Idle »óÅÂ·Î ÀüÈ¯
+            // ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´ Idle ìƒíƒœë¡œ ì „í™˜
             ChangeState(EnemyState.IDLE);
         }
 
@@ -177,7 +177,7 @@ namespace STARTING
             {
                 yield return new WaitForSeconds(Random.Range(1, 5));
 
-                // Idle »óÅÂ Áß¿¡µµ »óÅÂ¸¦ °è»êÇØ ÀüÈ¯
+                // Idle ìƒíƒœ ì¤‘ì—ë„ ìƒíƒœë¥¼ ê³„ì‚°í•´ ì „í™˜
                 EnemyState newState = CalculateDistanceToTargetAndSelectState();
                 if (newState != EnemyState.IDLE)
                 {

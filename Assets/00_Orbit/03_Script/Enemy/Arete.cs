@@ -15,6 +15,7 @@ namespace STARTING
         private Vector3 startPosition;
         private Vector3 targetPosition;
         private bool movingUp = true;
+
         private void Start()
         {
             startPosition = transform.position;

@@ -114,33 +114,48 @@ namespace STARTING
         {
             if (currentEnemyCount >= maxTotalEnemies)
             {
-                return; // 최대 몬스터 수에 도달하면 더 이상 생성 X
+                return; // 최대 몬스터 수에 도달하면 더 이상 생성하지 않음
             }
 
             GameObject item = enemyMemoryPool.Get();
-            currentEnemyCount++; // 활성화된 몬스터 수 증가
+            currentEnemyCount++;
 
             Vector3 scale = transform.localScale;
-            Vector3 spawnPosition = new Vector3(
+            Vector3 randomOffset = new Vector3(
                 Random.Range(-scale.x * 0.5f, scale.x * 0.5f),
-                1,
+                0,
                 Random.Range(-scale.z * 0.5f, scale.z * 0.5f)
             );
 
-            var navMeshAgent = item.GetComponent<NavMeshAgent>();
-            if (navMeshAgent != null)
-            {
-                navMeshAgent.Warp(transform.position + spawnPosition);
-                if (!navMeshAgent.isOnNavMesh)
-                {
-                    enemyMemoryPool.Release(item);
-                    currentEnemyCount--; // 실패 시 활성화된 몬스터 수 감소 (Object Pool에만 존재)
-                    return;
-                }
-            }
+            Vector3 spawnPosition = transform.position + randomOffset;
 
-            // 몬스터를 생성한 Pool 정보 설정 후 추적
-            item.GetComponent<EnemyFSM>().Setup(target, this);
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(spawnPosition, out hit, 2.0f, NavMesh.AllAreas))
+            {
+                var navMeshAgent = item.GetComponent<NavMeshAgent>();
+                if (navMeshAgent != null)
+                {
+                    navMeshAgent.Warp(hit.position);
+
+                    if (!navMeshAgent.isOnNavMesh)
+                    {
+                        //정상적으로 안놓아졌다면 다시 스폰
+                        enemyMemoryPool.Release(item);
+                        currentEnemyCount--;
+                        SpawnEnemy();
+                        return;
+                    }
+                }
+                item.GetComponent<EnemyFSM>().Setup(target, this);
+            }
+            else
+            {
+                //navMesh를 벗어난 곳에서는 다시스폰
+                enemyMemoryPool.Release(item);
+                currentEnemyCount--;
+                SpawnEnemy();
+            }
         }
+
     }
 }

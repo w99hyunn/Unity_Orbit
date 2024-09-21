@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &17860848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +316,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 62618110}
-  - component: {fileID: 62618111}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -344,23 +343,6 @@ Transform:
   - {fileID: 199951838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &62618111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62618109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315a75c1b865eb4f84dd5931e6da914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameObjects:
-  - {fileID: 994158629}
-  - {fileID: 199951836}
-  - {fileID: 17860847}
-  - {fileID: 453446165}
 --- !u!1 &86593635
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &199951837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10397,7 +10379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &994158630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10413,10 +10395,10 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyPrefab: {fileID: 268019018704504733, guid: a707d02d1ec8a9d429ab1dddd5a125a4,
     type: 3}
-  enemySpawnTime: 2
-  enemySpawnLatency: 1
-  initSpawnMonster: 0
-  maxTotalEnemies: 20
+  enemySpawnTime: 5
+  enemySpawnLatency: 3
+  initSpawnMonster: 5
+  maxTotalEnemies: 10
 --- !u!65 &994158631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10501,7 +10483,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 17.946602, y: -13.453003, z: 7.0619965}
-  m_LocalScale: {x: 50.25736, y: 15.714999, z: 64.05197}
+  m_LocalScale: {x: 50.25736, y: 12.4, z: 64.05197}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 62618110}
@@ -10521,10 +10503,10 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyPrefab: {fileID: 268019018704504733, guid: f839bd5e2d27b8242872f11599a09ca8,
     type: 3}
-  enemySpawnTime: 1
-  enemySpawnLatency: 1
-  initSpawnMonster: 0
-  maxTotalEnemies: 20
+  enemySpawnTime: 10
+  enemySpawnLatency: 10
+  initSpawnMonster: 5
+  maxTotalEnemies: 10
 --- !u!1001 &1149134363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18618,12 +18600,12 @@ PrefabInstance:
     - target: {fileID: 1245501503478773792, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1245501503478773792, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1313324678078537051, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
