@@ -170,6 +170,7 @@ namespace STARTING
             }
             UpdateUI();
         }
+
         void LevelUp()
         {
             GameManager.Instance.PlaySound(levelUpSound);

@@ -26,7 +26,7 @@ namespace STARTING
         public float attackRange = 5;
         public float attackRate = 1;
 
-        private EnemyState currentState = EnemyState.NONE;
+        public EnemyState currentState = EnemyState.NONE;
         private float lastAttackTime = 0;
 
         private NavMeshAgent navMeshAgent;

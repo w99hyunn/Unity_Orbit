@@ -78,8 +78,11 @@ namespace STARTING
 
         [Header("캐릭터 상세 Info")]
         public GameObject infoUI;
-        private UIInfoUpdate uIInfoUpdate;
         private Animator infoUiAnimator;
+        public TMP_Text currentChipText;
+        public TMP_Text xpDetailText;
+        public TMP_Text healthDetailText;
+        public TMP_Text manaDetailText;
 
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine deactivateCoroutine;
@@ -96,6 +99,8 @@ namespace STARTING
         
         private void Start()
         {
+            infoUiAnimator = infoUI.GetComponent<Animator>();
+
             tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
             tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
             interactionText = interactionKey.transform.Find("interactionText").gameObject.GetComponent<TMP_Text>();
@@ -107,9 +112,6 @@ namespace STARTING
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
             killLogAnimator = killLog.GetComponent<Animator>();
             defaultIcon = killLogIcon.sprite;
-
-            uIInfoUpdate = infoUI.GetComponent<UIInfoUpdate>();
-            infoUiAnimator = infoUI.GetComponent<Animator>();
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -346,7 +348,7 @@ namespace STARTING
 
         private void UpdateChipUI(int currentindex)
         {
-            uIInfoUpdate.SetDetailText("chip", $"{currentindex}");
+            currentChipText.text = $"{currentindex}";
         }
 
         private void UpdateHealthUI(int currentindex, int maxindex)
@@ -354,7 +356,7 @@ namespace STARTING
             int currentHealthPercentage = (int)((float)currentindex / maxindex * 100);
 
             healthText.text = currentHealthPercentage.ToString();
-            uIInfoUpdate.SetDetailText("health", $"{currentindex} / {maxindex}");
+            healthDetailText.text = $"{currentindex} / {maxindex}";
             StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
 
             //체력이 20 미만이면 화면 깜빡임 시작
@@ -379,15 +381,14 @@ namespace STARTING
             int currentManaPercentage = (int)((float)currentindex / maxindex * 100);
 
             manaText.text = currentManaPercentage.ToString();
-            uIInfoUpdate.SetDetailText("mana", $"{currentindex} / {maxindex}");
+            manaDetailText.text = $"{currentindex} / {maxindex}";
             StartCoroutine(SmoothSliderChange(manaBar, currentManaPercentage));
         }
 
         private void UpdateExperienceUI(int currentindex, int maxindex)
         {
             int currentExperiencePercentage = (int)((float)currentindex / maxindex * 100);
-
-            uIInfoUpdate.SetDetailText("exp", $"{currentindex} / {maxindex}");
+            xpDetailText.text = $"{currentindex} / {maxindex}";
             xpText.text = currentExperiencePercentage.ToString();
         }
 
