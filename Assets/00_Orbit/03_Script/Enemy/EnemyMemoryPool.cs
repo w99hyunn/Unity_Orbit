@@ -10,7 +10,6 @@ namespace STARTING
         public Transform target;
         public GameObject enemyPrefab;
         public float enemySpawnTime = 1;
-        public float enemySpawnLatency = 1;
 
         private ObjectPool<GameObject> enemyMemoryPool;
         private int numberOfEnemiesSpawnedAtOnce = 1;

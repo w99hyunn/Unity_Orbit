@@ -58,6 +58,7 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 1612617418872949662}
   attackRange: 5
   attackRate: 2
+  currentState: -1
   shotSound: {fileID: 8300000, guid: 291584462bdfe8244a76a38b85dbbc23, type: 3}
   eyeTransform: {fileID: 835010652370084760}
   OnSetup:
@@ -114,6 +115,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  killLogType: 0
+  deathIcon: {fileID: 0}
+  probability: 5
 --- !u!135 &6805415605554177333
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -71,11 +71,17 @@ namespace STARTING
 
         private void Update()
         {
+            FloatingEffect();
+
             EnemyState newState = CalculateDistanceToTargetAndSelectState();
             if (newState != currentState)
             {
                 ChangeState(newState);
             }
+        }
+
+        void FloatingEffect()
+        {
             // y축 움직임 (딜레이 적용)
             float newY = transform.position.y + Mathf.Sin((Time.time + timeOffset) * floatFrequency) * floatAmplitude;
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
