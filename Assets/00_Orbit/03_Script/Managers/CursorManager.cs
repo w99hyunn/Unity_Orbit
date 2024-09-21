@@ -8,7 +8,6 @@ namespace STARTING
     public class CursorManager : MonoBehaviour
     {
         public List<GameObject> objectsToDestroy = new List<GameObject>();
-        public GameObject tooltip;
         public GameObject pauseMenuHotkey;
 
 
@@ -17,18 +16,6 @@ namespace STARTING
             ContinueGame();
             objectsToDestroy.Add(GameManager.Instance.gameObject);
             objectsToDestroy.Add(PlayerStats.Instance.gameObject);
-        }
-
-        void Update()
-        {
-            if (Input.GetKey(KeyCode.LeftAlt))
-            {
-                ShowTooltip();
-            }
-            else
-            {
-                HideTooltip();
-            }
         }
 
         private IEnumerator CheckPlayerState()
@@ -88,14 +75,6 @@ namespace STARTING
             PlayerStats.Instance.playerState = PlayerState.PAUSE;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        }
-        public void ShowTooltip()
-        {
-            tooltip.SetActive(true);
-        }
-        public void HideTooltip()
-        {
-            tooltip.SetActive(false);
         }
     }
 }

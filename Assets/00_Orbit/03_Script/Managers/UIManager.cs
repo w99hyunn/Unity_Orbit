@@ -60,9 +60,6 @@ namespace STARTING
         public TMP_Text manaText;
         public TMP_Text levelText;
         public TMP_Text xpText;
-        public TMP_Text xpDetailText;
-        public TMP_Text healthDetailText;
-        public TMP_Text manaDetailText;
         public CanvasGroup screenFlashCanvasGroup;
         public CanvasGroup levelUpHpPlusAlert;
         public CanvasGroup levelUpMpPlusAlert;
@@ -77,6 +74,10 @@ namespace STARTING
         public TMP_Text text3;
         public UnityEvent onDungeonEnter;
         public UnityEvent onDungeonLoadingComplete;
+
+        [Header("캐릭터 상세 Info")]
+        public GameObject infoUI;
+        private UIInfoUpdate uIInfoUpdate;
 
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine deactivateCoroutine;
@@ -103,6 +104,8 @@ namespace STARTING
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
             defaultIcon = killLogIcon.sprite;
+
+            uIInfoUpdate = infoUI.GetComponent<UIInfoUpdate>();
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -333,7 +336,7 @@ namespace STARTING
             int currentHealthPercentage = (int)((float)currentindex / maxindex * 100);
 
             healthText.text = currentHealthPercentage.ToString();
-            healthDetailText.text = $"{currentindex} / {maxindex}";
+            uIInfoUpdate.SetDetailText("health", $"{currentindex} / {maxindex}");
             StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
 
             //체력이 20 미만이면 화면 깜빡임 시작
@@ -358,7 +361,7 @@ namespace STARTING
             int currentManaPercentage = (int)((float)currentindex / maxindex * 100);
 
             manaText.text = currentManaPercentage.ToString();
-            manaDetailText.text = $"{currentindex} / {maxindex}";
+            uIInfoUpdate.SetDetailText("mana", $"{currentindex} / {maxindex}");
             StartCoroutine(SmoothSliderChange(manaBar, currentManaPercentage));
         }
 
@@ -366,7 +369,7 @@ namespace STARTING
         {
             int currentExperiencePercentage = (int)((float)currentindex / maxindex * 100);
 
-            xpDetailText.text = $"{currentindex} / {maxindex}";
+            uIInfoUpdate.SetDetailText("exp", $"{currentindex} / {maxindex}");
             xpText.text = currentExperiencePercentage.ToString();
         }
 
@@ -379,6 +382,20 @@ namespace STARTING
         {
             StartCoroutine(FadeCanvasGroup(levelUpHpPlusAlert));
             StartCoroutine(FadeCanvasGroup(levelUpMpPlusAlert));
+        }
+
+        public void InfoUI(bool index)
+        {
+            Animator infoUiAnimator = infoUI.GetComponent<Animator>();
+            if (true == index)
+            {
+                infoUiAnimator.Play("Window In");
+            }
+            else
+            {
+                infoUiAnimator.Play("Window Out");
+            }
+            //infoUI.SetActive(index);
         }
 
         private IEnumerator SmoothSliderChange(Slider slider, float targetValue)

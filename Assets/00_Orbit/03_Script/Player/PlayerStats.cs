@@ -1,6 +1,7 @@
-using System;
+using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace STARTING
 {
@@ -30,6 +31,8 @@ namespace STARTING
 
         [Header("플레이어 상태")]
         public PlayerState playerState;
+
+        private bool showInfoUI;
 
         public static event System.Action OnPlayerStatsInitialized;
         public static PlayerStats Instance;
@@ -191,6 +194,12 @@ namespace STARTING
             UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
             UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
             UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
+        }
+
+        public void OnCurrentInfo(InputValue value)
+        {
+            showInfoUI = showInfoUI ? false : true;
+            UIManager.Instance.InfoUI(showInfoUI);
         }
     }
 }

@@ -45,7 +45,7 @@
                     "name": "ChangeWeapon",
                     "type": "Button",
                     "id": "ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -72,7 +72,7 @@
                     "name": "Reload",
                     "type": "Button",
                     "id": "781ccf7e-ce71-4b0e-891d-a50f4f3e146d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -166,6 +166,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CurrentInfo",
+                    "type": "Button",
+                    "id": "420feec8-74c4-4b62-9b90-baefdd2aac37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -216,7 +225,7 @@
                 {
                     "name": "",
                     "id": "e62386ed-e227-432d-be94-2b77010693cc",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -408,6 +417,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleAttachmentEditing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9ce09a3-c521-47bb-ad02-6be07e6aa72f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CurrentInfo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
