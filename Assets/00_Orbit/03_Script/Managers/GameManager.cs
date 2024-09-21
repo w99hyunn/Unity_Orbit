@@ -176,7 +176,7 @@ namespace STARTING
             string json = JsonUtility.ToJson(data);
             string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
 
-            Debug.Log("saved JSON: " + json);
+            //Debug.Log("saved JSON: " + json);
 
             File.WriteAllText(saveFilePath, encryptedJson);
             PlayerPrefs.SetInt("ContinueGame", 1);
@@ -190,7 +190,7 @@ namespace STARTING
                 string encryptedJson = File.ReadAllText(saveFilePath);
                 string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-                Debug.Log("Loaded JSON: " + json);
+                //Debug.Log("Loaded JSON: " + json);
 
                 GameData data = JsonUtility.FromJson<GameData>(json);
                 if (data != null)
