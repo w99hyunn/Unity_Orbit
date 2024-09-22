@@ -55,7 +55,7 @@ namespace STARTING
 
             occupiedSpawnPoints[randomSpawnPoint] = spawnedObject;
 
-            spawnedObject.GetComponent<RootBox>().OnDestroyed += () =>
+            spawnedObject.GetComponent<WeaponChangeNpc>().OnDestroyed += () =>
             {
                 StartCoroutine(HandleSpawnPointCooldown(randomSpawnPoint));
             };

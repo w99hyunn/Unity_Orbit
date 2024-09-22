@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace STARTING
 {
-    public class RootBox : MonoBehaviour
+    public class WeaponChangeNpc : MonoBehaviour
     {
         private bool isPlayerInTrigger = false;
         public List<GameObject> itemList;
