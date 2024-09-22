@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using static UnityEditor.PlayerSettings;
 
 namespace STARTING
 {
@@ -26,7 +28,7 @@ namespace STARTING
         public float attackRange = 5;
         public float attackRate = 1;
 
-        public EnemyState currentState = EnemyState.NONE;
+        private EnemyState currentState = EnemyState.NONE;
         private float lastAttackTime = 0;
 
         private NavMeshAgent navMeshAgent;
@@ -34,6 +36,7 @@ namespace STARTING
 
         private AudioSource audioSource;
         public AudioClip shotSound;
+        public AudioClip explosionSound;
 
         [Header("하위 모델링 회전 관련")]
         public Transform eyeTransform;
@@ -56,6 +59,9 @@ namespace STARTING
         public Material newMaterial;           // 새로 교체할 Material
         public MeshRenderer meshRenderer;     // MeshRenderer 참조를 저장할 변수
         private Material[] originalMaterials;  // 원래의 모든 Material을 저장할 배열
+
+        [Header("파괴 VFX")]
+        public GameObject explosionVFX;
 
 
         private void Start()
@@ -82,7 +88,7 @@ namespace STARTING
             //자신을 소환한 pool이 null일 경우( = 버그 몬스터) Die 처리
             if (spawnPool == null)
             {
-                Die();
+                OnDeath?.Invoke();
             }
         }
 
@@ -115,8 +121,17 @@ namespace STARTING
         // 몬스터 죽었을 때
         public void Die()
         {
+            GameObject explosionInstance = Instantiate(explosionVFX, eyeTransform.transform.position, eyeTransform.transform.rotation);
+            AudioSource audioSource = explosionInstance.AddComponent<AudioSource>();
+
+            audioSource.clip = explosionSound;
+            audioSource.Play();
+
+            Destroy(explosionInstance, 3f);
+
             OnDeath?.Invoke(); // 사망 시 풀로 반환
         }
+
 
         private void ChangeState(EnemyState newState)
         {

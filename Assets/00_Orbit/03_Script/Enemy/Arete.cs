@@ -12,9 +12,14 @@ namespace STARTING
         public float moveSpeed = 2f; // Lerp로 이동하는 속도
         public float pauseDuration = 0.05f; // 고점과 저점에서 멈추는 시간
 
+        [Header("파괴 FX")]
+        public AudioClip explosionSound;
+        public GameObject explosionVFX;
+
         private Vector3 startPosition;
         private Vector3 targetPosition;
         private bool movingUp = true;
+
 
         private void Start()
         {
@@ -55,6 +60,13 @@ namespace STARTING
 
         public void AreteDestroy()
         {
+            GameObject explosionInstance = Instantiate(explosionVFX, this.transform.position, this.transform.rotation);
+            AudioSource audioSource = explosionInstance.AddComponent<AudioSource>();
+
+            audioSource.clip = explosionSound;
+            audioSource.Play();
+            Destroy(explosionInstance, 5f);
+
             Destroy(enemySpawner);
             UIManager.Instance.ScriptText_Enable($"{GameManager.Instance.currentZoneName} 구역이 해방됐다. 더 이상 드론이 소환되지 않을거야.");
             dungeonTimer.Destroy_Arete();

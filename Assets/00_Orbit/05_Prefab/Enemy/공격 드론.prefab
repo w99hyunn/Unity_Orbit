@@ -59,6 +59,7 @@ MonoBehaviour:
   attackRange: 4
   attackRate: 5
   shotSound: {fileID: 8300000, guid: 2793c2fb16f84674d814e1492da970d2, type: 3}
+  explosionSound: {fileID: 8300000, guid: 96de1fc972875ff4e9bf0d93351e6227, type: 3}
   eyeTransform: {fileID: 9052085121721360360}
   OnSetup:
     m_PersistentCalls:
@@ -79,6 +80,8 @@ MonoBehaviour:
   floatFrequency: 1
   newMaterial: {fileID: 2100000, guid: 30e72744b6221be4eb2dbb9489ce384a, type: 2}
   meshRenderer: {fileID: 4087297864995296355}
+  explosionVFX: {fileID: 7995794372820361714, guid: 9c60e495200e70a4f873fd5cc6e785c2,
+    type: 3}
 --- !u!114 &5693957555855691593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +117,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  killLogType: 0
+  deathIcon: {fileID: 0}
+  probability: 15
 --- !u!135 &6805415605554177333
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -269,7 +275,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

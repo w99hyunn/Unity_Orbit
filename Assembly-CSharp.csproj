@@ -67,9 +67,7 @@
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\QuickMatchButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\System\AutoSaver.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Event\HoldKeyEvent.cs" />
-    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\OutdoorsBackgroundMusic.cs" />
-    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\SplashSceneManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\RandomObjectSpawner.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\DissolveChildsPingPong.cs" />
@@ -84,7 +82,6 @@
     <Compile Include="Assets\00_Orbit\03_Script\_Debug.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\EnemyUI.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Item\Weapon.cs" />
-    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\Rotator.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Other\EditorDemoPositionFix.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\SwitchHandler.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Player\ShowGunControll.cs" />
@@ -120,7 +117,6 @@
     <Compile Include="Assets\_ShiftUI\Scripts\Other\ScrollForMore.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Manager\UIManagerImage.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Panel\SplashScreenHelper.cs" />
-    <Compile Include="Assets\00_Orbit\06_VFX\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Manager\UIManagerBackground.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\OnTriggerActivator.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\HUDMovement.cs" />
@@ -138,6 +134,7 @@
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\UIElementSound.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveTransform.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Other\ExitToSystem.cs" />
+    <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\Rotator.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Rendering\BlurManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDZone.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\DeadZone.cs" />
@@ -167,8 +164,10 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveAnim.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Rendering\GradientEffect.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Panel\ModalWindowManager.cs" />
+    <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\UI\UIInteraction.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\MainPanelButton.cs" />
+    <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Panel\MainPanelManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Player\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Enemy\Health.cs" />
@@ -180,6 +179,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\Managers\GameManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Item\RootBoxSpawner.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
+    <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Input\VirtualCursor.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Manager\UIManagerText.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Elevator\Elevator.cs" />
@@ -199,17 +199,24 @@
   <ItemGroup>
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\00_Orbit\06_VFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\Render Pipelines support\Shaders\URP_LightGlow.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Demo scene\HDRP and URP(LWRP).txt" />
     <None Include="Assets\_ShiftUI\Shaders\Masked UI Blur.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\ExplosionLit.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Mobile.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF SSD.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Demo scene\Readme.txt" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Distortion.shader" />
     <None Include="Assets\_ShiftUI\Shaders\MainShader.shader" />
     <None Include="Assets\_ShiftUI\Shaders\Fast UI Blur.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Blend_CenterGlow.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\Render Pipelines support\Documentation.txt" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Surface.shader" />
     <None Include="Assets\_ShiftUI\Shaders\UI Particle Additive.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -219,20 +226,22 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
-    <None Include="Assets\00_Orbit\07_Model\Ida Faber\Shaders\Built-in\GR_StandardS_DS.shader" />
+    <None Include="Assets\00_Orbit\06_Model\Ida Faber\Shaders\Built-in\GR_StandardS_DS.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Surface.cginc" />
-    <None Include="Assets\00_Orbit\07_Model\Ida Faber\Shaders\Built-in\Double-sided.shader" />
+    <None Include="Assets\00_Orbit\06_Model\Ida Faber\Shaders\Built-in\Double-sided.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\WaterSimple.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\GrassAnim.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Add_CenterGlow.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF Overlay.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\_ShiftUI\Shaders\UI Blur.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\00_Orbit\06_VFX\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\Magic effects pack\Demo scene\Readme.txt" />
     <None Include="Assets\_ShiftUI\Shaders\Glitch\Glitch.shader" />
+    <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Explosion.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
