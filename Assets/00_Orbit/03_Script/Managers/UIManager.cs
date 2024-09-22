@@ -102,6 +102,9 @@ namespace STARTING
         private void Start()
         {
             infoUiAnimator = infoUI.GetComponent<Animator>();
+            killLogAnimator = killLog.GetComponent<Animator>();
+            interactionKeyAnimator = interactionKey.GetComponent<Animator>();
+            tipKeyAnimator = tipKey.GetComponent<Animator>();
 
             tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
             tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
@@ -112,10 +115,6 @@ namespace STARTING
             back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
-
-            killLogAnimator = killLog.GetComponent<Animator>();
-            interactionKeyAnimator = interactionKey.GetComponent<Animator>();
-            tipKeyAnimator = tipKey.GetComponent<Animator>();
 
             defaultIcon = killLogIcon.sprite;
 
