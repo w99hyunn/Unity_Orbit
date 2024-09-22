@@ -24,8 +24,6 @@ namespace STARTING
         [Range(0f, 10f)]
         public float muzzleFlashTime;
 
-        private bool showTipKey = false;
-
         //무기 스왑시 UI업데이트
         private void OnEnable()
         {
@@ -44,18 +42,17 @@ namespace STARTING
 
         public void BulletCheck()
         {
+            if (UIManager.Instance.tipKey == null)
+            {
+                return;
+            }
             if (currentBullet <= (maxBullet / 3))
             {
                 UIManager.Instance.tipKeyEnable("재장전", "R");
-                showTipKey = true;
             }
             else
             {
-                if (true == showTipKey)
-                {
-                    showTipKey = false;
-                    UIManager.Instance.tipKeyDisable();
-                }
+                UIManager.Instance.tipKeyDisable();
             }
         }
 

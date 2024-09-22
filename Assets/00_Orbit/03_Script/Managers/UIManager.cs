@@ -97,14 +97,13 @@ namespace STARTING
             {
                 Instance = this;
             }
-        }
-        
-        private void Start()
-        {
+
             infoUiAnimator = infoUI.GetComponent<Animator>();
             killLogAnimator = killLog.GetComponent<Animator>();
             interactionKeyAnimator = interactionKey.GetComponent<Animator>();
             tipKeyAnimator = tipKey.GetComponent<Animator>();
+
+            fillImage = healthBar.fillRect.GetComponent<Image>();
 
             tipText = tipKey.transform.Find("tipText").gameObject.GetComponent<TMP_Text>();
             tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
@@ -115,8 +114,12 @@ namespace STARTING
             back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
-
+        }
+        
+        private void Start()
+        {
             defaultIcon = killLogIcon.sprite;
+            originalColor = fillImage.color; // 원래 색상을 저장
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -124,9 +127,6 @@ namespace STARTING
             minimapLockBack.transform.DORotate(new Vector3(0, 0, 360), 60f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
                  .SetEase(Ease.Linear); // 일정한 속도로 회전
-
-            fillImage = healthBar.fillRect.GetComponent<Image>();
-            originalColor = fillImage.color; // 원래 색상을 저장
         }
 
         public void DungeonLoading(string t1, string t2, string t3)
