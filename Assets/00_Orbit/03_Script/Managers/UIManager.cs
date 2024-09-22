@@ -30,11 +30,13 @@ namespace STARTING
         public GameObject tipKey;
         private TMP_Text tipText;
         private TMP_Text tipKeyText;
+        private Animator tipKeyAnimator;
 
         [Header("상호작용 키가이드")]
         public GameObject interactionKey;
         private TMP_Text interactionText;
         private TMP_Text interactionKeyText;
+        private Animator interactionKeyAnimator;
 
         [Header("몬스터 처치 알림")]
         public GameObject killLog;
@@ -110,7 +112,11 @@ namespace STARTING
             back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
+
             killLogAnimator = killLog.GetComponent<Animator>();
+            interactionKeyAnimator = interactionKey.GetComponent<Animator>();
+            tipKeyAnimator = tipKey.GetComponent<Animator>();
+
             defaultIcon = killLogIcon.sprite;
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
@@ -201,26 +207,26 @@ namespace STARTING
 
         public void interactionKeyEnable(string title, string key)
         {
-            interactionKey.SetActive(true);
+            interactionKeyAnimator.Play("Window In");
             interactionText.text = title;
             interactionKeyText.text = key;
         }
 
         public void interactionKeyDisable()
         {
-            interactionKey.SetActive(false);
+            interactionKeyAnimator.Play("Window Out");
         }
 
         public void tipKeyEnable(string title, string key)
         {
-            tipKey.SetActive(true);
+            tipKeyAnimator.Play("Window In");
             tipText.text = title;
             tipKeyText.text = key;
         }
 
         public void tipKeyDisable()
         {
-            tipKey.SetActive(false);
+            tipKeyAnimator.Play("Window Out");
         }
 
         public void UpdateZoneInfo(string zoneName, bool isLiberated)

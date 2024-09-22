@@ -1,4 +1,5 @@
 using STARTING;
+using System.Collections;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -31,6 +32,16 @@ public class Inventory : MonoBehaviour
         chip++;
         UIManager.Instance.UpdateStats("chip", chip);
         UIManager.Instance.ShowKillLog("온전한 칩", "획득", 2f, "blue", chipIcon);
+        StartCoroutine(ShowTipKey());
+    }
+
+    IEnumerator ShowTipKey()
+    {
+        UIManager.Instance.tipKeyEnable("상세정보", "TAB");
+
+        yield return new WaitForSeconds(3f);
+
+        UIManager.Instance.tipKeyDisable();
     }
 
     public void InitializeInventory()
