@@ -41,7 +41,7 @@ namespace STARTING
         private Coroutine currentStateCoroutine;
 
         public System.Action OnDeath;
-        private EnemyMemoryPool spawnPool; // 자신을 생성한 Pool을 기록(구역 트리거)
+        private EnemySpawner spawnPool; // 자신을 생성한 Pool을 기록(구역 트리거)
 
         public UnityEvent OnSetup;
 
@@ -78,6 +78,12 @@ namespace STARTING
             {
                 ChangeState(newState);
             }
+
+            //자신을 소환한 pool이 null일 경우( = 버그 몬스터) Die 처리
+            if (spawnPool == null)
+            {
+                Die();
+            }
         }
 
         void FloatingEffect()
@@ -87,7 +93,7 @@ namespace STARTING
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         }
 
-        public void Setup(Transform target, EnemyMemoryPool pool)
+        public void Setup(Transform target, EnemySpawner pool)
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgent.updateRotation = false;

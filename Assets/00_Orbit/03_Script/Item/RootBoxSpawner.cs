@@ -24,6 +24,11 @@ namespace STARTING
         {
             while (true)
             {
+                if (PlayerStats.Instance.playerState == PlayerState.LOADING)
+                {
+                    yield return null;
+                }
+
                 SpawnObject();
                 yield return new WaitForSeconds(spawnInterval);
             }

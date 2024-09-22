@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 namespace STARTING
 {
-    public class EnemyMemoryPool : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour
     {
         public Transform target;
         public GameObject enemyPrefab;
@@ -22,7 +22,7 @@ namespace STARTING
 
         private int currentEnemyCount = 0; // 현재 활성화 몬스터 수
 
-        private void Awake()
+        private void Start()
         {
             if (target == null)
             {
@@ -66,10 +66,13 @@ namespace STARTING
 
         IEnumerator StartSpawnCoroutine()
         {
-            // 1초 대기
+            if (PlayerStats.Instance.playerState == PlayerState.LOADING)
+            {
+                yield return null;
+            }
+
             yield return new WaitForSeconds(0.5f);
 
-            // 지정된 횟수만큼 적을 생성
             for (int i = 0; i < initSpawnMonster; ++i)
             {
                 SpawnEnemy();
@@ -78,6 +81,11 @@ namespace STARTING
 
         private IEnumerator SpawnEnemyRoutine()
         {
+            if (PlayerStats.Instance.playerState == PlayerState.LOADING)
+            {
+                yield return null;
+            }
+
             yield return new WaitForSeconds(0.5f);
 
             int currentNumber = 0;
