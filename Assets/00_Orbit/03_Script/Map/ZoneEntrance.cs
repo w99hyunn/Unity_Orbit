@@ -11,10 +11,9 @@ namespace STARTING
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && PlayerStats.Instance.playerState != PlayerState.LOADING)
             {
-                GameManager.Instance.currentZoneName = zoneName;
-                bool isLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
+                bool isLiberated = GameManager.Instance.SetCurrentZone(zoneName);
                 UIManager.Instance.UpdateZoneInfo(zoneName, isLiberated);
             }
         }

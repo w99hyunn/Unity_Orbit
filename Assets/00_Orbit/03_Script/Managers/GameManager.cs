@@ -2,6 +2,7 @@ using Demo.Scripts.Runtime.Character;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,13 @@ namespace STARTING
     public class ZoneData
     {
         public string zoneName;
-        public bool isLiberated { get; set; }
+        public bool isLiberated;
+
+        public ZoneData(string zoneName, bool isLiberated)
+        {
+            this.zoneName = zoneName;
+            this.isLiberated = isLiberated;
+        }
     }
 
     [System.Serializable]
@@ -259,7 +266,6 @@ namespace STARTING
             }
         }
 
-
         public void LiberateZone(string zoneName)
         {
             foreach (ZoneData zone in zones)
@@ -270,7 +276,7 @@ namespace STARTING
                     return;
                 }
             }
-            zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
+            //zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
         }
 
         public bool IsZoneLiberated(string zoneName)
@@ -283,6 +289,18 @@ namespace STARTING
                 }
             }
             return false;
+        }
+
+        public bool SetCurrentZone(string zoneName)
+        {
+            currentZoneName = zoneName;
+
+            if (!zones.Any(zone => zone.zoneName == zoneName))
+            {
+                zones.Add(new ZoneData(zoneName, false));
+            }
+
+            return IsZoneLiberated(zoneName);
         }
 
         public void PlaySound(AudioClip clip)
