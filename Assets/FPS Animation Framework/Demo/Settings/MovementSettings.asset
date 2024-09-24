@@ -16,7 +16,7 @@ MonoBehaviour:
     velocity: 0
     velocitySmoothing: 6.5
   prone:
-    velocity: 0.5
+    velocity: 0.6
     velocitySmoothing: 2
   crouching:
     velocity: 1.1
@@ -32,7 +32,7 @@ MonoBehaviour:
   airFriction: 0.3
   airVelocity: 0.4
   maxFallVelocity: 25
-  gravity: 10
+  gravity: 9
   slideCurve:
     serializedVersion: 2
     m_Curve:
@@ -84,5 +84,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  slideDirectionSmoothing: 15
-  slideSpeed: 0.9
+  slideDirectionSmoothing: 9
+  slideSpeed: 25
