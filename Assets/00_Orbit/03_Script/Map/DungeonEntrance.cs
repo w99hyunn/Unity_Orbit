@@ -14,8 +14,7 @@ namespace STARTING
         public AudioClip entranceSound;
         public HintTrigger hintTrigger;
 
-        private bool isLoading = false;
-        private bool isPlayerInTrigger = false;
+        private bool _isPlayerInTrigger = false;
 
         private string currentZoneName;
         private Collider playerCollider;
@@ -24,7 +23,7 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = true;
+                _isPlayerInTrigger = true;
                 playerCollider = other;
                 currentZoneName = GameManager.Instance.currentZoneName;
                 UIManager.Instance.interactionKeyEnable("던전 입장", "F");
@@ -35,7 +34,7 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = false;
+                _isPlayerInTrigger = false;
                 playerCollider = null;
                 UIManager.Instance.interactionKeyDisable();
             }
@@ -43,7 +42,7 @@ namespace STARTING
 
         private void Update()
         {
-            if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && !isLoading)
+            if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && PlayerStats.Instance.playerState != PlayerState.LOADING)
             {
                 HandleDungeonEntrance(playerCollider);
             }
@@ -64,7 +63,6 @@ namespace STARTING
             {
                 PlayerStats.Instance.playerState = PlayerState.LOADING;
                 GameManager.Instance.PlaySound(entranceSound);
-                isLoading = true;
                 UIManager.Instance.DungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
                 GameManager.Instance.SavePlayerPosition(other.transform.position);
                 UIManager.Instance.interactionKeyDisable();
@@ -94,7 +92,6 @@ namespace STARTING
 
         private void OnSceneLoaded(AsyncOperation asyncOperation)
         {
-            isLoading = false;
             UIManager.Instance.DungeonLoadingComplete();
 
             PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);

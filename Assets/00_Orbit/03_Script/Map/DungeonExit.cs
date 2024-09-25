@@ -11,25 +11,14 @@ namespace STARTING
     {
         public AudioClip exitSound;
 
-        private bool isLoading = false;
-        private bool isPlayerInTrigger = false;
+        private bool _isPlayerInTrigger = false;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = true;
+                _isPlayerInTrigger = true;
                 UIManager.Instance.interactionKeyEnable("던전 퇴장", "F");
-            }
-        }
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (Input.GetKeyDown(KeyCode.F) && !isLoading)
-                {
-                    HandleDungeonExit();
-                }
             }
         }
 
@@ -37,13 +26,13 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = false;
+                _isPlayerInTrigger = false;
                 UIManager.Instance.interactionKeyDisable();
             }
         }
         private void Update()
         {
-            if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && !isLoading)
+            if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.F) && PlayerStats.Instance.playerState != PlayerState.LOADING)
             {
                 HandleDungeonExit();
             }
@@ -63,7 +52,6 @@ namespace STARTING
             {
                 PlayerStats.Instance.playerState = PlayerState.LOADING;
                 GameManager.Instance.PlaySound(exitSound);
-                isLoading = true;
                 UIManager.Instance.DungeonLoading("아레테가 파괴되었습니다.", GameManager.Instance.currentZoneName + " 구역이 해방됩니다!", "원래 있던 곳으로 돌아갑니다.");
                 UIManager.Instance.interactionKeyDisable();
                 StartCoroutine(LoadWorldSceneAfterDelay(3f));
@@ -92,7 +80,6 @@ namespace STARTING
 
         private void OnSceneLoaded(AsyncOperation asyncOperation)
         {
-            isLoading = false;
             UIManager.Instance.DungeonLoadingComplete();
             PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
         }
