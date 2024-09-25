@@ -86,6 +86,9 @@ namespace STARTING
         public TMP_Text healthDetailText;
         public TMP_Text manaDetailText;
 
+        [Header("무기 변경 UI")]
+        public UnityEvent changeWeaponUI;
+
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine deactivateCoroutine;
         private Coroutine killLogCoroutine;
@@ -226,6 +229,11 @@ namespace STARTING
         public void tipKeyDisable()
         {
             tipKeyAnimator.Play("Window Out");
+        }
+
+        public void OpenChangeWeapon()
+        {
+            changeWeaponUI?.Invoke();
         }
 
         public void UpdateZoneInfo(string zoneName, bool isLiberated)

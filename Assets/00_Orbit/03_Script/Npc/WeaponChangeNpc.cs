@@ -2,6 +2,7 @@ using STARTING;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponChangeNpc : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class WeaponChangeNpc : MonoBehaviour
         if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
         {
             UIManager.Instance.interactionKeyDisable();
+            UIManager.Instance.OpenChangeWeapon();
             //StartCoroutine(dissolveChilds.AnimateDissolve());
             //PlaySound(rootSound);
             //StartCoroutine(DestroyAfterDelay(1f));
