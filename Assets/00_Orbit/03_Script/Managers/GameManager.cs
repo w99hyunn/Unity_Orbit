@@ -42,6 +42,8 @@ namespace STARTING
 
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance { get; private set; }
+
         public GameObject player;
         private FPSMovement controller;
         private PlayerStats playerStats;
@@ -51,17 +53,15 @@ namespace STARTING
         public List<ZoneData> zones;
         public string currentZoneName;
         public Vector3 lastPlayerPosition { get; private set; }
-
         public AudioSource audioSource;
-        private string saveFilePath;
-        private bool isPlayerStatsInitialized = false;
-        private bool isPlayerControllerInitialized = false;
 
         public float gameTime = 13600f; // 21600
-        private const float realSecondsPerGameDay = 3 * 60 * 60;
-        private const float gameSecondsPerRealSecond = 24 * 60 * 60 / realSecondsPerGameDay;
 
-        public static GameManager Instance { get; private set; }
+        private string _saveFilePath;
+        private bool _isPlayerStatsInitialized = false;
+        private bool _isPlayerControllerInitialized = false;
+        private const float _realSecondsPerGameDay = 3 * 60 * 60;
+        private const float _gameSecondsPerRealSecond = 24 * 60 * 60 / _realSecondsPerGameDay;
 
         private void Awake()
         {
@@ -75,7 +75,18 @@ namespace STARTING
                 Destroy(gameObject);
             }
 
-            saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+            _saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+        }
+        private void OnEnable()
+        {
+            PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
+            FPSMovement.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        }
+
+        private void OnDisable()
+        {
+            PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
+            FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
         }
 
         private void Start()
@@ -89,33 +100,21 @@ namespace STARTING
             UpdateGameTime();
         }
 
-        private void OnEnable()
-        {
-            PlayerStats.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-            FPSMovement.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
-        }
-
-        private void OnDisable()
-        {
-            PlayerStats.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-            FPSMovement.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
-        }
-
         private void OnPlayerStatsInitialized()
         {
-            isPlayerStatsInitialized = true;
+            _isPlayerStatsInitialized = true;
             TryLoadGame();
         }
 
         private void OnPlayerControllerInitialized()
         {
-            isPlayerControllerInitialized = true;
+            _isPlayerControllerInitialized = true;
             TryLoadGame();
         }
 
         private void TryLoadGame()
         {
-            if (isPlayerStatsInitialized && isPlayerControllerInitialized)
+            if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
             {
                 LoadGame();
                 SaveGame();
@@ -185,16 +184,16 @@ namespace STARTING
 
             //Debug.Log("saved JSON: " + json);
 
-            File.WriteAllText(saveFilePath, encryptedJson);
+            File.WriteAllText(_saveFilePath, encryptedJson);
             PlayerPrefs.SetInt("ContinueGame", 1);
             PlayerPrefs.Save();
         }
 
         public void LoadGame()
         {
-            if (File.Exists(saveFilePath))
+            if (File.Exists(_saveFilePath))
             {
-                string encryptedJson = File.ReadAllText(saveFilePath);
+                string encryptedJson = File.ReadAllText(_saveFilePath);
                 string json = CryptoUtility.DecryptString(encryptedJson); // º¹È£È­
 
                 //Debug.Log("Loaded JSON: " + json);
@@ -232,7 +231,7 @@ namespace STARTING
 
         public void UpdateGameTime()
         {
-            gameTime += Time.deltaTime * gameSecondsPerRealSecond;
+            gameTime += Time.deltaTime * _gameSecondsPerRealSecond;
 
             if (gameTime >= 24 * 60 * 60)
             {

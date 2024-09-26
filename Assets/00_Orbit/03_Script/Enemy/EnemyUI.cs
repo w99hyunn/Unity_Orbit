@@ -7,7 +7,8 @@ namespace STARTING
     {
         private Camera mainCamera;
         private CanvasGroup canvasGroup;
-        private Coroutine fadeCoroutine;
+
+        private Coroutine _fadeCoroutine;
 
         void Awake()
         {
@@ -23,15 +24,21 @@ namespace STARTING
             canvasGroup.alpha = 0;
         }
 
+        void Update()
+        {
+            transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward,
+            mainCamera.transform.rotation * Vector3.up);
+        }
+
         public void ShowCanvasGroup()
         {
-            if (fadeCoroutine != null)
+            if (_fadeCoroutine != null)
             {
-                StopCoroutine(fadeCoroutine);
+                StopCoroutine(_fadeCoroutine);
             }
             canvasGroup.alpha = 1;
 
-            fadeCoroutine = StartCoroutine(FadeOutAfterDelay(3f));
+            _fadeCoroutine = StartCoroutine(FadeOutAfterDelay(3f));
         }
 
         private IEnumerator FadeOutAfterDelay(float delay)
@@ -49,12 +56,6 @@ namespace STARTING
             }
 
             canvasGroup.alpha = 0f;
-        }
-
-        void Update()
-        {
-            transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward,
-            mainCamera.transform.rotation * Vector3.up);
         }
     }
 }

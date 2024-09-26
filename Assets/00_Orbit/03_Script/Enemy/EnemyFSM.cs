@@ -26,8 +26,6 @@ namespace STARTING
         public float attackRange = 5;
         public float attackRate = 1;
 
-        private EnemyState currentState = EnemyState.NONE;
-        private float lastAttackTime = 0;
 
         private NavMeshAgent navMeshAgent;
         private Transform target;
@@ -51,16 +49,18 @@ namespace STARTING
 
         [Header("떠다니는 속도(y)")]
         public float floatFrequency = 1f; // 떠다니는 속도
-        private float timeOffset; // 각 오브젝트의 시간 오프셋
+        private float _timeOffset;        // 각 오브젝트의 시간 오프셋
 
         [Header("플레이어 인식시 몬스터 머티리얼 변경")]
         public Material newMaterial;           // 새로 교체할 Material
-        public MeshRenderer meshRenderer;     // MeshRenderer 참조를 저장할 변수
+        public MeshRenderer meshRenderer;      // MeshRenderer 참조를 저장할 변수
         private Material[] originalMaterials;  // 원래의 모든 Material을 저장할 배열
 
         [Header("파괴 VFX")]
         public GameObject explosionVFX;
 
+        private EnemyState _currentState = EnemyState.NONE;
+        private float _lastAttackTime = 0;
 
         private void Start()
         {
@@ -78,7 +78,7 @@ namespace STARTING
             FloatingEffect();
 
             EnemyState newState = CalculateDistanceToTargetAndSelectState();
-            if (newState != currentState)
+            if (newState != _currentState)
             {
                 ChangeState(newState);
             }
@@ -93,7 +93,7 @@ namespace STARTING
         void FloatingEffect()
         {
             // y축 움직임 (딜레이 적용)
-            float newY = transform.position.y + Mathf.Sin((Time.time + timeOffset) * floatFrequency) * floatAmplitude;
+            float newY = transform.position.y + Mathf.Sin((Time.time + _timeOffset) * floatFrequency) * floatAmplitude;
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         }
 
@@ -105,7 +105,7 @@ namespace STARTING
             spawnPool = pool; // 자신을 생성한 Pool 저장
             ResetState();
 
-            timeOffset = Random.Range(1f, 8f);
+            _timeOffset = Random.Range(1f, 8f);
         }
 
         // 몬스터의 상태를 초기화하는 메서드
@@ -133,7 +133,7 @@ namespace STARTING
 
         private void ChangeState(EnemyState newState)
         {
-            if (currentState == newState) return;
+            if (_currentState == newState) return;
 
             if (currentStateCoroutine != null)
             {
@@ -141,14 +141,14 @@ namespace STARTING
             }
 
             //PURSUIT → WANDER 전환시 모델의 회전값을 원래대로 돌련놓기 위함. 
-            if (currentState == EnemyState.PURSUIT && newState == EnemyState.WANDER)
+            if (_currentState == EnemyState.PURSUIT && newState == EnemyState.WANDER)
             {
                 //transform.rotation = Quaternion.identity;
                 eyeTransform.localRotation = Quaternion.identity;
             }
 
-            currentState = newState;
-            currentStateCoroutine = StartCoroutine(currentState.ToString());
+            _currentState = newState;
+            currentStateCoroutine = StartCoroutine(_currentState.ToString());
         }
 
         IEnumerator WANDER()
@@ -236,9 +236,9 @@ namespace STARTING
                     navMeshAgent.ResetPath();
                     LookRotationToTarget();
 
-                    if (Time.time - lastAttackTime > attackRate)
+                    if (Time.time - _lastAttackTime > attackRate)
                     {
-                        lastAttackTime = Time.time;
+                        _lastAttackTime = Time.time;
 
                         GameObject clone = Instantiate(projectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
                         clone.GetComponent<EnemyProjectile>().Setup(target.position);
@@ -294,7 +294,7 @@ namespace STARTING
 
         private EnemyState CalculateDistanceToTargetAndSelectState()
         {
-            if (target == null) return currentState;
+            if (target == null) return _currentState;
 
             float distance = Vector3.Distance(target.position, transform.position);
 
@@ -311,7 +311,7 @@ namespace STARTING
                 return EnemyState.WANDER;
             }
 
-            return currentState;
+            return _currentState;
         }
 
         private Vector3 CalculateWanderPosition()

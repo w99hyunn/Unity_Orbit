@@ -13,7 +13,7 @@ namespace STARTING
         public string nextSceneName;
         public float delayBetweenCanvases = 6.0f;
 
-        private AsyncOperation asyncLoad;
+        private AsyncOperation _asyncLoad;
 
         private void Start()
         {
@@ -30,9 +30,9 @@ namespace STARTING
 
         private IEnumerator LoadSceneAsync()
         {
-            asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
-            asyncLoad.allowSceneActivation = false;
-            yield return asyncLoad;
+            _asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
+            _asyncLoad.allowSceneActivation = false;
+            yield return _asyncLoad;
         }
 
         private IEnumerator SwitchCanvasAndLoadScene()
@@ -50,7 +50,7 @@ namespace STARTING
             yield return new WaitForSeconds(delayBetweenCanvases);
 
             Cursor.visible = true;
-            asyncLoad.allowSceneActivation = true;
+            _asyncLoad.allowSceneActivation = true;
         }
     }
 }

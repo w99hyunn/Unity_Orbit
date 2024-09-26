@@ -10,7 +10,6 @@ namespace STARTING
         public List<GameObject> objectsToDestroy = new List<GameObject>();
         public GameObject pauseMenuHotkey;
 
-
         private void Start()
         {
             ContinueGame();

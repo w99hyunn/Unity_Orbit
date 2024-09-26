@@ -8,17 +8,17 @@ namespace STARTING
         public string[] tipTexts;
 
         private TextMeshProUGUI tmp;
-        private int randomNum;
+        private int _randomNum;
 
         void OnEnable()
         {
-            randomNum = Random.Range(0, tipTexts.Length);
+            _randomNum = Random.Range(0, tipTexts.Length);
         }
 
         void Start()
         {
             tmp = GetComponent<TextMeshProUGUI>();
-            tmp.text = tipTexts[randomNum];
+            tmp.text = tipTexts[_randomNum];
         }
     }
 }

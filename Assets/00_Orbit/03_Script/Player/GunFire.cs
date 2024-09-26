@@ -1,5 +1,4 @@
 using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace STARTING
@@ -24,6 +23,11 @@ namespace STARTING
         [Range(0f, 10f)]
         public float muzzleFlashTime;
 
+        private void Awake()
+        {
+            currentBullet = maxBullet;
+        }
+
         //무기 스왑시 UI업데이트
         private void OnEnable()
         {
@@ -32,12 +36,6 @@ namespace STARTING
 
             //총 변경시 체크
             BulletCheck();
-        }
-
-        private void Awake()
-        {
-            currentBullet = maxBullet;
-            
         }
 
         public void BulletCheck()

@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class WeaponChangeNpc : MonoBehaviour
 {
-    private bool isPlayerInTrigger = false;
     public List<GameObject> itemList;
     public DissolveChilds dissolveChilds;
 
@@ -17,28 +16,11 @@ public class WeaponChangeNpc : MonoBehaviour
     public AudioClip rootSound;
     public AudioSource audioSource;
 
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInTrigger = true;
-            UIManager.Instance.interactionKeyEnable("무기 상점", "F");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInTrigger = false;
-            UIManager.Instance.interactionKeyDisable();
-        }
-    }
+    private bool _isPlayerInTrigger = false;
 
     private void Update()
     {
-        if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
+        if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
         {
             UIManager.Instance.interactionKeyDisable();
             UIManager.Instance.OpenChangeWeapon();
@@ -47,6 +29,25 @@ public class WeaponChangeNpc : MonoBehaviour
             //StartCoroutine(DestroyAfterDelay(1f));
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPlayerInTrigger = true;
+            UIManager.Instance.interactionKeyEnable("무기 상점", "F");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isPlayerInTrigger = false;
+            UIManager.Instance.interactionKeyDisable();
+        }
+    }
+
     //private IEnumerator DestroyAfterDelay(float delay)
     //{
     //    yield return new WaitForSeconds(delay);

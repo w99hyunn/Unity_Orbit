@@ -55,8 +55,8 @@ namespace STARTING
         [Header("플레이어 스탯")]
         public Slider healthBar;
         private Image fillImage; // 슬라이더 내부 Bar의 이미지
-        private Color originalColor; // 원래의 색상을 저장하기 위한 변수
-        private int loopCount = Mathf.CeilToInt(1f / (0.1f * 2)); // 왕복하는 데 걸리는 시간을 고려하여 반복 횟수 계산
+        private Color _originalColor; // 원래의 색상을 저장하기 위한 변수
+        private int _loopCount = Mathf.CeilToInt(1f / (0.1f * 2)); // 왕복하는 데 걸리는 시간을 고려하여 반복 횟수 계산
 
         public Slider manaBar;
         public TMP_Text healthText;
@@ -90,8 +90,8 @@ namespace STARTING
         public UnityEvent changeWeaponUI;
 
         /* 존 이름 & 해방여부 업데이트 */
-        private Coroutine deactivateCoroutine;
-        private Coroutine killLogCoroutine;
+        private Coroutine _deactivateCoroutine;
+        private Coroutine _killLogCoroutine;
 
 
         private void Awake()
@@ -122,7 +122,7 @@ namespace STARTING
         private void Start()
         {
             defaultIcon = killLogIcon.sprite;
-            originalColor = fillImage.color; // 원래 색상을 저장
+            _originalColor = fillImage.color; // 원래 색상을 저장
 
             minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
                  .SetLoops(-1, LoopType.Incremental) // 무한 반복
@@ -181,13 +181,13 @@ namespace STARTING
                 killLogIcon.sprite = defaultIcon;
             }
 
-            if (killLogCoroutine != null)
+            if (_killLogCoroutine != null)
             {
-                StopCoroutine(killLogCoroutine);
+                StopCoroutine(_killLogCoroutine);
             }
 
             GameManager.Instance.PlaySound(killLogSound);
-            killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
+            _killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
         }
 
         public IEnumerator ShowAndHideKillLog(float time)
@@ -198,7 +198,7 @@ namespace STARTING
 
             killLogAnimator.Play("Window Out");
 
-            killLogCoroutine = null;
+            _killLogCoroutine = null;
         }
 
         public IEnumerator ChipLog(float time)
@@ -272,13 +272,13 @@ namespace STARTING
             ZoneName.SetActive(true);
 
             // 기존 코루틴이 있으면 중지
-            if (deactivateCoroutine != null)
+            if (_deactivateCoroutine != null)
             {
-                StopCoroutine(deactivateCoroutine);
+                StopCoroutine(_deactivateCoroutine);
             }
 
             // 새로운 코루틴 시작
-            deactivateCoroutine = StartCoroutine(DeactivateZoneNameAfterDelay(6f));
+            _deactivateCoroutine = StartCoroutine(DeactivateZoneNameAfterDelay(6f));
         }
 
         private IEnumerator DeactivateZoneNameAfterDelay(float delay)
@@ -384,9 +384,9 @@ namespace STARTING
         public void StartBlinking()
         {
             fillImage.DOColor(new Color(251f / 255f, 92f / 255f, 87f / 255f), 0.1f)
-                     .SetLoops(loopCount, LoopType.Yoyo) // 2초 동안 반복
+                     .SetLoops(_loopCount, LoopType.Yoyo) // 2초 동안 반복
                      .SetEase(Ease.Linear)
-                     .OnComplete(() => fillImage.color = originalColor);
+                     .OnComplete(() => fillImage.color = _originalColor);
         }
 
         private void UpdateManaUI(int currentindex, int maxindex)

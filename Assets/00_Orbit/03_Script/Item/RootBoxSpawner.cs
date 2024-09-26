@@ -12,11 +12,11 @@ namespace STARTING
         [Header("루트박스 스폰 주기")]
         public float spawnInterval = 30f;
 
-        private Dictionary<Transform, GameObject> occupiedSpawnPoints;
+        private Dictionary<Transform, GameObject> _occupiedSpawnPoints;
 
         void Start()
         {
-            occupiedSpawnPoints = new Dictionary<Transform, GameObject>();
+            _occupiedSpawnPoints = new Dictionary<Transform, GameObject>();
             StartCoroutine(SpawnRoutine());
         }
 
@@ -39,7 +39,7 @@ namespace STARTING
             List<Transform> availableSpawnPoints = new List<Transform>();
             foreach (Transform spawnPoint in spawnPoints)
             {
-                if (!occupiedSpawnPoints.ContainsKey(spawnPoint))
+                if (!_occupiedSpawnPoints.ContainsKey(spawnPoint))
                 {
                     availableSpawnPoints.Add(spawnPoint);
                 }
@@ -53,9 +53,9 @@ namespace STARTING
             Transform randomSpawnPoint = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
             GameObject spawnedObject = Instantiate(rootBox, randomSpawnPoint.position, randomSpawnPoint.rotation);
 
-            occupiedSpawnPoints[randomSpawnPoint] = spawnedObject;
+            _occupiedSpawnPoints[randomSpawnPoint] = spawnedObject;
 
-            spawnedObject.GetComponent<WeaponChangeNpc>().OnDestroyed += () =>
+            spawnedObject.GetComponent<RootBox>().OnDestroyed += () =>
             {
                 StartCoroutine(HandleSpawnPointCooldown(randomSpawnPoint));
             };
@@ -65,7 +65,7 @@ namespace STARTING
         {
             // 루트 상자 파괴 후 15초 지나야 스폰 포인트 다시 사용 가능(힐템이 15초간 지속)
             yield return new WaitForSeconds(15f);
-            occupiedSpawnPoints.Remove(spawnPoint);
+            _occupiedSpawnPoints.Remove(spawnPoint);
         }
     }
 }

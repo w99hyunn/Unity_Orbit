@@ -6,14 +6,12 @@ namespace STARTING
 {
     public class FpsScript : MonoBehaviour
     {
-        public TextMeshProUGUI fpsText;
+        public TMP_Text fpsText;
         public GameObject FpsSwitch;
-        [Header("Font Set")]
-        public int size = 50;
-        public Color color = Color.white;
 
-        private float deltaTime = 0f;
         private SwitchManager SwitchManager;
+
+        private float _deltaTime = 0f;
 
         private void Start()
         {
@@ -22,11 +20,11 @@ namespace STARTING
 
         private void Update()
         {
-            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+            _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
 
             if (SwitchManager.isOn)
             {
-                float fps = 1.0f / deltaTime;
+                float fps = 1.0f / _deltaTime;
                 if (Application.targetFrameRate == -1)
                 {
                     fpsText.text = string.Format("FPS {0:0.} | vSync ", fps);
@@ -35,14 +33,11 @@ namespace STARTING
                 {
                     fpsText.text = string.Format("FPS {0:0.} | ∞Ì¡§ {1:0} ", fps, Application.targetFrameRate);
                 }
-                fpsText.fontSize = size;
-                fpsText.color = color;
             }
             else
             {
                 fpsText.text = "";
             }
-
         }
     }
 }

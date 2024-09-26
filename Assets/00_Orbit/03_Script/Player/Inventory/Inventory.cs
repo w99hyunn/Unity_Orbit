@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory Instance { get; private set; }
+
     public int chip { get; private set; }
     public Sprite chipIcon;
-
-    public static Inventory Instance { get; private set; }
 
     private void Awake()
     {

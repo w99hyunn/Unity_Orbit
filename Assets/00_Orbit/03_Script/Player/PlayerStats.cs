@@ -1,4 +1,3 @@
-using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +15,9 @@ namespace STARTING
 
     public class PlayerStats : MonoBehaviour
     {
+        public static PlayerStats Instance { get; private set; }
+        public static event System.Action OnPlayerStatsInitialized;
+
         public AudioClip levelUpSound;
         public int maxHealth { get; private set; }
         public int maxMana { get; private set; }
@@ -25,17 +27,13 @@ namespace STARTING
         public int currentExperience { get; private set; }
         public int level { get; private set; }
 
-        private float manaRegenRate = 10f;
-        private float healthRegenRate = 5f;
-        private float regenInterval = 10f;
-
         [Header("플레이어 상태")]
         public PlayerState playerState;
 
-        private bool showInfoUI;
-
-        public static event System.Action OnPlayerStatsInitialized;
-        public static PlayerStats Instance;
+        private float _manaRegenRate = 10f;
+        private float _healthRegenRate = 5f;
+        private float _regenInterval = 10f;
+        private bool _isShowInfoUI;
 
         private void Awake()
         {
@@ -53,8 +51,8 @@ namespace STARTING
         void Start()
         {
             playerState = PlayerState.INIT;
-            InvokeRepeating("RegenerateMana", regenInterval, regenInterval);
-            InvokeRepeating("RegenerateHealth", regenInterval, regenInterval);
+            InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
+            InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
             InitializeStats();
             OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
         }
@@ -120,13 +118,13 @@ namespace STARTING
 
         void RegenerateHealth()
         {
-            currentHealth = Mathf.Min(currentHealth + (int)healthRegenRate, maxHealth);
+            currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
         }
 
         void RegenerateMana()
         {
-            currentMana = Mathf.Min(currentMana + (int)manaRegenRate, maxMana);
+            currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
         }
 
@@ -199,8 +197,8 @@ namespace STARTING
 
         public void OnCurrentInfo(InputValue value)
         {
-            showInfoUI = showInfoUI ? false : true;
-            UIManager.Instance.InfoUI(showInfoUI);
+            _isShowInfoUI = _isShowInfoUI ? false : true;
+            UIManager.Instance.InfoUI(_isShowInfoUI);
         }
     }
 }

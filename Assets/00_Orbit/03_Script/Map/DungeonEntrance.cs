@@ -13,11 +13,10 @@ namespace STARTING
         public Vector3 spawnPos;
         public AudioClip entranceSound;
         public HintTrigger hintTrigger;
+        private Collider playerCollider;
+        private string currentZoneName;
 
         private bool _isPlayerInTrigger = false;
-
-        private string currentZoneName;
-        private Collider playerCollider;
 
         private void OnTriggerEnter(Collider other)
         {

@@ -11,16 +11,15 @@ namespace STARTING
         public GameObject enemyPrefab;
         public float enemySpawnTime = 1;
 
-        private ObjectPool<GameObject> enemyMemoryPool;
-        private int numberOfEnemiesSpawnedAtOnce = 1;
-
         [Header("처음 시작 시 생성할 몬스터 수")]
         public int initSpawnMonster = 3;
 
         [Header("최대 몬스터 수 제한")]
         public int maxTotalEnemies = 20; // 최대 생성 몬스터 수
 
-        private int currentEnemyCount = 0; // 현재 활성화 몬스터 수
+        private ObjectPool<GameObject> _enemyMemoryPool;
+        private int _numberOfEnemiesSpawnedAtOnce = 1;
+        private int _currentEnemyCount = 0; // 현재 활성화 몬스터 수
 
         private void Start()
         {
@@ -29,7 +28,7 @@ namespace STARTING
                 target = GameObject.FindGameObjectWithTag("Player").transform;
             }
 
-            enemyMemoryPool = new ObjectPool<GameObject>(
+            _enemyMemoryPool = new ObjectPool<GameObject>(
                 createFunc: () =>
                 {
                     GameObject enemy = Instantiate(enemyPrefab);
@@ -37,8 +36,8 @@ namespace STARTING
                     // 몬스터가 죽을 때 풀로 반환
                     enemy.GetComponent<EnemyFSM>().OnDeath += () =>
                     {
-                        enemyMemoryPool.Release(enemy);
-                        currentEnemyCount--; // 현재 활성화 몬스터 수 감소
+                        _enemyMemoryPool.Release(enemy);
+                        _currentEnemyCount--; // 현재 활성화 몬스터 수 감소
                     };
 
                     return enemy;
@@ -94,11 +93,11 @@ namespace STARTING
             while (true)
             {
                 // 총 몬스터 수가 최대치에 도달하지 않았을 때만 생성
-                if (currentEnemyCount < maxTotalEnemies)
+                if (_currentEnemyCount < maxTotalEnemies)
                 {
-                    for (int i = 0; i < numberOfEnemiesSpawnedAtOnce; ++i)
+                    for (int i = 0; i < _numberOfEnemiesSpawnedAtOnce; ++i)
                     {
-                        if (currentEnemyCount < maxTotalEnemies)
+                        if (_currentEnemyCount < maxTotalEnemies)
                         {
                             SpawnEnemy();
                         }
@@ -110,7 +109,7 @@ namespace STARTING
                 if (currentNumber >= maximumNumber)
                 {
                     currentNumber = 0;
-                    numberOfEnemiesSpawnedAtOnce = Mathf.Min(numberOfEnemiesSpawnedAtOnce + 1, 10);
+                    _numberOfEnemiesSpawnedAtOnce = Mathf.Min(_numberOfEnemiesSpawnedAtOnce + 1, 10);
                 }
 
                 yield return new WaitForSeconds(enemySpawnTime);
@@ -119,13 +118,13 @@ namespace STARTING
 
         private void SpawnEnemy()
         {
-            if (currentEnemyCount >= maxTotalEnemies)
+            if (_currentEnemyCount >= maxTotalEnemies)
             {
                 return; // 최대 몬스터 수에 도달하면 더 이상 생성하지 않음
             }
 
-            GameObject item = enemyMemoryPool.Get();
-            currentEnemyCount++;
+            GameObject item = _enemyMemoryPool.Get();
+            _currentEnemyCount++;
 
             Vector3 scale = transform.localScale;
             Vector3 randomOffset = new Vector3(
@@ -147,8 +146,8 @@ namespace STARTING
                     if (!navMeshAgent.isOnNavMesh)
                     {
                         //정상적으로 안놓아졌다면 다시 스폰
-                        enemyMemoryPool.Release(item);
-                        currentEnemyCount--;
+                        _enemyMemoryPool.Release(item);
+                        _currentEnemyCount--;
                         SpawnEnemy();
                         return;
                     }
@@ -158,8 +157,8 @@ namespace STARTING
             else
             {
                 //navMesh를 벗어난 곳에서는 다시스폰
-                enemyMemoryPool.Release(item);
-                currentEnemyCount--;
+                _enemyMemoryPool.Release(item);
+                _currentEnemyCount--;
                 SpawnEnemy();
             }
         }

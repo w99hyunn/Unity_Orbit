@@ -11,12 +11,12 @@ namespace STARTING
         public Vector2 maxPosition;
         private QualityManager qualityManager;
 
-        private Vector2 targetPosition;
+        private Vector2 _targetPosition;
 
         void Start()
         {
             qualityManager = FindAnyObjectByType<QualityManager>();
-            targetPosition = hud.anchoredPosition;
+            _targetPosition = hud.anchoredPosition;
         }
 
         void Update()
@@ -29,11 +29,11 @@ namespace STARTING
             float mouseX = -(Input.GetAxis("Mouse X"));
             float mouseY = -(Input.GetAxis("Mouse Y"));
 
-            targetPosition.x = Mathf.Clamp(targetPosition.x + (mouseX * moveSpeed), minPosition.x, maxPosition.x);
-            targetPosition.y = Mathf.Clamp(targetPosition.y + (mouseY * moveSpeed), minPosition.y, maxPosition.y);
+            _targetPosition.x = Mathf.Clamp(_targetPosition.x + (mouseX * moveSpeed), minPosition.x, maxPosition.x);
+            _targetPosition.y = Mathf.Clamp(_targetPosition.y + (mouseY * moveSpeed), minPosition.y, maxPosition.y);
 
             // HUD의 현재 위치를 목표 위치로 서서히 이동시키기
-            hud.anchoredPosition = Vector2.Lerp(hud.anchoredPosition, targetPosition, Time.deltaTime * moveSpeed);
+            hud.anchoredPosition = Vector2.Lerp(hud.anchoredPosition, _targetPosition, Time.deltaTime * moveSpeed);
         }
     }
 }

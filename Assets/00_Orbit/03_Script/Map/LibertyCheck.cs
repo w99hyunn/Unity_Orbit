@@ -7,12 +7,13 @@ namespace STARTING
         private void OnTriggerEnter(Collider other)
         {
             ZoneEntrance zoneEntrance = other.GetComponent<ZoneEntrance>();
+
             if (zoneEntrance != null)
             {
                 string zoneName = zoneEntrance.zoneName;
-                bool isZoneLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
+                bool _isZoneLiberated = GameManager.Instance.IsZoneLiberated(zoneName);
 
-                if (isZoneLiberated)
+                if (_isZoneLiberated)
                 {
                     gameObject.SetActive(false);
                 }

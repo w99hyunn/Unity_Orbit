@@ -50,7 +50,7 @@ namespace STARTING
 		[Header("칩 획득 확률")]
         [Range(0, 100)] public float probability = 15f;
 
-        public bool Alive
+        public bool _alive
 		{
 			get
 			{
@@ -99,7 +99,7 @@ namespace STARTING
 			{
 				Parent.TakeDamage(senderID, damage);
 			}
-			else if (Alive)
+			else if (_alive)
 			{
 				PlaySound(hitSound);
 				HealthPoints -= damage;

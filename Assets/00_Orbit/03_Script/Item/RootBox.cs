@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace STARTING
 {
-    public class WeaponChangeNpc : MonoBehaviour
+    public class RootBox : MonoBehaviour
     {
-        private bool isPlayerInTrigger = false;
         public List<GameObject> itemList;
         public DissolveChilds dissolveChilds;
 
@@ -17,12 +16,13 @@ namespace STARTING
         public AudioClip rootSound;
         public AudioSource audioSource;
 
+        private bool _isPlayerInTrigger = false;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = true;
+                _isPlayerInTrigger = true;
                 UIManager.Instance.interactionKeyEnable("상자 열기", "F");
             }
         }
@@ -31,14 +31,14 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInTrigger = false;
+                _isPlayerInTrigger = false;
                 UIManager.Instance.interactionKeyDisable();
             }
         }
 
         private void Update()
         {
-            if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
+            if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
             {
                 UIManager.Instance.interactionKeyDisable();
                 StartCoroutine(dissolveChilds.AnimateDissolve());

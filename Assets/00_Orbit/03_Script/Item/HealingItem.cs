@@ -5,8 +5,9 @@ namespace STARTING
 {
     public class HealingItem : MonoBehaviour
     {
-        private bool isPlayerInRange = false;
         public int healPerSec = 10;
+
+        private bool _isPlayerInRange = false;
 
         void Start()
         {
@@ -22,7 +23,7 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInRange = true;
+                _isPlayerInRange = true;
                 StartCoroutine(HealOverTime());
             }
         }
@@ -31,13 +32,13 @@ namespace STARTING
         {
             if (other.CompareTag("Player"))
             {
-                isPlayerInRange = false;
+                _isPlayerInRange = false;
             }
         }
 
         IEnumerator HealOverTime()
         {
-            while (isPlayerInRange)
+            while (_isPlayerInRange)
             {
                 PlayerStats.Instance.Healing(healPerSec);
                 yield return new WaitForSeconds(1f);

@@ -16,14 +16,13 @@ namespace STARTING
         public AudioClip explosionSound;
         public GameObject explosionVFX;
 
-        private Vector3 startPosition;
-        private Vector3 targetPosition;
-        private bool movingUp = true;
-
+        private Vector3 _startPosition;
+        private Vector3 _targetPosition;
+        private bool _movingUp = true;
 
         private void Start()
         {
-            startPosition = transform.position;
+            _startPosition = transform.position;
             StartCoroutine(MoveObject());
         }
 
@@ -31,13 +30,13 @@ namespace STARTING
         {
             while (true)
             {
-                if (movingUp)
+                if (_movingUp)
                 {
-                    targetPosition = startPosition + new Vector3(0, moveRange, 0);
+                    _targetPosition = _startPosition + new Vector3(0, moveRange, 0);
                 }
                 else
                 {
-                    targetPosition = startPosition + new Vector3(0, -moveRange, 0);
+                    _targetPosition = _startPosition + new Vector3(0, -moveRange, 0);
                 }
 
                 float elapsedTime = 0f;
@@ -45,16 +44,16 @@ namespace STARTING
 
                 while (elapsedTime < moveSpeed)
                 {
-                    transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / moveSpeed);
+                    transform.position = Vector3.Lerp(initialPosition, _targetPosition, elapsedTime / moveSpeed);
                     elapsedTime += Time.deltaTime;
                     yield return null;
                 }
 
-                transform.position = targetPosition;
+                transform.position = _targetPosition;
 
                 yield return new WaitForSeconds(pauseDuration);
 
-                movingUp = !movingUp;
+                _movingUp = !_movingUp;
             }
         }
 

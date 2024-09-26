@@ -4,13 +4,16 @@ namespace STARTING
 {
     public class DeadZone : MonoBehaviour
     {
-        PlayerStats playerStats;
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                playerStats = other.GetComponent<PlayerStats>();
-                playerStats.TakeDamage(-1);
+                other.GetComponent<PlayerStats>().TakeDamage(-1);
+            }
+            else
+            {
+                Debug.Log("DeadZone¿¡ ÀÇÇØ ÆÄ±«µÊ: " + other.gameObject);
+                Destroy(other.gameObject);
             }
         }
     }
