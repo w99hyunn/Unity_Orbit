@@ -19,6 +19,15 @@ namespace Mirror
             manager = GetComponent<NetworkManager>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.LeftAlt))
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
         void OnGUI()
         {
             // If this width is changed, also change offsetX in GUIConsole::OnGUI

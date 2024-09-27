@@ -57,6 +57,7 @@
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll" />
+    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
     <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
     <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll" />
     <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\MovementController.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDScene.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\MoveableLODUpdate.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\System\MainGameStartAssist.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\TDActiveElement.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\ChapterButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\_Debug.cs" />
@@ -132,7 +134,6 @@
     <Compile Include="Assets\_ShiftUI\Scripts\Panel\SplashScreenManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\Compass.cs" />
     <Compile Include="Assets\Settings\LensFlare\14.0.11\Lens Flare Samples\SampleScene\Scripts\LensFlareSamplesInputAndControl.cs" />
-    <Compile Include="Assets\00_Orbit\03_Script\System\MainGameStart.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Map\TriggerList.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\SettingsButton.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\BaseAttachment.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\CustomInputField.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\GameManager.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Network\CustomNetworkManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Item\RootBoxSpawner.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\LightTilt.cs" />
     <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\DissolveOffest.cs" />
@@ -200,6 +202,7 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\ObjectRemover.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\ScaleInLightmapSetter.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Item\DissolveChilds.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Network\StartMultiplay.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\Managers\PauseMenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,8 +229,6 @@
     <None Include="Assets\Settings\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll" />
     <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Blend_CenterGlow.shader" />
-    <None Include="Assets\_Mirror\Version.txt" />
-    <None Include="Assets\_Mirror\Readme.txt" />
     <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\Render Pipelines support\Documentation.txt" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Surface.shader" />
     <None Include="Assets\_ShiftUI\Shaders\UI Particle Additive.shader" />
@@ -240,7 +241,6 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
     <None Include="Assets\00_Orbit\06_Model\Ida Faber\Shaders\Built-in\GR_StandardS_DS.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Surface.cginc" />
-    <None Include="Assets\_Mirror\Notice.txt" />
     <None Include="Assets\00_Orbit\06_Model\Ida Faber\Shaders\Built-in\Double-sided.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Special\TransShadow.shader" />
@@ -1393,6 +1393,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ParrelSync">
+      <HintPath>Library\ScriptAssemblies\ParrelSync.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
