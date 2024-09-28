@@ -16,7 +16,6 @@ namespace STARTING
 
     public class PlayerStats_Multi : NetworkBehaviour
     {
-        public static PlayerStats_Multi Instance;
         public static event System.Action OnPlayerStatsInitialized;
 
         public AudioClip levelUpSound;
@@ -35,19 +34,6 @@ namespace STARTING
         private float _healthRegenRate = 5f;
         private float _regenInterval = 10f;
         private bool _isShowInfoUI;
-
-        void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
 
         void Start()
         {

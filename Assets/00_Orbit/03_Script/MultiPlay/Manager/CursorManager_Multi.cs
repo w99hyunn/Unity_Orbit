@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,23 +6,35 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class CursorManager_Multi : MonoBehaviour
+    public class CursorManager_Multi : NetworkBehaviour
     {
         public List<GameObject> objectsToDestroy = new List<GameObject>();
         public GameObject pauseMenuHotkey;
 
+        private PlayerStats_Multi playerStats;
+
+        private void Awake()
+        {
+            if (isLocalPlayer)
+            {
+                playerStats = FindAnyObjectByType<PlayerStats_Multi>();
+            }
+        }
+
         private void Start()
         {
-            ContinueGame();
-            objectsToDestroy.Add(GameManager.Instance.gameObject);
-            objectsToDestroy.Add(PlayerStats_Multi.Instance.gameObject);
+            if (isLocalPlayer)  // 로컬 플레이어일 때만 동작
+            {
+                ContinueGame();
+                objectsToDestroy.Add(GameManager.Instance.gameObject);
+            }
         }
 
         private IEnumerator CheckPlayerState()
         {
-            while (true)
+            while (isLocalPlayer)
             {
-                if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+                if (playerStats.playerState == PlayerState_Multi.IDLE)
                 {
                     pauseMenuHotkey.SetActive(true);
                     yield break;
@@ -32,9 +45,11 @@ namespace STARTING
 
         public void BackToMain()
         {
-            SceneManager.LoadScene("MainScene");
-
-            DestroyObjectsInList();
+            if (isLocalPlayer)
+            {
+                SceneManager.LoadScene("MainScene");
+                DestroyObjectsInList();
+            }
         }
 
         public void DestroyObjectsInList()
@@ -50,30 +65,42 @@ namespace STARTING
         }
         public void DieGame()
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            pauseMenuHotkey.SetActive(false);
+            if (isLocalPlayer)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                pauseMenuHotkey.SetActive(false);
+            }
         }
 
         public void ContinueGame()
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            pauseMenuHotkey.SetActive(true);
+            if (isLocalPlayer)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                pauseMenuHotkey.SetActive(true);
+            }
         }
 
         public void CustomResume()
         {
-            PlayerStats_Multi.Instance.playerState = PlayerState_Multi.IDLE;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            if (isLocalPlayer)
+            {
+                playerStats.playerState = PlayerState_Multi.IDLE;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
 
         public void CustomPause()
         {
-            PlayerStats_Multi.Instance.playerState = PlayerState_Multi.PAUSE;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (isLocalPlayer)
+            {
+                playerStats.playerState = PlayerState_Multi.PAUSE;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 }
