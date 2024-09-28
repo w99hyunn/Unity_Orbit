@@ -1,0 +1,79 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace STARTING
+{
+    public class CursorManager_Multi : MonoBehaviour
+    {
+        public List<GameObject> objectsToDestroy = new List<GameObject>();
+        public GameObject pauseMenuHotkey;
+
+        private void Start()
+        {
+            ContinueGame();
+            objectsToDestroy.Add(GameManager.Instance.gameObject);
+            objectsToDestroy.Add(PlayerStats_Multi.Instance.gameObject);
+        }
+
+        private IEnumerator CheckPlayerState()
+        {
+            while (true)
+            {
+                if (PlayerStats.Instance.playerState == PlayerState.IDLE)
+                {
+                    pauseMenuHotkey.SetActive(true);
+                    yield break;
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        public void BackToMain()
+        {
+            SceneManager.LoadScene("MainScene");
+
+            DestroyObjectsInList();
+        }
+
+        public void DestroyObjectsInList()
+        {
+            foreach (GameObject obj in objectsToDestroy)
+            {
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
+            }
+            objectsToDestroy.Clear();
+        }
+        public void DieGame()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pauseMenuHotkey.SetActive(false);
+        }
+
+        public void ContinueGame()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            pauseMenuHotkey.SetActive(true);
+        }
+
+        public void CustomResume()
+        {
+            PlayerStats_Multi.Instance.playerState = PlayerState_Multi.IDLE;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public void CustomPause()
+        {
+            PlayerStats_Multi.Instance.playerState = PlayerState_Multi.PAUSE;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+}

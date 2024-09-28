@@ -1,0 +1,96 @@
+using TMPro;
+using UnityEngine;
+
+public class MainUISupport : MonoBehaviour
+{
+    public GameObject continueButton;
+    public GameObject continueDescription;
+    public GameObject newDescription;
+    public TMP_Text gameTimeText;
+    public TMP_Text levelText;
+    public TMP_Text hpText;
+    public TMP_Text mpText;
+    public TMP_Text lastModifiedText;
+    public TMP_Text loadingPercentText;
+
+    [Header("멀티플레이")]
+    [Header("멀티플레이 Lock/Unlock")]
+    public GameObject multiPlayLock;
+    public GameObject multiPlayUnlock;
+
+    [Header("호스트 오픈")]
+    public TMP_InputField hostIpInput;
+    public TMP_InputField hostPortInput;
+
+    [Header("클라이언트 접속")]
+    public TMP_InputField clientIpInput;
+    public TMP_InputField clientPortInput;
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    /// <summary>
+    /// 공통 - 로딩 퍼센트
+    /// </summary>
+    /// <param name="progressText"></param>
+    public void LoadingProgress(string progressText)
+    {
+        loadingPercentText.text = progressText;
+    }
+
+    /// <summary>
+    /// 싱글플레이 이어하기 or 새로하기
+    /// </summary>
+    /// <param name="index"></param>
+    public void ContinueGame(bool index)
+    {
+        continueButton.SetActive(index);
+        continueDescription.SetActive(index);
+        newDescription.SetActive(!index);
+    }
+
+    /// <summary>
+    /// 싱글플레이 이어하기 - 정보 불러와서 보여주기
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="level"></param>
+    /// <param name="hp"></param>
+    /// <param name="mp"></param>
+    public void SaveFileInfo(string time, string level, string hp, string mp)
+    {
+        gameTimeText.text = time;
+        levelText.text = level;
+        hpText.text = hp;
+        mpText.text = mp;
+    }
+
+    public void LastSaveDate(string date)
+    {
+        lastModifiedText.text = date;
+    }
+
+    /// <summary>
+    /// 멀티플레이 버튼을 보이게 할건지 조건에 따른 표시
+    /// </summary>
+    /// <param name="index"></param>
+    public void ShowMultiplay(bool index)
+    {
+        multiPlayUnlock.SetActive(index);
+        multiPlayLock.SetActive(!index);
+    }
+
+    public string GetHostIP() { return hostIpInput.text; }
+    public string GetHostPort() { return hostPortInput.text; }
+    public string GetClientIP() { return clientIpInput.text; }
+    public string GetClientPort() { return clientPortInput.text; }
+}

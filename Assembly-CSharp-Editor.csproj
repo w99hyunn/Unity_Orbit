@@ -56,12 +56,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll" />
-    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.21f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.21f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.21f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -563,6 +557,14 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.21f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Mono.CecilX">
+      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.CecilX.Mdb">
+      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="FuzzySharp">
       <HintPath>Assets\FPS Animation Framework\KINEMATION\Plugins\FuzzySharp\FuzzySharp.dll</HintPath>
       <Private>False</Private>
@@ -575,40 +577,32 @@
       <HintPath>Library\PackageCache\com.unity.ext.nunit\net40\unity-custom\nunit.framework.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Mono.CecilX.Pdb">
+      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DOTweenEditor">
       <HintPath>Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json\Runtime\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.CecilX.Mdb">
-      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Mdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.CecilX.Pdb">
-      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Pdb.dll</HintPath>
+    <Reference Include="Mono.CecilX.Rocks">
+      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BouncyCastle.Cryptography">
       <HintPath>Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.CecilX">
-      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.dll</HintPath>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.CecilX.Rocks">
-      <HintPath>Assets\_Mirror\Plugins\Mono.Cecil\Mono.CecilX.Rocks.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json\Runtime\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil\Mono.Cecil.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib">
@@ -1243,12 +1237,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ParrelSync">
