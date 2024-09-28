@@ -1,12 +1,13 @@
 using Demo.Scripts.Runtime.Character;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace STARTING
 {
-    public class ShowGunControll : MonoBehaviour
+    public class ShowGunControll : NetworkBehaviour
     {
         private GameObject Player;
         private RecoilAnimation recoil;
@@ -23,14 +24,16 @@ namespace STARTING
 
         private void Start()
         {
-            Player = GameObject.FindWithTag("Player");
-            recoil = Player.GetComponent<RecoilAnimation>();
-            fpsController = Player.GetComponent<FPSController>();
+            if (isLocalPlayer)
+            {
+                Player = GameObject.FindWithTag("Player");
+                recoil = Player.GetComponent<RecoilAnimation>();
+                fpsController = Player.GetComponent<FPSController>();
 
-            // 무기 변경 상태와 에임 변경 상태 이벤트 구독
-            fpsController.OnActiveWeaponIndexChanged += ChangeWeapon;
-            fpsController.OnActiveAiming += ChangeAimState;
-
+                // 무기 변경 상태와 에임 변경 상태 이벤트 구독
+                fpsController.OnActiveWeaponIndexChanged += ChangeWeapon;
+                fpsController.OnActiveAiming += ChangeAimState;
+            }
         }
 
         void Update()

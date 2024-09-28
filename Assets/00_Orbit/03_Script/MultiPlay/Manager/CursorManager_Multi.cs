@@ -13,39 +13,31 @@ namespace STARTING
 
         private PlayerStats_Multi playerStats;
 
-        private void Awake()
-        {
-            if (isLocalPlayer)
-            {
-                playerStats = FindAnyObjectByType<PlayerStats_Multi>();
-            }
-        }
-
         private void Start()
         {
-            if (isLocalPlayer)  // 로컬 플레이어일 때만 동작
-            {
-                ContinueGame();
-                objectsToDestroy.Add(GameManager.Instance.gameObject);
-            }
+            StartCoroutine(FindLocalPlayer());
         }
 
-        private IEnumerator CheckPlayerState()
+        private IEnumerator FindLocalPlayer()
         {
-            while (isLocalPlayer)
+            while (NetworkClient.localPlayer == null)
             {
-                if (playerStats.playerState == PlayerState_Multi.IDLE)
-                {
-                    pauseMenuHotkey.SetActive(true);
-                    yield break;
-                }
-                yield return new WaitForSeconds(0.5f);
+                yield return null; 
+            }
+            playerStats = NetworkClient.localPlayer.GetComponent<PlayerStats_Multi>();
+            if (playerStats != null)
+            {
+                ContinueGame();
+            }
+            else
+            {
+                Debug.LogWarning("PlayerStats_Multi 할당 X");
             }
         }
 
         public void BackToMain()
         {
-            if (isLocalPlayer)
+            if (NetworkClient.localPlayer)
             {
                 SceneManager.LoadScene("MainScene");
                 DestroyObjectsInList();
@@ -65,7 +57,7 @@ namespace STARTING
         }
         public void DieGame()
         {
-            if (isLocalPlayer)
+            if (NetworkClient.localPlayer)
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -75,7 +67,7 @@ namespace STARTING
 
         public void ContinueGame()
         {
-            if (isLocalPlayer)
+            if (NetworkClient.localPlayer)
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -85,7 +77,7 @@ namespace STARTING
 
         public void CustomResume()
         {
-            if (isLocalPlayer)
+            if (NetworkClient.localPlayer)
             {
                 playerStats.playerState = PlayerState_Multi.IDLE;
                 Cursor.visible = false;
@@ -95,7 +87,7 @@ namespace STARTING
 
         public void CustomPause()
         {
-            if (isLocalPlayer)
+            if (NetworkClient.localPlayer)
             {
                 playerStats.playerState = PlayerState_Multi.PAUSE;
                 Cursor.visible = true;
