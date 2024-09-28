@@ -47,6 +47,7 @@ namespace STARTING
 
             StartCoroutine(LoadWorldScene());
         }
+
         private IEnumerator LoadWorldScene()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;

@@ -1,5 +1,4 @@
 using Mirror;
-using UnityEngine;
 
 namespace STARTING
 {
@@ -25,16 +24,7 @@ namespace STARTING
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
-            Transform startPos = GetStartPosition();
-            GameObject player = startPos != null
-                ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
-                : Instantiate(playerPrefab);
-
-            //// instantiating a "Player" prefab gives it the name "Player(clone)"
-            //// => appending the connectionId is WAY more useful for debugging!
-            player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
-            NetworkServer.AddPlayerForConnection(conn, player);
-
+            base.OnServerAddPlayer(conn);
             // targetSceneName 씬이 활성화된 씬들 중 하나인지 확인
             /*Debug.Log(targetSceneName);
             Scene targetScene = SceneManager.GetSceneByName(targetSceneName);
