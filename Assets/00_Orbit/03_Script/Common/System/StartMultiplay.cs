@@ -111,6 +111,8 @@ namespace STARTING
         /// </summary>
         public void ServerOpen()
         {
+            DBManager.Instance.ConnectDB();
+
             ip = "localhost";
             port = GetAvailablePort(1024, 65535);
 

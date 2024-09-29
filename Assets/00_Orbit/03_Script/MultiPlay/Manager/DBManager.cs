@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.Device;
 
 namespace STARTING
 {
