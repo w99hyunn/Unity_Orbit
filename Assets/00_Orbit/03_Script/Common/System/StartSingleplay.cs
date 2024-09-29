@@ -1,4 +1,3 @@
-using Mirror;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -110,6 +109,8 @@ namespace STARTING
 
         private IEnumerator LoadWorldScene()
         {
+            yield return new WaitForSeconds(2f);
+
             AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
             op.allowSceneActivation = false;
 

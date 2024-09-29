@@ -12,6 +12,7 @@ public class MainUISupport : MonoBehaviour
     public TMP_Text mpText;
     public TMP_Text lastModifiedText;
     public TMP_Text loadingPercentText;
+    public TMP_Text multiConnectInfo;
 
     [Header("멀티플레이")]
     [Header("멀티플레이 Lock/Unlock")]
@@ -25,19 +26,6 @@ public class MainUISupport : MonoBehaviour
     [Header("클라이언트 접속")]
     public TMP_InputField clientIpInput;
     public TMP_InputField clientPortInput;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// 공통 - 로딩 퍼센트
@@ -87,6 +75,11 @@ public class MainUISupport : MonoBehaviour
     {
         multiPlayUnlock.SetActive(index);
         multiPlayLock.SetActive(!index);
+    }
+
+    public void MultiConnectInfo(string text)
+    {
+        multiConnectInfo.text = text;
     }
 
     public string GetHostIP() { return hostIpInput.text; }

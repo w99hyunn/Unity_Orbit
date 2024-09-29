@@ -57,7 +57,7 @@ namespace STARTING
         public void UseBullet()
         {
             Fire();
-            GameManager_Multi.Instance.PlaySound(shootSound);
+            GameManager.Instance.PlaySound(shootSound);
             currentBullet--;
             UIManager.Instance.UpdateCurrentBullet(currentBullet);
         }
