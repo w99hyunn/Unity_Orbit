@@ -16,9 +16,16 @@ public class Inventory : MonoBehaviour
     {
         chip++;
         UIManager.Instance.UpdateStats("chip", chip);
-        UIManager.Instance.ShowKillLog("¿ÂÀüÇÑ Ä¨", "È¹µæ", 2f, "blue", chipIcon);
-        StartCoroutine(UIManager.Instance.ChipLog(2f));
+        StartCoroutine(ChipLog(2f));
     }
+
+    public IEnumerator ChipLog(float time)
+    {
+        yield return new WaitForSeconds(time);
+        UIManager.Instance.ShowKillLog("¿ÂÀüÇÑ Ä¨", "È¹µæ", 2f, "blue", chipIcon);
+        StartCoroutine(UIManager.Instance.ShowTipKey());
+    }
+
 
     public void InitializeInventory()
     {

@@ -201,13 +201,7 @@ namespace STARTING
             _killLogCoroutine = null;
         }
 
-        public IEnumerator ChipLog(float time)
-        {
-            yield return new WaitForSeconds(time);
-            StartCoroutine(ShowTipKey());
-        }
-
-        IEnumerator ShowTipKey()
+        public IEnumerator ShowTipKey()
         {
             tipKeyEnable("상세정보", "TAB");
             yield return new WaitForSeconds(3f);
