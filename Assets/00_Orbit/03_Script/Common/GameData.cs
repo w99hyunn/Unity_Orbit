@@ -9,7 +9,6 @@ namespace STARTING
         public string zoneName;
         public bool isLiberated;
 
-        // 기본 생성자 추가
         public ZoneData()
         {
         }

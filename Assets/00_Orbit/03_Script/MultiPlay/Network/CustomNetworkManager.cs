@@ -24,16 +24,27 @@ namespace STARTING
             DontDestroyOnLoad(gameObject);
         }
 
+        public void BackToMain()
+        {
+            if (true == NetworkServer.active)
+            {
+                StopHost();
+            }
+
+            if (true == NetworkClient.active)
+            {
+                StopClient();
+            }
+        }
+
         public override void OnStartServer()
         {
             base.OnStartServer();
 
-            // 네트워크 메시지 핸들러 등록
             NetworkServer.RegisterHandler<LoginRequestMessage>(OnLoginRequest);
+            NetworkServer.RegisterHandler<RegisterRequestMessage>(OnRegisterRequest);
             NetworkServer.RegisterHandler<GameDataRequestMessage>(OnGameDataRequest);
             NetworkServer.RegisterHandler<SaveGameMessage>(OnSaveGameRequest);
-
-            NetworkServer.RegisterHandler<RegisterRequestMessage>(OnRegisterRequest); // 회원가입 핸들러 추가
         }
 
         private void OnLoginRequest(NetworkConnectionToClient conn, LoginRequestMessage msg)
@@ -46,7 +57,7 @@ namespace STARTING
                 userId = success ? userId : -1
             };
             Debug.Log("서버가 로그인 요청 받음" + msg.username + msg.password +  success + userId);
-            conn.Send(response); // 클라이언트에게 로그인 결과 전송
+            conn.Send(response);
         }
 
         private void OnGameDataRequest(NetworkConnectionToClient conn, GameDataRequestMessage msg)
@@ -58,7 +69,7 @@ namespace STARTING
                 gameData = gameData
             };
 
-            conn.Send(response); // 클라이언트에게 게임 데이터 전송
+            conn.Send(response);
         }
 
         private void OnSaveGameRequest(NetworkConnectionToClient conn, SaveGameMessage msg)

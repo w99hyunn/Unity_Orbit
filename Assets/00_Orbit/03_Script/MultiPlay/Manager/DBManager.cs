@@ -189,12 +189,18 @@ namespace STARTING
             }
         }
 
-        private void OnApplicationQuit()
+        public void CloseDBServer()
         {
             if (connection != null)
             {
                 connection.Close();
+                Debug.Log("Db ´ÝÀ½");
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            CloseDBServer();
         }
     }
 }

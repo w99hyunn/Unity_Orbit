@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class MainUISupport : MonoBehaviour
 {
@@ -31,9 +33,20 @@ public class MainUISupport : MonoBehaviour
     public TMP_InputField idInput;
     public TMP_InputField pwInput;
 
+    private string playerPrefsIDKey = "LoginID";
+    private string playerPrefsPWKey = "LoginPW";
+    private bool isSavingEnabled = true;
+
     [Header("회원가입")]
     public TMP_InputField registerIdInput;
     public TMP_InputField registerPwInput;
+    public Button signUpBtn;
+
+    private void Start()
+    {
+        idInput.onValueChanged.AddListener(OnIDValueChanged);
+        pwInput.onValueChanged.AddListener(OnPWValueChanged);
+    }
 
     /// <summary>
     /// 공통 - 로딩 퍼센트
@@ -90,11 +103,75 @@ public class MainUISupport : MonoBehaviour
         multiConnectInfo.text = text;
     }
 
+    private void OnIDValueChanged(string newValue)
+    {
+        if (isSavingEnabled)
+        {
+            PlayerPrefs.SetString(playerPrefsIDKey, newValue);
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void OnPWValueChanged(string newValue)
+    {
+        if (isSavingEnabled)
+        {
+            PlayerPrefs.SetString(playerPrefsPWKey, newValue);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void EnableSaving()
+    {
+        isSavingEnabled = true;
+        LoadLoginInfo();
+    }
+
+    public void DisableSaving()
+    {
+        isSavingEnabled = false;
+    }
+
+    public void LoadLoginInfo()
+    {
+        if (PlayerPrefs.HasKey(playerPrefsIDKey))
+        {
+            string savedID = PlayerPrefs.GetString(playerPrefsIDKey);
+            SetLoginID(savedID);
+        }
+
+        if (PlayerPrefs.HasKey(playerPrefsPWKey))
+        {
+            string savedPW = PlayerPrefs.GetString(playerPrefsPWKey);
+            SetLoginPW(savedPW);
+        }
+    }
+
+    public void ClearLoginInfo()
+    {
+        if (PlayerPrefs.HasKey(playerPrefsIDKey))
+        {
+            PlayerPrefs.DeleteKey(playerPrefsIDKey);
+        }
+
+        if (PlayerPrefs.HasKey(playerPrefsPWKey))
+        {
+            PlayerPrefs.DeleteKey(playerPrefsPWKey);
+        }
+        PlayerPrefs.Save();
+    }
+
+    public void TermsAgree(bool index)
+    {
+        signUpBtn.interactable = index;
+    }
+
     public string GetHostIP() { return hostIpInput.text; }
     public string GetHostPort() { return hostPortInput.text; }
     public string GetClientIP() { return clientIpInput.text; }
     public string GetClientPort() { return clientPortInput.text; }
-    
+    public void SetLoginID(string loginID) { idInput.text = loginID; }
+    public void SetLoginPW(string loginPW) { pwInput.text = loginPW; }
     public string GetLoginID() { return idInput.text; }
     public string GetLoginPW() { return pwInput.text; }
     public string GetRegisterID() { return registerIdInput.text; }

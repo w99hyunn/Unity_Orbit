@@ -13,10 +13,10 @@ namespace STARTING
     {
         public static GameManager_Multi Instance { get; private set; }
 
-        private GameObject player;
-        private FPSMovement_Multi controller;
-        private PlayerStats_Multi playerStats;
-        private Inventory inventory;
+        public GameObject player;
+        public FPSMovement_Multi controller;
+        public PlayerStats_Multi playerStats;
+        public Inventory inventory;
 
         // 인스턴스 던전관련
         public List<ZoneData> zones;
@@ -43,12 +43,14 @@ namespace STARTING
             {
                 Destroy(gameObject);
             }
-            _saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+            //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         }
 
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
+
+            
         }
 
         private IEnumerator FindLocalPlayer()
@@ -65,6 +67,8 @@ namespace STARTING
                 controller = player.GetComponent<FPSMovement_Multi>();
                 playerStats = player.GetComponent<PlayerStats_Multi>();
                 inventory = player.GetComponent<Inventory>();
+
+                LoadGame();
             }
             else
             {
@@ -72,43 +76,43 @@ namespace STARTING
             }
         }
 
-        private void OnEnable()
-        {
-            PlayerStats_Multi.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-            FPSMovement_Multi.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
-        }
+        //private void OnEnable()
+        //{
+        //    PlayerStats_Multi.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
+        //    FPSMovement_Multi.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        //}
 
-        private void OnDisable()
-        {
-            PlayerStats_Multi.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-            FPSMovement_Multi.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
-        }
+        //private void OnDisable()
+        //{
+        //    PlayerStats_Multi.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
+        //    FPSMovement_Multi.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+        //}
 
         private void Update()
         {
             UpdateGameTime();
         }
 
-        private void OnPlayerStatsInitialized()
-        {
-            _isPlayerStatsInitialized = true;
-            TryLoadGame();
-        }
+        //private void OnPlayerStatsInitialized()
+        //{
+        //    _isPlayerStatsInitialized = true;
+        //    TryLoadGame();
+        //}
 
-        private void OnPlayerControllerInitialized()
-        {
-            _isPlayerControllerInitialized = true;
-            TryLoadGame();
-        }
+        //private void OnPlayerControllerInitialized()
+        //{
+        //    _isPlayerControllerInitialized = true;
+        //    TryLoadGame();
+        //}
 
-        private void TryLoadGame()
-        {
-            if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
-            {
-                LoadGame();
-               // SaveGame();
-            }
-        }
+        //private void TryLoadGame()
+        //{
+        //    if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
+        //    {
+                
+        //       // SaveGame();
+        //    }
+        //}
 
         public void GameOver()
         {
@@ -178,28 +182,15 @@ namespace STARTING
 
         public void LoadGame()
         {
+
             int userId = PlayerPrefs.GetInt("UserID"); // 현재 로그인한 사용자 ID
-            RequestGameData(userId); // 로그인 성공 시 게임 데이터 요청
+            Debug.Log("아이디는" + userId);
+            //server.CmdRequestGameData(userId); // 서버에 데이터 요청
+
         }
 
-        public void RequestGameData(int userId)
-        {
-            NetworkClient.RegisterHandler<GameDataResponseMessage>(OnGameDataResponse);
 
-            GameDataRequestMessage gameDataRequest = new GameDataRequestMessage
-            {
-                userId = userId
-            };
-
-            NetworkClient.Send(gameDataRequest);
-        }
-
-        private void OnGameDataResponse(GameDataResponseMessage msg)
-        {
-            ApplyGameData(msg.gameData);
-        }
-
-        private void ApplyGameData(GameData data)
+        public void ApplyGameData(GameData data)
         {
             if (data != null)
             {

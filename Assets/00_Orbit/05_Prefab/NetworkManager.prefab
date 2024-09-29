@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3050420134927739336}
   - component: {fileID: 2852695815081363869}
-  - component: {fileID: 3093027769110259867}
   - component: {fileID: 7493977556613130953}
   m_Layer: 0
   m_Name: NetworkManager
@@ -61,8 +60,9 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 1
+  playerPrefab: {fileID: 3263174072132286243, guid: 7d88e84b2b7ac224f965e106cb1533af,
+    type: 3}
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
   spawnPrefabs: []
   exceptionsDisconnect: 1
@@ -80,20 +80,6 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
---- !u!114 &3093027769110259867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2185133999214232647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &7493977556613130953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 7777
+  port: 0
   DualMode: 1
   NoDelay: 1
   Interval: 10

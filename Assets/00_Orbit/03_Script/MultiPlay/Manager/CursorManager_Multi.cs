@@ -39,6 +39,8 @@ namespace STARTING
         {
             if (NetworkClient.localPlayer)
             {
+                CustomNetworkManager.singleton.BackToMain();
+                DBManager.Instance.CloseDBServer();
                 SceneManager.LoadScene("MainScene");
                 DestroyObjectsInList();
             }

@@ -176,6 +176,7 @@ namespace STARTING
                 }
             }
         }
+
         public void SetPos(Vector3 pos)
         {
             controller.SetPos(pos);

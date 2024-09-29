@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace STARTING
 {
@@ -35,6 +36,12 @@ namespace STARTING
         {
             StartCoroutine(GetPublicIP());
             hamachiIP = GetHamachiIP();
+        }
+
+        public void BackToMain()
+        {
+            CustomNetworkManager.singleton.BackToMain();
+            DBManager.Instance.CloseDBServer();
         }
 
         IEnumerator GetPublicIP()
@@ -269,6 +276,8 @@ namespace STARTING
                 {
                     Debug.LogError("NetworkClient°¡ ¿¬°á x");
                 }
+
+                SceneManager.sceneLoaded -= OnSceneLoaded;
             }
         }
     }
