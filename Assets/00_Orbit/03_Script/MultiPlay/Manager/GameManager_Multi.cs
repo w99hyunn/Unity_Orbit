@@ -106,7 +106,7 @@ namespace STARTING
             if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
             {
                 LoadGame();
-                SaveGame();
+               // SaveGame();
             }
         }
 
@@ -124,7 +124,7 @@ namespace STARTING
             }
             else
             {
-                LoadGame();
+                //LoadGame();
             }
 
         }
@@ -142,7 +142,7 @@ namespace STARTING
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
 
-            LoadGame();
+            //LoadGame();
             SceneManager.UnloadSceneAsync("DungeonScene");
 
             yield return new WaitForSeconds(delay);
@@ -168,36 +168,60 @@ namespace STARTING
                 chip = inventory.chip,
             };
 
-            string json = JsonUtility.ToJson(data);
-            string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
+            // DB에 게임 데이터 저장
+            int userId = PlayerPrefs.GetInt("UserID"); // 현재 로그인한 사용자 ID
+            DBManager.Instance.SaveGame(data, userId); // DBManager의 SaveGame 메서드 호출
 
-            //Debug.Log("saved JSON: " + json);
-
-            File.WriteAllText(_saveFilePath, encryptedJson);
-            PlayerPrefs.SetInt("ContinueGame", 1);
+            PlayerPrefs.SetInt("ContinueGame", 1); // 게임 상태 저장
             PlayerPrefs.Save();
         }
 
         public void LoadGame()
         {
-            if (File.Exists(_saveFilePath))
+            int userId = PlayerPrefs.GetInt("UserID"); // 현재 로그인한 사용자 ID
+            RequestGameData(userId); // 로그인 성공 시 게임 데이터 요청
+        }
+
+        public void RequestGameData(int userId)
+        {
+            NetworkClient.RegisterHandler<GameDataResponseMessage>(OnGameDataResponse);
+
+            GameDataRequestMessage gameDataRequest = new GameDataRequestMessage
             {
-                string encryptedJson = File.ReadAllText(_saveFilePath);
-                string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
+                userId = userId
+            };
 
-                //Debug.Log("Loaded JSON: " + json);
+            NetworkClient.Send(gameDataRequest);
+        }
 
-                GameData data = JsonUtility.FromJson<GameData>(json);
-                if (data != null)
-                {
-                    this.gameTime = data.gameTime;
-                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                    controller.SetPos(data.playerPosition);
-                    this.zones = data.zones;
-                    inventory.SetInventory(data.chip);
-                }
+        private void OnGameDataResponse(GameDataResponseMessage msg)
+        {
+            ApplyGameData(msg.gameData);
+        }
+
+        private void ApplyGameData(GameData data)
+        {
+            if (data != null)
+            {
+                this.gameTime = data.gameTime;
+                playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                controller.SetPos(data.playerPosition);
+                this.zones = data.zones;
+                inventory.SetInventory(data.chip);
+
+                Debug.Log("Game loaded successfully from DB.");
+                Debug.Log($"{data.gameTime}, {data.currentExperience}, {data.level} ");
+            }
+            else
+            {
+                Debug.LogError("No game data found for user.");
             }
         }
+
+
+
+
+
         public void SetPos(Vector3 pos)
         {
             controller.SetPos(pos);

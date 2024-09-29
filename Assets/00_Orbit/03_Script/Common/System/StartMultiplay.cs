@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    enum ServerType {
+    enum StartType {
         HOST,
         CLIENT
     };
@@ -19,12 +19,17 @@ namespace STARTING
     public class StartMultiplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
+        public ClientNetworkHandler clientNetworkHandler;
 
+        public UnityEvent login;
         public UnityEvent startLoading;
         public UnityEvent connectFail;
 
         private string publicIP;
         private string hamachiIP;
+        private StartType startType;
+        private ushort port;
+        private string ip;
 
         private void Start()
         {
@@ -61,40 +66,6 @@ namespace STARTING
             return null;
         }
 
-        /// <summary>
-        /// 멀티플레이 - 서버 오픈
-        /// </summary>
-        public void ServerOpen()
-        {
-            string ip = "localhost";
-            ushort port = GetAvailablePort(1024, 65535);
-
-            CustomNetworkManager.singleton.networkAddress = ip;
-            if (Transport.active is PortTransport portTransport)
-            {
-                portTransport.Port = port;
-            }
-
-            CustomNetworkManager.singleton.StartHost();
-            StartCoroutine(CheckOpen(port));
-        }
-
-        private IEnumerator CheckOpen(ushort port)
-        {
-            while (true == NetworkServer.active)
-            {
-                if (true == NetworkServer.active) // 서버에 연결된 상태
-                {
-                    startLoading?.Invoke();
-                    GameStart(ServerType.HOST, port);
-                    yield break;
-                }
-                yield return null;
-            }
-            connectFail?.Invoke();
-            yield break;
-        }
-
         private ushort GetAvailablePort(int minPort, int maxPort)
         {
             System.Random rand = new System.Random();
@@ -129,13 +100,46 @@ namespace STARTING
         }
 
         /// <summary>
+        /// 멀티플레이 - 서버 오픈
+        /// </summary>
+        public void ServerOpen()
+        {
+            ip = "localhost";
+            port = GetAvailablePort(1024, 65535);
+
+            CustomNetworkManager.singleton.networkAddress = ip;
+            if (Transport.active is PortTransport portTransport)
+            {
+                portTransport.Port = port;
+            }
+
+            CustomNetworkManager.singleton.StartHost();
+            StartCoroutine(CheckOpen());
+        }
+
+        private IEnumerator CheckOpen()
+        {
+            while (true == NetworkServer.active)
+            {
+                if (true == NetworkServer.active) // 서버에 연결된 상태
+                {
+                    startType = StartType.HOST;
+                    login?.Invoke();
+                    yield break;
+                }
+                yield return null;
+            }
+            connectFail?.Invoke();
+            yield break;
+        }
+
+        /// <summary>
         /// 멀티플레이 - 클라이언트 접속
         /// </summary>
         public void ClientConnect()
         {
-            string ip = uiSupport.GetClientIP();
+            ip = uiSupport.GetClientIP();
             string portText = uiSupport.GetClientPort();
-            ushort uport = 0;
 
             CustomNetworkManager.singleton.networkAddress = ip;
             if (Transport.active is PortTransport portTransport)
@@ -143,12 +147,12 @@ namespace STARTING
                 if (ushort.TryParse(portText, out ushort port))
                 {
                     portTransport.Port = port;
-                    uport = port;
+                    this.port = port;
                 }
             }
 
             CustomNetworkManager.singleton.StartClient();
-            StartCoroutine(CheckConnection(uport, ip));
+            StartCoroutine(CheckConnection(port, ip));
         }
 
         /// <summary>
@@ -164,8 +168,8 @@ namespace STARTING
             {
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
-                    startLoading?.Invoke();
-                    GameStart(ServerType.CLIENT, uport, ip);
+                    startType = StartType.CLIENT;
+                    login?.Invoke();
                     yield break;
                 }
                 yield return null;
@@ -174,11 +178,32 @@ namespace STARTING
             yield break;
         }
 
-        void GameStart(ServerType type, ushort port, string ip = null)
+
+        public void Login()
         {
+            string username = uiSupport.GetLoginID();
+            string password = uiSupport.GetLoginPW();
+
+            clientNetworkHandler.SendLoginRequest(username, password);
+        }
+
+        public void Register()
+        {
+            string username = uiSupport.GetRegisterID();
+            string password = uiSupport.GetRegisterPW();
+
+
+            clientNetworkHandler.SendRegisterRequest(username, password);
+        }
+
+
+        public void GameStart()
+        {
+            startLoading?.Invoke();
+
             string message;
 
-            if (type == ServerType.HOST)
+            if (startType == StartType.HOST)
             {
                 if (!string.IsNullOrEmpty(hamachiIP))
                 {

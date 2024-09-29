@@ -1,4 +1,6 @@
 using Mirror;
+using System;
+using UnityEngine;
 
 namespace STARTING
 {
@@ -20,6 +22,75 @@ namespace STARTING
             }
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+
+            // 네트워크 메시지 핸들러 등록
+            NetworkServer.RegisterHandler<LoginRequestMessage>(OnLoginRequest);
+            NetworkServer.RegisterHandler<GameDataRequestMessage>(OnGameDataRequest);
+            NetworkServer.RegisterHandler<SaveGameMessage>(OnSaveGameRequest);
+
+            NetworkServer.RegisterHandler<RegisterRequestMessage>(OnRegisterRequest); // 회원가입 핸들러 추가
+        }
+
+        private void OnLoginRequest(NetworkConnectionToClient conn, LoginRequestMessage msg)
+        {
+            bool success = DBManager.Instance.Login(msg.username, msg.password, out int userId);
+
+            LoginResponseMessage response = new LoginResponseMessage
+            {
+                success = success,
+                userId = success ? userId : -1
+            };
+            Debug.Log("서버가 로그인 요청 받음" + msg.username + msg.password +  success + userId);
+            conn.Send(response); // 클라이언트에게 로그인 결과 전송
+        }
+
+        private void OnGameDataRequest(NetworkConnectionToClient conn, GameDataRequestMessage msg)
+        {
+            GameData gameData = DBManager.Instance.LoadGame(msg.userId);
+
+            GameDataResponseMessage response = new GameDataResponseMessage
+            {
+                gameData = gameData
+            };
+
+            conn.Send(response); // 클라이언트에게 게임 데이터 전송
+        }
+
+        private void OnSaveGameRequest(NetworkConnectionToClient conn, SaveGameMessage msg)
+        {
+            DBManager.Instance.SaveGame(msg.gameData, PlayerPrefs.GetInt("UserID")); // 유저 ID에 맞춰 게임 데이터 저장
+        }
+
+        private void OnRegisterRequest(NetworkConnectionToClient conn, RegisterRequestMessage msg)
+        {
+            string resultMessage;
+            bool success = false;
+
+            try
+            {
+                // DB에 회원 정보 저장
+                DBManager.Instance.Register(msg.username, msg.password);
+                success = true;
+                resultMessage = "Registration successful!";
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                resultMessage = "Registration failed: " + ex.Message;
+            }
+
+            // 결과를 클라이언트에 전송
+            RegisterResponseMessage response = new RegisterResponseMessage
+            {
+                success = success,
+                message = resultMessage
+            };
+            conn.Send(response);
         }
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
@@ -55,5 +126,6 @@ namespace STARTING
             //    netObj.RpcSyncColor(netObj.objectColor);
             //}
         }
+
     }
 }

@@ -27,6 +27,14 @@ public class MainUISupport : MonoBehaviour
     public TMP_InputField clientIpInput;
     public TMP_InputField clientPortInput;
 
+    [Header("로그인")]
+    public TMP_InputField idInput;
+    public TMP_InputField pwInput;
+
+    [Header("회원가입")]
+    public TMP_InputField registerIdInput;
+    public TMP_InputField registerPwInput;
+
     /// <summary>
     /// 공통 - 로딩 퍼센트
     /// </summary>
@@ -86,4 +94,9 @@ public class MainUISupport : MonoBehaviour
     public string GetHostPort() { return hostPortInput.text; }
     public string GetClientIP() { return clientIpInput.text; }
     public string GetClientPort() { return clientPortInput.text; }
+    
+    public string GetLoginID() { return idInput.text; }
+    public string GetLoginPW() { return pwInput.text; }
+    public string GetRegisterID() { return registerIdInput.text; }
+    public string GetRegisterPW() { return registerPwInput.text; }
 }

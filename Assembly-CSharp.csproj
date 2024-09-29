@@ -113,8 +113,10 @@
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\TopDown Wizard\Source\Scripts\ActiveElements\ActiveMaterial.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Enemy\MovementTransform.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Camera\CameraOrbitCollision.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Manager\DBManager.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSControllerSettings.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Enemy\EnemyUI.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\Common\GameData.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\SliderManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Item\HealingItem.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Manager\GameManager_Multi.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\FavoriteButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Player\ShowGunControll_Multi.cs" />
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\AttachmentSystem\ScopeAttachment.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Network\ClientNetworkHandler.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\CustomInputField.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\UI Element\SwitchManager.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Map\LibertyCheck.cs" />
@@ -203,6 +206,7 @@
     <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Manager\CursorManager_Multi.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\CharControlSimple.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Misc\ObjectRemover.cs" />
+    <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Network\NetworkMessage.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Lights\ScaleInLightmapSetter.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Map\DungeonEntrance.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Enemy\DissolveChildsPingPong.cs" />
@@ -764,6 +768,10 @@
     </Reference>
     <Reference Include="BouncyCastle.Cryptography">
       <HintPath>Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>Assets\Plugins\MySql.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DOTween">
