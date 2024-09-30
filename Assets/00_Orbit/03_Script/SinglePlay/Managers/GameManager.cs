@@ -240,10 +240,10 @@ namespace STARTING
                 if (zone.zoneName == zoneName)
                 {
                     zone.isLiberated = true;
+                    SaveZoneData(zoneName, true);
                     return;
                 }
             }
-            //zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
         }
 
         public bool IsZoneLiberated(string zoneName)
@@ -278,12 +278,33 @@ namespace STARTING
             }
         }
 
+        public void SaveZoneData(string zoneName, bool isLiberated)
+        {
+            GameData data = LoadGameData();
 
+            ZoneData zone = data.zones.FirstOrDefault(z => z.zoneName == zoneName);
+
+            Debug.Log(zone);
+
+
+            if (zone != null)
+            {
+                zone.isLiberated = isLiberated;
+            }
+            else
+            {
+                data.zones.Add(new ZoneData(zoneName, isLiberated));
+                Debug.Log(zoneName + "/" + isLiberated);
+            }
+
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
+        }
         public void SaveGamePartial(string fieldName, object value)
         {
-            GameData data = LoadGameData(); // 기존 데이터를 불러옴
+            GameData data = LoadGameData();
 
-            // 전달된 값에 따라 특정 필드 업데이트
             switch (fieldName)
             {
                 case "maxHealth":
@@ -313,17 +334,11 @@ namespace STARTING
                 case "chip":
                     data.chip = (int)value;
                     break;
-                    // 필요에 따라 더 많은 필드 추가 가능
             }
-
-            // 수정된 데이터를 다시 저장
             string json = JsonUtility.ToJson(data);
             string encryptedJson = CryptoUtility.EncryptString(json);
             File.WriteAllText(_saveFilePath, encryptedJson);
         }
-
-
-
 
         private GameData LoadGameData()
         {
@@ -335,7 +350,6 @@ namespace STARTING
             }
             else
             {
-                // 파일이 없을 때, 새로운 GameData 객체 반환
                 return new GameData();
             }
         }
