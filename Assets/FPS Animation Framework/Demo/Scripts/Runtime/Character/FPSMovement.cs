@@ -248,7 +248,6 @@ namespace Demo.Scripts.Runtime.Character
                 _desiredGait = movementSettings.idle;
                 _desiredGait.velocity = prevVelocity;
 
-                Debug.Log("Áö±Ý");
                 GameManager.Instance.SaveGamePartial("playerPosition", transform.position);
                 return;
             }

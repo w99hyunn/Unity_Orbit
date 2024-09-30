@@ -75,7 +75,6 @@ namespace STARTING
         public IEnumerator ChangePlayerState(float time, PlayerState playerState)
         {
             this.playerState = PlayerState.INIT;
-            Debug.Log("»Ï" + playerState);
             yield return new WaitForSeconds(time);
             if (this.playerState == PlayerState.INIT)
             {
