@@ -1,5 +1,6 @@
 using Demo.Scripts.Runtime.Character;
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,8 @@ namespace STARTING
     public class GameManager_Multi : MonoBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
+
+        public event Action OnEnemyHit;
 
         public GameObject player;
         public FPSMovement_Multi controller;
@@ -128,9 +131,9 @@ namespace STARTING
             }
             else
             {
-                //LoadGame();
+                InitializePlayerAfterGameOver();
+                LoadGame();
             }
-
         }
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
@@ -146,11 +149,24 @@ namespace STARTING
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
 
-            //LoadGame();
+            InitializePlayerAfterGameOver();
+            LoadGame();
             SceneManager.UnloadSceneAsync("DungeonScene");
 
             yield return new WaitForSeconds(delay);
-            //PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
+        }
+
+                private void InitializePlayerAfterGameOver()
+        {
+            GameData data = LoadGameData();
+
+            data.currentHealth = 50;
+            data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
+            data.playerPosition = new Vector3(0, 0, 0);
+
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
         }
 
         public void SaveGame()
@@ -172,45 +188,31 @@ namespace STARTING
                 chip = inventory.chip,
             };
 
-            // DB에 게임 데이터 저장
-            int userId = PlayerPrefs.GetInt("UserID"); // 현재 로그인한 사용자 ID
-            DBManager.Instance.SaveGame(data, userId); // DBManager의 SaveGame 메서드 호출
-
-            PlayerPrefs.SetInt("ContinueGame", 1); // 게임 상태 저장
-            PlayerPrefs.Save();
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
+            File.WriteAllText(_saveFilePath, encryptedJson);
         }
 
         public void LoadGame()
         {
-
-            int userId = PlayerPrefs.GetInt("UserID"); // 현재 로그인한 사용자 ID
-            Debug.Log("아이디는" + userId);
-            //server.CmdRequestGameData(userId); // 서버에 데이터 요청
-
-        }
-
-
-        public void ApplyGameData(GameData data)
-        {
-            if (data != null)
+            if (File.Exists(_saveFilePath))
             {
-                this.gameTime = data.gameTime;
-                playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                controller.SetPos(data.playerPosition);
-                this.zones = data.zones;
-                inventory.SetInventory(data.chip);
+                string encryptedJson = File.ReadAllText(_saveFilePath);
+                string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
 
-                Debug.Log("Game loaded successfully from DB.");
-                Debug.Log($"{data.gameTime}, {data.currentExperience}, {data.level} ");
-            }
-            else
-            {
-                Debug.LogError("No game data found for user.");
+                //Debug.Log("Loaded JSON: " + json);
+
+                GameData data = JsonUtility.FromJson<GameData>(json);
+                if (data != null)
+                {
+                    this.gameTime = data.gameTime;
+                    controller.SetPos(data.playerPosition);
+                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                    this.zones = data.zones;
+                    inventory.SetInventory(data.chip);
+                }
             }
         }
-
-
-
 
 
         public void SetPos(Vector3 pos)
@@ -276,10 +278,10 @@ namespace STARTING
                 if (zone.zoneName == zoneName)
                 {
                     zone.isLiberated = true;
+                    SaveZoneData(zoneName, true);
                     return;
                 }
             }
-            //zones.Add(new ZoneData { zoneName = zoneName, isLiberated = true });
         }
 
         public bool IsZoneLiberated(string zoneName)
@@ -311,6 +313,97 @@ namespace STARTING
             if (audioSource != null && clip != null)
             {
                 audioSource.PlayOneShot(clip);
+            }
+        }
+
+        public void SaveZoneData(string zoneName, bool isLiberated)
+        {
+            GameData data = LoadGameData();
+
+            ZoneData zone = data.zones.FirstOrDefault(z => z.zoneName == zoneName);
+
+            Debug.Log(zone);
+
+
+            if (zone != null)
+            {
+                zone.isLiberated = isLiberated;
+            }
+            else
+            {
+                data.zones.Add(new ZoneData(zoneName, isLiberated));
+                Debug.Log(zoneName + "/" + isLiberated);
+            }
+
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
+        }
+
+        public void SaveGamePartial(string fieldName, object value)
+        {
+            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            {
+                return;
+            }
+
+            GameData data = LoadGameData();
+
+            switch (fieldName)
+            {
+                case "maxHealth":
+                    data.maxHealth = (int)value;
+                    break;
+                case "maxMana":
+                    data.maxMana = (int)value;
+                    break;
+                case "maxExperience":
+                    data.maxExperience = (int)value;
+                    break;
+                case "currentHealth":
+                    data.currentHealth = (int)value;
+                    break;
+                case "currentMana":
+                    data.currentMana = (int)value;
+                    break;
+                case "currentExperience":
+                    data.currentExperience = (int)value;
+                    break;
+                case "level":
+                    data.level = (int)value;
+                    break;
+                case "playerPosition":
+                    data.playerPosition = (Vector3)value;
+                    break;
+                case "chip":
+                    data.chip = (int)value;
+                    break;
+            }
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
+        }
+
+        private GameData LoadGameData()
+        {
+            if (File.Exists(_saveFilePath))
+            {
+                string encryptedJson = File.ReadAllText(_saveFilePath);
+                string json = CryptoUtility.DecryptString(encryptedJson);
+                return JsonUtility.FromJson<GameData>(json);
+            }
+            else
+            {
+                // 파일이 없을 때, 새로운 GameData 객체 반환
+                return new GameData();
+            }
+        }
+
+        public void EnemyHit()
+        {
+            if (OnEnemyHit != null)
+            {
+                OnEnemyHit.Invoke();
             }
         }
     }

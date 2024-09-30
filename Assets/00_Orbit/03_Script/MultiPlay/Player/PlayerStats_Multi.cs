@@ -37,7 +37,6 @@ namespace STARTING
 
         void Start()
         {
-            playerState = PlayerState_Multi.INIT;
             InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
             InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
             InitializeStats();
@@ -65,6 +64,7 @@ namespace STARTING
 
         public IEnumerator ChangePlayerState(float time, PlayerState_Multi playerState)
         {
+            this.playerState = PlayerState_Multi.INIT;
             yield return new WaitForSeconds(time);
             if (this.playerState == PlayerState_Multi.INIT)
             {
@@ -103,18 +103,21 @@ namespace STARTING
         {
             currentHealth = Mathf.Min(currentHealth + index, maxHealth);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateHealth()
         {
             currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateMana()
         {
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         [Command]
@@ -138,6 +141,7 @@ namespace STARTING
                 GameManager.Instance.GameOver();
             }
             // 체력 <= 0 death 추가 해야함
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         public void UseMana(int amount)
@@ -146,6 +150,7 @@ namespace STARTING
             if (currentMana < 0) currentMana = 0;
             UpdateUI();
 
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
             // 마나 <= 0 스킬사용 x 추가
         }
 
@@ -158,6 +163,7 @@ namespace STARTING
                 LevelUp();
             }
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
         [Server]
@@ -177,6 +183,13 @@ namespace STARTING
 
             UIManager.Instance.LevelUpStatPlusAlert();
             UpdateUI();
+
+            GameManager.Instance.SaveGamePartial("level", level);
+            GameManager.Instance.SaveGamePartial("maxHealth", maxHealth);
+            GameManager.Instance.SaveGamePartial("maxMana", maxMana);
+            GameManager.Instance.SaveGamePartial("maxExperience", maxExperience);
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         [ClientRpc]

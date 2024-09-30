@@ -81,7 +81,6 @@ namespace STARTING
         {
             if (NetworkClient.localPlayer)
             {
-                playerStats.playerState = PlayerState_Multi.IDLE;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -91,9 +90,24 @@ namespace STARTING
         {
             if (NetworkClient.localPlayer)
             {
-                playerStats.playerState = PlayerState_Multi.PAUSE;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+        public void OpenPauseMenu()
+        {
+            if (NetworkClient.localPlayer)
+            {
+                playerStats.playerState = PlayerState_Multi.PAUSE;
+            }
+        }
+
+        public void ClosePauseMenu()
+        {
+            if (NetworkClient.localPlayer)
+            {
+                playerStats.playerState = PlayerState_Multi.IDLE;
             }
         }
     }

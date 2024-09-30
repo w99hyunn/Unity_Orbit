@@ -36,9 +36,6 @@ namespace STARTING
 		private Slider hpSlider;
 		private TMP_Text enemyName;
 
-		private AudioSource audioSource;
-		public AudioClip hitSound;
-
 		[Header("죽었을 때 이벤트")]
 		public UnityEvent OnDeath;
 
@@ -62,7 +59,6 @@ namespace STARTING
 
 		private void Awake()
 		{
-			audioSource = GetComponent<AudioSource>();
 			hpSlider = enemyUI.GetComponentInChildren<Slider>();
 			enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
 			enemyUIcanvas = enemyUI.GetComponent<EnemyUI>();
@@ -72,7 +68,6 @@ namespace STARTING
 
 		public void Setup()
 		{
-			StopSound();
 			HealthPoints = MaxPoints;
 			hpSlider.value = HealthPoints / MaxPoints;
 			enemyName.text = this.gameObject.name;
@@ -103,7 +98,6 @@ namespace STARTING
 			}
 			else if (_alive)
 			{
-				PlaySound(hitSound);
 				HealthPoints -= damage;
                 GameManager.Instance.EnemyHit();
 
@@ -146,16 +140,5 @@ namespace STARTING
             
         }
 
-        public void PlaySound(AudioClip clip)
-		{
-			audioSource.Stop();
-			audioSource.clip = clip;
-			audioSource.Play();
-		}
-
-		public void StopSound()
-		{
-			audioSource.Stop();
-		}
 	}
 }
