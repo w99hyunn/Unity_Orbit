@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace STARTING
 {
@@ -89,9 +92,9 @@ namespace STARTING
         [Header("무기 변경 UI")]
         public UnityEvent changeWeaponUI;
 
-        /* 존 이름 & 해방여부 업데이트 */
-        private Coroutine _deactivateCoroutine;
-        private Coroutine _killLogCoroutine;
+        private CancellationTokenSource _deactivateZoneNameCancellationTokenSource;
+        private CancellationTokenSource _scriptTextCancellationTokenSource;
+        private CancellationTokenSource _killLogCancellationTokenSource;
 
 
         private void Awake()
@@ -147,12 +150,13 @@ namespace STARTING
             onDungeonLoadingComplete.Invoke();
         }
 
-        public void ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
+        public async UniTaskVoid ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
         {
             Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f, 100f / 255f);
             Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f, 100f / 255f);
             Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f, 100f / 255f);
 
+            // 배경색 설정
             switch (backgroundColor)
             {
                 case "red":
@@ -172,39 +176,35 @@ namespace STARTING
             killLogTitle.text = title;
             killLogText.text = text;
 
-            if (icon != null)
-            {
-                killLogIcon.sprite = icon;
-            }
-            else
-            {
-                killLogIcon.sprite = defaultIcon;
-            }
+            killLogIcon.sprite = icon != null ? icon : defaultIcon;
 
-            if (_killLogCoroutine != null)
+            if (_killLogCancellationTokenSource != null)
             {
-                StopCoroutine(_killLogCoroutine);
+                _killLogCancellationTokenSource.Cancel();
+                _killLogCancellationTokenSource.Dispose();
             }
 
             GameManager.Instance.PlaySound(killLogSound);
-            _killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
+
+            _killLogCancellationTokenSource = new CancellationTokenSource();
+            await ShowAndHideKillLog(time, _killLogCancellationTokenSource.Token);
         }
 
-        public IEnumerator ShowAndHideKillLog(float time)
+        public async UniTask ShowAndHideKillLog(float time, CancellationToken cancellationToken)
         {
             killLogAnimator.Play("Window In");
 
-            yield return new WaitForSeconds(time);
+            await UniTask.Delay(TimeSpan.FromSeconds(time), cancellationToken: cancellationToken);
 
             killLogAnimator.Play("Window Out");
 
-            _killLogCoroutine = null;
+            _killLogCancellationTokenSource = null;
         }
 
-        public IEnumerator ShowTipKey()
+        public async UniTask ShowTipKey()
         {
             tipKeyEnable("상세정보", "TAB");
-            yield return new WaitForSeconds(3f);
+            await UniTask.Delay(TimeSpan.FromSeconds(3f));
             tipKeyDisable();
         }
 
@@ -237,14 +237,14 @@ namespace STARTING
             changeWeaponUI?.Invoke();
         }
 
-        public void UpdateZoneInfo(string zoneName, bool isLiberated)
+        public async UniTaskVoid UpdateZoneInfo(string zoneName, bool isLiberated)
         {
             ZoneName.SetActive(false);
 
             minimapZoneNameText.text = zoneName;
             zoneNameText.text = zoneName;
 
-            //해방됨
+            // 해방됨
             if (isLiberated)
             {
                 unlockBack.SetActive(true);
@@ -253,10 +253,8 @@ namespace STARTING
 
                 minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
                 minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
-                //minimapUnlockBack.SetActive(true);
-                //minimapLockBack.SetActive(false);
             }
-            //해방안됨
+            // 해방 안됨
             else
             {
                 unlockBack.SetActive(false);
@@ -265,51 +263,48 @@ namespace STARTING
 
                 minimapUnlockBack.GetComponent<Image>().DOFade(0, 1f);
                 minimapLockBack.GetComponent<Image>().DOFade(1, 1f);
-                //minimapUnlockBack.SetActive(false);
-                //minimapLockBack.SetActive(true);
             }
 
             liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
             ZoneName.SetActive(true);
 
-            // 기존 코루틴이 있으면 중지
-            if (_deactivateCoroutine != null)
+            if (_deactivateZoneNameCancellationTokenSource != null)
             {
-                StopCoroutine(_deactivateCoroutine);
+                _deactivateZoneNameCancellationTokenSource.Cancel();
+                _deactivateZoneNameCancellationTokenSource.Dispose();
             }
 
-            // 새로운 코루틴 시작
-            _deactivateCoroutine = StartCoroutine(DeactivateZoneNameAfterDelay(6f));
+            _deactivateZoneNameCancellationTokenSource = new CancellationTokenSource();
+            await DeactivateZoneNameAfterDelay(6f, _deactivateZoneNameCancellationTokenSource.Token);
         }
 
-        private IEnumerator DeactivateZoneNameAfterDelay(float delay)
+        private async UniTask DeactivateZoneNameAfterDelay(float delay, CancellationToken cancellationToken)
         {
-            // delay 동안 대기
-            yield return new WaitForSeconds(delay);
-            // ZoneName 비활성화
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: cancellationToken);
             ZoneName.SetActive(false);
         }
 
-        /* 가운데 하단 스크립트 텍스트 */
-        private Coroutine deactivateScriptCoroutine;
-
-        public void ScriptText_Enable(string text)
+        public async UniTaskVoid ScriptText_Enable(string text)
         {
             scriptText.SetActive(false);
 
             scriptText.GetComponent<TMP_Text>().text = text;
             scriptText.SetActive(true);
 
-            if (deactivateScriptCoroutine != null)
+
+            if (_scriptTextCancellationTokenSource != null)
             {
-                StopCoroutine(deactivateScriptCoroutine);
+                _scriptTextCancellationTokenSource.Cancel();
+                _scriptTextCancellationTokenSource.Dispose();
             }
-            deactivateScriptCoroutine = StartCoroutine(DeactivateScriptAfterDelay(6f));
+
+            _scriptTextCancellationTokenSource = new CancellationTokenSource();
+            await DeactivateScriptAfterDelay(6f, _scriptTextCancellationTokenSource.Token);
         }
 
-        private IEnumerator DeactivateScriptAfterDelay(float delay)
+        private async UniTask DeactivateScriptAfterDelay(float delay, CancellationToken cancellationToken)
         {
-            yield return new WaitForSeconds(delay);
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: cancellationToken);
             scriptText.SetActive(false);
         }
 
