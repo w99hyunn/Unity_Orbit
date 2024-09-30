@@ -141,7 +141,6 @@ namespace STARTING
             {
                 currentHealth -= amount;
             }
-            //UIManager.Instance.hudMovement.Shake();
             StartCoroutine(UIManager.Instance.FlashScreen());
             UpdateUI();
 
@@ -192,11 +191,11 @@ namespace STARTING
             UIManager.Instance.LevelUpStatPlusAlert();
             UpdateUI();
 
-            GameManager.Instance.SaveGamePartial("level", level); // level 값 전달
-            GameManager.Instance.SaveGamePartial("maxHealth", maxHealth); // maxHealth 값 전달
-            GameManager.Instance.SaveGamePartial("maxMana", maxMana); // maxMana 값 전달
-            GameManager.Instance.SaveGamePartial("maxExperience", maxExperience); // maxExperience 값 전달
-            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth); // currentHealth 값 전달
+            GameManager.Instance.SaveGamePartial("level", level);
+            GameManager.Instance.SaveGamePartial("maxHealth", maxHealth);
+            GameManager.Instance.SaveGamePartial("maxMana", maxMana);
+            GameManager.Instance.SaveGamePartial("maxExperience", maxExperience);
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
             GameManager.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
