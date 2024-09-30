@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
-using Cysharp.Threading.Tasks;
-using System.Threading;
 
 namespace STARTING
 {
@@ -92,9 +89,9 @@ namespace STARTING
         [Header("무기 변경 UI")]
         public UnityEvent changeWeaponUI;
 
-        private CancellationTokenSource _deactivateZoneNameCancellationTokenSource;
-        private CancellationTokenSource _scriptTextCancellationTokenSource;
-        private CancellationTokenSource _killLogCancellationTokenSource;
+        /* 존 이름 & 해방여부 업데이트 */
+        private Coroutine _deactivateCoroutine;
+        private Coroutine _killLogCoroutine;
 
 
         private void Awake()
@@ -121,7 +118,7 @@ namespace STARTING
             back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
             killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
         }
-        
+
         private void Start()
         {
             defaultIcon = killLogIcon.sprite;
@@ -150,13 +147,12 @@ namespace STARTING
             onDungeonLoadingComplete.Invoke();
         }
 
-        public async UniTaskVoid ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
+        public void ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
         {
             Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f, 100f / 255f);
             Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f, 100f / 255f);
             Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f, 100f / 255f);
 
-            // 배경색 설정
             switch (backgroundColor)
             {
                 case "red":
@@ -176,35 +172,39 @@ namespace STARTING
             killLogTitle.text = title;
             killLogText.text = text;
 
-            killLogIcon.sprite = icon != null ? icon : defaultIcon;
-
-            if (_killLogCancellationTokenSource != null)
+            if (icon != null)
             {
-                _killLogCancellationTokenSource.Cancel();
-                _killLogCancellationTokenSource.Dispose();
+                killLogIcon.sprite = icon;
+            }
+            else
+            {
+                killLogIcon.sprite = defaultIcon;
+            }
+
+            if (_killLogCoroutine != null)
+            {
+                StopCoroutine(_killLogCoroutine);
             }
 
             GameManager.Instance.PlaySound(killLogSound);
-
-            _killLogCancellationTokenSource = new CancellationTokenSource();
-            await ShowAndHideKillLog(time, _killLogCancellationTokenSource.Token);
+            _killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
         }
 
-        public async UniTask ShowAndHideKillLog(float time, CancellationToken cancellationToken)
+        public IEnumerator ShowAndHideKillLog(float time)
         {
             killLogAnimator.Play("Window In");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(time), cancellationToken: cancellationToken);
+            yield return new WaitForSeconds(time);
 
             killLogAnimator.Play("Window Out");
 
-            _killLogCancellationTokenSource = null;
+            _killLogCoroutine = null;
         }
 
-        public async UniTask ShowTipKey()
+        public IEnumerator ShowTipKey()
         {
             tipKeyEnable("상세정보", "TAB");
-            await UniTask.Delay(TimeSpan.FromSeconds(3f));
+            yield return new WaitForSeconds(3f);
             tipKeyDisable();
         }
 
@@ -237,14 +237,14 @@ namespace STARTING
             changeWeaponUI?.Invoke();
         }
 
-        public async UniTaskVoid UpdateZoneInfo(string zoneName, bool isLiberated)
+        public void UpdateZoneInfo(string zoneName, bool isLiberated)
         {
             ZoneName.SetActive(false);
 
             minimapZoneNameText.text = zoneName;
             zoneNameText.text = zoneName;
 
-            // 해방됨
+            //해방됨
             if (isLiberated)
             {
                 unlockBack.SetActive(true);
@@ -254,7 +254,7 @@ namespace STARTING
                 minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
                 minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
             }
-            // 해방 안됨
+            //해방안됨
             else
             {
                 unlockBack.SetActive(false);
@@ -268,43 +268,42 @@ namespace STARTING
             liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
             ZoneName.SetActive(true);
 
-            if (_deactivateZoneNameCancellationTokenSource != null)
+            // 기존 코루틴이 있으면 중지
+            if (_deactivateCoroutine != null)
             {
-                _deactivateZoneNameCancellationTokenSource.Cancel();
-                _deactivateZoneNameCancellationTokenSource.Dispose();
+                StopCoroutine(_deactivateCoroutine);
             }
 
-            _deactivateZoneNameCancellationTokenSource = new CancellationTokenSource();
-            await DeactivateZoneNameAfterDelay(6f, _deactivateZoneNameCancellationTokenSource.Token);
+            // 새로운 코루틴 시작
+            _deactivateCoroutine = StartCoroutine(DeactivateZoneNameAfterDelay(6f));
         }
 
-        private async UniTask DeactivateZoneNameAfterDelay(float delay, CancellationToken cancellationToken)
+        private IEnumerator DeactivateZoneNameAfterDelay(float delay)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: cancellationToken);
+            yield return new WaitForSeconds(delay);
             ZoneName.SetActive(false);
         }
 
-        public async UniTaskVoid ScriptText_Enable(string text)
+        /* 가운데 하단 스크립트 텍스트 */
+        private Coroutine deactivateScriptCoroutine;
+
+        public void ScriptText_Enable(string text)
         {
             scriptText.SetActive(false);
 
             scriptText.GetComponent<TMP_Text>().text = text;
             scriptText.SetActive(true);
 
-
-            if (_scriptTextCancellationTokenSource != null)
+            if (deactivateScriptCoroutine != null)
             {
-                _scriptTextCancellationTokenSource.Cancel();
-                _scriptTextCancellationTokenSource.Dispose();
+                StopCoroutine(deactivateScriptCoroutine);
             }
-
-            _scriptTextCancellationTokenSource = new CancellationTokenSource();
-            await DeactivateScriptAfterDelay(6f, _scriptTextCancellationTokenSource.Token);
+            deactivateScriptCoroutine = StartCoroutine(DeactivateScriptAfterDelay(6f));
         }
 
-        private async UniTask DeactivateScriptAfterDelay(float delay, CancellationToken cancellationToken)
+        private IEnumerator DeactivateScriptAfterDelay(float delay)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: cancellationToken);
+            yield return new WaitForSeconds(delay);
             scriptText.SetActive(false);
         }
 
@@ -367,20 +366,12 @@ namespace STARTING
             healthText.text = currentHealthPercentage.ToString();
             healthDetailText.text = $"{currentindex} / {maxindex}";
             StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
-
-            //체력이 20 미만이면 화면 깜빡임 시작
-            //추후 Vignette 효과로 대체하면 될듯함
-            //if (currentHealthPercentage <= 20 && !isFlashing)
-            //{
-            //    StartCoroutine(FlashScreen());
-            //}
-            //피격시마다 뜨게 변경
         }
 
         public void StartBlinking()
         {
             fillImage.DOColor(new Color(251f / 255f, 92f / 255f, 87f / 255f), 0.1f)
-                     .SetLoops(_loopCount, LoopType.Yoyo) // 2초 동안 반복
+                     .SetLoops(_loopCount, LoopType.Yoyo)
                      .SetEase(Ease.Linear)
                      .OnComplete(() => fillImage.color = _originalColor);
         }
