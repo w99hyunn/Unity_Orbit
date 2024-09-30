@@ -105,7 +105,9 @@ namespace STARTING
 			{
 				PlaySound(hitSound);
 				HealthPoints -= damage;
-				enemyUIcanvas.ShowCanvasGroup();
+                GameManager.Instance.EnemyHit();
+
+                enemyUIcanvas.ShowCanvasGroup();
 				hpSlider.value = HealthPoints / MaxPoints;
 
 				if (HealthPoints <= 0f)
@@ -146,12 +148,9 @@ namespace STARTING
 
         public void PlaySound(AudioClip clip)
 		{
-			if (audioSource != null && clip != null)
-			{
-				audioSource.Stop();
-				audioSource.clip = clip;
-				audioSource.Play();
-			}
+			audioSource.Stop();
+			audioSource.clip = clip;
+			audioSource.Play();
 		}
 
 		public void StopSound()

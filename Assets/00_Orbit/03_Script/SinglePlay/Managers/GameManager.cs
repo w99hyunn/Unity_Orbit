@@ -1,4 +1,5 @@
 using Demo.Scripts.Runtime.Character;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,8 @@ namespace STARTING
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+
+        public event Action OnEnemyHit;
 
         public GameObject player;
         private FPSMovement controller;
@@ -281,10 +284,7 @@ namespace STARTING
 
         public void PlaySound(AudioClip clip)
         {
-            if (audioSource != null && clip != null)
-            {
-                audioSource.PlayOneShot(clip);
-            }
+            audioSource.PlayOneShot(clip);
         }
 
         public void SaveZoneData(string zoneName, bool isLiberated)
@@ -367,6 +367,14 @@ namespace STARTING
             {
                 // 파일이 없을 때, 새로운 GameData 객체 반환
                 return new GameData();
+            }
+        }
+
+        public void EnemyHit()
+        {
+            if (OnEnemyHit != null)
+            {
+                OnEnemyHit.Invoke();
             }
         }
     }
