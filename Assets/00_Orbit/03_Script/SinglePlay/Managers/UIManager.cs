@@ -253,8 +253,6 @@ namespace STARTING
 
                 minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
                 minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
-                //minimapUnlockBack.SetActive(true);
-                //minimapLockBack.SetActive(false);
             }
             //해방안됨
             else
@@ -265,8 +263,6 @@ namespace STARTING
 
                 minimapUnlockBack.GetComponent<Image>().DOFade(0, 1f);
                 minimapLockBack.GetComponent<Image>().DOFade(1, 1f);
-                //minimapUnlockBack.SetActive(false);
-                //minimapLockBack.SetActive(true);
             }
 
             liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
@@ -284,9 +280,7 @@ namespace STARTING
 
         private IEnumerator DeactivateZoneNameAfterDelay(float delay)
         {
-            // delay 동안 대기
             yield return new WaitForSeconds(delay);
-            // ZoneName 비활성화
             ZoneName.SetActive(false);
         }
 
@@ -372,20 +366,12 @@ namespace STARTING
             healthText.text = currentHealthPercentage.ToString();
             healthDetailText.text = $"{currentindex} / {maxindex}";
             StartCoroutine(SmoothSliderChange(healthBar, currentHealthPercentage));
-
-            //체력이 20 미만이면 화면 깜빡임 시작
-            //추후 Vignette 효과로 대체하면 될듯함
-            //if (currentHealthPercentage <= 20 && !isFlashing)
-            //{
-            //    StartCoroutine(FlashScreen());
-            //}
-            //피격시마다 뜨게 변경
         }
 
         public void StartBlinking()
         {
             fillImage.DOColor(new Color(251f / 255f, 92f / 255f, 87f / 255f), 0.1f)
-                     .SetLoops(_loopCount, LoopType.Yoyo) // 2초 동안 반복
+                     .SetLoops(_loopCount, LoopType.Yoyo)
                      .SetEase(Ease.Linear)
                      .OnComplete(() => fillImage.color = _originalColor);
         }
