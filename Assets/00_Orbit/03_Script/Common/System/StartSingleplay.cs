@@ -144,9 +144,6 @@ namespace STARTING
             {
                 File.Delete(saveFilePath);
             }
-
-            PlayerPrefs.DeleteKey("ContinueGame");
-
             StartCoroutine(LoadWorldScene());
         }
 

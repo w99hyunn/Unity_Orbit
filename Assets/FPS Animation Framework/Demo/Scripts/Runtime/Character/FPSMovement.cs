@@ -247,6 +247,9 @@ namespace Demo.Scripts.Runtime.Character
                 float prevVelocity = _desiredGait.velocity;
                 _desiredGait = movementSettings.idle;
                 _desiredGait.velocity = prevVelocity;
+
+                Debug.Log("Áö±Ý");
+                GameManager.Instance.SaveGamePartial("playerPosition", transform.position);
                 return;
             }
 
@@ -343,7 +346,6 @@ namespace Demo.Scripts.Runtime.Character
         private void UpdateMovement()
         {
             _controller.Move(MoveVector * Time.deltaTime);
-            GameManager.Instance.SaveGamePartial("playerPosition", transform.position);
         }
 
         private void UpdateAnimatorParams()

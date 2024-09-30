@@ -92,7 +92,6 @@ namespace STARTING
         private void OnSceneLoaded(AsyncOperation asyncOperation)
         {
             UIManager.Instance.DungeonLoadingComplete();
-
             PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
         }
     }

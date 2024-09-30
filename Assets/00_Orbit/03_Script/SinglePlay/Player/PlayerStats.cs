@@ -50,7 +50,6 @@ namespace STARTING
 
         void Start()
         {
-            playerState = PlayerState.INIT;
             InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
             InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
             InitializeStats();
@@ -70,12 +69,13 @@ namespace STARTING
 
             //시작시 5초간 무적
             StartCoroutine(ChangePlayerState(5f, PlayerState.IDLE));
-
             UpdateUI();
         }
 
         public IEnumerator ChangePlayerState(float time, PlayerState playerState)
         {
+            this.playerState = PlayerState.INIT;
+            Debug.Log("흠" + playerState);
             yield return new WaitForSeconds(time);
             if (this.playerState == PlayerState.INIT)
             {
@@ -105,7 +105,7 @@ namespace STARTING
             currentExperience = 0;
 
             level = 1;
-
+            
             StartCoroutine(ChangePlayerState(5f, PlayerState.IDLE));
             UpdateUI();
         }

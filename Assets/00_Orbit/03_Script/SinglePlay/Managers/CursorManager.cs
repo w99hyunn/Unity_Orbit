@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,23 +16,9 @@ namespace STARTING
             objectsToDestroy.Add(PlayerStats.Instance.gameObject);
         }
 
-        private IEnumerator CheckPlayerState()
-        {
-            while (true)
-            {
-                if (PlayerStats.Instance.playerState == PlayerState.IDLE)
-                {
-                    pauseMenuHotkey.SetActive(true);
-                    yield break;
-                }
-                yield return new WaitForSeconds(0.5f);
-            }
-        }
-
         public void BackToMain()
         {
             SceneManager.LoadScene("MainScene");
-
             DestroyObjectsInList();
         }
 
@@ -64,16 +49,24 @@ namespace STARTING
 
         public void CustomResume()
         {
-            PlayerStats.Instance.playerState = PlayerState.IDLE;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void CustomPause()
         {
-            PlayerStats.Instance.playerState = PlayerState.PAUSE;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+        }
+
+        public void OpenPauseMenu()
+        {
+            PlayerStats.Instance.playerState = PlayerState.PAUSE;
+        }
+
+        public void ClosePauseMenu()
+        {
+            PlayerStats.Instance.playerState = PlayerState.IDLE;
         }
     }
 }

@@ -102,9 +102,9 @@ namespace STARTING
             }
             else
             {
+                InitializePlayerAfterGameOver();
                 LoadGame();
             }
-
         }
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
@@ -120,11 +120,24 @@ namespace STARTING
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
 
+            InitializePlayerAfterGameOver();
             LoadGame();
             SceneManager.UnloadSceneAsync("DungeonScene");
 
             yield return new WaitForSeconds(delay);
-            PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
+        }
+
+        private void InitializePlayerAfterGameOver()
+        {
+            GameData data = LoadGameData();
+
+            data.currentHealth = 50;
+            data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
+            data.playerPosition = new Vector3(0, 0, 0);
+
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
         }
 
         public void SaveGame()
@@ -145,15 +158,11 @@ namespace STARTING
                 zones = this.zones,
                 chip = inventory.chip,
             };
+            //Debug.Log("saved JSON: " + json);
 
             string json = JsonUtility.ToJson(data);
             string encryptedJson = CryptoUtility.EncryptString(json); // ¾ÏÈ£È­
-
-            //Debug.Log("saved JSON: " + json);
-
             File.WriteAllText(_saveFilePath, encryptedJson);
-            PlayerPrefs.SetInt("ContinueGame", 1);
-            PlayerPrefs.Save();
         }
 
         public void LoadGame()
@@ -169,8 +178,8 @@ namespace STARTING
                 if (data != null)
                 {
                     this.gameTime = data.gameTime;
-                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
                     controller.SetPos(data.playerPosition);
+                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
                     this.zones = data.zones;
                     inventory.SetInventory(data.chip);
                 }
