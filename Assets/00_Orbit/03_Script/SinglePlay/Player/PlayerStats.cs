@@ -114,18 +114,21 @@ namespace STARTING
         {
             currentHealth = Mathf.Min(currentHealth + index, maxHealth);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateHealth()
         {
             currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateMana()
         {
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         public void TakeDamage(int amount)
@@ -147,7 +150,8 @@ namespace STARTING
                 currentHealth = 0;
                 GameManager.Instance.GameOver();
             }
-            // 체력 <= 0 death 추가 해야함
+
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         public void UseMana(int amount)
@@ -156,6 +160,7 @@ namespace STARTING
             if (currentMana < 0) currentMana = 0;
             UpdateUI();
 
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
             // 마나 <= 0 스킬사용 x 추가
         }
 
@@ -167,6 +172,7 @@ namespace STARTING
                 LevelUp();
             }
             UpdateUI();
+            GameManager.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
         void LevelUp()
@@ -185,6 +191,13 @@ namespace STARTING
 
             UIManager.Instance.LevelUpStatPlusAlert();
             UpdateUI();
+
+            GameManager.Instance.SaveGamePartial("level", level); // level 값 전달
+            GameManager.Instance.SaveGamePartial("maxHealth", maxHealth); // maxHealth 값 전달
+            GameManager.Instance.SaveGamePartial("maxMana", maxMana); // maxMana 값 전달
+            GameManager.Instance.SaveGamePartial("maxExperience", maxExperience); // maxExperience 값 전달
+            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth); // currentHealth 값 전달
+            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         public void UpdateUI()

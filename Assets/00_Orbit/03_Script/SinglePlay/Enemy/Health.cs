@@ -133,12 +133,12 @@ namespace STARTING
                     float randomValue = Random.Range(0f, 100f);
 					if (randomValue <= probability)
 					{
-						inventory.GetChip();
+						inventory.GainChip();
                     }
                     break;
                 case KillLogType.ARETE:
                     UIManager.Instance.ShowKillLog(enemyName.text, "파괴", 5f, "purple", deathIcon);
-                    inventory.GetChip();
+                    inventory.GainChip();
                     break;
             }
             

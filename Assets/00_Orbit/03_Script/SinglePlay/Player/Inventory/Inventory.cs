@@ -12,9 +12,10 @@ public class Inventory : MonoBehaviour
         InitializeInventory();
     }
 
-    public void GetChip()
+    public void GainChip()
     {
         chip++;
+        GameManager.Instance.SaveGamePartial("chip", chip);
         UIManager.Instance.UpdateStats("chip", chip);
         StartCoroutine(ChipLog(2f));
     }
@@ -37,4 +38,6 @@ public class Inventory : MonoBehaviour
         this.chip = chip;
         UIManager.Instance.UpdateStats("chip", chip);
     }
+
+    public int GetChip() { return chip; }
 }

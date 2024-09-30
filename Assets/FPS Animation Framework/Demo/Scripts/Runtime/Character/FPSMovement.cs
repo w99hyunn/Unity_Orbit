@@ -2,6 +2,7 @@
 
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
+using STARTING;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -342,6 +343,7 @@ namespace Demo.Scripts.Runtime.Character
         private void UpdateMovement()
         {
             _controller.Move(MoveVector * Time.deltaTime);
+            GameManager.Instance.SaveGamePartial("playerPosition", transform.position);
         }
 
         private void UpdateAnimatorParams()

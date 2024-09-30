@@ -277,5 +277,67 @@ namespace STARTING
                 audioSource.PlayOneShot(clip);
             }
         }
+
+
+        public void SaveGamePartial(string fieldName, object value)
+        {
+            GameData data = LoadGameData(); // 기존 데이터를 불러옴
+
+            // 전달된 값에 따라 특정 필드 업데이트
+            switch (fieldName)
+            {
+                case "maxHealth":
+                    data.maxHealth = (int)value;
+                    break;
+                case "maxMana":
+                    data.maxMana = (int)value;
+                    break;
+                case "maxExperience":
+                    data.maxExperience = (int)value;
+                    break;
+                case "currentHealth":
+                    data.currentHealth = (int)value;
+                    break;
+                case "currentMana":
+                    data.currentMana = (int)value;
+                    break;
+                case "currentExperience":
+                    data.currentExperience = (int)value;
+                    break;
+                case "level":
+                    data.level = (int)value;
+                    break;
+                case "playerPosition":
+                    data.playerPosition = (Vector3)value;
+                    break;
+                case "chip":
+                    data.chip = (int)value;
+                    break;
+                    // 필요에 따라 더 많은 필드 추가 가능
+            }
+
+            // 수정된 데이터를 다시 저장
+            string json = JsonUtility.ToJson(data);
+            string encryptedJson = CryptoUtility.EncryptString(json);
+            File.WriteAllText(_saveFilePath, encryptedJson);
+        }
+
+
+
+
+        private GameData LoadGameData()
+        {
+            if (File.Exists(_saveFilePath))
+            {
+                string encryptedJson = File.ReadAllText(_saveFilePath);
+                string json = CryptoUtility.DecryptString(encryptedJson);
+                return JsonUtility.FromJson<GameData>(json);
+            }
+            else
+            {
+                // 파일이 없을 때, 새로운 GameData 객체 반환
+                return new GameData();
+            }
+        }
     }
 }
