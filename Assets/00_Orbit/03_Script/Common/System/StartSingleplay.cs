@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,9 +14,23 @@ namespace STARTING
     {
         public MainUISupport uiSupport;
 
+        public List<GameObject> objectsToDestroy = new List<GameObject>();
+
         private void Start()
         {
             CheckForSavedGame();
+        }
+
+        public void DestroyObjectsInList()
+        {
+            foreach (GameObject obj in objectsToDestroy)
+            {
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
+            }
+            objectsToDestroy.Clear();
         }
 
         private void CheckForSavedGame()
@@ -109,6 +124,7 @@ namespace STARTING
 
         private IEnumerator LoadWorldScene()
         {
+            DestroyObjectsInList();
             yield return new WaitForSeconds(2f);
 
             AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
