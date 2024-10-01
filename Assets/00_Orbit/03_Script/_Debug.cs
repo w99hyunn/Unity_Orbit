@@ -15,6 +15,10 @@ namespace STARTING
         // Update is called once per frame
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                playerStats.Healing(200);
+            }
             if (Input.GetKeyDown(KeyCode.M))
             {
                 DestroyEnemies();
@@ -66,7 +70,7 @@ namespace STARTING
             GUILayout.BeginArea(new Rect(xPosition, yPosition, labelWidth, labelHeight));
 
             // 글자 출력
-            GUILayout.Label("M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장");
+            GUILayout.Label("H 체력 200 회복, M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장");
 
             // GUI 영역 종료
             GUILayout.EndArea();
