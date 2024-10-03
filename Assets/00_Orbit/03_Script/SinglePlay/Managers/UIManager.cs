@@ -151,18 +151,15 @@ namespace STARTING
             killLogText.text = text;
 
             Canvas.ForceUpdateCanvases();
-
             textRect = killLogText.GetComponent<RectTransform>();
             imageRect = back.GetComponent<RectTransform>();
 
             float textWidth = textRect.rect.width;
-            Debug.Log(textWidth);
-
             imageRect.sizeDelta = new Vector2(textWidth + 100f, imageRect.sizeDelta.y);
 
-            Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f, 100f / 255f);
-            Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f, 100f / 255f);
-            Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f, 100f / 255f);
+            Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f);
+            Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f);
+            Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f);
 
             switch (backgroundColor)
             {
