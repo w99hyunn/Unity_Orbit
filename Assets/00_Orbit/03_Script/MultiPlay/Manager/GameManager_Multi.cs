@@ -3,8 +3,6 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,11 +48,47 @@ namespace STARTING
             //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         }
 
+        private void OnEnable()
+        {
+            PlayerStats_Multi.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
+            FPSMovement_Multi.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
+        }
+
+        private void OnDisable()
+        {
+            PlayerStats_Multi.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
+            FPSMovement_Multi.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
+        }
+
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
+        }
 
-            
+        private void Update()
+        {
+            UpdateGameTime();
+        }
+
+        private void OnPlayerStatsInitialized()
+        {
+            _isPlayerStatsInitialized = true;
+            TryLoadGame();
+        }
+
+        private void OnPlayerControllerInitialized()
+        {
+            _isPlayerControllerInitialized = true;
+            TryLoadGame();
+        }
+
+        private void TryLoadGame()
+        {
+            if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
+            {
+                LoadGame();
+                // SaveGame();
+            }
         }
 
         private IEnumerator FindLocalPlayer()
@@ -80,43 +114,6 @@ namespace STARTING
             }
         }
 
-        //private void OnEnable()
-        //{
-        //    PlayerStats_Multi.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-        //    FPSMovement_Multi.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
-        //}
-
-        //private void OnDisable()
-        //{
-        //    PlayerStats_Multi.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-        //    FPSMovement_Multi.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
-        //}
-
-        private void Update()
-        {
-            UpdateGameTime();
-        }
-
-        //private void OnPlayerStatsInitialized()
-        //{
-        //    _isPlayerStatsInitialized = true;
-        //    TryLoadGame();
-        //}
-
-        //private void OnPlayerControllerInitialized()
-        //{
-        //    _isPlayerControllerInitialized = true;
-        //    TryLoadGame();
-        //}
-
-        //private void TryLoadGame()
-        //{
-        //    if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
-        //    {
-                
-        //       // SaveGame();
-        //    }
-        //}
 
         public void GameOver()
         {
