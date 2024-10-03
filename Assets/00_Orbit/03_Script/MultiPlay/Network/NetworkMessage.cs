@@ -2,6 +2,7 @@ using Mirror;
 
 namespace STARTING
 {
+    // 로그인
     public struct LoginRequestMessage : NetworkMessage
     {
         public string username;
@@ -11,24 +12,10 @@ namespace STARTING
     public struct LoginResponseMessage : NetworkMessage
     {
         public bool success;
-        public int userId; // 로그인 성공 시 유저 ID를 반환
+        public int userId;
     }
 
-    public struct GameDataRequestMessage : NetworkMessage
-    {
-        public int userId; // 유저가 로그인에 성공한 후 게임 데이터를 요청
-    }
-
-    public struct GameDataResponseMessage : NetworkMessage
-    {
-        public GameData gameData; // DB에서 불러온 게임 데이터
-    }
-
-    public struct SaveGameMessage : NetworkMessage
-    {
-        public GameData gameData; // 저장할 게임 데이터
-    }
-
+    // 회원가입
     public struct RegisterRequestMessage : NetworkMessage
     {
         public string username;
@@ -38,6 +25,23 @@ namespace STARTING
     public struct RegisterResponseMessage : NetworkMessage
     {
         public bool success;
-        public string message; // 회원가입 실패 시 에러 메시지를 전달
+    }
+
+    // 게임 데이터 로드
+    public struct GameDataRequestMessage : NetworkMessage
+    {
+        public int userId;
+    }
+
+    public struct GameDataResponseMessage : NetworkMessage
+    {
+        public GameData gameData;
+    }
+
+    // 게임 데이터 저장
+    public struct GameDataUpdateRequestMessage : NetworkMessage
+    {
+        public GameData gameData;
+        public int userId;
     }
 }

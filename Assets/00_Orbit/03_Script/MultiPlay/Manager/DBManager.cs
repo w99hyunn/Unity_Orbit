@@ -12,6 +12,7 @@ namespace STARTING
         public static DBManager Instance;
 
         private MySqlConnection connection;
+        public GameData clientGameData;
 
         void Awake()
         {
@@ -48,71 +49,6 @@ namespace STARTING
             }
         }
 
-        public void SaveGame(GameData data, int userId)
-        {
-            string query = "INSERT INTO game_data (user_id, game_time, max_health, max_mana, max_experience, current_health, current_mana, current_experience, level, player_position_x, player_position_y, player_position_z, chip) " +
-                           "VALUES (@userId, @gameTime, @maxHealth, @maxMana, @maxExperience, @currentHealth, @currentMana, @currentExperience, @level, @posX, @posY, @posZ, @chip)";
-
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("@userId", userId);
-                cmd.Parameters.AddWithValue("@gameTime", data.gameTime);
-                cmd.Parameters.AddWithValue("@maxHealth", data.maxHealth);
-                cmd.Parameters.AddWithValue("@maxMana", data.maxMana);
-                cmd.Parameters.AddWithValue("@maxExperience", data.maxExperience);
-                cmd.Parameters.AddWithValue("@currentHealth", data.currentHealth);
-                cmd.Parameters.AddWithValue("@currentMana", data.currentMana);
-                cmd.Parameters.AddWithValue("@currentExperience", data.currentExperience);
-                cmd.Parameters.AddWithValue("@level", data.level);
-                cmd.Parameters.AddWithValue("@posX", data.playerPosition.x);
-                cmd.Parameters.AddWithValue("@posY", data.playerPosition.y);
-                cmd.Parameters.AddWithValue("@posZ", data.playerPosition.z);
-                cmd.Parameters.AddWithValue("@chip", data.chip);
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    Debug.Log("Game saved successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError("Failed to save game: " + ex.Message);
-                }
-            }
-        }
-
-        public GameData LoadGame(int userId)
-        {
-            string query = "SELECT * FROM game_data WHERE user_id = @userId ORDER BY game_data_id DESC LIMIT 1";
-            GameData data = null;
-
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            {
-                cmd.Parameters.AddWithValue("@userId", userId);
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        data = new GameData
-                        {
-                            gameTime = reader.GetFloat("game_time"),
-                            maxHealth = reader.GetInt32("max_health"),
-                            maxMana = reader.GetInt32("max_mana"),
-                            maxExperience = reader.GetInt32("max_experience"),
-                            currentHealth = reader.GetInt32("current_health"),
-                            currentMana = reader.GetInt32("current_mana"),
-                            currentExperience = reader.GetInt32("current_experience"),
-                            level = reader.GetInt32("level"),
-                            playerPosition = new Vector3(reader.GetFloat("player_position_x"), reader.GetFloat("player_position_y"), reader.GetFloat("player_position_z")),
-                            chip = reader.GetInt32("chip")
-                        };
-                        Debug.Log("Game loaded successfully.");
-                    }
-                }
-            }
-
-            return data;
-        }
 
         public void Register(string username, string password)
         {
@@ -157,6 +93,82 @@ namespace STARTING
 
             Debug.LogError("Login failed.");
             return false;
+        }
+
+        public GameData GetGameDataFromDB(int userId)
+        {
+            GameData gameData = new GameData();
+
+            string query = "SELECT * FROM game_data WHERE user_id = @userId";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@userId", userId);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        gameData.gameTime = reader.GetFloat("game_time");
+                        gameData.maxHealth = reader.GetInt32("max_health");
+                        gameData.maxMana = reader.GetInt32("max_mana");
+                        gameData.maxExperience = reader.GetInt32("max_experience");
+
+                        gameData.currentHealth = reader.GetInt32("current_health");
+                        gameData.currentMana = reader.GetInt32("current_mana");
+                        gameData.currentExperience = reader.GetInt32("current_experience");
+
+                        gameData.level = reader.GetInt32("level");
+                        gameData.playerPosition = new Vector3(
+                            reader.GetFloat("player_position_x"),
+                            reader.GetFloat("player_position_y"),
+                            reader.GetFloat("player_position_z")
+                        );
+                        gameData.chip = reader.GetInt32("chip");
+                    }
+                }
+            }
+            return gameData;
+        }
+
+        public void UpdateGameDataInDB(int userId, GameData gameData)
+        {
+            // MySQL UPDATE 쿼리 생성
+            string query = @"
+            UPDATE game_data 
+            SET 
+                game_time = @gameTime,
+                max_health = @maxHealth,
+                max_mana = @maxMana,
+                max_experience = @maxExperience,
+                current_health = @currentHealth,
+                current_mana = @currentMana,
+                current_experience = @currentExperience,
+                level = @level,
+                player_position_x = @posX,
+                player_position_y = @posY,
+                player_position_z = @posZ,
+                chip = @chip
+            WHERE user_id = @userId";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                // 각 파라미터에 데이터 바인딩
+                cmd.Parameters.AddWithValue("@gameTime", gameData.gameTime);
+                cmd.Parameters.AddWithValue("@maxHealth", gameData.maxHealth);
+                cmd.Parameters.AddWithValue("@maxMana", gameData.maxMana);
+                cmd.Parameters.AddWithValue("@maxExperience", gameData.maxExperience);
+                cmd.Parameters.AddWithValue("@currentHealth", gameData.currentHealth);
+                cmd.Parameters.AddWithValue("@currentMana", gameData.currentMana);
+                cmd.Parameters.AddWithValue("@currentExperience", gameData.currentExperience);
+                cmd.Parameters.AddWithValue("@level", gameData.level);
+                cmd.Parameters.AddWithValue("@posX", gameData.playerPosition.x);
+                cmd.Parameters.AddWithValue("@posY", gameData.playerPosition.y);
+                cmd.Parameters.AddWithValue("@posZ", gameData.playerPosition.z);
+                cmd.Parameters.AddWithValue("@chip", gameData.chip);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                // SQL 쿼리 실행
+                cmd.ExecuteNonQuery();
+            }
         }
 
 

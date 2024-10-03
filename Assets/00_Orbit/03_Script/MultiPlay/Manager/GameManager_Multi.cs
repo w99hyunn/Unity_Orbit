@@ -13,6 +13,7 @@ namespace STARTING
     public class GameManager_Multi : MonoBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
+        public ClientNetworkHandler clientNetworkHandler;
 
         public event Action OnEnemyHit;
 
@@ -156,64 +157,35 @@ namespace STARTING
             yield return new WaitForSeconds(delay);
         }
 
-                private void InitializePlayerAfterGameOver()
+        private void InitializePlayerAfterGameOver()
         {
-            GameData data = LoadGameData();
+            GameData data = DBManager.Instance.clientGameData;
 
             data.currentHealth = 50;
             data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
             data.playerPosition = new Vector3(0, 0, 0);
 
-            string json = JsonUtility.ToJson(data);
-            string encryptedJson = CryptoUtility.EncryptString(json);
-            File.WriteAllText(_saveFilePath, encryptedJson);
+            SaveGame();
         }
 
         public void SaveGame()
         {
-            GameData data = new GameData
-            {
-                gameTime = this.gameTime,
-
-                maxHealth = playerStats.maxHealth,
-                maxMana = playerStats.maxMana,
-                maxExperience = playerStats.maxExperience,
-
-                currentHealth = playerStats.currentHealth,
-                currentMana = playerStats.currentMana,
-                currentExperience = playerStats.currentExperience,
-                level = playerStats.level,
-                playerPosition = player.transform.position,
-                zones = this.zones,
-                chip = inventory.chip,
-            };
-
-            string json = JsonUtility.ToJson(data);
-            string encryptedJson = CryptoUtility.EncryptString(json); // 암호화
-            File.WriteAllText(_saveFilePath, encryptedJson);
+            clientNetworkHandler.SendRequestUpdatedGameData(DBManager.Instance.clientGameData);
         }
 
         public void LoadGame()
         {
-            if (File.Exists(_saveFilePath))
+            GameData data = DBManager.Instance.clientGameData;
+
+            if (data != null)
             {
-                string encryptedJson = File.ReadAllText(_saveFilePath);
-                string json = CryptoUtility.DecryptString(encryptedJson); // 복호화
-
-                //Debug.Log("Loaded JSON: " + json);
-
-                GameData data = JsonUtility.FromJson<GameData>(json);
-                if (data != null)
-                {
-                    this.gameTime = data.gameTime;
-                    controller.SetPos(data.playerPosition);
-                    playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
-                    this.zones = data.zones;
-                    inventory.SetInventory(data.chip);
-                }
+                this.gameTime = data.gameTime;
+                controller.SetPos(data.playerPosition);
+                playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                //this.zones = data.zones;
+                inventory.SetInventory(data.chip);
             }
         }
-
 
         public void SetPos(Vector3 pos)
         {
@@ -271,42 +243,42 @@ namespace STARTING
             }
         }
 
-        public void LiberateZone(string zoneName)
-        {
-            foreach (ZoneData zone in zones)
-            {
-                if (zone.zoneName == zoneName)
-                {
-                    zone.isLiberated = true;
-                    SaveZoneData(zoneName, true);
-                    return;
-                }
-            }
-        }
+        //public void LiberateZone(string zoneName)
+        //{
+        //    foreach (ZoneData zone in zones)
+        //    {
+        //        if (zone.zoneName == zoneName)
+        //        {
+        //            zone.isLiberated = true;
+        //            //SaveZoneData(zoneName, true);
+        //            return;
+        //        }
+        //    }
+        //}
 
-        public bool IsZoneLiberated(string zoneName)
-        {
-            foreach (ZoneData zone in zones)
-            {
-                if (zone.zoneName == zoneName)
-                {
-                    return zone.isLiberated;
-                }
-            }
-            return false;
-        }
+        //public bool IsZoneLiberated(string zoneName)
+        //{
+        //    foreach (ZoneData zone in zones)
+        //    {
+        //        if (zone.zoneName == zoneName)
+        //        {
+        //            return zone.isLiberated;
+        //        }
+        //    }
+        //    return false;
+        //}
 
-        public bool SetCurrentZone(string zoneName)
-        {
-            currentZoneName = zoneName;
+        //public bool SetCurrentZone(string zoneName)
+        //{
+        //    currentZoneName = zoneName;
 
-            if (!zones.Any(zone => zone.zoneName == zoneName))
-            {
-                zones.Add(new ZoneData(zoneName, false));
-            }
+        //    if (!zones.Any(zone => zone.zoneName == zoneName))
+        //    {
+        //        zones.Add(new ZoneData(zoneName, false));
+        //    }
 
-            return IsZoneLiberated(zoneName);
-        }
+        //    return IsZoneLiberated(zoneName);
+        //}
 
         public void PlaySound(AudioClip clip)
         {
@@ -316,29 +288,29 @@ namespace STARTING
             }
         }
 
-        public void SaveZoneData(string zoneName, bool isLiberated)
-        {
-            GameData data = LoadGameData();
+        //public void SaveZoneData(string zoneName, bool isLiberated)
+        //{
+        //    GameData data = LoadGameData();
 
-            ZoneData zone = data.zones.FirstOrDefault(z => z.zoneName == zoneName);
+        //    ZoneData zone = data.zones.FirstOrDefault(z => z.zoneName == zoneName);
 
-            Debug.Log(zone);
+        //    Debug.Log(zone);
 
 
-            if (zone != null)
-            {
-                zone.isLiberated = isLiberated;
-            }
-            else
-            {
-                data.zones.Add(new ZoneData(zoneName, isLiberated));
-                Debug.Log(zoneName + "/" + isLiberated);
-            }
+        //    if (zone != null)
+        //    {
+        //        zone.isLiberated = isLiberated;
+        //    }
+        //    else
+        //    {
+        //        data.zones.Add(new ZoneData(zoneName, isLiberated));
+        //        Debug.Log(zoneName + "/" + isLiberated);
+        //    }
 
-            string json = JsonUtility.ToJson(data);
-            string encryptedJson = CryptoUtility.EncryptString(json);
-            File.WriteAllText(_saveFilePath, encryptedJson);
-        }
+        //    string json = JsonUtility.ToJson(data);
+        //    string encryptedJson = CryptoUtility.EncryptString(json);
+        //    File.WriteAllText(_saveFilePath, encryptedJson);
+        //}
 
         public void SaveGamePartial(string fieldName, object value)
         {
@@ -347,7 +319,7 @@ namespace STARTING
                 return;
             }
 
-            GameData data = LoadGameData();
+            GameData data = DBManager.Instance.clientGameData;
 
             switch (fieldName)
             {
@@ -379,25 +351,10 @@ namespace STARTING
                     data.chip = (int)value;
                     break;
             }
-            string json = JsonUtility.ToJson(data);
-            string encryptedJson = CryptoUtility.EncryptString(json);
-            File.WriteAllText(_saveFilePath, encryptedJson);
+
+            SaveGame();
         }
 
-        private GameData LoadGameData()
-        {
-            if (File.Exists(_saveFilePath))
-            {
-                string encryptedJson = File.ReadAllText(_saveFilePath);
-                string json = CryptoUtility.DecryptString(encryptedJson);
-                return JsonUtility.FromJson<GameData>(json);
-            }
-            else
-            {
-                // 파일이 없을 때, 새로운 GameData 객체 반환
-                return new GameData();
-            }
-        }
 
         public void EnemyHit()
         {

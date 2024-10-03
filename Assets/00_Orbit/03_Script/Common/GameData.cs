@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace STARTING
 {
-    [System.Serializable]
+    [Serializable]
     public class ZoneData
     {
         public string zoneName;
@@ -20,7 +21,7 @@ namespace STARTING
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class GameData
     {
         public float gameTime;
