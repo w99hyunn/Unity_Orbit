@@ -42,12 +42,12 @@ namespace STARTING
         public GameObject killLog;
         public AudioClip killLogSound;
         private Animator killLogAnimator;
-        private Image back1;
-        private Image back2;
-        private TMP_Text killLogTitle;
+        private Image back;
         private TMP_Text killLogText;
         private Image killLogIcon;
         private Sprite defaultIcon;
+        private RectTransform textRect;
+        private RectTransform imageRect;
 
         [Header("스크립트 텍스트")]
         public GameObject scriptText;
@@ -112,11 +112,10 @@ namespace STARTING
             tipKeyText = tipKey.transform.Find("tipkeyText").gameObject.GetComponent<TMP_Text>();
             interactionText = interactionKey.transform.Find("interactionText").gameObject.GetComponent<TMP_Text>();
             interactionKeyText = interactionKey.transform.Find("interactionKeyText").gameObject.GetComponent<TMP_Text>();
-            killLogTitle = killLog.transform.Find("killLogTitle").gameObject.GetComponent<TMP_Text>();
-            killLogText = killLog.transform.Find("killLogText").gameObject.GetComponent<TMP_Text>();
-            back1 = killLog.transform.Find("Back1").gameObject.GetComponent<Image>();
-            back2 = killLog.transform.Find("Back2").gameObject.GetComponent<Image>();
-            killLogIcon = killLog.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
+
+            back = killLog.transform.Find("Back").gameObject.GetComponent<Image>();
+            killLogIcon = back.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
+            killLogText = back.transform.Find("killLogText").gameObject.GetComponent<TMP_Text>();
         }
 
         private void Start()
@@ -147,8 +146,20 @@ namespace STARTING
             onDungeonLoadingComplete.Invoke();
         }
 
-        public void ShowKillLog(string text, string title = "처치", float time = 3f, string backgroundColor = "red", Sprite icon = null)
+        public void ShowKillLog(string text, float time = 3f, string backgroundColor = "red", Sprite icon = null)
         {
+            killLogText.text = text;
+
+            Canvas.ForceUpdateCanvases();
+
+            textRect = killLogText.GetComponent<RectTransform>();
+            imageRect = back.GetComponent<RectTransform>();
+
+            float textWidth = textRect.rect.width;
+            Debug.Log(textWidth);
+
+            imageRect.sizeDelta = new Vector2(textWidth + 100f, imageRect.sizeDelta.y);
+
             Color red = new Color(251f / 255f, 92f / 255f, 87f / 255f, 100f / 255f);
             Color blue = new Color(21f / 255f, 184f / 255f, 198f / 255f, 100f / 255f);
             Color purple = new Color(249f / 255f, 87f / 255f, 251f / 255f, 100f / 255f);
@@ -156,21 +167,15 @@ namespace STARTING
             switch (backgroundColor)
             {
                 case "red":
-                    back1.color = red;
-                    back2.color = red;
+                    back.color = red;
                     break;
                 case "blue":
-                    back1.color = blue;
-                    back2.color = blue;
+                    back.color = blue;
                     break;
                 case "purple":
-                    back1.color = purple;
-                    back2.color = purple;
+                    back.color = purple;
                     break;
             }
-
-            killLogTitle.text = title;
-            killLogText.text = text;
 
             if (icon != null)
             {

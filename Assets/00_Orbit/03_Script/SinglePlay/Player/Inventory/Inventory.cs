@@ -24,7 +24,7 @@ namespace STARTING
         public IEnumerator ChipLog(float time)
         {
             yield return new WaitForSeconds(time);
-            UIManager.Instance.ShowKillLog("온전한 칩", "획득", 2f, "blue", chipIcon);
+            UIManager.Instance.ShowKillLog("온전한 칩", 2f, "blue", chipIcon);
             StartCoroutine(UIManager.Instance.ShowTipKey());
         }
 

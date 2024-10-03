@@ -133,7 +133,7 @@ namespace STARTING
                     }
                     break;
                 case KillLogType.ARETE:
-                    UIManager.Instance.ShowKillLog(enemyName.text, "파괴", 5f, "purple", deathIcon);
+                    UIManager.Instance.ShowKillLog(enemyName.text, 5f, "purple", deathIcon);
                     inventory.GainChip();
                     break;
             }
