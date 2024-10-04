@@ -185,7 +185,6 @@ namespace STARTING
             yield break;
         }
 
-
         public void Login()
         {
             string username = uiSupport.GetLoginID();
@@ -202,7 +201,6 @@ namespace STARTING
 
             clientNetworkHandler.SendRegisterRequest(username, password);
         }
-
 
         public void GameStart()
         {

@@ -12,7 +12,10 @@ namespace STARTING
         public static DBManager Instance;
 
         private MySqlConnection connection;
+
+        [Header("클라이언트가 각자 가지고 있는 자신의 정보")]
         public GameData clientGameData;
+        public string userName;
         public int userId;
 
         void Awake()

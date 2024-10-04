@@ -55,6 +55,7 @@ namespace STARTING
             LoginResponseMessage response = new LoginResponseMessage
             {
                 success = success,
+                userName = msg.username,
                 userId = success ? userId : -1
             };
             Debug.Log($"서버가 로그인 요청 받음 : ID {msg.username}, PW {msg.password}, 성공여부 {success}, userID {userId}");

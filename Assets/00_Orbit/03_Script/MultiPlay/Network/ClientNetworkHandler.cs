@@ -38,6 +38,7 @@ namespace STARTING
             if (msg.success)
             {
                 Debug.Log("Login successful! User ID: " + msg.userId);
+                DBManager.Instance.userName = msg.userName;
                 DBManager.Instance.userId = msg.userId;
                 loginSuccess?.Invoke();
                 
