@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace STARTING
@@ -51,6 +52,13 @@ namespace STARTING
 
             Cursor.visible = true;
             _asyncLoad.allowSceneActivation = true;
+        }
+
+        //스플래시 스킵
+        private void OnSkip(InputValue value)
+        {
+            Cursor.visible = true;
+            SceneManager.LoadScene("MainScene");
         }
     }
 }
