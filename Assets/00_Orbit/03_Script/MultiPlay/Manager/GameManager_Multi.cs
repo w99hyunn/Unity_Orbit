@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class GameManager_Multi : MonoBehaviour
+    public class GameManager_Multi : NetworkBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
         public ClientNetworkHandler clientNetworkHandler;

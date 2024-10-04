@@ -43,7 +43,6 @@ namespace STARTING
             OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
         }
 
-        [Command]
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
         {
             this.maxHealth = maxHealth;
@@ -120,7 +119,6 @@ namespace STARTING
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
-        [Command]
         public void TakeDamage(int amount)
         {
             if (amount == -1)
@@ -154,7 +152,6 @@ namespace STARTING
             // 마나 <= 0 스킬사용 x 추가
         }
 
-        [Command]
         public void GainExperience(int amount)
         {
             currentExperience += amount;
@@ -166,7 +163,6 @@ namespace STARTING
             GameManager_Multi.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
-        [Server]
         void LevelUp()
         {
             GameManager_Multi.Instance.PlaySound(levelUpSound);
@@ -192,7 +188,6 @@ namespace STARTING
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
-        [ClientRpc]
         public void UpdateUI()
         {
             UIManager.Instance.UpdateStats("level", level);

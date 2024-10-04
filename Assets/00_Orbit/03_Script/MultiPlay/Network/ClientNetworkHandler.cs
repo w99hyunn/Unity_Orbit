@@ -38,7 +38,7 @@ namespace STARTING
             if (msg.success)
             {
                 Debug.Log("Login successful! User ID: " + msg.userId);
-                PlayerPrefs.SetInt("UserID", msg.userId); //클라이언트의 PlayerPrefs에 저장
+                DBManager.Instance.userId = msg.userId;
                 loginSuccess?.Invoke();
                 
                 //게임 데이터 요청
@@ -91,7 +91,7 @@ namespace STARTING
         public void SendRequestGameData()
         {
             NetworkClient.RegisterHandler<GameDataResponseMessage>(OnGameDataResponse);
-            int userId = PlayerPrefs.GetInt("UserID");
+            int userId = DBManager.Instance.userId;
 
             GameDataRequestMessage request = new GameDataRequestMessage
             {
@@ -124,8 +124,7 @@ namespace STARTING
         /// <param name="currentGameData"></param>
         public void SendRequestUpdatedGameData(GameData currentGameData)
         {
-            int userId = PlayerPrefs.GetInt("UserID");
-
+            int userId = DBManager.Instance.userId;
             GameDataUpdateRequestMessage updateMessage = new GameDataUpdateRequestMessage
             {
                 userId = userId,

@@ -13,6 +13,7 @@ namespace STARTING
 
         private MySqlConnection connection;
         public GameData clientGameData;
+        public int userId;
 
         void Awake()
         {
