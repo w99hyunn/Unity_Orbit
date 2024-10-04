@@ -103,21 +103,21 @@ namespace STARTING
         {
             currentHealth = Mathf.Min(currentHealth + index, maxHealth);
             UpdateUI();
-            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
+            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateHealth()
         {
             currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
-            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
+            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         void RegenerateMana()
         {
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
-            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
+            GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         [Command]
@@ -138,10 +138,10 @@ namespace STARTING
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                GameManager.Instance.GameOver();
+                GameManager_Multi.Instance.GameOver();
             }
             // 체력 <= 0 death 추가 해야함
-            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
+            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         public void UseMana(int amount)
@@ -150,7 +150,7 @@ namespace STARTING
             if (currentMana < 0) currentMana = 0;
             UpdateUI();
 
-            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
+            GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
             // 마나 <= 0 스킬사용 x 추가
         }
 
@@ -163,13 +163,13 @@ namespace STARTING
                 LevelUp();
             }
             UpdateUI();
-            GameManager.Instance.SaveGamePartial("currentExperience", currentExperience);
+            GameManager_Multi.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
         [Server]
         void LevelUp()
         {
-            GameManager.Instance.PlaySound(levelUpSound);
+            GameManager_Multi.Instance.PlaySound(levelUpSound);
             level++;
             currentExperience -= maxExperience; // 남은 경험치는 다음 레벨로 이월
 
@@ -184,12 +184,12 @@ namespace STARTING
             UIManager.Instance.LevelUpStatPlusAlert();
             UpdateUI();
 
-            GameManager.Instance.SaveGamePartial("level", level);
-            GameManager.Instance.SaveGamePartial("maxHealth", maxHealth);
-            GameManager.Instance.SaveGamePartial("maxMana", maxMana);
-            GameManager.Instance.SaveGamePartial("maxExperience", maxExperience);
-            GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
-            GameManager.Instance.SaveGamePartial("currentMana", currentMana);
+            GameManager_Multi.Instance.SaveGamePartial("level", level);
+            GameManager_Multi.Instance.SaveGamePartial("maxHealth", maxHealth);
+            GameManager_Multi.Instance.SaveGamePartial("maxMana", maxMana);
+            GameManager_Multi.Instance.SaveGamePartial("maxExperience", maxExperience);
+            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
+            GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
         }
 
         [ClientRpc]

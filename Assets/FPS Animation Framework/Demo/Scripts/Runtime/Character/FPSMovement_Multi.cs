@@ -3,6 +3,7 @@
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
 using Mirror;
+using STARTING;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -247,6 +248,8 @@ namespace Demo.Scripts.Runtime.Character
                 float prevVelocity = _desiredGait.velocity;
                 _desiredGait = movementSettings.idle;
                 _desiredGait.velocity = prevVelocity;
+
+                GameManager_Multi.Instance.SaveGamePartial("playerPosition", transform.position);
                 return;
             }
 

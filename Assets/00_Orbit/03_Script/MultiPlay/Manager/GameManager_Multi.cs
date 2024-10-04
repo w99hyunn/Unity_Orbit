@@ -87,7 +87,7 @@ namespace STARTING
             if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
             {
                 LoadGame();
-                // SaveGame();
+                SaveGame();
             }
         }
 
@@ -167,6 +167,7 @@ namespace STARTING
 
         public void SaveGame()
         {
+            Debug.Log("저장 명령");
             clientNetworkHandler.SendRequestUpdatedGameData(DBManager.Instance.clientGameData);
         }
 
@@ -174,7 +175,7 @@ namespace STARTING
         {
             GameData data = DBManager.Instance.clientGameData;
 
-            if (data != null)
+            if (data.level != -1)
             {
                 this.gameTime = data.gameTime;
                 controller.SetPos(data.playerPosition);

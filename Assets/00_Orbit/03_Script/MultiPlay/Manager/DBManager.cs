@@ -123,35 +123,41 @@ namespace STARTING
                             reader.GetFloat("player_position_z")
                         );
                         gameData.chip = reader.GetInt32("chip");
+
+                        return gameData;
+                    }
+                    else
+                    {
+                        //클라이언트에게 넘어간 데이터의 level 값이 -1일 경우 DB에 데이터가 없다는 의미
+                        gameData.level = -1;
+                        return gameData;
                     }
                 }
             }
-            return gameData;
+
         }
 
         public void UpdateGameDataInDB(int userId, GameData gameData)
         {
-            // MySQL UPDATE 쿼리 생성
-            string query = @"
-            UPDATE game_data 
-            SET 
-                game_time = @gameTime,
-                max_health = @maxHealth,
-                max_mana = @maxMana,
-                max_experience = @maxExperience,
-                current_health = @currentHealth,
-                current_mana = @currentMana,
-                current_experience = @currentExperience,
-                level = @level,
-                player_position_x = @posX,
-                player_position_y = @posY,
-                player_position_z = @posZ,
-                chip = @chip
-            WHERE user_id = @userId";
+            string updateQuery = @"
+                                UPDATE game_data 
+                                SET 
+                                    game_time = @gameTime,
+                                    max_health = @maxHealth,
+                                    max_mana = @maxMana,
+                                    max_experience = @maxExperience,
+                                    current_health = @currentHealth,
+                                    current_mana = @currentMana,
+                                    current_experience = @currentExperience,
+                                    level = @level,
+                                    player_position_x = @posX,
+                                    player_position_y = @posY,
+                                    player_position_z = @posZ,
+                                    chip = @chip
+                                WHERE user_id = @userId";
 
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
             {
-                // 각 파라미터에 데이터 바인딩
                 cmd.Parameters.AddWithValue("@gameTime", gameData.gameTime);
                 cmd.Parameters.AddWithValue("@maxHealth", gameData.maxHealth);
                 cmd.Parameters.AddWithValue("@maxMana", gameData.maxMana);
@@ -166,11 +172,45 @@ namespace STARTING
                 cmd.Parameters.AddWithValue("@chip", gameData.chip);
                 cmd.Parameters.AddWithValue("@userId", userId);
 
-                // SQL 쿼리 실행
-                cmd.ExecuteNonQuery();
+                // 업데이트 실행 및 업데이트된 행의 수 확인
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                // DB에 없는 유저일 경우 새롭게 삽입
+                if (rowsAffected == 0)
+                {
+                    string insertQuery = @"
+                                        INSERT INTO game_data (
+                                            user_id, game_time, max_health, max_mana, max_experience,
+                                            current_health, current_mana, current_experience, level,
+                                            player_position_x, player_position_y, player_position_z, chip
+                                        ) VALUES (
+                                            @userId, @gameTime, @maxHealth, @maxMana, @maxExperience,
+                                            @currentHealth, @currentMana, @currentExperience, @level,
+                                            @posX, @posY, @posZ, @chip
+                                        )";
+
+                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                    {
+                        // 같은 파라미터를 사용하여 INSERT 쿼리 실행
+                        insertCmd.Parameters.AddWithValue("@gameTime", gameData.gameTime);
+                        insertCmd.Parameters.AddWithValue("@maxHealth", gameData.maxHealth);
+                        insertCmd.Parameters.AddWithValue("@maxMana", gameData.maxMana);
+                        insertCmd.Parameters.AddWithValue("@maxExperience", gameData.maxExperience);
+                        insertCmd.Parameters.AddWithValue("@currentHealth", gameData.currentHealth);
+                        insertCmd.Parameters.AddWithValue("@currentMana", gameData.currentMana);
+                        insertCmd.Parameters.AddWithValue("@currentExperience", gameData.currentExperience);
+                        insertCmd.Parameters.AddWithValue("@level", gameData.level);
+                        insertCmd.Parameters.AddWithValue("@posX", gameData.playerPosition.x);
+                        insertCmd.Parameters.AddWithValue("@posY", gameData.playerPosition.y);
+                        insertCmd.Parameters.AddWithValue("@posZ", gameData.playerPosition.z);
+                        insertCmd.Parameters.AddWithValue("@chip", gameData.chip);
+                        insertCmd.Parameters.AddWithValue("@userId", userId);
+
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
             }
         }
-
 
         // 비밀번호 해시 생성
         public (byte[] salt, byte[] hash) HashPassword(string password)

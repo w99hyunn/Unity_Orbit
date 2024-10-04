@@ -106,6 +106,7 @@ namespace STARTING
 
         private void OnGameDataUpdateRequest(NetworkConnection conn, GameDataUpdateRequestMessage msg)
         {
+            Debug.Log("요청 받았음, 레벨: " + msg.gameData.level);
             DBManager.Instance.UpdateGameDataInDB(msg.userId, msg.gameData);
         }
 
