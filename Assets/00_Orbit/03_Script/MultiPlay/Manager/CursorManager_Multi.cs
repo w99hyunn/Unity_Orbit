@@ -16,6 +16,7 @@ namespace STARTING
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
+            objectsToDestroy.Add(GameManager_Multi.Instance.gameObject);
         }
 
         private IEnumerator FindLocalPlayer()
