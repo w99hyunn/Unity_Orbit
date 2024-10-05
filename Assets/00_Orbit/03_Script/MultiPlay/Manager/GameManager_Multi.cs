@@ -29,8 +29,6 @@ namespace STARTING
         public float gameTime = 13600f; // 21600
 
         private string _saveFilePath;
-        private bool _isPlayerStatsInitialized = false;
-        private bool _isPlayerControllerInitialized = false;
         private const float _realSecondsPerGameDay = 3 * 60 * 60;
         private const float _gameSecondsPerRealSecond = 24 * 60 * 60 / _realSecondsPerGameDay;
 
@@ -48,18 +46,6 @@ namespace STARTING
             //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         }
 
-        private void OnEnable()
-        {
-            PlayerStats_Multi.OnPlayerStatsInitialized += OnPlayerStatsInitialized;
-            FPSMovement_Multi.OnPlayerControllerInitialized += OnPlayerControllerInitialized;
-        }
-
-        private void OnDisable()
-        {
-            PlayerStats_Multi.OnPlayerStatsInitialized -= OnPlayerStatsInitialized;
-            FPSMovement_Multi.OnPlayerControllerInitialized -= OnPlayerControllerInitialized;
-        }
-
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
@@ -68,27 +54,6 @@ namespace STARTING
         private void Update()
         {
             UpdateGameTime();
-        }
-
-        private void OnPlayerStatsInitialized()
-        {
-            _isPlayerStatsInitialized = true;
-            TryLoadGame();
-        }
-
-        private void OnPlayerControllerInitialized()
-        {
-            _isPlayerControllerInitialized = true;
-            TryLoadGame();
-        }
-
-        private void TryLoadGame()
-        {
-            if (_isPlayerStatsInitialized && _isPlayerControllerInitialized)
-            {
-                LoadGame();
-                SaveGame();
-            }
         }
 
         private IEnumerator FindLocalPlayer()
@@ -107,6 +72,8 @@ namespace STARTING
                 inventory = player.GetComponent<Inventory>();
 
                 LoadGame();
+                SaveGame();
+                Debug.Log("얜가");
             }
             else
             {
@@ -167,7 +134,6 @@ namespace STARTING
 
         public void SaveGame()
         {
-            Debug.Log("저장 명령");
             clientNetworkHandler.SendRequestUpdatedGameData(DBManager.Instance.clientGameData);
         }
 

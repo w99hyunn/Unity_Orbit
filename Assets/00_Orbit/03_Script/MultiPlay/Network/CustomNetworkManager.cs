@@ -42,6 +42,14 @@ namespace STARTING
             //}
         }
 
+        //public override void OnClientDisconnect()
+        //{
+        //    SceneManager.LoadScene("MainScene");
+            
+        //    ModalWindowManager disconnectPopup = GameObject.Find("ClientDisconnect").GetComponent<ModalWindowManager>();
+        //    disconnectPopup.ModalWindowIn();
+        //}
+
         /// <summary>
         /// 클라이언트로부터 받은 로그인 요청 메시지
         /// 처리 결과에 따라 결과값 반환
@@ -93,10 +101,8 @@ namespace STARTING
 
         private void OnGameDataRequest(NetworkConnection conn, GameDataRequestMessage msg)
         {
-            // DB에서 게임 데이터 가져오기
             GameData gameData = DBManager.Instance.GetGameDataFromDB(msg.userId);
 
-            // 클라이언트로 GameData 전송
             GameDataResponseMessage response = new GameDataResponseMessage
             {
                 gameData = gameData
@@ -107,7 +113,6 @@ namespace STARTING
 
         private void OnGameDataUpdateRequest(NetworkConnection conn, GameDataUpdateRequestMessage msg)
         {
-            Debug.Log("요청 받았음, 레벨: " + msg.gameData.level);
             DBManager.Instance.UpdateGameDataInDB(msg.userId, msg.gameData);
         }
 

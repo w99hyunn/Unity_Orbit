@@ -93,7 +93,6 @@ namespace Demo.Scripts.Runtime.Character
         private bool _wasMoving = false;
 
         private UserInputController _inputController;
-        public static event System.Action OnPlayerControllerInitialized;
 
         public bool IsInAir()
         {
@@ -386,7 +385,6 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState_Multi.Standing;
 
             _desiredGait = movementSettings.walking;
-            OnPlayerControllerInitialized?.Invoke();
         }
 
         private void Update()

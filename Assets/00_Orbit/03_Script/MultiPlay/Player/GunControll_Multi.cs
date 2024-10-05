@@ -10,9 +10,9 @@ namespace STARTING
 {
     public class GunControll_Multi : NetworkBehaviour
     {
-        private GameObject Player;
+        private GameObject player;
         private RecoilAnimation recoil;
-        private FPSController fpsController;
+        private FPSController_Multi fpsController;
         private AudioSource audioSource;
 
         public GameObject aimImage;
@@ -32,16 +32,31 @@ namespace STARTING
 
         private void Start()
         {
-            if (isLocalPlayer)
+            StartCoroutine(FindLocalPlayer());
+        }
+
+        private IEnumerator FindLocalPlayer()
+        {
+            while (NetworkClient.localPlayer == null)
             {
-                Player = GameObject.FindWithTag("Player");
-                audioSource = Player.GetComponent<AudioSource>();
-                recoil = Player.GetComponent<RecoilAnimation>();
-                fpsController = Player.GetComponent<FPSController>();
+                yield return null;
+            }
+
+            player = GameManager_Multi.Instance.player;
+            Debug.Log(player.name);
+            if (player != null)
+            {
+                audioSource = player.GetComponent<AudioSource>();
+                recoil = player.GetComponent<RecoilAnimation>();
+                fpsController = player.GetComponent<FPSController_Multi>();
 
                 // 무기 변경 상태와 에임 변경 상태 이벤트 구독
                 fpsController.OnActiveWeaponIndexChanged += ChangeWeapon;
                 fpsController.OnActiveAiming += ChangeAimState;
+            }
+            else
+            {
+                Debug.LogWarning("Player 못찾음. 할당 X");
             }
         }
 
@@ -65,13 +80,13 @@ namespace STARTING
             //fireMode.text = recoil.fireMode.ToString().ToUpper();
         }
 
-        private void ChangeAimState(FPSAimState aimState)
+        private void ChangeAimState(FPSAimState_Multi aimState)
         {
-            if (aimState == FPSAimState.Aiming)
+            if (aimState == FPSAimState_Multi.Aiming)
             {
                 aimImage.SetActive(true);
             }
-            else if (aimState == FPSAimState.None)
+            else if (aimState == FPSAimState_Multi.None)
             {
                 aimImage.SetActive(false);
             }

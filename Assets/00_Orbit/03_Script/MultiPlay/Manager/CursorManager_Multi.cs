@@ -42,8 +42,8 @@ namespace STARTING
             {
                 CustomNetworkManager.singleton.BackToMain();
                 DBManager.Instance.CloseDBServer();
-                SceneManager.LoadScene("MainScene");
                 DestroyObjectsInList();
+                SceneManager.LoadScene("MainScene");
             }
         }
 

@@ -109,14 +109,6 @@ namespace STARTING
         private void OnGameDataResponse(GameDataResponseMessage msg)
         {
             DBManager.Instance.clientGameData = msg.gameData;
-
-            // 받은 게임 데이터를 활용하여 게임을 초기화
-            Debug.Log("Game data loaded:");
-            Debug.Log("Health: " + DBManager.Instance.clientGameData.currentHealth);
-            Debug.Log("Mana: " + DBManager.Instance.clientGameData.currentMana);
-            Debug.Log("Experience: " + DBManager.Instance.clientGameData.currentExperience);
-            Debug.Log("Player Position: " + DBManager.Instance.clientGameData.playerPosition);
-            Debug.Log("level: " + DBManager.Instance.clientGameData.level);
         }
 
         /// <summary>
@@ -131,7 +123,7 @@ namespace STARTING
                 userId = userId,
                 gameData = currentGameData
             };
-            Debug.Log("클라이언트로부터 게임 저장 요청함. 유저아이디: " + userId + "/ 레벨은: " + currentGameData.level);
+            //Debug.Log("클라이언트로부터 게임 저장 요청함. 유저아이디: " + userId + "/ 레벨은: " + currentGameData.level);
             NetworkClient.Send(updateMessage);
         }
     }

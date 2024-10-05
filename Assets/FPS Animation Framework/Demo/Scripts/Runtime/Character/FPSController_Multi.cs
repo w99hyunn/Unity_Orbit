@@ -218,7 +218,13 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnFirePressed()
         {
-            if (_instantiatedWeapons.Count == 0 || HasActiveAction()) return;
+            Debug.Log("원래" + _instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
+            if (_instantiatedWeapons.Count == 0 || HasActiveAction())
+            {
+                Debug.Log(_instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
+                return;
+            }
+            Debug.Log("어때2");
             GetActiveItem().OnFirePressed();
         }
 
@@ -362,6 +368,7 @@ namespace Demo.Scripts.Runtime.Character
 #if ENABLE_INPUT_SYSTEM
         public void OnReload()
         {
+            Debug.Log("흠??");
             if (IsSprinting() || HasActiveAction() || !GetActiveItem().OnReload()) return;
             _actionState = FPSActionState_Multi.PlayingAnimation;
         }
@@ -395,6 +402,7 @@ namespace Demo.Scripts.Runtime.Character
             //Pause메뉴가 열려있으면 총알발사 X
             if (value.isPressed && (playerStats.playerState == PlayerState_Multi.IDLE || playerStats.playerState == PlayerState_Multi.INIT))
             {
+                Debug.Log("들어옴?>");
                 OnFirePressed();
                 return;
             }

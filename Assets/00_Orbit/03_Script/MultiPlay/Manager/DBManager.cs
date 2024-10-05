@@ -45,7 +45,6 @@ namespace STARTING
             try
             {
                 connection.Open();
-                Debug.Log("Connected to database.");
             }
             catch (Exception ex)
             {
@@ -249,7 +248,6 @@ namespace STARTING
             if (connection != null)
             {
                 connection.Close();
-                Debug.Log("Db ´ÝÀ½");
             }
         }
 

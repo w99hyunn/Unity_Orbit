@@ -16,8 +16,6 @@ namespace STARTING
 
     public class PlayerStats_Multi : NetworkBehaviour
     {
-        public static event System.Action OnPlayerStatsInitialized;
-
         public AudioClip levelUpSound;
         [SyncVar] public int maxHealth;
         [SyncVar] public int maxMana;
@@ -40,7 +38,6 @@ namespace STARTING
             InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
             InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
             InitializeStats();
-            OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
         }
 
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
