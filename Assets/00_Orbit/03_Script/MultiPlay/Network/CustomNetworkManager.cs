@@ -42,14 +42,6 @@ namespace STARTING
             //}
         }
 
-        //public override void OnClientDisconnect()
-        //{
-        //    SceneManager.LoadScene("MainScene");
-            
-        //    ModalWindowManager disconnectPopup = GameObject.Find("ClientDisconnect").GetComponent<ModalWindowManager>();
-        //    disconnectPopup.ModalWindowIn();
-        //}
-
         /// <summary>
         /// 클라이언트로부터 받은 로그인 요청 메시지
         /// 처리 결과에 따라 결과값 반환
