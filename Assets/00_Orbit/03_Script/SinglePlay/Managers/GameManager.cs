@@ -33,6 +33,7 @@ namespace STARTING
         private bool _isPlayerControllerInitialized = false;
         private const float _realSecondsPerGameDay = 3 * 60 * 60;
         private const float _gameSecondsPerRealSecond = 24 * 60 * 60 / _realSecondsPerGameDay;
+        private int _lastLoggedMinute = -1;
 
         private void Awake()
         {
@@ -242,6 +243,12 @@ namespace STARTING
             {
                 UIManager.Instance.UpdateTime(timeFormatted);
             }
+
+            if (minutes != _lastLoggedMinute)
+            {
+                SaveGamePartial("time", gameTime);
+                _lastLoggedMinute = minutes;
+            }
         }
 
         public void LiberateZone(string zoneName)
@@ -347,6 +354,9 @@ namespace STARTING
                     break;
                 case "chip":
                     data.chip = (int)value;
+                    break;
+                case "time":
+                    data.gameTime = (float)value;
                     break;
             }
             string json = JsonUtility.ToJson(data);
