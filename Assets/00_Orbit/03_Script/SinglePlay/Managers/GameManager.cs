@@ -36,7 +36,6 @@ namespace STARTING
 
         private void Awake()
         {
-
             if (Instance == null)
             {
                 Instance = this;

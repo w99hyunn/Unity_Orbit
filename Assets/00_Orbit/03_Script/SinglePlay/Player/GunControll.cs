@@ -39,10 +39,6 @@ namespace STARTING
             // 무기 변경 상태와 에임 변경 상태 이벤트 구독
             fpsController.OnActiveWeaponIndexChanged += ChangeWeapon;
             fpsController.OnActiveAiming += ChangeAimState;
-        }
-
-        void OnEnable()
-        {
             GameManager.Instance.OnEnemyHit += OnAnyEnemyHit;
         }
 

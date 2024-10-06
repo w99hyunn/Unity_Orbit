@@ -372,12 +372,15 @@ namespace Demo.Scripts.Runtime.Character
             _inputController.SetValue("MoveInput", new Vector4(AnimatorVelocity.x, AnimatorVelocity.y));
         }
 
-        private void Start()
+        private void Awake()
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
             _inputController = GetComponent<UserInputController>();
+        }
 
+        private void Start()
+        {
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;
 
