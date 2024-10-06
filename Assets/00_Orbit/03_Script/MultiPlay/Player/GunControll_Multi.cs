@@ -15,10 +15,9 @@ namespace STARTING
         private FPSController_Multi fpsController;
         private AudioSource audioSource;
 
-        public GameObject aimImage;
+
         public CanvasGroup hitAimImage;
         public TMP_Text fireMode;
-
         public AudioClip hitSound;
 
         public Image weaponBase;
@@ -28,7 +27,7 @@ namespace STARTING
         public Sprite weaponPistol;
         public Sprite weaponFAL;
 
-        private Coroutine currentCoroutine;
+        private Coroutine _currentCoroutine;
 
         private void Start()
         {
@@ -50,8 +49,6 @@ namespace STARTING
                 recoil = player.GetComponent<RecoilAnimation>();
                 fpsController = player.GetComponent<FPSController_Multi>();
 
-                // 무기 변경 상태와 에임 변경 상태 이벤트 구독
-                fpsController.OnActiveWeaponIndexChanged += ChangeWeapon;
                 fpsController.OnActiveAiming += ChangeAimState;
             }
             else
@@ -84,43 +81,22 @@ namespace STARTING
         {
             if (aimState == FPSAimState_Multi.Aiming)
             {
-                aimImage.SetActive(true);
+                UIManager.Instance.ShowAim(true);
             }
             else if (aimState == FPSAimState_Multi.None)
             {
-                aimImage.SetActive(false);
+                UIManager.Instance.ShowAim(false);
             }
         }
 
-        private void ChangeWeapon(int index)
-        {
-            switch (index)
-            {
-                case 0:
-                    weaponBase.sprite = weaponMK18;
-                    break;
-                case 1:
-                    weaponBase.sprite = weaponAK12;
-                    break;
-                case 2:
-                    weaponBase.sprite = weaponAK74;
-                    break;
-                case 3:
-                    weaponBase.sprite = weaponPistol;
-                    break;
-                case 4:
-                    weaponBase.sprite = weaponFAL;
-                    break;
-            }
-        }
         void OnAnyEnemyHit()
         {
-            if (currentCoroutine != null)
+            if (_currentCoroutine != null)
             {
-                StopCoroutine(currentCoroutine);
+                StopCoroutine(_currentCoroutine);
             }
             PlaySound(hitSound);
-            currentCoroutine = StartCoroutine(FadeHitAim());
+            _currentCoroutine = StartCoroutine(FadeHitAim());
         }
 
         public void PlaySound(AudioClip clip)
@@ -161,7 +137,7 @@ namespace STARTING
 
             hitAimImage.alpha = 0f;
 
-            currentCoroutine = null;
+            _currentCoroutine = null;
         }
     }
 }

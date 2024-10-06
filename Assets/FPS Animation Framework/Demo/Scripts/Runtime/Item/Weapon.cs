@@ -86,9 +86,16 @@ namespace Demo.Scripts.Runtime.Item
 
         private GunFire gunFire;
 
+        public Sprite weaponPreview;
+
         private void Start()
         {
             gunFire = GetComponent<GunFire>();
+        }
+
+        private void OnEnable()
+        {
+            UIManager.Instance.ChangeWeapon(weaponPreview);
         }
 
         //게임 시작시 총알은 소지한채 시작.

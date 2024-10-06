@@ -89,6 +89,10 @@ namespace STARTING
         [Header("무기 변경 UI")]
         public UnityEvent changeWeaponUI;
 
+        [Header("무기 HUD")]
+        public Image weaponBase;
+        public GameObject aimImage;
+
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine _deactivateCoroutine;
         private Coroutine _killLogCoroutine;
@@ -415,6 +419,15 @@ namespace STARTING
             {
                 infoUiAnimator.Play("Window Out");
             }
+        }
+        public void ChangeWeapon(Sprite weaponImg)
+        {
+            weaponBase.sprite = weaponImg;
+        }
+
+        public void ShowAim(bool index)
+        {
+            aimImage.SetActive(index);
         }
 
         private IEnumerator SmoothSliderChange(Slider slider, float targetValue)

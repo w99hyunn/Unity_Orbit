@@ -68,7 +68,6 @@ namespace Demo.Scripts.Runtime.Character
         private RecoilPattern _recoilPattern;
         private int _sensitivityMultiplierPropertyIndex;
 
-        public event Action<int> OnActiveWeaponIndexChanged;
         public event Action<FPSAimState> OnActiveAiming;
 
         [Header("달리기 화면 번짐 효과 관련")]
@@ -173,6 +172,10 @@ namespace Demo.Scripts.Runtime.Character
 
             //volume
             profile = localVolume.sharedProfile;
+
+            // 테스트 중
+            for (int i = 0; i < _instantiatedWeapons.Count; i++)
+                Debug.Log(_instantiatedWeapons[i]);
         }
 
         private void UnequipWeapon()
@@ -283,10 +286,6 @@ namespace Demo.Scripts.Runtime.Character
 
             _previousWeaponIndex = _activeWeaponIndex;
             _activeWeaponIndex = newIndex;
-
-            //무기 변경시 이벤트 발생
-            // _activeWeaponIndex == 현재 무기 인덱스
-            OnActiveWeaponIndexChanged?.Invoke(_activeWeaponIndex);
         }
 
         private void UpdateLookInput()
