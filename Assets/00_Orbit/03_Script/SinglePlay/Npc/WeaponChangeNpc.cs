@@ -22,7 +22,6 @@ public class WeaponChangeNpc : MonoBehaviour
     {
         if (_isPlayerInTrigger && Input.GetKeyDown(KeyCode.F))
         {
-            UIManager.Instance.interactionKeyDisable();
             UIManager.Instance.OpenChangeWeapon();
             //StartCoroutine(dissolveChilds.AnimateDissolve());
             //PlaySound(rootSound);
