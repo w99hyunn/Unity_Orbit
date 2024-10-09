@@ -88,6 +88,7 @@ namespace STARTING
 
         [Header("무기 변경 UI")]
         public UnityEvent changeWeaponUI;
+        public TMP_Text currentChipTextInWeaponChangeUI;
 
         [Header("무기 HUD")]
         public Image weaponBase;
@@ -363,6 +364,7 @@ namespace STARTING
         private void UpdateChipUI(int currentindex)
         {
             currentChipText.text = $"{currentindex}";
+            currentChipTextInWeaponChangeUI.text = $"{currentindex}";
         }
 
         private void UpdateHealthUI(int currentindex, int maxindex)

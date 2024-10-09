@@ -160,6 +160,9 @@ namespace STARTING
                 playerPosition = player.transform.position,
                 zones = this.zones,
                 chip = inventory.chip,
+
+                availableWeaponIndices = inventory.availableWeaponIndices,
+                equippedWeaponIndices = inventory.equippedWeaponIndices
             };
             //Debug.Log("saved JSON: " + json);
 
@@ -185,6 +188,10 @@ namespace STARTING
                     playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
                     this.zones = data.zones;
                     inventory.SetInventory(data.chip);
+
+                    // 무기 인덱스 로드
+                    inventory.availableWeaponIndices = data.availableWeaponIndices;
+                    inventory.equippedWeaponIndices = data.equippedWeaponIndices;
                 }
             }
         }
@@ -358,7 +365,14 @@ namespace STARTING
                 case "time":
                     data.gameTime = (float)value;
                     break;
+                case "availableWeaponIndices":
+                    data.availableWeaponIndices = (List<int>)value;  // 사용 가능한 무기 인덱스 업데이트
+                    break;
+                case "equippedWeaponIndices":
+                    data.equippedWeaponIndices = (List<int>)value;  // 장착 중인 무기 인덱스 업데이트
+                    break;
             }
+
             string json = JsonUtility.ToJson(data);
             string encryptedJson = CryptoUtility.EncryptString(json);
             File.WriteAllText(_saveFilePath, encryptedJson);

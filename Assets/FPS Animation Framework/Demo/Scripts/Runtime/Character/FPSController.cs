@@ -75,6 +75,14 @@ namespace Demo.Scripts.Runtime.Character
         private VolumeProfile profile;
         private ChromaticAberration chromaticAberration;
 
+        //무기변경 시스템
+        private Inventory inventory;
+
+        private void Awake()
+        {
+            inventory = this.gameObject.GetComponent<Inventory>();
+        }
+
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
             if (layerSettings == null)
@@ -166,7 +174,16 @@ namespace Demo.Scripts.Runtime.Character
             InitializeWeapons();
 
             _actionState = FPSActionState.None;
-            EquipWeapon();
+            // 첫 번째 장착된 무기 자동 장착
+            if (inventory.equippedWeaponIndices.Count > 0)
+            {
+                _activeWeaponIndex = inventory.equippedWeaponIndices[0]; // equippedWeaponIndices에서 첫 번째 인덱스 사용
+                EquipWeapon();
+            }
+            else
+            {
+                Debug.LogWarning("장착된 무기가 없습니다.");
+            }
 
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
 
@@ -394,12 +411,20 @@ namespace Demo.Scripts.Runtime.Character
             }
         }
 
-        public void OnChangeWeapon()
+        public void OnChangeWeapon1()
         {
-            if (_movementComponent.PoseState == FPSPoseState.Prone) return;
-            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
+            if (inventory.equippedWeaponIndices.Count > 0)
+            {
+                StartWeaponChange(inventory.equippedWeaponIndices[0]);
+            }
+        }
 
-            StartWeaponChange(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1 ? 0 : _activeWeaponIndex + 1);
+        public void OnChangeWeapon2()
+        {
+            if (inventory.equippedWeaponIndices.Count > 1)
+            {
+                StartWeaponChange(inventory.equippedWeaponIndices[1]);
+            }
         }
 
         public void OnLook(InputValue value)

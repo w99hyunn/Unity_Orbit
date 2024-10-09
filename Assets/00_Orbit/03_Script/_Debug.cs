@@ -5,11 +5,13 @@ namespace STARTING
     public class _Debug : MonoBehaviour
     {
         public PlayerStats playerStats;
+        public Inventory inventory;
 
         // Start is called before the first frame update
         void Start()
         {
             playerStats = PlayerStats.Instance;
+            inventory = playerStats.gameObject.GetComponent<Inventory>();
         }
 
         // Update is called once per frame
@@ -38,6 +40,19 @@ namespace STARTING
             if (Input.GetKeyDown(KeyCode.L))
             {
                 GameManager.Instance.SaveGame();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                for (int i = 0; i < inventory.availableWeaponIndices.Count; i++)
+                    Debug.Log("현재 가능한 무기:" + inventory.availableWeaponIndices[i]);
+
+
+                for (int i = 0; i < inventory.equippedWeaponIndices.Count; i++)
+                    Debug.Log("현재 장착중인 무기:" + inventory.equippedWeaponIndices[i]);
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                inventory.GainChip(200);
             }
         }
         void DestroyEnemies()
@@ -70,7 +85,7 @@ namespace STARTING
             GUILayout.BeginArea(new Rect(xPosition, yPosition, labelWidth, labelHeight));
 
             // 글자 출력
-            GUILayout.Label("H 체력 200 회복, M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장");
+            GUILayout.Label("H 체력 200 회복, M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장, C 현재 무기 상태, Z 칩 200개 증가");
 
             // GUI 영역 종료
             GUILayout.EndArea();

@@ -38,5 +38,8 @@ namespace STARTING
         public Vector3 playerPosition;
         public List<ZoneData> zones;
         public int chip;
+
+        public List<int> availableWeaponIndices;  // 사용할 수 있는 무기 인덱스들
+        public List<int> equippedWeaponIndices;   // 현재 장착 중인 무기 인덱스들
     }
 }
