@@ -482,7 +482,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6992496}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: f41b9049d4869f649ba93b19ff99c510, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 559534ca3c93bde4180554dc0f185abe, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -494,7 +494,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 0.5
+  m_PlaybackSpeed: 0.75
   m_AudioOutputMode: 0
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
@@ -3075,6 +3075,8 @@ MonoBehaviour:
     playerPosition: {x: 0, y: 0, z: 0}
     zones: []
     chip: 0
+    availableWeaponIndices: 
+    equippedWeaponIndices: 
   userName: 
   userId: 0
 --- !u!4 &38770330
@@ -16410,7 +16412,7 @@ PrefabInstance:
     - target: {fileID: 224908321317516644, guid: 71308f555ffb4bf428d48b422a732f3b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2052.4663
+      value: 2051.6206
       objectReference: {fileID: 0}
     - target: {fileID: 224908321317516644, guid: 71308f555ffb4bf428d48b422a732f3b,
         type: 3}
@@ -48397,7 +48399,7 @@ PrefabInstance:
     - target: {fileID: 224908321317516644, guid: 71308f555ffb4bf428d48b422a732f3b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2222.1665
+      value: 2221.3208
       objectReference: {fileID: 0}
     - target: {fileID: 224908321317516644, guid: 71308f555ffb4bf428d48b422a732f3b,
         type: 3}
@@ -53267,7 +53269,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 493.30383, y: 0.000061035156}
+  m_AnchoredPosition: {x: 493.30383, y: 0.00024414062}
   m_SizeDelta: {x: -260.4687, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &656104190
@@ -167188,7 +167190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2018740186
