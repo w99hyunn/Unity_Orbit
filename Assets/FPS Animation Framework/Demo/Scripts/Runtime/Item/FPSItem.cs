@@ -6,6 +6,10 @@ namespace Demo.Scripts.Runtime.Item
 {
     public abstract class FPSItem : MonoBehaviour
     {
+        public Sprite weaponPreview;
+
+        public int cost;
+
         public virtual void OnEquip(GameObject parent) { }
         
         public virtual void OnUnEquip() { }

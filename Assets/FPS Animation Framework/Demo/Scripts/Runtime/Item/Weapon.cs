@@ -40,7 +40,7 @@ namespace Demo.Scripts.Runtime.Item
         [SerializeField] private RecoilAnimData recoilData;
         [SerializeField] private RecoilPatternSettings recoilPatternSettings;
         [SerializeField] private FPSCameraShake cameraShake;
-        [Min(0f)] [SerializeField] private float fireRate;
+        [Min(0f)] [SerializeField] public float fireRate;
 
         [SerializeField] private bool supportsAuto;
         [SerializeField] private bool supportsBurst;
@@ -85,8 +85,6 @@ namespace Demo.Scripts.Runtime.Item
         private static readonly int CurveUnequip = Animator.StringToHash("CurveUnequip");
 
         private GunFire gunFire;
-
-        public Sprite weaponPreview;
 
         private void Start()
         {

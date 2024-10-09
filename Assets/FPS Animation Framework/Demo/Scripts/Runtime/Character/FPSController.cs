@@ -62,7 +62,7 @@ namespace Demo.Scripts.Runtime.Character
         private UserInputController _userInput;
         // ~Scriptable Animation System Integration
 
-        private List<FPSItem> _instantiatedWeapons;
+        public List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
@@ -172,10 +172,6 @@ namespace Demo.Scripts.Runtime.Character
 
             //volume
             profile = localVolume.sharedProfile;
-
-            // 테스트 중
-            for (int i = 0; i < _instantiatedWeapons.Count; i++)
-                Debug.Log(_instantiatedWeapons[i]);
         }
 
         private void UnequipWeapon()
