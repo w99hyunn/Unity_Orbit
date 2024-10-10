@@ -85,6 +85,7 @@ namespace STARTING
                 {
                     weaponButton.transform.Find("Lock").gameObject.SetActive(true);
                     equipButton.gameObject.SetActive(false);
+                    equipWeapon.gameObject.SetActive(false);
 
                     purchaseButton.onClick.AddListener(() => OnPurchaseButtonClicked(currentIndex, weapon.cost));
                 }

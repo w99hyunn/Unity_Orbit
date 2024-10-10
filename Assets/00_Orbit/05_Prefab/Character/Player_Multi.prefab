@@ -1112,7 +1112,7 @@ MonoBehaviour:
   maxMana: 0
   maxExperience: 0
   currentHealth: 0
-  currentMana: 0
+  currentMana: -43
   currentExperience: 0
   level: 0
   playerState: 0
@@ -1129,6 +1129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chipIcon: {fileID: 0}
+  availableWeaponIndices: 
+  equippedWeaponIndices: 
 --- !u!143 &4522705576835372182
 CharacterController:
   m_ObjectHideFlags: 0
