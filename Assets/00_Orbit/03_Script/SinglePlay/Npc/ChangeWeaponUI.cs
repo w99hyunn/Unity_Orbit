@@ -16,6 +16,7 @@ namespace STARTING
 
         public UnityEvent unEquip;
         public UnityEvent chipLess;
+        public UnityEvent fullWeapon;
 
         private GameObject player;
         private Inventory inventory;
@@ -144,7 +145,10 @@ namespace STARTING
             }
             else  // ¹«±â ÀåÂø
             {
-                inventory.EquipWeapon(weaponIndex);
+                if (false == inventory.EquipWeapon(weaponIndex))
+                {
+                    fullWeapon?.Invoke();
+                }
             }
 
             UpdateWeaponLists();

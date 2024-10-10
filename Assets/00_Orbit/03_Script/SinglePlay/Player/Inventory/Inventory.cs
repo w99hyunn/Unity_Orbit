@@ -53,7 +53,7 @@ namespace STARTING
         }
 
         // 무기 장착
-        public void EquipWeapon(int weaponIndex)
+        public bool EquipWeapon(int weaponIndex)
         {
             if (equippedWeaponIndices.Count < 2 && !equippedWeaponIndices.Contains(weaponIndex))
             {
@@ -61,6 +61,11 @@ namespace STARTING
                 Debug.Log($"무기 {weaponIndex}를 장착했습니다.");
 
                 GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
