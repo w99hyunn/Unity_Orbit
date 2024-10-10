@@ -77,6 +77,7 @@ namespace Demo.Scripts.Runtime.Character
         private ChromaticAberration chromaticAberration;
 
         private PlayerStats_Multi playerStats;
+        private PlayerInput playerInput;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -163,6 +164,8 @@ namespace Demo.Scripts.Runtime.Character
             if (!isLocalPlayer)
             {
                 // Disable input if not the local player
+                playerInput = GetComponent<PlayerInput>();
+                playerInput.enabled = false;
                 enabled = false;
                 return;
             }

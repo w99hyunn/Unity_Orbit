@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
@@ -364,7 +365,8 @@ namespace STARTING
         private void UpdateChipUI(int currentindex)
         {
             currentChipText.text = $"{currentindex}";
-            currentChipTextInWeaponChangeUI.text = $"{currentindex}";
+            if (SceneManager.GetActiveScene().name == "WorldScene")
+                currentChipTextInWeaponChangeUI.text = $"{currentindex}";
         }
 
         private void UpdateHealthUI(int currentindex, int maxindex)
