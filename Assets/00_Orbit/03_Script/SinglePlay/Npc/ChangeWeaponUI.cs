@@ -102,8 +102,10 @@ namespace STARTING
                 Destroy(child.gameObject);
             }
 
-            foreach (int weaponIndex in inventory.equippedWeaponIndices)
+            for (int i = 0; i < inventory.equippedWeaponIndices.Count; i++)
             {
+                int weaponIndex = inventory.equippedWeaponIndices[i];
+
                 FPSItem weapon = fpsController._instantiatedWeapons[weaponIndex];
                 GameObject weaponButton = Instantiate(currentWeaponButtonPrefab, rightWeaponListParent);
                 Button unEquipButton = weaponButton.transform.Find("UnEquipButton").GetComponent<Button>();
@@ -113,6 +115,10 @@ namespace STARTING
 
                 TMP_Text weaponName = weaponButton.transform.Find("WeaponName").GetComponent<TMP_Text>();
                 weaponName.text = weapon.name.Replace("(Clone)", "").Trim();
+
+                WeaponSlotDragHandler weaponPutIndex = weaponButton.GetComponent<WeaponSlotDragHandler>();
+                weaponPutIndex.slotIndex = i;
+                Debug.Log("헉스" + weaponPutIndex.slotIndex);
 
                 unEquipButton.onClick.AddListener(() => OnEquipButtonClicked(weaponIndex));
             }
@@ -153,5 +159,23 @@ namespace STARTING
 
             UpdateWeaponLists();
         }
+
+        // 무기 슬롯 교체
+        // 무기 슬롯을 교체하는 함수
+        public void SwapWeaponSlots(int index1, int index2)
+        {
+            if (inventory.equippedWeaponIndices.Count <= Mathf.Max(index1, index2)) return;
+
+            // equippedWeaponIndices 리스트에서 슬롯 교체
+            int temp = inventory.equippedWeaponIndices[index1];
+            inventory.equippedWeaponIndices[index1] = inventory.equippedWeaponIndices[index2];
+            inventory.equippedWeaponIndices[index2] = temp;
+
+            // UI 갱신
+            UpdateWeaponLists();
+        }
+
+
+
     }
 }
