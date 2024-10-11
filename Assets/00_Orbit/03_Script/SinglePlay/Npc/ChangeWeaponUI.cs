@@ -11,6 +11,7 @@ namespace STARTING
     {
         public GameObject weaponButtonPrefab;  // 전체 무기
         public GameObject currentWeaponButtonPrefab;  // 장착 중인 무기
+        public GameObject weaponEmptyPrefab; // 현재 무기에서 빈 슬롯
         public Transform leftWeaponListParent; // 전체 무기 리스트
         public Transform rightWeaponListParent; // 장착 중인 무기 리스트
 
@@ -121,6 +122,19 @@ namespace STARTING
                 Debug.Log("헉스" + weaponPutIndex.slotIndex);
 
                 unEquipButton.onClick.AddListener(() => OnEquipButtonClicked(weaponIndex));
+            }
+
+            // 빈 슬롯 추가 (최대 2개의 무기 슬롯)
+            int maxSlots = 2;
+            int emptySlotsNeeded = maxSlots - inventory.equippedWeaponIndices.Count;
+
+            for (int i = 0; i < emptySlotsNeeded; i++)
+            {
+                GameObject emptySlot = Instantiate(weaponEmptyPrefab, rightWeaponListParent);
+
+                // 빈 슬롯의 드래그 핸들러에 슬롯 인덱스를 설정
+                WeaponSlotDragHandler emptySlotHandler = emptySlot.GetComponent<WeaponSlotDragHandler>();
+                emptySlotHandler.slotIndex = inventory.equippedWeaponIndices.Count + i; // 빈 슬롯의 위치
             }
         }
 

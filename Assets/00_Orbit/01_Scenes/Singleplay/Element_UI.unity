@@ -25748,6 +25748,8 @@ MonoBehaviour:
     type: 3}
   currentWeaponButtonPrefab: {fileID: 7738029394877782052, guid: e5ed7631267dfa14eae3abc526bcf47b,
     type: 3}
+  weaponEmptyPrefab: {fileID: 7738029394877782052, guid: a3dc021be0450e34396b6d2685876674,
+    type: 3}
   leftWeaponListParent: {fileID: 895539169}
   rightWeaponListParent: {fileID: 1737274121}
   unEquip:
@@ -60107,7 +60109,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 611074381}
   m_HandleRect: {fileID: 611074379}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -89122,7 +89124,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 618776471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -89140,7 +89142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!114 &1737274123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89160,7 +89162,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 10
-  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
