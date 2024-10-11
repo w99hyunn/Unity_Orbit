@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace STARTING
 {
     public class WeaponSlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public int slotIndex; // 무기 슬롯의 인덱스 (equippedWeaponIndices에서 사용)
+        public int slotIndex;
 
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
@@ -24,7 +23,7 @@ namespace STARTING
         public void OnBeginDrag(PointerEventData eventData)
         {
             originalPosition = rectTransform.anchoredPosition;
-            canvasGroup.blocksRaycasts = false;  // 드래그 중엔 Raycast를 차단하여 Slot이 드랍 가능한 상태가 됨
+            canvasGroup.blocksRaycasts = false;
         }
 
         // 드래그 중에 호출
@@ -48,15 +47,11 @@ namespace STARTING
         // 다른 슬롯과 스왑 시도
         private bool TrySwapWithAnotherSlot(PointerEventData eventData)
         {
-            // 드래그 중인 슬롯과 교체할 수 있는 슬롯을 찾음
             GameObject target = eventData.pointerEnter;
 
             if (target != null && target.GetComponent<WeaponSlotDragHandler>() != null)
             {
-                // 대상 슬롯 인덱스
                 int targetIndex = target.GetComponent<WeaponSlotDragHandler>().slotIndex;
-
-                // 슬롯 교체 호출
                 changeWeaponUI.SwapWeaponSlots(slotIndex, targetIndex);
                 return true;
             }

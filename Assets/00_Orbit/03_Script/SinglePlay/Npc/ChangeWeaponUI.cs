@@ -119,7 +119,6 @@ namespace STARTING
 
                 WeaponSlotDragHandler weaponPutIndex = weaponButton.GetComponent<WeaponSlotDragHandler>();
                 weaponPutIndex.slotIndex = i;
-                Debug.Log("Çä½º" + weaponPutIndex.slotIndex);
 
                 unEquipButton.onClick.AddListener(() => OnEquipButtonClicked(weaponIndex));
             }
@@ -131,10 +130,6 @@ namespace STARTING
             for (int i = 0; i < emptySlotsNeeded; i++)
             {
                 GameObject emptySlot = Instantiate(weaponEmptyPrefab, rightWeaponListParent);
-
-                // ºó ½½·ÔÀÇ µå·¡±× ÇÚµé·¯¿¡ ½½·Ô ÀÎµ¦½º¸¦ ¼³Á¤
-                WeaponSlotDragHandler emptySlotHandler = emptySlot.GetComponent<WeaponSlotDragHandler>();
-                emptySlotHandler.slotIndex = inventory.equippedWeaponIndices.Count + i; // ºó ½½·ÔÀÇ À§Ä¡
             }
         }
 
@@ -175,7 +170,6 @@ namespace STARTING
         }
 
         // ¹«±â ½½·Ô ±³Ã¼
-        // ¹«±â ½½·ÔÀ» ±³Ã¼ÇÏ´Â ÇÔ¼ö
         public void SwapWeaponSlots(int index1, int index2)
         {
             if (inventory.equippedWeaponIndices.Count <= Mathf.Max(index1, index2)) return;

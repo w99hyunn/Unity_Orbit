@@ -58,7 +58,6 @@ namespace STARTING
             if (equippedWeaponIndices.Count < 2 && !equippedWeaponIndices.Contains(weaponIndex))
             {
                 equippedWeaponIndices.Add(weaponIndex);
-                Debug.Log($"무기 {weaponIndex}를 장착했습니다.");
 
                 GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
                 return true;
@@ -73,7 +72,6 @@ namespace STARTING
         public void UnequipWeapon(int weaponIndex)
         {
             equippedWeaponIndices.Remove(weaponIndex);
-            Debug.Log($"무기 {weaponIndex}를 장착 해제했습니다.");
 
             // 게임 상태 저장
             GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
