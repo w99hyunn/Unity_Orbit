@@ -15,7 +15,7 @@ namespace STARTING
 
         private float _initialFOV;
         private float _initialZDistance;
-        private float _lerpSpeed = 3f;
+        private float _lerpSpeed = 2f;
 
         private void Start()
         {
