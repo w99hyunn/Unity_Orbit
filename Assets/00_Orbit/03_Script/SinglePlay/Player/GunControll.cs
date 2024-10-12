@@ -47,11 +47,11 @@ namespace STARTING
 
         private void ChangeAimState(FPSAimState aimState)
         {
-            if (aimState == FPSAimState.Aiming)
+            if (aimState == FPSAimState.None)
             {
                 UIManager.Instance.ShowAim(true);
             }
-            else if (aimState == FPSAimState.None)
+            else if (aimState == FPSAimState.Aiming)
             {
                 UIManager.Instance.ShowAim(false);
             }

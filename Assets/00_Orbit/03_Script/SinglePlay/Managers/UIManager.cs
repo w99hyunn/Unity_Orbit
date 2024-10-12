@@ -104,7 +104,13 @@ namespace STARTING
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
+            else
+            {
+                Destroy(gameObject);
+            }
+
 
             infoUiAnimator = infoUI.GetComponent<Animator>();
             killLogAnimator = killLog.GetComponent<Animator>();
@@ -128,12 +134,12 @@ namespace STARTING
             defaultIcon = killLogIcon.sprite;
             _originalColor = fillImage.color; // 원래 색상을 저장
 
-            minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
-                 .SetLoops(-1, LoopType.Incremental) // 무한 반복
-                 .SetEase(Ease.Linear); // 일정한 속도로 회전
-            minimapLockBack.transform.DORotate(new Vector3(0, 0, 360), 60f, RotateMode.FastBeyond360)
-                 .SetLoops(-1, LoopType.Incremental) // 무한 반복
-                 .SetEase(Ease.Linear); // 일정한 속도로 회전
+            //minimapUnlockBack.transform.DORotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
+            //     .SetLoops(-1, LoopType.Incremental) // 무한 반복
+            //     .SetEase(Ease.Linear); // 일정한 속도로 회전
+            //minimapLockBack.transform.DORotate(new Vector3(0, 0, 360), 60f, RotateMode.FastBeyond360)
+            //     .SetLoops(-1, LoopType.Incremental) // 무한 반복
+            //     .SetEase(Ease.Linear); // 일정한 속도로 회전
         }
 
         public void DungeonLoading(string t1, string t2, string t3)

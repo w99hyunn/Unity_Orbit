@@ -105,8 +105,6 @@ namespace Demo.Scripts.Runtime.Character
 
         private bool IsAiming()
         {
-            //에임상태(줌) 변경될 때 이벤트 발생
-            OnActiveAiming?.Invoke(_aimState);
             return _aimState is FPSAimState.Aiming or FPSAimState.PointAiming;
         }
 
@@ -401,6 +399,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
                 return;
             }
 
@@ -408,6 +408,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 DisableAim();
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
             }
         }
 
