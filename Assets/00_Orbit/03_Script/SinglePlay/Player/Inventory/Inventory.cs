@@ -35,7 +35,7 @@ namespace STARTING
             {
                 chip -= weaponCost;
                 availableWeaponIndices.Add(weaponIndex);
-                Debug.Log($"무기 {weaponIndex}를 구매. 남은 칩: {chip}");
+                Debug.Log($"무기 {weaponIndex} 구매. 남은 칩: {chip}");
 
                 for (int i = 0; i < availableWeaponIndices.Count; i++)
                     Debug.Log(availableWeaponIndices[i]);
@@ -47,7 +47,6 @@ namespace STARTING
             }
             else
             {
-                Debug.Log("칩이 부족합니다.");
                 return false;
             }
         }
@@ -73,7 +72,16 @@ namespace STARTING
         {
             equippedWeaponIndices.Remove(weaponIndex);
 
-            // 게임 상태 저장
+            GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
+        }
+
+        // 순서 변경
+        public void SwapWeapon(int index1, int index2)
+        {
+            int temp = equippedWeaponIndices[index1];
+            equippedWeaponIndices[index1] = equippedWeaponIndices[index2];
+            equippedWeaponIndices[index2] = temp;
+
             GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
         }
 

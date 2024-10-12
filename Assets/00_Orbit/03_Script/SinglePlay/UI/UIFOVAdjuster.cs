@@ -26,7 +26,7 @@ namespace STARTING
             _initialZDistance = Vector3.Distance(mainCamera.transform.position, uiTransform.position);
         }
 
-        // Aiming 상태가 변경될 때 호출되는 이벤트 메서드
+        // Aiming 상태가 변경될 때
         public void OnAimStateChanged(FPSAimState aimState)
         {
             if (aimState == FPSAimState.Aiming)
@@ -101,6 +101,5 @@ namespace STARTING
 
             uiTransform.position = Vector3.Lerp(uiTransform.position, targetPosition, Time.deltaTime * _lerpSpeed);
         }
-
     }
 }

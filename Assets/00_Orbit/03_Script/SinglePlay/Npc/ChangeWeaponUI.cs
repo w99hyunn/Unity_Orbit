@@ -123,7 +123,6 @@ namespace STARTING
                 unEquipButton.onClick.AddListener(() => OnEquipButtonClicked(weaponIndex));
             }
 
-            // 빈 슬롯 추가 (최대 2개의 무기 슬롯)
             int maxSlots = 2;
             int emptySlotsNeeded = maxSlots - inventory.equippedWeaponIndices.Count;
 
@@ -133,7 +132,7 @@ namespace STARTING
             }
         }
 
-        // 무기 구매 버튼 클릭
+        // 무기 구매
         public void OnPurchaseButtonClicked(int weaponIndex, int cost)
         {
             if (true == inventory.PurchaseWeapon(weaponIndex, cost))
@@ -146,10 +145,10 @@ namespace STARTING
             }
         }
 
-        // 무기 장착 버튼 클릭
+        // 무기 장착
         public void OnEquipButtonClicked(int weaponIndex)
         {
-            if (inventory.equippedWeaponIndices.Contains(weaponIndex))  // 장착 해제
+            if (inventory.equippedWeaponIndices.Contains(weaponIndex))
             {
                 if (inventory.equippedWeaponIndices.Count <= 1)
                 {
@@ -158,7 +157,7 @@ namespace STARTING
                 }
                 inventory.UnequipWeapon(weaponIndex);
             }
-            else  // 무기 장착
+            else
             {
                 if (false == inventory.EquipWeapon(weaponIndex))
                 {
@@ -174,16 +173,8 @@ namespace STARTING
         {
             if (inventory.equippedWeaponIndices.Count <= Mathf.Max(index1, index2)) return;
 
-            // equippedWeaponIndices 리스트에서 슬롯 교체
-            int temp = inventory.equippedWeaponIndices[index1];
-            inventory.equippedWeaponIndices[index1] = inventory.equippedWeaponIndices[index2];
-            inventory.equippedWeaponIndices[index2] = temp;
-
-            // UI 갱신
+            inventory.SwapWeapon(index1, index2);
             UpdateWeaponLists();
         }
-
-
-
     }
 }
