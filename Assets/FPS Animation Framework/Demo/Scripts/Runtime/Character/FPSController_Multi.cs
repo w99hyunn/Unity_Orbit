@@ -220,13 +220,10 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnFirePressed()
         {
-            Debug.Log("원래" + _instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
             if (_instantiatedWeapons.Count == 0 || HasActiveAction())
             {
-                Debug.Log(_instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
                 return;
             }
-            Debug.Log("어때2");
             GetActiveItem().OnFirePressed();
         }
 
@@ -366,7 +363,6 @@ namespace Demo.Scripts.Runtime.Character
 #if ENABLE_INPUT_SYSTEM
         public void OnReload()
         {
-            Debug.Log("흠??");
             if (IsSprinting() || HasActiveAction() || !GetActiveItem().OnReload()) return;
             _actionState = FPSActionState_Multi.PlayingAnimation;
         }

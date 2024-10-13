@@ -5,12 +5,7 @@ namespace STARTING
 {
     public class ClientNetworkHandler : MonoBehaviour
     {
-        private MainUISupport MainUISupport_multi;
-
-        private void Start()
-        {
-            MainUISupport_multi = FindAnyObjectByType<MainUISupport>();
-        }
+        public MainUISupport MainUISupport_multi;
 
         /// <summary>
         /// 로그인 요청 메시지

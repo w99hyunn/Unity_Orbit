@@ -13,12 +13,13 @@ namespace STARTING
     public class StartSingleplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
-
         public List<GameObject> objectsToDestroy = new List<GameObject>();
 
         private void Start()
         {
             CheckForSavedGame();
+            objectsToDestroy.Add(DBManager.Instance.gameObject);
+            objectsToDestroy.Add(CustomNetworkManager.singleton.gameObject);
         }
 
         public void DestroyObjectsInList()
@@ -149,7 +150,6 @@ namespace STARTING
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
         }
-
 
         public void StartNewGame()
         {

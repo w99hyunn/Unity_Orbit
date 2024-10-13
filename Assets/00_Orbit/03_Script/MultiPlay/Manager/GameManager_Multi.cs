@@ -11,7 +11,7 @@ namespace STARTING
     public class GameManager_Multi : NetworkBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
-        public ClientNetworkHandler clientNetworkHandler;
+        private ClientNetworkHandler clientNetworkHandler;
 
         public event Action OnEnemyHit;
 
@@ -49,6 +49,7 @@ namespace STARTING
 
         private void Start()
         {
+            clientNetworkHandler = FindAnyObjectByType<ClientNetworkHandler>();
             StartCoroutine(FindLocalPlayer());
         }
 

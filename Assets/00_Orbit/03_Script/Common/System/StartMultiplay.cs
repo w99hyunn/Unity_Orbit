@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -18,11 +17,7 @@ namespace STARTING
     public class StartMultiplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
-        public ClientNetworkHandler clientNetworkHandler;
-
-        public UnityEvent login;
-        public UnityEvent startLoading;
-        public UnityEvent connectFail;
+        private ClientNetworkHandler clientNetworkHandler;
 
         private string publicIP;
         private string hamachiIP;
@@ -32,6 +27,7 @@ namespace STARTING
 
         private void Start()
         {
+            clientNetworkHandler = FindAnyObjectByType<ClientNetworkHandler>();
             StartCoroutine(GetPublicIP());
             hamachiIP = GetHamachiIP();
         }
@@ -131,12 +127,12 @@ namespace STARTING
                 if (true == NetworkServer.active) // 서버에 연결된 상태
                 {
                     startType = StartType.HOST;
-                    login?.Invoke();
+                    uiSupport.LoginEvent();
                     yield break;
                 }
                 yield return null;
             }
-            connectFail?.Invoke();
+            uiSupport.ConnectFailEvent();
             yield break;
         }
 
@@ -176,12 +172,12 @@ namespace STARTING
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
                     startType = StartType.CLIENT;
-                    login?.Invoke();
+                    uiSupport.LoginEvent();
                     yield break;
                 }
                 yield return null;
             }
-            connectFail?.Invoke();
+            uiSupport.ConnectFailEvent();
             yield break;
         }
 
@@ -204,7 +200,7 @@ namespace STARTING
 
         public void GameStart()
         {
-            startLoading?.Invoke();
+            uiSupport.StartLoadingEvent();
 
             string message;
 

@@ -252,7 +252,7 @@ RectTransform:
   - {fileID: 2004828973}
   - {fileID: 559085040}
   - {fileID: 748590866}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 271671671}
   - component: {fileID: 271671674}
   m_Layer: 0
-  m_Name: '@Camera'
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -702,7 +702,7 @@ RectTransform:
   - {fileID: 1516707544}
   - {fileID: 297431039}
   - {fileID: 2000645662}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1558,6 +1558,41 @@ MonoBehaviour:
   useCustomColor: 0
   colorType: 1
   fontType: 1
+--- !u!1 &839286435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839286436}
+  m_Layer: 0
+  m_Name: '@ui'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &839286436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839286435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 881.55383, y: 440.11194, z: -0.4558301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 274449921}
+  - {fileID: 1313541999}
+  - {fileID: 2016780393}
+  - {fileID: 212351470}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1002275287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,7 +1873,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1823746747}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2921,7 +2956,7 @@ RectTransform:
   - {fileID: 351220678}
   - {fileID: 272265204}
   - {fileID: 333309682}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3098,9 +3133,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 271671673}
-  - {fileID: 1836245014}
   - {fileID: 500872883}
-  - {fileID: 274449921}
-  - {fileID: 1313541999}
-  - {fileID: 2016780393}
-  - {fileID: 212351470}
+  - {fileID: 1836245014}
+  - {fileID: 839286436}

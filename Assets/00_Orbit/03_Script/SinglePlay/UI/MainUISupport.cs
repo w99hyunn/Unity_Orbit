@@ -47,6 +47,9 @@ public class MainUISupport : MonoBehaviour
     public UnityEvent loginFail;
     public UnityEvent registerSuccess;
     public UnityEvent registerFail;
+    public UnityEvent login;
+    public UnityEvent startLoading;
+    public UnityEvent connectFail;
 
     private void Start()
     {
@@ -190,6 +193,21 @@ public class MainUISupport : MonoBehaviour
     public void RegisterFailEvent()
     {
         registerFail?.Invoke();
+    }
+
+    public void LoginEvent()
+    {
+        login?.Invoke();
+    }
+
+    public void StartLoadingEvent()
+    {
+        startLoading?.Invoke();
+    }
+
+    public void ConnectFailEvent()
+    {
+        connectFail?.Invoke();
     }
 
     public string GetHostIP() { return hostIpInput.text; }
