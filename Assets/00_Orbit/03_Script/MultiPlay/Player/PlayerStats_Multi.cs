@@ -33,11 +33,14 @@ namespace STARTING
         private float _regenInterval = 10f;
         private bool _isShowInfoUI;
 
-        void Start()
+        private void Awake()
         {
-            InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
-            InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
-            InitializeStats();
+            if (isLocalPlayer)
+            {
+                InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
+                InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
+                InitializeStats();
+            }
         }
 
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
