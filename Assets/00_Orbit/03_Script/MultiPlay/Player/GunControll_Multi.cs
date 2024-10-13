@@ -36,7 +36,7 @@ namespace STARTING
 
         private IEnumerator FindLocalPlayer()
         {
-            while (NetworkClient.localPlayer == null)
+            while (GameManager_Multi.Instance.player == null)
             {
                 yield return null;
             }

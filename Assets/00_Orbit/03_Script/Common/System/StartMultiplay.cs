@@ -248,8 +248,6 @@ namespace STARTING
 
             yield return new WaitForSeconds(1f);
 
-            SceneManager.LoadScene("Element_UI_Multi", LoadSceneMode.Additive);
-
             op.allowSceneActivation = true;
 
             while (!op.isDone)

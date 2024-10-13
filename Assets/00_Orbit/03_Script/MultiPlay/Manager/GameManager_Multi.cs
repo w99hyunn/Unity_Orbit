@@ -15,6 +15,7 @@ namespace STARTING
 
         public event Action OnEnemyHit;
 
+        [Header("플레이어 스크립트 제대로 받아오는지 확인용")]
         public GameObject player;
         public FPSMovement_Multi controller;
         public PlayerStats_Multi playerStats;

@@ -1,15 +1,16 @@
 using Mirror;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace STARTING
 {
     public class ClientNetworkHandler : MonoBehaviour
     {
-        public UnityEvent loginSuccess;
-        public UnityEvent loginFail;
-        public UnityEvent registerSuccess;
-        public UnityEvent registerFail;
+        private MainUISupport MainUISupport_multi;
+
+        private void Start()
+        {
+            MainUISupport_multi = FindAnyObjectByType<MainUISupport>();
+        }
 
         /// <summary>
         /// 로그인 요청 메시지
@@ -40,14 +41,14 @@ namespace STARTING
                 Debug.Log("Login successful! User ID: " + msg.userId);
                 DBManager.Instance.userName = msg.userName;
                 DBManager.Instance.userId = msg.userId;
-                loginSuccess?.Invoke();
+                MainUISupport_multi.LoginSuccessEvent();
                 
                 //게임 데이터 요청
                 SendRequestGameData();
             }
             else
             {
-                loginFail?.Invoke();
+                MainUISupport_multi.LoginFailEvent();
                 Debug.LogError("Login failed.");
             }
         }
@@ -78,11 +79,11 @@ namespace STARTING
         {
             if (msg.success)
             {
-                registerSuccess?.Invoke();
+                MainUISupport_multi.RegisterSuccessEvent();
             }
             else
             {
-                registerFail?.Invoke();
+                MainUISupport_multi.RegisterFailEvent();
             }
         }
 

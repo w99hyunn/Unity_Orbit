@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MainUISupport : MonoBehaviour
@@ -41,6 +41,12 @@ public class MainUISupport : MonoBehaviour
     public TMP_InputField registerIdInput;
     public TMP_InputField registerPwInput;
     public Button signUpBtn;
+
+    [Header("네트워크 메세지를 통한 상호작용")]
+    public UnityEvent loginSuccess;
+    public UnityEvent loginFail;
+    public UnityEvent registerSuccess;
+    public UnityEvent registerFail;
 
     private void Start()
     {
@@ -164,6 +170,26 @@ public class MainUISupport : MonoBehaviour
     public void TermsAgree(bool index)
     {
         signUpBtn.interactable = index;
+    }
+
+    public void LoginSuccessEvent()
+    {
+        loginSuccess?.Invoke();
+    }
+
+    public void LoginFailEvent()
+    {
+        loginFail?.Invoke();
+    }
+
+    public void RegisterSuccessEvent()
+    {
+        registerSuccess?.Invoke();
+    }
+
+    public void RegisterFailEvent()
+    {
+        registerFail?.Invoke();
     }
 
     public string GetHostIP() { return hostIpInput.text; }
