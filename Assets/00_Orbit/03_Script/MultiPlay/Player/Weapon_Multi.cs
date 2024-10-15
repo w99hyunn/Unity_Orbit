@@ -86,8 +86,6 @@ namespace Demo.Scripts.Runtime.Item
 
         private GunFire_Multi gunFire;
 
-        public Sprite weaponPreview;
-
         private void Start()
         {
             gunFire = GetComponent<GunFire_Multi>();

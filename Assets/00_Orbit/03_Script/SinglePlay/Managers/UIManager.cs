@@ -105,13 +105,7 @@ namespace STARTING
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
-
 
             infoUiAnimator = infoUI.GetComponent<Animator>();
             killLogAnimator = killLog.GetComponent<Animator>();
