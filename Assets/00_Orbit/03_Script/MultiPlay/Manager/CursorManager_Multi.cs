@@ -6,26 +6,28 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class CursorManager_Multi : NetworkBehaviour
+    public class CursorManager_Multi : MonoBehaviour
     {
         public List<GameObject> objectsToDestroy = new List<GameObject>();
         public GameObject pauseMenuHotkey;
 
-        private PlayerStats_Multi playerStats;
+        public PlayerStats_Multi playerStats;
 
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
-            objectsToDestroy.Add(GameManager_Multi.Instance.gameObject);
+            //objectsToDestroy.Add(GameManager_Multi.Instance.gameObject);
         }
 
         private IEnumerator FindLocalPlayer()
         {
-            while (NetworkClient.localPlayer == null)
+            while (GameManager_Multi.Instance.playerStats == null)
             {
+                Debug.Log("Ã£´ÂÁß");
                 yield return null; 
             }
-            playerStats = NetworkClient.localPlayer.GetComponent<PlayerStats_Multi>();
+            playerStats = GameManager_Multi.Instance.playerStats;
+            Debug.Log(playerStats);
             if (playerStats != null)
             {
                 ContinueGame();
@@ -38,13 +40,10 @@ namespace STARTING
 
         public void BackToMain()
         {
-            if (NetworkClient.localPlayer)
-            {
-                CustomNetworkManager.singleton.BackToMain();
-                DBManager.Instance.CloseDBServer();
-                DestroyObjectsInList();
-                SceneManager.LoadScene("MainScene");
-            }
+            CustomNetworkManager.singleton.BackToMain();
+            DBManager.Instance.CloseDBServer();
+            DestroyObjectsInList();
+            SceneManager.LoadScene("MainScene");
         }
 
         public void DestroyObjectsInList()
@@ -60,56 +59,50 @@ namespace STARTING
         }
         public void DieGame()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 pauseMenuHotkey.SetActive(false);
-            }
+
         }
 
         public void ContinueGame()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 pauseMenuHotkey.SetActive(true);
-            }
+
         }
 
         public void CustomResume()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
-            }
+
         }
 
         public void CustomPause()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-            }
+
         }
 
         public void OpenPauseMenu()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 playerStats.playerState = PlayerState_Multi.PAUSE;
-            }
+
         }
 
         public void ClosePauseMenu()
         {
-            if (NetworkClient.localPlayer)
-            {
+
                 playerStats.playerState = PlayerState_Multi.IDLE;
-            }
+
         }
     }
 }
