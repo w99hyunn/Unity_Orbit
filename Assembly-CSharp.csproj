@@ -56,6 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\UnityProjects\Unity_Orbit\Assets\Quixel\UnityPackages\JsonNet\Newtonsoft.Json.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.22f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.22f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.22f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -131,6 +132,7 @@
     <Compile Include="Assets\FPS Animation Framework\Demo\Scripts\Runtime\Character\FPSMovement_Multi.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Map\OutdoorsBackgroundMusic.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Enemy\EnemyFSM.cs" />
+    <Compile Include="Assets\Quixel\UnityPackages\JsonNetSample\JsonNetSample.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Input\VirtualCursorAnimate.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Panel\SplashScreenManager.cs" />
     <Compile Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Script Library]\Basic Scripts\Transform\Compass.cs" />
@@ -187,7 +189,6 @@
     <Compile Include="Assets\Quixel\Scripts\BridgeImporter\MegascansPostProcess.cs" />
     <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\Follow.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\SinglePlay\Player\GunFire.cs" />
-    <Compile Include="Assets\UnityPackages\JsonNetSample\JsonNetSample.cs" />
     <Compile Include="Assets\_ShiftUI\Scripts\Buttons\MainPanelButton.cs" />
     <Compile Include="Assets\00_Orbit\03_Script\MultiPlay\Player\GunControll_Multi.cs" />
     <Compile Include="Assets\00_Orbit\02_FX\VFX\ShaderGraph_Dissolve\Utility\Scripts\RotatorDissolveDir.cs" />
@@ -253,7 +254,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\_Mirror\Plugins\BouncyCastle\BouncyCastle.Cryptography.dll" />
     <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\3D Fire and Explosions\Shaders\Blend_CenterGlow.shader" />
-    <None Include="Assets\UnityPackages\JsonNet\Newtonsoft.Json.dll" />
+    <None Include="Assets\Quixel\UnityPackages\JsonNet\Newtonsoft.Json.dll" />
     <None Include="Assets\00_Orbit\02_FX\VFX\Hovl Studio\Render Pipelines support\Documentation.txt" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Surface.shader" />
     <None Include="Assets\_ShiftUI\Shaders\UI Particle Additive.shader" />
@@ -263,7 +264,7 @@
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\_DLNK\_DLNK Source\_DLNK Libraries\[dlnk Shader Library]\[ASE Shaders]\Nature\LeavesAnim.shader" />
-    <None Include="Assets\DefaultZTest.shader" />
+    <None Include="Assets\00_Orbit\07_ShaderMat\DefaultZTest.shader" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMPro_Properties.cginc" />
     <None Include="Assets\Settings\TextMesh Pro\Regacy\Shaders\TextMeshPro\TMP_SDF_AlwaysOnTheTop.shader" />
     <None Include="Assets\00_Orbit\06_Model\Ida Faber\Shaders\Built-in\GR_StandardS_DS.shader" />
