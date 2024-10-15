@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class GameManager_Multi : NetworkBehaviour
+    public class GameManager_Multi : MonoBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
         private ClientNetworkHandler clientNetworkHandler;
@@ -38,11 +38,6 @@ namespace STARTING
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
             }
             //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         }

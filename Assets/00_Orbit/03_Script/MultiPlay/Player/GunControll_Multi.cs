@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace STARTING
 {
-    public class GunControll_Multi : NetworkBehaviour
+    public class GunControll_Multi : MonoBehaviour
     {
         private GameObject player;
         private RecoilAnimation recoil;
