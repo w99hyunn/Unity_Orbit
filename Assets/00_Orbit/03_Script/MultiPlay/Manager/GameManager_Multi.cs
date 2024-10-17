@@ -40,12 +40,12 @@ namespace STARTING
                 Instance = this;
             }
             //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+            StartCoroutine(FindLocalPlayer());
         }
 
         private void Start()
         {
             clientNetworkHandler = FindAnyObjectByType<ClientNetworkHandler>();
-            StartCoroutine(FindLocalPlayer());
         }
 
         private void Update()

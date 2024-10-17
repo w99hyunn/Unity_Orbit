@@ -1,6 +1,5 @@
 using Demo.Scripts.Runtime.Character;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
-using Mirror;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -19,13 +18,6 @@ namespace STARTING
         public CanvasGroup hitAimImage;
         public TMP_Text fireMode;
         public AudioClip hitSound;
-
-        public Image weaponBase;
-        public Sprite weaponMK18;
-        public Sprite weaponAK12;
-        public Sprite weaponAK74;
-        public Sprite weaponPistol;
-        public Sprite weaponFAL;
 
         private Coroutine _currentCoroutine;
 
@@ -81,11 +73,11 @@ namespace STARTING
         {
             if (aimState == FPSAimState_Multi.Aiming)
             {
-                UIManager.Instance.ShowAim(true);
+                UIManager.Instance.ShowAim(false);
             }
             else if (aimState == FPSAimState_Multi.None)
             {
-                UIManager.Instance.ShowAim(false);
+                UIManager.Instance.ShowAim(true);
             }
         }
 
