@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7719171111574101788
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 13
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -8,16 +24,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ETPGrass00
-  m_Shader: {fileID: 4800000, guid: 9d1c767467e783041b4558480c7d27d1, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: d81c74dd5f463104ca482aa23ef2c798,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _DOUBLESIDED_ON
-  m_InvalidKeywords:
-  - _ADD_PRECOMPUTED_VELOCITY
-  - _DISABLE_SSR
   - _DISABLE_SSR_TRANSPARENT
+  - _DOUBLESIDED_ON
+  - _MATERIAL_FEATURE_TRANSMISSION
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -27,6 +43,9 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - TransparentBackface
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - RayTracingPrepass
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -51,11 +70,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ExtraTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 280a31791c2cf5541a0c2fa6b2ded834, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -72,6 +99,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SmoothnessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SubsurfaceTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -97,7 +128,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AddPrecomputedVelocity: 1
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClipThreshold: 0.1
     - _AlphaCutoff: 0.722
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 0
@@ -105,56 +137,70 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _AnimIntensity: 1
+    - _BillboardKwToggle: 0
     - _BlendMode: 0
     - _BlendOriginal: 0
     - _BumpScale: 2
     - _ColorMask: 1.01
     - _ColorOffset: 0.33
     - _ColorRange: 1
+    - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
     - _Cutoff: 0.722
     - _Depth: 52.69
     - _DepthCutout: 200
     - _DepthOffset: 5.4
+    - _DepthOffsetEnable: 0
     - _DetailNormalMapScale: 1
+    - _Diffusion_Profile: 0
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 0
+    - _DstBlend2: 0
     - _EmissionLM: 0
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
+    - _ExcludeFromTUAndAA: 0
+    - _ExtraMapKwToggle: 0
     - _FarFresnel: 2.93
     - _Fresnel: 2
     - _Glossiness: 0
+    - _HueVariationKwToggle: 0
     - _LenghtAnim: 0
     - _LengthOffset: 0
     - _MaskHeight: -0.32
+    - _MaterialID: 5
+    - _MaterialTypeMask: 32
     - _MetalAlphaGloss: 0
     - _Metallic: 0
     - _Mode: 0
     - _MovementAOMask: -0.02
     - _NoiseScale: 0.5
     - _Noisespeed: 1
+    - _NormalMapKwToggle: 0
     - _NormalScale: 1
     - _Occlusion: 0.27
     - _OcclusionStrenght: 1
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
     - _Parallax: 0.02
-    - _ReceivesSSR: 0
+    - _PerPixelSorting: 0
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
+    - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _RimPower: 0
     - _Smoothness: 0
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 0
+    - _StencilRefDepth: 8
     - _StencilRefDistortionVec: 4
-    - _StencilRefGBuffer: 2
-    - _StencilRefMV: 32
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
     - _StencilWriteMask: 6
     - _StencilWriteMaskDepth: 9
     - _StencilWriteMaskDistortionVec: 4
@@ -163,9 +209,14 @@ Material:
     - _SupportDecals: 1
     - _SurfaceType: 0
     - _TextureOverride: 0.5
+    - _Thickness: 0
     - _TimeChangeColor: 0
+    - _TransmissionEnable: 1
+    - _TransmissionScale: 0
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 1
@@ -173,6 +224,11 @@ Material:
     - _UpDownVelocity: 12
     - _UseAlpha: 0
     - _UseShadowThreshold: 0
+    - _WIND_BRANCH1: 0
+    - _WIND_BRANCH2: 0
+    - _WIND_RIPPLE: 0
+    - _WIND_SHARED: 0
+    - _WIND_SHIMMER: 0
     - _WeightAnim: 2
     - _WeightOffset: 0
     - _WorldNoiseColor: 0
@@ -190,10 +246,14 @@ Material:
     - _ColorFar: {r: 0.2237896, g: 0.4433962, b: 0.26678947, a: 0}
     - _ColorRoot: {r: 0.21783088, g: 0.375, b: 0.34880513, a: 1}
     - _ColorTime: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorTint: {r: 1, g: 1, b: 1, a: 0}
     - _ColorUp: {r: 0.09758868, g: 0.6985294, b: 0.32553172, a: 1}
+    - _Diffusion_Profile_Asset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HueVariationColor: {r: 1, g: 0.5019608, b: 0, a: 0.2}
     - _MotionValue: {r: 1, g: 0.3, b: 0, a: 0}
     - _RimColor: {r: 0.45588237, g: 0.45588237, b: 0.45588237, a: 1}
     - _WindWaveSpeedScale: {r: 0.5, g: 2, b: 0.4, a: 4}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

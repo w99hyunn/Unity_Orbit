@@ -60,7 +60,7 @@ namespace STARTING
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene");
             asyncLoad.allowSceneActivation = false;
 
             yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
@@ -74,7 +74,6 @@ namespace STARTING
             GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
 
             yield return new WaitForSeconds(delay);
-            SceneManager.UnloadSceneAsync("DungeonScene");
             asyncLoad.completed += OnSceneLoaded;
         }
 

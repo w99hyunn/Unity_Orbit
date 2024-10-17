@@ -328,7 +328,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -391,7 +390,6 @@ MonoBehaviour:
   MaxPoints: 1000
   expPoints: 1200
   enemyUI: {fileID: 7345793680831394484}
-  hitSound: {fileID: 8300000, guid: ae49c63a80f17fb44bcaa82193b9e5ef, type: 3}
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -427,6 +425,9 @@ MonoBehaviour:
   moveRange: 0.25
   moveSpeed: 2
   pauseDuration: 0.25
+  explosionSound: {fileID: 8300000, guid: 0979be26aebecd14a8bf0040d50e815a, type: 3}
+  explosionVFX: {fileID: 1892133220914832, guid: a969fe0d13beb7843af485bf118355c0,
+    type: 3}
 --- !u!82 &7808601318074361233
 AudioSource:
   m_ObjectHideFlags: 0
