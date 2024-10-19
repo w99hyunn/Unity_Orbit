@@ -5,6 +5,9 @@ using Mirror;
 
 namespace STARTING
 {
+    /// <summary>
+    /// localPosition 사용
+    /// </summary>
     public class UIFOVAdjuster_Multi : MonoBehaviour
     {
         public Camera mainCamera;
@@ -29,20 +32,18 @@ namespace STARTING
             {
                 yield return null;
             }
+            _fpsController = NetworkClient.localPlayer.gameObject.GetComponent<FPSController_Multi>();
+            _fpsController.OnActiveAiming += OnAimStateChanged;
 
             mainCamera = NetworkClient.localPlayer.gameObject.GetComponentInChildren<Camera>();
+
+            this.transform.SetParent(mainCamera.transform, false);
 
             _initialFOV = mainCamera.fieldOfView;
             uiTransform = this.transform;
             _initialZDistance = Vector3.Distance(mainCamera.transform.localPosition, uiTransform.localPosition);
-
-            this.transform.SetParent(mainCamera.transform, false);
-
-            _fpsController = NetworkClient.localPlayer.gameObject.GetComponent<FPSController_Multi>();
-            _fpsController.OnActiveAiming += OnAimStateChanged;
         }
 
-        // Aiming 상태가 변경될 때
         public void OnAimStateChanged(FPSAimState_Multi aimState)
         {
             if (aimState == FPSAimState_Multi.Aiming)
@@ -101,26 +102,21 @@ namespace STARTING
         private void AdjustUIPosition()
         {
             float fovRatio = _initialFOV / mainCamera.fieldOfView;
-            Vector3 direction = (uiTransform.position - mainCamera.transform.position).normalized;
+            Vector3 direction = (uiTransform.localPosition - mainCamera.transform.localPosition).normalized;
             float adjustedZDistance = _initialZDistance * fovRatio * 1.1f;
+            Vector3 targetPosition = mainCamera.transform.localPosition + direction * adjustedZDistance;
 
-            // 카메라의 로컬 공간을 기준으로 위치를 조정
-            Vector3 targetPosition = mainCamera.transform.position + direction * adjustedZDistance;
-
-            uiTransform.position = Vector3.Lerp(uiTransform.position, targetPosition, Time.deltaTime * _lerpSpeed);
+            uiTransform.localPosition = Vector3.Lerp(uiTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
         }
 
         private void AdjustUIPositionDefault()
         {
             float fovRatio = _initialFOV / mainCamera.fieldOfView;
-            Vector3 direction = (uiTransform.position - mainCamera.transform.position).normalized;
+            Vector3 direction = (uiTransform.localPosition - mainCamera.transform.localPosition).normalized;
             float adjustedZDistance = _initialZDistance * fovRatio * 1.0f;
+            Vector3 targetPosition = mainCamera.transform.localPosition + direction * adjustedZDistance;
 
-            // 카메라의 로컬 공간을 기준으로 위치를 조정
-            Vector3 targetPosition = mainCamera.transform.position + direction * adjustedZDistance;
-
-            uiTransform.position = Vector3.Lerp(uiTransform.position, targetPosition, Time.deltaTime * _lerpSpeed);
+            uiTransform.localPosition = Vector3.Lerp(uiTransform.localPosition, targetPosition, Time.deltaTime * _lerpSpeed);
         }
-
     }
 }
