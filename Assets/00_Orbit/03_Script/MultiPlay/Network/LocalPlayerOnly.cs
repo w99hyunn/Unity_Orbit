@@ -7,9 +7,7 @@ namespace STARTING
     {
         void Start()
         {
-            Debug.Log("dd / " + isLocalPlayer + " / " + this.gameObject.name);
-            if (!isLocalPlayer)
-                Destroy(gameObject);
+            this.gameObject.SetActive(isLocalPlayer);
         }
     }
 }

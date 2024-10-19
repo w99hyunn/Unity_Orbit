@@ -34,7 +34,7 @@ namespace STARTING
             }
 
             player = GameManager_Multi.Instance.player;
-            Debug.Log(player.name);
+            //Debug.Log(this.gameObject.name + player.name);
             if (player != null)
             {
                 audioSource = player.GetComponent<AudioSource>();

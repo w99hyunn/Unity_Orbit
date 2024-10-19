@@ -61,7 +61,7 @@ namespace STARTING
             }
 
             player = NetworkClient.localPlayer.gameObject;
-            Debug.Log(player.name);
+            //Debug.Log(player.name);
             if (player != null)
             {
                 controller = player.GetComponent<FPSMovement_Multi>();
@@ -70,7 +70,6 @@ namespace STARTING
 
                 LoadGame();
                 SaveGame();
-                Debug.Log("¾ë°¡");
             }
             else
             {

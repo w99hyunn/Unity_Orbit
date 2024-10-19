@@ -63,7 +63,7 @@ namespace Demo.Scripts.Runtime.Character
         private UserInputController _userInput;
         // ~Scriptable Animation System Integration
 
-        private List<FPSItem> _instantiatedWeapons;
+        public List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
@@ -394,7 +394,6 @@ namespace Demo.Scripts.Runtime.Character
             //Pause메뉴가 열려있으면 총알발사 X
             if (value.isPressed && (playerStats.playerState == PlayerState_Multi.IDLE || playerStats.playerState == PlayerState_Multi.INIT))
             {
-                Debug.Log("들어옴?>");
                 OnFirePressed();
                 return;
             }

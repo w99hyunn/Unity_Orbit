@@ -87,7 +87,6 @@ namespace STARTING
                         // 비밀번호 비교 (해싱 알고리즘에 맞게 구현)
                         if (VerifyPasswordHash(password, storedPasswordSalt, Convert.FromBase64String(storedPasswordHash))) // Hash도 Base64로 변환하여 비교
                         {
-                            Debug.Log("Login successful.");
                             return true;
                         }
                     }

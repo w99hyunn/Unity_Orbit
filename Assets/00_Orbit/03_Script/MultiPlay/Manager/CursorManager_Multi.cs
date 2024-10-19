@@ -23,11 +23,10 @@ namespace STARTING
         {
             while (GameManager_Multi.Instance.playerStats == null)
             {
-                Debug.Log("Ã£´ÂÁß");
                 yield return null; 
             }
             playerStats = GameManager_Multi.Instance.playerStats;
-            Debug.Log(playerStats);
+            //Debug.Log(this.gameObject.name + playerStats);
             if (playerStats != null)
             {
                 ContinueGame();

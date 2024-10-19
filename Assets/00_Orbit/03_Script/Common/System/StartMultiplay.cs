@@ -255,8 +255,6 @@ namespace STARTING
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("OnSceneLoaded »£√‚µ : " + scene.name);
-
             if (scene.name == "WorldScene_Multi")
             {
                 if (NetworkClient.isConnected)

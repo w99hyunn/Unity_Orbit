@@ -40,7 +40,7 @@ namespace Demo.Scripts.Runtime.Item
         [SerializeField] private RecoilAnimData recoilData;
         [SerializeField] private RecoilPatternSettings recoilPatternSettings;
         [SerializeField] private FPSCameraShake cameraShake;
-        [Min(0f)] [SerializeField] private float fireRate;
+        [Min(0f)] [SerializeField] public float fireRate;
 
         [SerializeField] private bool supportsAuto;
         [SerializeField] private bool supportsBurst;
