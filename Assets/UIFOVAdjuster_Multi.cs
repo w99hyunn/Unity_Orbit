@@ -22,6 +22,11 @@ namespace STARTING
             _fpsController = GetComponentInParent<FPSController_Multi>();
             _fpsController.OnActiveAiming += OnAimStateChanged;
 
+            mainCamera = GameManager_Multi.Instance.player.transform.Find("MainCamera").gameObject.GetComponent<Camera>();
+            Debug.Log("카메라찾음" + mainCamera.name);
+
+            this.transform.SetParent(mainCamera.transform, false);
+
             _initialFOV = mainCamera.fieldOfView;
             _initialZDistance = Vector3.Distance(mainCamera.transform.position, uiTransform.position);
         }
