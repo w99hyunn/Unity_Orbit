@@ -260,7 +260,6 @@ namespace STARTING
                 if (NetworkClient.isConnected)
                 {
                     NetworkClient.AddPlayer();
-                    Debug.Log("플레이어 추가");
                 }
                 else
                 {

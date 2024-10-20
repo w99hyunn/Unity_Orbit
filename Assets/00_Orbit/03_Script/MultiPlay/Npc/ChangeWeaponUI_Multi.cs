@@ -32,7 +32,10 @@ namespace STARTING
 
         void OnEnable()
         {
-            UpdateWeaponLists();
+            if (NetworkClient.localPlayer != null)
+            {
+                UpdateWeaponLists();
+            }
         }
 
         private IEnumerator FindLocalPlayer()
@@ -43,8 +46,13 @@ namespace STARTING
             }
 
             player = NetworkClient.localPlayer.gameObject;
+
+            Debug.Log("체인지웨폰 UI 초기화");
+
             inventory = player.GetComponent<Inventory>();
             fpsController = player.GetComponent<FPSController_Multi>();
+
+            UpdateWeaponLists();
         }
 
         public void UpdateWeaponLists()

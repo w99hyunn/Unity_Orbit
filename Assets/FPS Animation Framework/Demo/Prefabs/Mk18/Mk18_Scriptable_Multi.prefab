@@ -786,6 +786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6689bb253950f4eb836c29cd825d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponPreview: {fileID: 21300000, guid: f7cb960e94a4f074f8a7fdd7c7df5029, type: 3}
+  cost: 0
   fieldOfView: 90
   reloadClip: {fileID: 11400000, guid: 93c514e68bc083d45b016a3d5f10d7bc, type: 2}
   cameraReloadAnimation: {fileID: 11400000, guid: b9c08f43ccbcf91449ee81a090e5f9cf,
@@ -814,7 +816,6 @@ MonoBehaviour:
     - {fileID: 6021082444482178404}
   - attachments:
     - {fileID: 238443097295942336}
-  weaponPreview: {fileID: 21300000, guid: f7cb960e94a4f074f8a7fdd7c7df5029, type: 3}
 --- !u!95 &2151158701131182720
 Animator:
   serializedVersion: 7
