@@ -16,6 +16,7 @@ using UnityEngine.Rendering;
 
 using STARTING;
 using Mirror;
+using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 
 namespace Demo.Scripts.Runtime.Character
 {
@@ -77,7 +78,6 @@ namespace Demo.Scripts.Runtime.Character
         private ChromaticAberration chromaticAberration;
 
         private PlayerStats_Multi playerStats;
-        private PlayerInput playerInput;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -157,16 +157,6 @@ namespace Demo.Scripts.Runtime.Character
         {
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;
-
-            //멀티플레이 세팅
-            if (!isLocalPlayer)
-            {
-                // Disable input if not the local player
-                playerInput = GetComponent<PlayerInput>();
-                playerInput.enabled = false;
-                enabled = false;
-                return;
-            }
             playerStats = GetComponent <PlayerStats_Multi>();
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);

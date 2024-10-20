@@ -5,6 +5,9 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using Mirror;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {

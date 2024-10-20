@@ -381,12 +381,6 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            if (!isLocalPlayer)
-            {
-                // Disable input if not the local player
-                enabled = false;
-                return;
-            }
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;
 
