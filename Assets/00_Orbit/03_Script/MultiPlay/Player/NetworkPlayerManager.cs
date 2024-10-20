@@ -22,10 +22,10 @@ namespace STARTING
             {
                 GetComponent<PlayerInput>().enabled = false;
                 //GetComponent<UserInputController>().enabled = false;
-                GetComponent<FPSMovement_Multi>().enabled = false;
+                //GetComponent<FPSMovement_Multi>().enabled = false;
 
                 //GetComponent<FPSPlayablesController>().enabled = false;
-                GetComponent<FPSController_Multi>().enabled = false;
+                //GetComponent<FPSController_Multi>().enabled = false;
                 //GetComponent<CharacterController>().enabled = false;
                 //GetComponent<FPSBoneController>().enabled = false;
                 //GetComponent<FPSAnimator>().enabled = false;

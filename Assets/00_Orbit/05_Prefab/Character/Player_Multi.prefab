@@ -1489,6 +1489,8 @@ GameObject:
   - component: {fileID: -3847192190643443092}
   - component: {fileID: 174043600281431500}
   - component: {fileID: 1822384479456111968}
+  - component: {fileID: 7850522798773049008}
+  - component: {fileID: 5210042938604422188}
   m_Layer: 3
   m_Name: Player_Multi
   m_TagString: Player
@@ -1990,13 +1992,56 @@ MonoBehaviour:
   interpolateScale: 1
   coordinateSpace: 0
   timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
+  showGizmos: 1
+  showOverlay: 1
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   bufferResetMultiplier: 3
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &7850522798773049008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3263174072132286243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073405a5286d15f4b8cbe2c03849ff3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterType: 0
+  Parent: {fileID: 0}
+  MaterialType: 3
+  PenetrationResistance: 0.5
+  DamageMultiplier: 1
+  MaxPoints: 0
+  expPoints: 100
+  enemyUI: {fileID: 504550410056075705}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  killLogType: 0
+  deathIcon: {fileID: 0}
+  probability: 15
+--- !u!114 &5210042938604422188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3263174072132286243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a809311a169e62641bdc54230beb4aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  health: {fileID: 7850522798773049008}
+  playerName: 
 --- !u!1 &3311970822390348186
 GameObject:
   m_ObjectHideFlags: 0

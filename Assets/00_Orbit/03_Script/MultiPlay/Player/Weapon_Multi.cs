@@ -169,6 +169,7 @@ namespace Demo.Scripts.Runtime.Item
             _userInputController = parent.GetComponent<UserInputController>();
             _playablesController = parent.GetComponent<IPlayablesController>();
             _fpsCameraController = parent.GetComponentInChildren<FPSCameraController>();
+            Debug.Log("dd" + _fpsCameraController.name);
             
             InitializeAttachments();
             
