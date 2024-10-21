@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace STARTING
 {
@@ -94,7 +95,9 @@ namespace STARTING
                 uiSupport.SaveFileInfo(TimeCalc(data.gameTime),
                     data.level.ToString() + "레벨 (" + ((int)((float)data.currentExperience / data.maxExperience * 100)).ToString() + "%)",
                     ((int)((float)data.currentHealth / data.maxHealth * 100)).ToString() + "%",
-                    ((int)((float)data.currentMana / data.maxMana * 100)).ToString() + "%");
+                    ((int)((float)data.currentMana / data.maxMana * 100)).ToString() + "%",
+                    ((int)((float)data.chip)).ToString() + "개",
+                    data.zones.Count(zone => zone.isLiberated) + "개");
 
                 //최초 1회 레벨 3 이상 달성시 PlayerPrefs에 멀티플레이 가능 여부를 저장하여 싱글플레이 데이터 삭제시에도 유지
                 if ((false == PlayerPrefs.HasKey("MultiplayAvailable")) && (data.level >= 3))

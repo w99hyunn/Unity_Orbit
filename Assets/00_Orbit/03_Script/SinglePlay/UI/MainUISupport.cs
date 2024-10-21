@@ -12,6 +12,8 @@ public class MainUISupport : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text hpText;
     public TMP_Text mpText;
+    public TMP_Text chipText;
+    public TMP_Text liberatedZoneText;
     public TMP_Text lastModifiedText;
     public TMP_Text loadingPercentText;
     public TMP_Text multiConnectInfo;
@@ -84,12 +86,14 @@ public class MainUISupport : MonoBehaviour
     /// <param name="level"></param>
     /// <param name="hp"></param>
     /// <param name="mp"></param>
-    public void SaveFileInfo(string time, string level, string hp, string mp)
+    public void SaveFileInfo(string time, string level, string hp, string mp, string chip, string liberatedZone)
     {
         gameTimeText.text = time;
         levelText.text = level;
         hpText.text = hp;
         mpText.text = mp;
+        chipText.text = chip;
+        liberatedZoneText.text = liberatedZone;
     }
 
     public void LastSaveDate(string date)
