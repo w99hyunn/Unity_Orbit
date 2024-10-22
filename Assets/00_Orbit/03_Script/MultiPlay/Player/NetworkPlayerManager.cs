@@ -1,9 +1,4 @@
-using Demo.Scripts.Runtime.Character;
-using KINEMATION.FPSAnimationFramework.Runtime.Core;
-using KINEMATION.FPSAnimationFramework.Runtime.Playables;
-using KINEMATION.KAnimationCore.Runtime.Input;
 using Mirror;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace STARTING

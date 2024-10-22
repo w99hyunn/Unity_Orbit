@@ -35,10 +35,7 @@ namespace STARTING
             {
                 chip -= weaponCost;
                 availableWeaponIndices.Add(weaponIndex);
-                Debug.Log($"무기 {weaponIndex} 구매. 남은 칩: {chip}");
-
-                for (int i = 0; i < availableWeaponIndices.Count; i++)
-                    Debug.Log(availableWeaponIndices[i]);
+                //Debug.Log($"무기 {weaponIndex} 구매. 남은 칩: {chip}");
 
                 UIManager.Instance.UpdateStats("chip", chip);
                 GameManager.Instance.SaveGamePartial("chip", chip);
