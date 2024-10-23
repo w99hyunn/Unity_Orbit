@@ -10,8 +10,8 @@ namespace STARTING
         public Sprite chipIcon;
 
         [Header("무기 변경 시스템")]
-        public List<int> availableWeaponIndices;
-        public List<int> equippedWeaponIndices;
+        public List<int> availableWeaponIndices = new List<int>();
+        public List<int> equippedWeaponIndices = new List<int>();
 
         void Start()
         {
@@ -21,8 +21,6 @@ namespace STARTING
         public void InitializeInventory()
         {
             chip = 0;
-            availableWeaponIndices = new List<int>();
-            equippedWeaponIndices = new List<int>();
 
             availableWeaponIndices.Add(0);
             equippedWeaponIndices.Add(0);
