@@ -17,10 +17,10 @@ namespace STARTING
 
 		[Header("몬스터 타입")]
 		public MonsterType monsterType = MonsterType.MONSTER;
-		private PlayerStats_Multi playerStats;
+        public PlayerStats_Multi playerStats;
 
         [Space]
-        public Health Parent;
+        public Health_Multi Parent;
 
 		[Space]
 		public EfxManager.ImpactType MaterialType = EfxManager.ImpactType.STONE;
@@ -35,9 +35,9 @@ namespace STARTING
 
 		[Header("몬스터 UI")]
 		public GameObject enemyUI;
-		private EnemyUI enemyUIcanvas;
-		private Slider hpSlider;
-		private TMP_Text enemyName;
+        public EnemyUI_Multi enemyUIcanvas;
+        public Slider hpSlider;
+        public TMP_Text enemyName;
 
 		[Header("죽었을 때 이벤트")]
 		public UnityEvent OnDeath;
@@ -65,17 +65,16 @@ namespace STARTING
 			}
 		}
 
-		private void Awake()
-		{
-            playerStats = GetComponent<PlayerStats_Multi>();
-            hpSlider = enemyUI.GetComponentInChildren<Slider>();
-			enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
-			enemyUIcanvas = enemyUI.GetComponent<EnemyUI>();
-		}
-
         private void Start()
         {
-            Setup();
+            if (Parent == null)
+            {
+                playerStats = GetComponent<PlayerStats_Multi>();
+                hpSlider = enemyUI.GetComponentInChildren<Slider>();
+                enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
+                enemyUIcanvas = enemyUI.GetComponent<EnemyUI_Multi>();
+                Setup();
+            }
         }
 
         public void Setup()
@@ -88,6 +87,7 @@ namespace STARTING
 
 		private void TakeDamage(ushort senderID, float damage, int damageIndex)
 		{
+			Debug.Log("테이크데미지");
 			damage *= DamageMultiplier;
 
 			// Check if damage is already applied.
@@ -105,12 +105,13 @@ namespace STARTING
 			// apply damage
 			if (Parent != null)
 			{
+				Debug.Log("ㅋㅋ");
 				Parent.TakeDamage(senderID, damage);
 			}
 			else if (_alive)
 			{
 				playerStats.currentHealth -= (int)damage;
-                GameManager.Instance.EnemyHit();
+                GameManager_Multi.Instance.EnemyHit();
 
                 enemyUIcanvas.ShowCanvasGroup();
 				hpSlider.value = playerStats.currentHealth / MaxPoints;
@@ -118,7 +119,7 @@ namespace STARTING
 				if (playerStats.currentHealth <= 0f)
 				{
                     playerStats.currentHealth = 0;
-					PlayerStats.Instance.GainExperience(expPoints);
+                    playerStats.GainExperience(expPoints);
 
 					//온데스 이벤트
 					KillLog();

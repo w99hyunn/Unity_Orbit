@@ -103,7 +103,7 @@ namespace STARTING
 
             for (int i = 0; i < l; i++)
             {
-                if (hits[i].collider.TryGetComponent(out Health target))
+                if (hits[i].collider.TryGetComponent(out Health_Multi target))
                 {
                     EfxManager.Instance.PlayImpact(hits[i].point, hits[i].normal, hits[i].transform, target.MaterialType);
 

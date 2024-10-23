@@ -8,10 +8,18 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
+    public enum PlayMode
+    {
+        SINGLE,
+        MULTI
+    };
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
 
+        public PlayMode playMode = PlayMode.SINGLE;
+
+        [Space]
         public TMP_Text timeText;
 
         public GameObject ZoneName;
@@ -122,6 +130,11 @@ namespace STARTING
             back = killLog.transform.Find("Back").gameObject.GetComponent<Image>();
             killLogIcon = back.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
             killLogText = back.transform.Find("killLogText").gameObject.GetComponent<TMP_Text>();
+
+            if (SceneManager.GetActiveScene().name == "WorldScene_Multi")
+            {
+                playMode = PlayMode.MULTI;
+            }
         }
 
         private void Start()
@@ -194,7 +207,14 @@ namespace STARTING
                 StopCoroutine(_killLogCoroutine);
             }
 
-            GameManager.Instance.PlaySound(killLogSound);
+            if (playMode == PlayMode.SINGLE)
+            {
+                GameManager.Instance.PlaySound(killLogSound);
+            }
+            else if (playMode == PlayMode.MULTI)
+            {
+                GameManager_Multi.Instance.PlaySound(killLogSound);
+            }
             _killLogCoroutine = StartCoroutine(ShowAndHideKillLog(time));
         }
 
