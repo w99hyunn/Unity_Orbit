@@ -16,10 +16,10 @@ namespace STARTING
             objectsToDestroy.Add(PlayerStats.Instance.gameObject);
         }
 
-        public void BackToMain()
+        public virtual void BackToMain()
         {
-            SceneManager.LoadScene("MainScene");
             DestroyObjectsInList();
+            SceneManager.LoadScene("MainScene");
         }
 
         public void DestroyObjectsInList()
@@ -59,12 +59,12 @@ namespace STARTING
             Cursor.lockState = CursorLockMode.None;
         }
 
-        public void OpenPauseMenu()
+        public virtual void OpenPauseMenu()
         {
             PlayerStats.Instance.playerState = PlayerState.PAUSE;
         }
 
-        public void ClosePauseMenu()
+        public virtual void ClosePauseMenu()
         {
             PlayerStats.Instance.playerState = PlayerState.IDLE;
         }

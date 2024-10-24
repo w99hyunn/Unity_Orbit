@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using Mirror;
 
 namespace STARTING
 {
@@ -87,7 +88,6 @@ namespace STARTING
 
 		private void TakeDamage(ushort senderID, float damage, int damageIndex)
 		{
-			Debug.Log("테이크데미지");
 			damage *= DamageMultiplier;
 
 			// Check if damage is already applied.
@@ -102,15 +102,25 @@ namespace STARTING
 			_lastDamage = damage;
 			_lastDamageIndex = damageIndex;
 
-			// apply damage
-			if (Parent != null)
+            // apply damage
+            if (Parent != null)
 			{
-				Debug.Log("ㅋㅋ");
 				Parent.TakeDamage(senderID, damage);
 			}
 			else if (_alive)
 			{
-				playerStats.currentHealth -= (int)damage;
+                // 서버에서 데미지 처리
+                if (playerStats.isServer)
+                {
+                    //Debug.Log("서버에서 데미지 처리 중: " + damage);
+                    ApplyDamage(damage);
+                }
+                else
+                {
+                    // 클라이언트에서 서버로 데미지 처리 요청
+                    //Debug.Log("클라이언트에서 서버로 데미지 요청: " + damage);
+                    playerStats.CmdTakeDamage((int)damage);
+                }
                 GameManager_Multi.Instance.EnemyHit();
 
                 enemyUIcanvas.ShowCanvasGroup();
@@ -130,8 +140,23 @@ namespace STARTING
 			}
 		}
 
-		public void KillLog()
+        [Server]
+        private void ApplyDamage(float damage)
+        {
+            playerStats.currentHealth -= (int)damage;
+            GameManager_Multi.Instance.EnemyHit();
+
+            if (playerStats.currentHealth <= 0)
+            {
+                playerStats.currentHealth = 0;
+                playerStats.GainExperience(expPoints);
+                OnDeath.Invoke();
+            }
+        }
+
+        public void KillLog()
 		{
+			Debug.Log("킬로그 실행");
             inventory = FindAnyObjectByType<Inventory>();
 
             switch (killLogType)

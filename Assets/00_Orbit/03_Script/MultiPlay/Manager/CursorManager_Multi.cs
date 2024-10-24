@@ -1,16 +1,10 @@
-using Mirror;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class CursorManager_Multi : MonoBehaviour
+    public class CursorManager_Multi : CursorManager
     {
-        public List<GameObject> objectsToDestroy = new List<GameObject>();
-        public GameObject pauseMenuHotkey;
-
         public PlayerStats_Multi playerStats;
 
         private void Start()
@@ -37,71 +31,22 @@ namespace STARTING
             }
         }
 
-        public void BackToMain()
+        public override void BackToMain()
         {
             CustomNetworkManager.singleton.BackToMain();
             DBManager.Instance.CloseDBServer();
-            DestroyObjectsInList();
-            SceneManager.LoadScene("MainScene");
+
+            base.BackToMain();
         }
 
-        public void DestroyObjectsInList()
+        public override void OpenPauseMenu()
         {
-            foreach (GameObject obj in objectsToDestroy)
-            {
-                if (obj != null)
-                {
-                    Destroy(obj);
-                }
-            }
-            objectsToDestroy.Clear();
-        }
-        public void DieGame()
-        {
-
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                pauseMenuHotkey.SetActive(false);
-
+            playerStats.playerState = PlayerState_Multi.PAUSE;
         }
 
-        public void ContinueGame()
+        public override void ClosePauseMenu()
         {
-
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                pauseMenuHotkey.SetActive(true);
-
-        }
-
-        public void CustomResume()
-        {
-
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-
-        }
-
-        public void CustomPause()
-        {
-
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-
-        }
-
-        public void OpenPauseMenu()
-        {
-
-                playerStats.playerState = PlayerState_Multi.PAUSE;
-
-        }
-
-        public void ClosePauseMenu()
-        {
-
-                playerStats.playerState = PlayerState_Multi.IDLE;
-
+            playerStats.playerState = PlayerState_Multi.IDLE;
         }
     }
 }

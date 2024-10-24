@@ -274,6 +274,7 @@ namespace STARTING
 
         public void SaveGamePartial(string fieldName, object value)
         {
+            Debug.Log("게임정보 저장됨" + fieldName + " / " + value);
             if (SceneManager.GetActiveScene().name == "DungeonScene")
             {
                 return;

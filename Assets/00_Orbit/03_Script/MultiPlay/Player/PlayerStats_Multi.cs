@@ -20,7 +20,7 @@ namespace STARTING
         [SyncVar] public int maxHealth;
         [SyncVar] public int maxMana;
         [SyncVar] public int maxExperience;
-        [SyncVar] public int currentHealth;
+        [SyncVar(hook = nameof(OnHealthChanged))] public int currentHealth;
         [SyncVar] public int currentMana;
         [SyncVar] public int currentExperience;
         [SyncVar] public int level;
@@ -43,22 +43,56 @@ namespace STARTING
             }
         }
 
+        [Command(requiresAuthority = false)]
+        public void CmdTakeDamage(int amount)
+        {
+            // 서버에서만 실행
+            if (!isServer) return;
+
+            Debug.Log("서버에서 CmdTakeDamage 실행: " + amount);
+            StartCoroutine(UIManager.Instance.FlashScreen());
+            currentHealth -= amount;
+
+            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                GameManager_Multi.Instance.GameOver();
+            }
+        }
+
+        void OnHealthChanged(int oldHealth, int newHealth)
+        {
+            Debug.Log("체력 변경: " + newHealth);
+
+            UpdateUI();
+        }
+
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
         {
             this.maxHealth = maxHealth;
             this.maxMana = maxMana;
             this.maxExperience = maxExperience;
-
             this.currentHealth = health;
             this.currentMana = mana;
             this.currentExperience = experience;
-
             this.level = level;
 
             //시작시 5초간 무적
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
 
             UpdateUI();
+            if (!isServer)
+            {
+                CmdUpdateStats(maxHealth, maxMana, maxExperience, health, mana, experience, level);
+            }
+        }
+
+        //호스트의 클라이언트 플레이어 정보 업데이트
+        [Command(requiresAuthority = false)]
+        public void CmdUpdateStats(int newMaxHealth, int newMaxMana, int newMaxExperience, int newHealth, int newMana, int newExperience, int newLevel)
+        {
+            SetStats(newMaxHealth, newMaxMana, newMaxExperience, newHealth, newMana, newExperience, newLevel);
         }
 
         public IEnumerator ChangePlayerState(float time, PlayerState_Multi playerState)
@@ -87,11 +121,9 @@ namespace STARTING
             maxHealth = 100;
             maxMana = 100;
             maxExperience = 100;
-
             currentHealth = 100;
             currentMana = 100;
             currentExperience = 0;
-
             level = 1;
 
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
@@ -117,29 +149,6 @@ namespace STARTING
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
-        }
-
-        public void TakeDamage(int amount)
-        {
-            if (amount == -1)
-            {
-                currentHealth -= maxHealth;
-            }
-            else
-            {
-                currentHealth -= amount;
-            }
-            //UIManager.Instance.hudMovement.Shake();
-            StartCoroutine(UIManager.Instance.FlashScreen());
-            UpdateUI();
-
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                GameManager_Multi.Instance.GameOver();
-            }
-            // 체력 <= 0 death 추가 해야함
-            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         public void UseMana(int amount)
@@ -190,10 +199,13 @@ namespace STARTING
 
         public void UpdateUI()
         {
-            UIManager.Instance.UpdateStats("level", level);
-            UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
-            UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
-            UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
+            if (isLocalPlayer)
+            {
+                UIManager.Instance.UpdateStats("level", level);
+                UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
+                UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
+                UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
+            }
         }
 
         

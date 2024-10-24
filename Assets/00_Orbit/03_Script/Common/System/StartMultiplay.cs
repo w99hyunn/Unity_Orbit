@@ -208,16 +208,16 @@ namespace STARTING
             {
                 if (!string.IsNullOrEmpty(hamachiIP))
                 {
-                    message = $"공인 IP : {publicIP}하마치 IP : {hamachiIP}\nPort : {port}";
+                    message = $"공인 IP : {publicIP}하마치 IP : {hamachiIP}";
                 }
                 else
                 {
-                    message = $"공인 IP : {publicIP}Port : {port}";
+                    message = $"공인 IP : {publicIP}";
                 }
             }
             else
             {
-                message = $"연결 IP : {ip}\n연결 Port : {port}";
+                message = $"연결 IP : {ip}";
             }
 
             uiSupport.MultiConnectInfo(message);
@@ -228,7 +228,7 @@ namespace STARTING
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
 
             AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene_Multi", LoadSceneMode.Single);
             op.allowSceneActivation = false;
@@ -250,6 +250,7 @@ namespace STARTING
             {
                 yield return null;
             }
+
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene_Multi"));
         }
 

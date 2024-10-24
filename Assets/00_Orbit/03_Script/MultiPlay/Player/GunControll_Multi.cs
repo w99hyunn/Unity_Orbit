@@ -3,7 +3,6 @@ using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace STARTING
 {

@@ -1,4 +1,3 @@
-using Demo.Scripts.Runtime.Character;
 using Mirror;
 using System.Collections;
 using UnityEngine;
@@ -37,10 +36,6 @@ namespace STARTING
             if (Input.GetKeyDown(KeyCode.M))
             {
                 DestroyEnemies();
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                playerStats.TakeDamage(20);
             }
             if (Input.GetKeyDown(KeyCode.B))
             {

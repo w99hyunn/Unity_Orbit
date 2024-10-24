@@ -8,7 +8,7 @@ namespace STARTING
         public Health_Multi health;
 
         [SyncVar(hook = nameof(OnNameChanged))]
-        public string playerName; // 닉네임을 동기화할 변수
+        public string playerName;
 
         void Start()
         {
