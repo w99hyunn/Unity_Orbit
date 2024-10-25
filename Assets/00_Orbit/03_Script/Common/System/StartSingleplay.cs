@@ -45,7 +45,7 @@ namespace STARTING
                 LoadGameData(saveFilePath);
 
                 FileInfo fileInfo = new FileInfo(saveFilePath);
-                uiSupport.LastSaveDate(fileInfo.LastWriteTime.ToString("G") + "에 저장된 세이브파일입니다.");
+                uiSupport.LastSaveDate(fileInfo.LastWriteTime.ToString("G"));
             }
             else
             {
