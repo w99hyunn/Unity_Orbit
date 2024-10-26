@@ -86,7 +86,7 @@ namespace STARTING
                 // 클라이언트에서 서버로 메시지 전송
                 ChatManager.Instance?.CmdSendChatMessage(
                     NetworkClient.localPlayer != null ? NetworkClient.localPlayer.gameObject.name : "Anonymous",
-                    chatInputField.text
+                    chatInputField.text.Trim()
                 );
                 chatInputField.text = "";
                 ToggleInputField();
