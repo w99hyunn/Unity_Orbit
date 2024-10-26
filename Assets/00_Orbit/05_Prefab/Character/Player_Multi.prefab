@@ -471,7 +471,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504550410056075705}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0.1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1717,6 +1717,7 @@ MonoBehaviour:
   maxMana: 0
   maxExperience: 0
   currentHealth: 0
+  lastAttackerId: 0
   currentMana: 0
   currentExperience: 0
   level: 0

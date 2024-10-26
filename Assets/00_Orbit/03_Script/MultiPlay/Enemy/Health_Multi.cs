@@ -84,9 +84,9 @@ namespace STARTING
 			enemyName.text = this.gameObject.name;
 		}
 
-		public void TakeDamage(ushort senderID, float damage) => TakeDamage(senderID, damage, Time.frameCount);
+		public void TakeDamage(NetworkIdentity attacker, float damage) => TakeDamage(attacker, damage, Time.frameCount);
 
-		private void TakeDamage(ushort senderID, float damage, int damageIndex)
+		private void TakeDamage(NetworkIdentity attacker, float damage, int damageIndex)
 		{
 			damage *= DamageMultiplier;
 
@@ -95,7 +95,7 @@ namespace STARTING
 			{
 				// Undo last damage before applying new damage.
 				if (damage > _lastDamage)
-					TakeDamage(senderID, -_lastDamage, damageIndex);
+					TakeDamage(attacker, -_lastDamage, damageIndex);
 				// If new damage is less than last damage, ignore.
 				else return;
 			}
@@ -105,7 +105,7 @@ namespace STARTING
             // apply damage
             if (Parent != null)
 			{
-				Parent.TakeDamage(senderID, damage);
+				Parent.TakeDamage(attacker, damage);
 			}
 			else if (_alive)
 			{
@@ -113,27 +113,27 @@ namespace STARTING
                 if (playerStats.isServer)
                 {
                     //Debug.Log("서버에서 데미지 처리 중: " + damage);
-                    ApplyDamage(damage);
+                    ApplyDamage(damage, attacker.netId);
                 }
                 else
                 {
                     // 클라이언트에서 서버로 데미지 처리 요청
                     //Debug.Log("클라이언트에서 서버로 데미지 요청: " + damage);
-                    playerStats.CmdTakeDamage((int)damage);
+                    playerStats.CmdTakeDamage((int)damage, attacker.netId);
                 }
                 GameManager_Multi.Instance.EnemyHit();
 
                 enemyUIcanvas.ShowCanvasGroup();
-				hpSlider.value = playerStats.currentHealth / MaxPoints;
+				//hpSlider.value = playerStats.currentHealth / MaxPoints;
 
 				if (playerStats.currentHealth <= 0f)
 				{
-                    playerStats.currentHealth = 0;
+
                     playerStats.GainExperience(expPoints);
 
 					//온데스 이벤트
-					KillLog();
-                    OnDeath.Invoke();
+					//KillLog();
+     //               OnDeath.Invoke();
                     // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
                     //Destroy(this.gameObject); 
                 }
@@ -141,9 +141,10 @@ namespace STARTING
 		}
 
         [Server]
-        private void ApplyDamage(float damage)
+        private void ApplyDamage(float damage, uint attackerId)
         {
             playerStats.currentHealth -= (int)damage;
+            playerStats.lastAttackerId = attackerId; // 공격자 ID 설정
             GameManager_Multi.Instance.EnemyHit();
 
             if (playerStats.currentHealth <= 0)

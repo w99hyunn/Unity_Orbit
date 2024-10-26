@@ -62,11 +62,11 @@ namespace STARTING
             while (elapsedTime < 1f)
             {
                 elapsedTime += Time.deltaTime;
-                canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / 1f);
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, 0.1f, elapsedTime / 1f);
                 yield return null;
             }
 
-            canvasGroup.alpha = 0f;
+            canvasGroup.alpha = 0.1f;
         }
     }
 }

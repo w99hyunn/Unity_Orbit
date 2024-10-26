@@ -1,3 +1,4 @@
+using Mirror;
 using System.Linq;
 using UnityEngine;
 
@@ -70,7 +71,7 @@ namespace STARTING
 
         public void Fire()
         {
-            FireBullet(0, firePoint.position, firePoint.forward, 10f, damage);
+            FireBullet(GetComponentInParent<NetworkIdentity>(), firePoint.position, firePoint.forward, 10f, damage);
             ShowMuzzleFlash();
         }
 
@@ -90,7 +91,7 @@ namespace STARTING
         /// <param name="direction"></param>
         /// <param name="penetration"></param>
         /// <param name="damage"></param>
-        private void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
+        private void FireBullet(NetworkIdentity attacker, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
         {
 
             float currentPenetration = penetration;
@@ -111,11 +112,11 @@ namespace STARTING
                     if ((currentPenetration - target.PenetrationResistance) / penetration * distanceDamageDropoff <= 0)
                     {
                         DrawLine(i, Color.red);
-                        target.TakeDamage(senderID, Mathf.Min(2 * currentPenetration / penetration, 1f) * damage * distanceDamageDropoff);
+                        target.TakeDamage(attacker, Mathf.Min(2 * currentPenetration / penetration, 1f) * damage * distanceDamageDropoff);
                         hitDistance = hits[i].distance;
                         break;
                     }
-                    target.TakeDamage(senderID, currentPenetration / penetration * damage * distanceDamageDropoff);
+                    target.TakeDamage(attacker, currentPenetration / penetration * damage * distanceDamageDropoff);
                     DrawLine(i, Color.yellow);
                     currentPenetration -= target.PenetrationResistance;
                 }

@@ -21,6 +21,7 @@ namespace STARTING
         [SyncVar] public int maxMana;
         [SyncVar] public int maxExperience;
         [SyncVar(hook = nameof(OnHealthChanged))] public int currentHealth;
+        [SyncVar] public uint lastAttackerId;
         [SyncVar] public int currentMana;
         [SyncVar] public int currentExperience;
         [SyncVar] public int level;
@@ -43,30 +44,47 @@ namespace STARTING
             }
         }
 
+        //서버에서만 실행됨
         [Command(requiresAuthority = false)]
-        public void CmdTakeDamage(int amount)
+        public void CmdTakeDamage(int amount, uint attackerId)
         {
             // 서버에서만 실행
             if (!isServer) return;
 
             Debug.Log("서버에서 CmdTakeDamage 실행: " + amount);
-            StartCoroutine(UIManager.Instance.FlashScreen());
-            currentHealth -= amount;
 
-            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                GameManager_Multi.Instance.GameOver();
-            }
+            currentHealth -= amount;
+            lastAttackerId = attackerId; // 공격자 ID 설정
+
         }
 
         void OnHealthChanged(int oldHealth, int newHealth)
         {
             Debug.Log("체력 변경: " + newHealth);
 
+            if (isLocalPlayer && oldHealth > newHealth)
+            {
+                StartCoroutine(UIManager.Instance.FlashScreen());
+                GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
+            }
+
+            if (newHealth <= 0)
+            {
+                currentHealth = 0;
+                if (isLocalPlayer)
+                {
+                    GameManager_Multi.Instance.GameOver();
+                }
+                // 공격자의 ID와 현재 로컬 플레이어 ID가 동일할 경우에만 KillLog 실행
+                if (lastAttackerId == NetworkClient.localPlayer.netId)
+                {
+                    GetComponent<Health_Multi>().KillLog();
+                }
+            }
+
             UpdateUI();
         }
+
 
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
         {
