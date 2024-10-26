@@ -201,26 +201,6 @@ namespace STARTING
         public void GameStart()
         {
             uiSupport.StartLoadingEvent();
-
-            string message;
-
-            if (startType == StartType.HOST)
-            {
-                if (!string.IsNullOrEmpty(hamachiIP))
-                {
-                    message = $"공인 IP : {publicIP}하마치 IP : {hamachiIP}";
-                }
-                else
-                {
-                    message = $"공인 IP : {publicIP}";
-                }
-            }
-            else
-            {
-                message = $"연결 IP : {ip}";
-            }
-
-            uiSupport.MultiConnectInfo(message);
             StartCoroutine(LoadWorldScene());
         }
 

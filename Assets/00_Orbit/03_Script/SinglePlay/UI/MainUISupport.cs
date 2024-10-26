@@ -18,7 +18,6 @@ namespace STARTING
         public TMP_Text liberatedZoneText;
         public TMP_Text lastModifiedText;
         public TMP_Text loadingPercentText;
-        public TMP_Text multiConnectInfo;
 
         [Header("멀티플레이")]
         [Header("멀티플레이 Lock/Unlock")]
@@ -54,6 +53,7 @@ namespace STARTING
         public UnityEvent login;
         public UnityEvent startLoading;
         public UnityEvent connectFail;
+        public UnityEvent serverDisconnect;
 
         private void Start()
         {
@@ -111,11 +111,6 @@ namespace STARTING
         {
             multiPlayUnlock.SetActive(index);
             multiPlayLock.SetActive(!index);
-        }
-
-        public void MultiConnectInfo(string text)
-        {
-            multiConnectInfo.text = text;
         }
 
         private void OnIDValueChanged(string newValue)
@@ -214,6 +209,11 @@ namespace STARTING
         public void ConnectFailEvent()
         {
             connectFail?.Invoke();
+        }
+
+        public void ServerDisconnect()
+        {
+            serverDisconnect?.Invoke();
         }
 
         public string GetHostIP() { return hostIpInput.text; }

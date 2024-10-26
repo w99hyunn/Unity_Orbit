@@ -1,6 +1,8 @@
 using Mirror;
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
@@ -43,6 +45,34 @@ namespace STARTING
             //}
         }
 
+        //클라이언트 입장에서 서버가 끊겼을 때 후속조치
+        public override void OnClientDisconnect()
+        {
+            if (mode != NetworkManagerMode.Host && SceneManager.GetActiveScene().name != "MainScene")
+            {
+                SceneManager.LoadScene("MainScene");
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+            base.OnClientDisconnect();
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "MainScene")
+            {
+                StartCoroutine(LoadWorldSceneAfterDelay());
+            }
+        }
+
+        private IEnumerator LoadWorldSceneAfterDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
+            FindAnyObjectByType<MainUISupport>().ServerDisconnect();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             ChatManager.Instance?.CmdSendChatMessage("퇴장", $"{conn.identity.name}님이 퇴장하셨습니다.");
@@ -65,7 +95,7 @@ namespace STARTING
                 userName = msg.username,
                 userId = success ? userId : -1
             };
-            Debug.Log($"서버가 로그인 요청 받음 : ID {msg.username}, PW {msg.password}, 성공여부 {success}, userID {userId}");
+            //Debug.Log($"서버가 로그인 요청 받음 : ID {msg.username}, PW {msg.password}, 성공여부 {success}, userID {userId}");
             conn.Send(response);
         }
 
