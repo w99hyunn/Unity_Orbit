@@ -109,18 +109,7 @@ namespace STARTING
 			}
 			else if (_alive)
 			{
-                // 서버에서 데미지 처리
-                if (playerStats.isServer)
-                {
-                    //Debug.Log("서버에서 데미지 처리 중: " + damage);
-                    ApplyDamage(damage, attacker.netId);
-                }
-                else
-                {
-                    // 클라이언트에서 서버로 데미지 처리 요청
-                    //Debug.Log("클라이언트에서 서버로 데미지 요청: " + damage);
-                    playerStats.CmdTakeDamage((int)damage, attacker.netId);
-                }
+                playerStats.CmdTakeDamage((int)damage, attacker.netId);
                 GameManager_Multi.Instance.EnemyHit();
 
                 enemyUIcanvas.ShowCanvasGroup();
@@ -129,7 +118,7 @@ namespace STARTING
 				if (playerStats.currentHealth <= 0f)
 				{
 
-                    playerStats.GainExperience(expPoints);
+                    //playerStats.GainExperience(expPoints);
 
 					//온데스 이벤트
 					//KillLog();
@@ -155,28 +144,24 @@ namespace STARTING
             }
         }
 
-        public void KillLog()
-		{
-			Debug.Log("킬로그 실행");
-            inventory = FindAnyObjectByType<Inventory>();
+        public void KillLog(string enemyName)
+        {
+            Debug.Log("킬로그 실행: " + enemyName);
 
             switch (killLogType)
-			{
-				case KillLogType.NORMAL:
-                    UIManager.Instance.ShowKillLog(enemyName.text);
-                    float randomValue = Random.Range(0f, 100f);
-					if (randomValue <= probability)
-					{
-						inventory.GainChip();
+            {
+                case KillLogType.NORMAL:
+                    UIManager.Instance.ShowKillLog(enemyName);
+                    if (Random.Range(0f, 100f) <= probability)
+                    {
+                        // inventory.GainChip();
                     }
                     break;
                 case KillLogType.ARETE:
-                    UIManager.Instance.ShowKillLog(enemyName.text, 5f, "purple", deathIcon);
-                    inventory.GainChip();
+                    UIManager.Instance.ShowKillLog(enemyName, 5f, "purple", deathIcon);
+                    // inventory.GainChip();
                     break;
             }
-            
         }
-
-	}
+    }
 }

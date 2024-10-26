@@ -23,7 +23,7 @@ namespace STARTING
         private Inventory inventory;
         private FPSController fpsController;
 
-        void OnEnable()
+        public virtual void OnEnable()
         {
             player = GameObject.FindWithTag("Player");
             inventory = player.GetComponent<Inventory>();

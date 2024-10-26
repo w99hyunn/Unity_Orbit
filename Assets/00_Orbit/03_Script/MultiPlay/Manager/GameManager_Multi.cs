@@ -27,8 +27,6 @@ namespace STARTING
         public Vector3 lastPlayerPosition { get; private set; }
         public AudioSource audioSource;
 
-        public float gameTime = 13600f; // 21600
-
         private string _saveFilePath;
         private const float _realSecondsPerGameDay = 3 * 60 * 60;
         private const float _gameSecondsPerRealSecond = 24 * 60 * 60 / _realSecondsPerGameDay;
@@ -139,9 +137,15 @@ namespace STARTING
 
             if (data.level != -1)
             {
-                this.gameTime = data.gameTime;
+                //this.gameTime = data.gameTime;
                 controller.SetPos(data.playerPosition);
-                playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                playerStats.SetStats(data.maxHealth,
+                                     data.maxMana,
+                                     data.maxExperience,
+                                     data.currentHealth <= 0 ? 50 : data.currentHealth, // 현재 체력이 0 이하인 경우 50으로 설정
+                                     data.currentMana,
+                                     data.currentExperience,
+                                     data.level);
                 //this.zones = data.zones;
                 inventory.SetInventory(data.chip);
             }
@@ -169,17 +173,12 @@ namespace STARTING
 
         public void UpdateGameTime()
         {
-            gameTime += Time.deltaTime * _gameSecondsPerRealSecond;
+            DateTime now = DateTime.Now;
 
-            if (gameTime >= 24 * 60 * 60)
-            {
-                gameTime -= 24 * 60 * 60;
-            }
-
-            int hours = (int)(gameTime / 3600) % 24;
-            int minutes = (int)(gameTime % 3600 / 60);
-
+            int hours = now.Hour;
+            int minutes = now.Minute;
             string period = hours >= 12 ? "오후" : "오전";
+
             hours = hours % 12;
 
             if (period == "오전" && hours == 0)
@@ -197,10 +196,7 @@ namespace STARTING
 
             string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
-            if (UIManager.Instance != null)
-            {
-                UIManager.Instance.UpdateTime(timeFormatted);
-            }
+            UIManager.Instance.UpdateTime(timeFormatted);
         }
 
         //public void LiberateZone(string zoneName)

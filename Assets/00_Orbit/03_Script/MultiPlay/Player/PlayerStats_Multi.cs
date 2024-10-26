@@ -44,18 +44,40 @@ namespace STARTING
             }
         }
 
-        //서버에서만 실행됨
         [Command(requiresAuthority = false)]
         public void CmdTakeDamage(int amount, uint attackerId)
         {
-            // 서버에서만 실행
             if (!isServer) return;
 
             Debug.Log("서버에서 CmdTakeDamage 실행: " + amount);
 
             currentHealth -= amount;
-            lastAttackerId = attackerId; // 공격자 ID 설정
+            lastAttackerId = attackerId;
 
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+
+                // 공격자의 NetworkIdentity 가져오기
+                NetworkIdentity attackerIdentity = NetworkServer.spawned[attackerId];
+                if (attackerIdentity != null)
+                {
+                    PlayerStats_Multi attackerStats = attackerIdentity.GetComponent<PlayerStats_Multi>();
+                    if (attackerStats != null)
+                    {
+                        attackerStats.TargetShowKillLog(attackerStats.connectionToClient, gameObject.name);
+                    }
+                }
+            }
+        }
+
+        [TargetRpc]
+        public void TargetShowKillLog(NetworkConnection target, string enemyName)
+        {
+            // 클라이언트에서 KillLog 호출
+            Debug.Log("ㅇㅇ");
+            GetComponent<Health_Multi>().KillLog(enemyName);
+            GainExperience(GetComponent<Health_Multi>().expPoints);
         }
 
         void OnHealthChanged(int oldHealth, int newHealth)
@@ -74,11 +96,6 @@ namespace STARTING
                 if (isLocalPlayer)
                 {
                     GameManager_Multi.Instance.GameOver();
-                }
-                // 공격자의 ID와 현재 로컬 플레이어 ID가 동일할 경우에만 KillLog 실행
-                if (lastAttackerId == NetworkClient.localPlayer.netId)
-                {
-                    GetComponent<Health_Multi>().KillLog();
                 }
             }
 
@@ -181,7 +198,9 @@ namespace STARTING
 
         public void GainExperience(int amount)
         {
+            Debug.Log($"원래 경험치 : {currentExperience} 경험치 들어온거 : {amount}, ");
             currentExperience += amount;
+            Debug.Log($"현재 경험치 : {currentExperience}");
             if (currentExperience >= maxExperience)
             {
                 LevelUp();
@@ -213,6 +232,7 @@ namespace STARTING
             GameManager_Multi.Instance.SaveGamePartial("maxExperience", maxExperience);
             GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
+            GameManager_Multi.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
         public void UpdateUI()

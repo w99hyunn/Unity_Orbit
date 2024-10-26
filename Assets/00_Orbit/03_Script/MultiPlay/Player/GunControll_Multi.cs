@@ -41,6 +41,7 @@ namespace STARTING
                 fpsController = player.GetComponent<FPSController_Multi>();
 
                 fpsController.OnActiveAiming += ChangeAimState;
+                GameManager_Multi.Instance.OnEnemyHit += OnAnyEnemyHit;
             }
             else
             {
@@ -48,14 +49,9 @@ namespace STARTING
             }
         }
 
-        void OnEnable()
-        {
-            //GameManager_Multi.Instance.OnEnemyHit += OnAnyEnemyHit;
-        }
-
         void OnDisable()
         {
-            //GameManager_Multi.Instance.OnEnemyHit -= OnAnyEnemyHit;
+            GameManager_Multi.Instance.OnEnemyHit -= OnAnyEnemyHit;
         }
 
         void Update()

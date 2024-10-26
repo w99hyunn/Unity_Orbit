@@ -23,7 +23,7 @@ namespace STARTING
         [Range(0f, 10f)]
         public float muzzleFlashTime;
 
-        private void Awake()
+        public virtual void Awake()
         {
             currentBullet = maxBullet;
         }
@@ -54,7 +54,7 @@ namespace STARTING
             }
         }
 
-        public void UseBullet()
+        public virtual void UseBullet()
         {
             Fire();
             GameManager.Instance.PlaySound(shootSound);
@@ -68,13 +68,13 @@ namespace STARTING
             UIManager.Instance.UpdateCurrentBullet(currentBullet);
         }
 
-        public void Fire()
+        public virtual void Fire()
         {
             FireBullet(0, firePoint.position, firePoint.forward, 10f, damage);
             ShowMuzzleFlash();
         }
 
-        void ShowMuzzleFlash()
+        public void ShowMuzzleFlash()
         {
             Quaternion rotation = firePoint.rotation * Quaternion.Euler(0f, 180f, 0f);
             GameObject muzzleFlashInstance = Instantiate(muzzleFlashPrefab, firePoint.position, rotation);
@@ -90,7 +90,7 @@ namespace STARTING
         /// <param name="direction"></param>
         /// <param name="penetration"></param>
         /// <param name="damage"></param>
-        private void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
+        public void FireBullet(ushort senderID, Vector3 origin, Vector3 direction, float penetration = 10f, float damage = 10f)
         {
 
             float currentPenetration = penetration;

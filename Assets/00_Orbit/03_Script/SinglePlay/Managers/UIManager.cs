@@ -362,6 +362,7 @@ namespace STARTING
 
         public void UpdateStats(string order, int currentindex, int maxindex = 0)
         {
+            Debug.Log($"오더: {order} 현재 경험치 : {currentindex}");
             switch (order)
             {
                 case "health":
