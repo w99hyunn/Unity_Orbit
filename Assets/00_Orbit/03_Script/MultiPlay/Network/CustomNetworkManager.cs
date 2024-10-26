@@ -43,6 +43,12 @@ namespace STARTING
             //}
         }
 
+        public override void OnServerDisconnect(NetworkConnectionToClient conn)
+        {
+            ChatManager.Instance?.CmdSendChatMessage("퇴장", $"{conn.identity.name}님이 퇴장하셨습니다.");
+            base.OnServerDisconnect(conn);
+        }
+
         /// <summary>
         /// 클라이언트로부터 받은 로그인 요청 메시지
         /// 처리 결과에 따라 결과값 반환

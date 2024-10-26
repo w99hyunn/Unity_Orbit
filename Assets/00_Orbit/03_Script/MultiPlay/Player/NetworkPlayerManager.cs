@@ -29,6 +29,7 @@ namespace STARTING
             if (isLocalPlayer)
             {
                 CmdSetPlayerName(DBManager.Instance.userName);
+                ChatManager.Instance?.CmdSendChatMessage("접속", $"{DBManager.Instance.userName}님이 접속하셨습니다.");
             }
         }
 
