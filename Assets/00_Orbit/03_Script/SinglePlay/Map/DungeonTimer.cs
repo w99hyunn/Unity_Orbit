@@ -58,7 +58,6 @@ namespace STARTING
             destroyArete = true;
             string currentZoneName = GameManager.Instance.currentZoneName;
             GameManager.Instance.LiberateZone(currentZoneName);
-            Debug.Log("µÊ");
             // UI ¾÷µ¥ÀÌÆ®
             bool isLiberated = GameManager.Instance.IsZoneLiberated(currentZoneName);
             UIManager.Instance.UpdateZoneInfo(currentZoneName, isLiberated);

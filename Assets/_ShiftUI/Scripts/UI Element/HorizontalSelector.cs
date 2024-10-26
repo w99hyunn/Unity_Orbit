@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEditor.PackageManager;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {
@@ -93,8 +95,39 @@ namespace Michsky.UI.Shift
                 Destroy(indicatorParent);
             }
 
+            if (SceneManager.GetActiveScene().name != "MainScene")
+            {
+                if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
+                {
+                    StartCoroutine(MultiSetting());
+                }
+                else
+                {
+                    if (invokeAtStart == true)
+                    {
+                        itemList[index].onValueChanged.Invoke();
+                    }
+                }
+            }
+            else
+            {
+                if (invokeAtStart == true)
+                {
+                    itemList[index].onValueChanged.Invoke();
+                }
+            }
+        }
+
+        private IEnumerator MultiSetting()
+        {
+            while (FindAnyObjectByType<QualityManager>().cameraData == null)
+            {
+                yield return null;
+            }
             if (invokeAtStart == true)
+            {
                 itemList[index].onValueChanged.Invoke();
+            }
         }
 
         public void PreviousClick()

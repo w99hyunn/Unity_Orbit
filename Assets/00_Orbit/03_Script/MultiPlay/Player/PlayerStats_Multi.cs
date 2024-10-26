@@ -30,17 +30,24 @@ namespace STARTING
         public PlayerState_Multi playerState;
 
         private float _manaRegenRate = 10f;
-        private float _healthRegenRate = 5f;
-        private float _regenInterval = 10f;
+        private float _healthRegenRate = 15f;
+        private float _regenInterval = 5f;
         private bool _isShowInfoUI;
 
         private void Awake()
         {
             if (isLocalPlayer)
             {
+                InitializeStats();
+            }
+        }
+
+        private void Start()
+        {
+            if (isLocalPlayer)
+            {
                 InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
                 InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
-                InitializeStats();
             }
         }
 
@@ -168,7 +175,6 @@ namespace STARTING
 
         void RegenerateHealth()
         {
-            Debug.Log("µÇ´Ï?;;");
             currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
             GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);

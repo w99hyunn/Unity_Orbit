@@ -5,6 +5,9 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using STARTING;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {
@@ -45,11 +48,18 @@ namespace Michsky.UI.Shift
 
         private void Awake()
         {
-            cameraData = FindAnyObjectByType<HDAdditionalCameraData>();
+            if (SceneManager.GetActiveScene().name != "WorldScene_Multi")
+            {
+                cameraData = FindAnyObjectByType<HDAdditionalCameraData>();
+            }
         }
 
         void Start()
         {
+            if (SceneManager.GetActiveScene().name == "WorldScene_Multi")
+            {
+                StartCoroutine(FindLocalPlayer());
+            }
             if ("true" == PlayerPrefs.GetString("moveUISwitch"))
             {
                 isMovementUI = true;
@@ -120,6 +130,15 @@ namespace Michsky.UI.Shift
                 resolutionDropdown.onValueChanged.RemoveAllListeners();
                 resolutionDropdown.onValueChanged.AddListener(SetResolution);
             }
+        }
+
+        private IEnumerator FindLocalPlayer()
+        {
+            while (GameManager_Multi.Instance.player == null)
+            {
+                yield return null;
+            }
+            cameraData = GameManager_Multi.Instance.player.GetComponentInChildren<HDAdditionalCameraData>();
         }
 
         List<Resolution> GetUniqueResolutions()

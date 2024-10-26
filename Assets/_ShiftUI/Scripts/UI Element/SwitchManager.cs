@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using STARTING;
+using UnityEngine.Rendering.HighDefinition;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift
 {
@@ -68,6 +72,31 @@ namespace Michsky.UI.Shift
                 else { switchAnimator.Play("Switch Off"); isOn = false; }
             }
 
+            if (SceneManager.GetActiveScene().name != "MainScene")
+            {
+                if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
+                {
+                    StartCoroutine(MultiSetting());
+                }
+                else
+                {
+                    if (invokeAtStart == true && isOn == true) { OnEvents.Invoke(); }
+                    if (invokeAtStart == true && isOn == false) { OffEvents.Invoke(); }
+                }
+            }
+            else
+            {
+                if (invokeAtStart == true && isOn == true) { OnEvents.Invoke(); }
+                if (invokeAtStart == true && isOn == false) { OffEvents.Invoke(); }
+            }
+        }
+
+        private IEnumerator MultiSetting()
+        {
+            while (FindAnyObjectByType<QualityManager>().cameraData == null)
+            {
+                yield return null;
+            }
             if (invokeAtStart == true && isOn == true) { OnEvents.Invoke(); }
             if (invokeAtStart == true && isOn == false) { OffEvents.Invoke(); }
         }

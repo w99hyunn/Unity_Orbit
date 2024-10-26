@@ -303,11 +303,7 @@ namespace STARTING
         public void SaveZoneData(string zoneName, bool isLiberated)
         {
             GameData data = LoadGameData();
-            
             ZoneData zone = data.zones.FirstOrDefault(z => z.zoneName == zoneName);
-
-            Debug.Log(zone);
-
 
             if (zone != null)
             {
