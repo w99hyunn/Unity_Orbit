@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine.SceneManagement;
 
 namespace Michsky.UI.Shift

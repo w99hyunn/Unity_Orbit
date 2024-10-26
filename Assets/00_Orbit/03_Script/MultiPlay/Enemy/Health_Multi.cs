@@ -53,11 +53,6 @@ namespace STARTING
 		[Header("칩 획득 확률")]
         [Range(0, 100)] public float probability = 15f;
 
-		public void SetName(string name)
-		{
-			enemyName.text = name;
-        }
-
         public bool _alive
 		{
 			get
@@ -66,15 +61,22 @@ namespace STARTING
 			}
 		}
 
+        private void Awake()
+        {
+            if (Parent == null)
+            {
+                hpSlider = enemyUI.GetComponentInChildren<Slider>();
+                enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
+                enemyUIcanvas = enemyUI.GetComponent<EnemyUI_Multi>();
+                Setup();
+            }
+        }
+
         private void Start()
         {
             if (Parent == null)
             {
                 playerStats = GetComponent<PlayerStats_Multi>();
-                hpSlider = enemyUI.GetComponentInChildren<Slider>();
-                enemyName = enemyUI.GetComponentInChildren<TMP_Text>();
-                enemyUIcanvas = enemyUI.GetComponent<EnemyUI_Multi>();
-                Setup();
             }
         }
 
@@ -84,7 +86,12 @@ namespace STARTING
 			enemyName.text = this.gameObject.name;
 		}
 
-		public void TakeDamage(NetworkIdentity attacker, float damage) => TakeDamage(attacker, damage, Time.frameCount);
+        public void SetName(string name)
+        {
+            enemyName.text = name;
+        }
+
+        public void TakeDamage(NetworkIdentity attacker, float damage) => TakeDamage(attacker, damage, Time.frameCount);
 
 		private void TakeDamage(NetworkIdentity attacker, float damage, int damageIndex)
 		{

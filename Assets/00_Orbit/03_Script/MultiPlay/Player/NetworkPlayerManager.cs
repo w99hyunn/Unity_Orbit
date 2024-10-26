@@ -16,9 +16,9 @@ namespace STARTING
             if (!isLocalPlayer)
             {
                 GetComponent<PlayerInput>().enabled = false;
+
                 //GetComponent<UserInputController>().enabled = false;
                 //GetComponent<FPSMovement_Multi>().enabled = false;
-
                 //GetComponent<FPSPlayablesController>().enabled = false;
                 //GetComponent<FPSController_Multi>().enabled = false;
                 //GetComponent<CharacterController>().enabled = false;
@@ -28,8 +28,7 @@ namespace STARTING
 
             if (isLocalPlayer)
             {
-                string nickname = DBManager.Instance.userName;
-                CmdSetPlayerName(nickname);
+                CmdSetPlayerName(DBManager.Instance.userName);
             }
         }
 

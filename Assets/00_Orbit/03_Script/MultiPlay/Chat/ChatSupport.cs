@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace STARTING
@@ -17,7 +18,7 @@ namespace STARTING
         public ScrollRect scrollView;
 
         private bool _isInputFieldActive = false;
-        private Coroutine fadeCoroutine;
+        private Coroutine _fadeCoroutine;
 
         private void Awake()
         {
@@ -31,27 +32,13 @@ namespace STARTING
         {
             chatInputField.interactable = false;
             StartCoroutine(FadeOutChatCanvasGroup(5f));
-            chatInputField.onEndEdit.AddListener(delegate { OnInputFieldSubmit(); });
         }
 
         private void Update()
         {
-            // Enter 키로 InputField 활성화/비활성화 전환
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                if (_isInputFieldActive && !string.IsNullOrEmpty(chatInputField.text))
-                {
-                    // 클라이언트에서 ChatManager를 통해 메시지를 서버로 전송
-                    ChatManager.Instance?.CmdSendChatMessage(
-                        NetworkClient.localPlayer != null ? NetworkClient.localPlayer.gameObject.name : "Anonymous",
-                        chatInputField.text
-                    );
-                    chatInputField.text = ""; // 채팅 후 입력란 초기화
-                }
-                else
-                {
-                    ToggleInputField();
-                }
+                OnInputFieldSubmit();
             }
         }
 
@@ -59,22 +46,23 @@ namespace STARTING
         {
             _isInputFieldActive = !_isInputFieldActive;
             chatInputField.interactable = _isInputFieldActive;
+            NetworkClient.localPlayer.gameObject.GetComponent<PlayerInput>().enabled = !_isInputFieldActive;
+
 
             if (_isInputFieldActive)
             {
                 chatCanvasGroup.alpha = 1f;
                 chatInputField.ActivateInputField();
 
-                // 활성화되면 코루틴 중지
-                if (fadeCoroutine != null)
+                if (_fadeCoroutine != null)
                 {
-                    StopCoroutine(fadeCoroutine);
-                    fadeCoroutine = null; // 코루틴 참조를 null로 설정
+                    StopCoroutine(_fadeCoroutine);
+                    _fadeCoroutine = null;
                 }
             }
             else
             {
-                fadeCoroutine = StartCoroutine(FadeOutChatCanvasGroup(5f)); //5초 뒤 채팅창 투명도 줄이기
+                _fadeCoroutine = StartCoroutine(FadeOutChatCanvasGroup(5f));
             }
         }
 
@@ -95,12 +83,13 @@ namespace STARTING
         {
             if (_isInputFieldActive && !string.IsNullOrEmpty(chatInputField.text))
             {
-                // 클라이언트에서 ChatManager를 통해 메시지를 서버로 전송
+                // 클라이언트에서 서버로 메시지 전송
                 ChatManager.Instance?.CmdSendChatMessage(
                     NetworkClient.localPlayer != null ? NetworkClient.localPlayer.gameObject.name : "Anonymous",
                     chatInputField.text
                 );
-                chatInputField.text = ""; // 채팅 후 입력란 초기화
+                chatInputField.text = "";
+                ToggleInputField();
             }
             else
             {
@@ -108,7 +97,6 @@ namespace STARTING
             }
         }
 
-        // 알파 값을 줄이는 코루틴
         private IEnumerator FadeOutChatCanvasGroup(float duration)
         {
             float startAlpha = chatCanvasGroup.alpha;
@@ -119,10 +107,8 @@ namespace STARTING
             {
                 elapsed += Time.deltaTime;
                 chatCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
-                yield return null; // 다음 프레임까지 대기
+                yield return null;
             }
-
-            // 최종적으로 알파를 목표 값으로 설정
             chatCanvasGroup.alpha = targetAlpha;
         }
     }
