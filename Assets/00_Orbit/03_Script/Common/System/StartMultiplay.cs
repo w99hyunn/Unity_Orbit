@@ -261,6 +261,7 @@ namespace STARTING
                 if (NetworkClient.isConnected)
                 {
                     NetworkClient.AddPlayer();
+                    ChatSupport.Instance?.AddChatMessage("멀티플레이", $"{ip} : {port}에 접속되었습니다.");
                 }
                 else
                 {

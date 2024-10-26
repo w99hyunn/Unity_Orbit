@@ -49,8 +49,6 @@ namespace STARTING
         {
             if (!isServer) return;
 
-            Debug.Log("서버에서 CmdTakeDamage 실행: " + amount);
-
             currentHealth -= amount;
             lastAttackerId = attackerId;
 
@@ -74,16 +72,12 @@ namespace STARTING
         [TargetRpc]
         public void TargetShowKillLog(NetworkConnection target, string enemyName)
         {
-            // 클라이언트에서 KillLog 호출
-            Debug.Log("ㅇㅇ");
             GetComponent<Health_Multi>().KillLog(enemyName);
             GainExperience(GetComponent<Health_Multi>().expPoints);
         }
 
         void OnHealthChanged(int oldHealth, int newHealth)
         {
-            Debug.Log("체력 변경: " + newHealth);
-
             if (isLocalPlayer && oldHealth > newHealth)
             {
                 StartCoroutine(UIManager.Instance.FlashScreen());
@@ -174,6 +168,7 @@ namespace STARTING
 
         void RegenerateHealth()
         {
+            Debug.Log("되니?;;");
             currentHealth = Mathf.Min(currentHealth + (int)_healthRegenRate, maxHealth);
             UpdateUI();
             GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
@@ -198,9 +193,7 @@ namespace STARTING
 
         public void GainExperience(int amount)
         {
-            Debug.Log($"원래 경험치 : {currentExperience} 경험치 들어온거 : {amount}, ");
             currentExperience += amount;
-            Debug.Log($"현재 경험치 : {currentExperience}");
             if (currentExperience >= maxExperience)
             {
                 LevelUp();

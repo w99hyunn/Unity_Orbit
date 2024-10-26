@@ -43,7 +43,6 @@ namespace STARTING
             else
             {
                 MainUISupport_multi.LoginFailEvent();
-                Debug.LogError("Login failed.");
             }
         }
 

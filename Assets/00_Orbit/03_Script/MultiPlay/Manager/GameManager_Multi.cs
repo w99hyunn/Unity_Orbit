@@ -15,11 +15,10 @@ namespace STARTING
 
         public event Action OnEnemyHit;
 
-        [Header("플레이어 스크립트 제대로 받아오는지 확인용")]
-        public GameObject player;
-        public FPSMovement_Multi controller;
-        public PlayerStats_Multi playerStats;
-        public Inventory inventory;
+        public GameObject player { get; set; }
+        public FPSMovement_Multi controller { get; set; }
+        public PlayerStats_Multi playerStats { get; set; }
+        public Inventory inventory { get; set; }
 
         // 인스턴스 던전관련
         public List<ZoneData> zones;
@@ -37,7 +36,7 @@ namespace STARTING
             {
                 Instance = this;
             }
-            //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+            
             StartCoroutine(FindLocalPlayer());
         }
 
@@ -270,7 +269,7 @@ namespace STARTING
 
         public void SaveGamePartial(string fieldName, object value)
         {
-            Debug.Log("게임정보 저장됨" + fieldName + " / " + value);
+            //Debug.Log("게임정보 저장됨" + fieldName + " / " + value);
             if (SceneManager.GetActiveScene().name == "DungeonScene")
             {
                 return;

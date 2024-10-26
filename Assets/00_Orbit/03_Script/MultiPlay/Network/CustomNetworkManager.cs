@@ -35,6 +35,7 @@ namespace STARTING
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             base.OnServerAddPlayer(conn);
+
             // 클라이언트가 연결될 때 모든 네트워크 오브젝트의 상태를 동기화
             //foreach (var netObj in FindObjectsOfType<NetworkedObject>())
             //{

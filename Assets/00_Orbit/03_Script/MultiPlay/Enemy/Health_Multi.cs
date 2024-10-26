@@ -115,39 +115,11 @@ namespace STARTING
                 enemyUIcanvas.ShowCanvasGroup();
 				//hpSlider.value = playerStats.currentHealth / MaxPoints;
 
-				if (playerStats.currentHealth <= 0f)
-				{
-
-                    //playerStats.GainExperience(expPoints);
-
-					//온데스 이벤트
-					//KillLog();
-     //               OnDeath.Invoke();
-                    // 피 0되면 파괴 X → 오브젝트풀로 반환하는 이벤트 정의 ↑
-                    //Destroy(this.gameObject); 
-                }
 			}
 		}
 
-        [Server]
-        private void ApplyDamage(float damage, uint attackerId)
-        {
-            playerStats.currentHealth -= (int)damage;
-            playerStats.lastAttackerId = attackerId; // 공격자 ID 설정
-            GameManager_Multi.Instance.EnemyHit();
-
-            if (playerStats.currentHealth <= 0)
-            {
-                playerStats.currentHealth = 0;
-                playerStats.GainExperience(expPoints);
-                OnDeath.Invoke();
-            }
-        }
-
         public void KillLog(string enemyName)
         {
-            Debug.Log("킬로그 실행: " + enemyName);
-
             switch (killLogType)
             {
                 case KillLogType.NORMAL:

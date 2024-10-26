@@ -130,7 +130,10 @@ namespace Demo.Scripts.Runtime.Item
             }
 
             _userInputController.SetValue("SensitivityMultiplier", sensitivityMultiplier);
-            _fpsCameraController.UpdateTargetFOV(fov);
+            if (_fpsCameraController != null)
+            {
+                _fpsCameraController.UpdateTargetFOV(fov);
+            }
         }
 
         protected void UpdateAimPoint()
