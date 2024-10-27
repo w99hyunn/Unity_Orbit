@@ -31,12 +31,13 @@ namespace STARTING
             }
         }
 
-        public void ConnectDB()
+        public bool ConnectDB()
         {
-            ConnectToDatabase("localhost", "orbit", "root", "root", "3306");
+            bool success = ConnectToDatabase("localhost", "orbit", "root", "root", "3306");
+            return success;
         }
 
-        public void ConnectToDatabase(string server, string database, string uid, string password, string port)
+        public bool ConnectToDatabase(string server, string database, string uid, string password, string port)
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Allow Zero Datetime=True;Convert Zero Datetime=True;";
 
@@ -45,10 +46,11 @@ namespace STARTING
             try
             {
                 connection.Open();
+                return true;
             }
-            catch (Exception ex)
+            catch
             {
-                Debug.LogError("Failed to connect to database: " + ex.Message);
+                return false;
             }
         }
 

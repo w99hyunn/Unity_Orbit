@@ -99,19 +99,26 @@ namespace STARTING
         /// </summary>
         public void ServerOpen()
         {
-            DBManager.Instance.ConnectDB();
+            bool success = DBManager.Instance.ConnectDB();
 
-            ip = "localhost";
-            port = GetAvailablePort(1024, 65535);
-
-            CustomNetworkManager.singleton.networkAddress = ip;
-            if (Transport.active is PortTransport portTransport)
+            if (true == success)
             {
-                portTransport.Port = port;
-            }
+                ip = "localhost";
+                port = GetAvailablePort(1024, 65535);
 
-            CustomNetworkManager.singleton.StartHost();
-            StartCoroutine(CheckOpen());
+                CustomNetworkManager.singleton.networkAddress = ip;
+                if (Transport.active is PortTransport portTransport)
+                {
+                    portTransport.Port = port;
+                }
+
+                CustomNetworkManager.singleton.StartHost();
+                StartCoroutine(CheckOpen());
+            }
+            else if (false == success)
+            {
+                uiSupport.DBConnectFailEvent();
+            }
         }
 
         private IEnumerator CheckOpen()

@@ -53,6 +53,7 @@ namespace STARTING
         public UnityEvent login;
         public UnityEvent startLoading;
         public UnityEvent connectFail;
+        public UnityEvent dbServerConnectFail;
         public UnityEvent serverDisconnect;
 
         private void Start()
@@ -209,6 +210,11 @@ namespace STARTING
         public void ConnectFailEvent()
         {
             connectFail?.Invoke();
+        }
+
+        public void DBConnectFailEvent()
+        {
+            dbServerConnectFail?.Invoke();
         }
 
         public void ServerDisconnect()

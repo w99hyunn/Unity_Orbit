@@ -75,6 +75,10 @@ namespace STARTING
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                return;
+            }
             ChatManager.Instance?.CmdSendChatMessage("≈¿Â", $"{conn.identity.name}¥‘¿Ã ≈¿Â«œºÃΩ¿¥œ¥Ÿ.");
             base.OnServerDisconnect(conn);
         }
