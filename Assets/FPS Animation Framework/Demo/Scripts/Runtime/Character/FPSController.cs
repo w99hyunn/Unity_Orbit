@@ -187,6 +187,8 @@ namespace Demo.Scripts.Runtime.Character
 
             //volume
             profile = localVolume.sharedProfile;
+
+            inventory.OnWeaponChanged += OnChangeWeaponSetting;
         }
 
         private void UnequipWeapon()
@@ -427,6 +429,11 @@ namespace Demo.Scripts.Runtime.Character
             {
                 StartWeaponChange(inventory.equippedWeaponIndices[1]);
             }
+        }
+
+        public void OnChangeWeaponSetting(int index)
+        {
+            StartWeaponChange(inventory.equippedWeaponIndices[index]);
         }
 
         public void OnLook(InputValue value)

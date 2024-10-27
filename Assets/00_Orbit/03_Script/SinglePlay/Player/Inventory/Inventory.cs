@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,9 @@ namespace STARTING
         public List<int> availableWeaponIndices = new List<int>();
         public List<int> equippedWeaponIndices = new List<int>();
 
-        void Start()
+        public event Action<int> OnWeaponChanged;
+
+        void Awake()
         {
             InitializeInventory();
         }
@@ -52,7 +55,7 @@ namespace STARTING
             if (equippedWeaponIndices.Count < 2 && !equippedWeaponIndices.Contains(weaponIndex))
             {
                 equippedWeaponIndices.Add(weaponIndex);
-
+                OnWeaponChanged?.Invoke(0);
                 GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
                 return true;
             }
@@ -66,7 +69,7 @@ namespace STARTING
         public void UnequipWeapon(int weaponIndex)
         {
             equippedWeaponIndices.Remove(weaponIndex);
-
+            OnWeaponChanged?.Invoke(0);
             GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
         }
 
