@@ -13,11 +13,11 @@ public class ActiveColGo : MonoBehaviour
 
     private void Start()
     {
-        //find player in scene
-        if (activeParent.UseTopDown)
-            PlayCol = GameObject.FindWithTag("TdLevelManager").GetComponent<TDScene>().PlayerChar;
-        else 
-            PlayCol = GameObject.FindWithTag("Player").GetComponent<Collider>();
+        ////find player in scene
+        //if (activeParent.UseTopDown)
+        //    PlayCol = GameObject.FindWithTag("TdLevelManager").GetComponent<TDScene>().PlayerChar;
+        //else 
+        //    PlayCol = GameObject.FindWithTag("Player").GetComponent<Collider>();
     }
     void OnTriggerEnter(Collider trig)
     {

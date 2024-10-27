@@ -9,11 +9,6 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    enum StartType {
-        HOST,
-        CLIENT
-    };
-    
     public class StartMultiplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
@@ -21,7 +16,6 @@ namespace STARTING
 
         private string publicIP;
         private string hamachiIP;
-        private StartType startType;
         private ushort port;
         private string ip;
 
@@ -126,7 +120,6 @@ namespace STARTING
             {
                 if (true == NetworkServer.active) // 서버에 연결된 상태
                 {
-                    startType = StartType.HOST;
                     uiSupport.LoginEvent();
                     yield break;
                 }
@@ -171,7 +164,6 @@ namespace STARTING
             {
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
-                    startType = StartType.CLIENT;
                     uiSupport.LoginEvent();
                     yield break;
                 }
