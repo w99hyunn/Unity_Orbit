@@ -452,7 +452,7 @@ namespace Demo.Scripts.Runtime.Character
         public void ResetPos()
         {
             _controller.enabled = false;
-            transform.position = new Vector3(-3.229f, 0.549f, -3.035f);
+            transform.position = new Vector3(-12.555f, 0.1f, 2.391f);
             _controller.enabled = true;
         }
 
