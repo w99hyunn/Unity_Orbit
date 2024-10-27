@@ -444,16 +444,16 @@ namespace Demo.Scripts.Runtime.Character
         }
         public void SetPos(Vector3 pos)
         {
-            _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
+            _controller.enabled = false;
             transform.position = pos;
-            _controller.enabled = true;  // 다시 활성화
+            _controller.enabled = true;
         }
 
         public void ResetPos()
         {
-            _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
-            transform.position = new Vector3(0, 1, 10);
-            _controller.enabled = true;  // 다시 활성화
+            _controller.enabled = false;
+            transform.position = new Vector3(-3.229f, 0.549f, -3.035f);
+            _controller.enabled = true;
         }
 
 #if ENABLE_INPUT_SYSTEM

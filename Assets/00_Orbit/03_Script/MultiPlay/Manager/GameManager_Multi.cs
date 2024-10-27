@@ -20,6 +20,9 @@ namespace STARTING
         public PlayerStats_Multi playerStats { get; set; }
         public Inventory inventory { get; set; }
 
+        [Header("스폰 포인트")]
+        public List<GameObject> SpawnPoints;
+
         // 인스턴스 던전관련
         public List<ZoneData> zones;
         public string currentZoneName;
@@ -120,7 +123,8 @@ namespace STARTING
 
             data.currentHealth = 50;
             data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
-            data.playerPosition = new Vector3(0, 0, 0);
+            int randomIndex = UnityEngine.Random.Range(0, SpawnPoints.Count);
+            data.playerPosition = SpawnPoints[randomIndex].transform.position;
 
             SaveGame();
         }
