@@ -14,7 +14,7 @@ namespace STARTING
                 //멀티플레이의 경우 점령 시스템은 아직 적용되지 않았음.
                 //싱글플레이와 동일하게 적용할지, 다른 시스템을 적용할지 고민중
                 //bool isLiberated = GameManager.Instance.SetCurrentZone(zoneName);
-                UIManager.Instance.UpdateZoneInfo(zoneName, false);
+                UIManager.Instance.UpdateZoneInfo(zoneName, false, true);
             }
         }
     }

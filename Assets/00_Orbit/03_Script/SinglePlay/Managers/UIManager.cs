@@ -25,12 +25,14 @@ namespace STARTING
         public GameObject ZoneName;
         public GameObject lockBack;
         public GameObject unlockBack;
+        public GameObject multiBack;
         public TMP_Text zoneNameText;
         public TMP_Text minimapZoneNameText;
         public TMP_Text liberatedText;
 
         public GameObject minimapLockBack;
         public GameObject minimapUnlockBack;
+        public GameObject minimapMultiBack;
 
         public TMP_Text currentBulletText;
         public TMP_Text maxBulletText;
@@ -148,6 +150,13 @@ namespace STARTING
             minimapLockBack.transform.DOLocalRotate(new Vector3(0, 0, 360), 60f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Incremental) // 무한 반복
                 .SetEase(Ease.Linear); // 일정한 속도로 회전
+
+            if (minimapMultiBack != null)
+            {
+                minimapMultiBack.transform.DOLocalRotate(new Vector3(0, 0, -360), 20f, RotateMode.FastBeyond360)
+                    .SetLoops(-1, LoopType.Incremental) // 무한 반복
+                    .SetEase(Ease.Linear); // 일정한 속도로 회전
+            }
         }
 
         public void DungeonLoading(string t1, string t2, string t3)
@@ -265,36 +274,54 @@ namespace STARTING
             changeWeaponUI?.Invoke();
         }
 
-        public void UpdateZoneInfo(string zoneName, bool isLiberated)
+        public void UpdateZoneInfo(string zoneName, bool isLiberated, bool isMulti = false)
         {
             ZoneName.SetActive(false);
 
             minimapZoneNameText.text = zoneName;
             zoneNameText.text = zoneName;
 
-            //해방됨
-            if (isLiberated)
+            if (false == isMulti)
             {
-                unlockBack.SetActive(true);
-                lockBack.SetActive(false);
-                timeText.color = new Color(21f / 255f, 184f / 255f, 198f / 255f);
+                //해방됨
+                if (isLiberated)
+                {
+                    unlockBack.SetActive(true);
+                    lockBack.SetActive(false);
+                    timeText.color = new Color(21f / 255f, 184f / 255f, 198f / 255f);
 
-                minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
-                minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
+                    minimapUnlockBack.GetComponent<Image>().DOFade(1, 1f);
+                    minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
+                }
+                //해방안됨
+                else
+                {
+                    unlockBack.SetActive(false);
+                    lockBack.SetActive(true);
+                    timeText.color = new Color(251f / 255f, 92f / 255f, 87f / 255f);
+
+                    minimapUnlockBack.GetComponent<Image>().DOFade(0, 1f);
+                    minimapLockBack.GetComponent<Image>().DOFade(1, 1f);
+                }
+
+                liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
+                ZoneName.SetActive(true);
             }
-            //해방안됨
-            else
+            else if (true == isMulti)
             {
                 unlockBack.SetActive(false);
-                lockBack.SetActive(true);
-                timeText.color = new Color(251f / 255f, 92f / 255f, 87f / 255f);
+                lockBack.SetActive(false);
+                multiBack.SetActive(true);
+
+                timeText.color = new Color(103f / 255f, 251f / 255f, 88f / 255f);
 
                 minimapUnlockBack.GetComponent<Image>().DOFade(0, 1f);
-                minimapLockBack.GetComponent<Image>().DOFade(1, 1f);
-            }
+                minimapLockBack.GetComponent<Image>().DOFade(0, 1f);
+                minimapMultiBack.GetComponent<Image>().DOFade(1, 1f);
 
-            liberatedText.text = isLiberated ? "해방됨" : "해방되지 않음";
-            ZoneName.SetActive(true);
+                liberatedText.text = "전력이 감지되지 않음";
+                ZoneName.SetActive(true);
+            }
 
             // 기존 코루틴이 있으면 중지
             if (_deactivateCoroutine != null)
