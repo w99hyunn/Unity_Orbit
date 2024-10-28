@@ -51,6 +51,18 @@ namespace STARTING
         private void Update()
         {
             UpdateGameTime();
+            ServerStateCheck();
+        }
+
+        private void ServerStateCheck()
+        {
+            if (false == NetworkClient.active)
+            {
+                SceneManager.LoadScene("MainScene");
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                SceneManager.sceneLoaded += CustomNetworkManager.singleton.OnSceneLoaded;
+            }
         }
 
         private IEnumerator FindLocalPlayer()

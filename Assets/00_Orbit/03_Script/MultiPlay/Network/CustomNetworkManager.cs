@@ -37,28 +37,10 @@ namespace STARTING
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             base.OnServerAddPlayer(conn);
-
-            // 클라이언트가 연결될 때 모든 네트워크 오브젝트의 상태를 동기화
-            //foreach (var netObj in FindObjectsOfType<NetworkedObject>())
-            //{
-            //    netObj.RpcSyncColor(netObj.objectColor);
-            //}
         }
 
-        //클라이언트 입장에서 서버가 끊겼을 때 후속조치
-        public override void OnClientDisconnect()
-        {
-            if (mode != NetworkManagerMode.Host && SceneManager.GetActiveScene().name != "MainScene")
-            {
-                SceneManager.LoadScene("MainScene");
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                SceneManager.sceneLoaded += OnSceneLoaded;
-            }
-            base.OnClientDisconnect();
-        }
-
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        // 클라이언트가 서버 연결 종료시
+        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "MainScene")
             {
