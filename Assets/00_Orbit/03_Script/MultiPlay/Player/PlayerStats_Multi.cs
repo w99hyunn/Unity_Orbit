@@ -1,3 +1,5 @@
+using Demo.Scripts.Runtime.Character;
+using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using Mirror;
 using System.Collections;
 using UnityEngine;
@@ -96,6 +98,8 @@ namespace STARTING
                 currentHealth = 0;
                 if (isLocalPlayer)
                 {
+                    GetComponent<FPSPlayablesController>().SetDie(true);
+                    GetComponent<FPSMovement_Multi>().OnDie();
                     GameManager_Multi.Instance.GameOver();
                 }
             }
@@ -116,6 +120,9 @@ namespace STARTING
 
             //시작시 5초간 무적
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
+
+            GetComponent<FPSPlayablesController>().SetDie(false);
+            GetComponent<FPSMovement_Multi>().OnRevival();
 
             UpdateUI();
             if (!isServer)

@@ -44,6 +44,8 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 
         protected int _playablesWeightPropertyIndex;
 
+        [SerializeField] private bool isDie = false;
+
         protected virtual void Update()
         {
             if (!Application.isPlaying) return;
@@ -57,8 +59,20 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
             {
                 weight *= Mathf.Clamp01(_inputController.GetValue<float>(_playablesWeightPropertyIndex));
             }
-            
-            _masterMixer.SetInputWeight(1, Mathf.Clamp01(weight));
+
+            if (isDie)
+            {
+                _masterMixer.SetInputWeight(1, 0f);
+            }
+            else
+            {
+                _masterMixer.SetInputWeight(1, Mathf.Clamp01(weight));
+            }
+        }
+
+        public void SetDie(bool value)
+        {
+            isDie = value;
         }
 
         private void OnDestroy()

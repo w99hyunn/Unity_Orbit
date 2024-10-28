@@ -1,5 +1,6 @@
 // Designed by KINEMATION, 2024.
 
+using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
 using Mirror;
@@ -88,6 +89,7 @@ namespace Demo.Scripts.Runtime.Character
         private static readonly int Sliding = Animator.StringToHash("Sliding");
         private static readonly int Sprinting = Animator.StringToHash("Sprinting");
         private static readonly int Proning = Animator.StringToHash("Proning");
+        private static readonly int Die = Animator.StringToHash("Die");
 
         private float _sprintAnimatorInterp = 8f;
         private bool _wasMoving = false;
@@ -565,6 +567,15 @@ namespace Demo.Scripts.Runtime.Character
 
             _slideProgress = 0f;
             MovementState = FPSMovementState_Multi.Sliding;
+        }
+        public void OnDie()
+        {
+            _animator.SetBool(Die, true);
+        }
+
+        public void OnRevival()
+        {
+            _animator.SetBool(Die, false);
         }
 #endif
     }
