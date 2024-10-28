@@ -104,6 +104,7 @@ namespace STARTING
         [Header("무기 HUD")]
         public Image weaponBase;
         public GameObject aimImage;
+        public GameObject crouchState;
 
         /* 존 이름 & 해방여부 업데이트 */
         private Coroutine _deactivateCoroutine;
@@ -479,6 +480,11 @@ namespace STARTING
         public void ShowAim(bool index)
         {
             aimImage.SetActive(index);
+        }
+
+        public void CrouchState(bool index)
+        {
+            crouchState.SetActive(index);
         }
 
         private IEnumerator SmoothSliderChange(Slider slider, float targetValue)

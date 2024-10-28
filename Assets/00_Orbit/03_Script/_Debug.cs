@@ -41,15 +41,15 @@ namespace STARTING
             {
                 GameManager.Instance.SaveGame();
             }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                for (int i = 0; i < inventory.availableWeaponIndices.Count; i++)
-                    Debug.Log("현재 가능한 무기:" + inventory.availableWeaponIndices[i]);
+            //if (Input.GetKeyDown(KeyCode.C))
+            //{
+            //    for (int i = 0; i < inventory.availableWeaponIndices.Count; i++)
+            //        Debug.Log("현재 가능한 무기:" + inventory.availableWeaponIndices[i]);
 
 
-                for (int i = 0; i < inventory.equippedWeaponIndices.Count; i++)
-                    Debug.Log("현재 장착중인 무기:" + inventory.equippedWeaponIndices[i]);
-            }
+            //    for (int i = 0; i < inventory.equippedWeaponIndices.Count; i++)
+            //        Debug.Log("현재 장착중인 무기:" + inventory.equippedWeaponIndices[i]);
+            //}
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 inventory.GainChip(200);

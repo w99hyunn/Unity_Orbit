@@ -135,7 +135,17 @@ namespace Demo.Scripts.Runtime.Character
         {
             float height = _originalHeight - _controller.radius * 2f;
             Vector3 position = rootBone.TransformPoint(_originalCenter + Vector3.up * height / 2f);
-            return !Physics.CheckSphere(position, _controller.radius);
+
+            Collider[] colliders = Physics.OverlapSphere(position, _controller.radius);
+            foreach (Collider collider in colliders)
+            {
+                // 충돌한 콜라이더가 "Trigger" 레이어가 아닌 경우에는 일어설 수 있음.
+                if (collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void EnableProne()
@@ -175,6 +185,7 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState_Multi.Crouching;
 
             _animator.SetBool(Crouching, true);
+            UIManager.Instance.CrouchState(true);
             onCrouch.Invoke();
         }
 
@@ -186,6 +197,7 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState_Multi.Standing;
 
             _animator.SetBool(Crouching, false);
+            UIManager.Instance.CrouchState(false);
             onUncrouch.Invoke();
         }
 

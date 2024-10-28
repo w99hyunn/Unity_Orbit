@@ -36,7 +36,7 @@
                     "name": "ToggleUnarmed",
                     "type": "Button",
                     "id": "3038bfee-99fe-4f0a-9aa5-f13f0f160458",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -44,8 +44,26 @@
                 {
                     "name": "ChangeWeapon",
                     "type": "Button",
-                    "id": "ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9",
-                    "expectedControlType": "Button",
+                    "id": "797d1b28-7ead-4294-becb-41545628871d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon1",
+                    "type": "Button",
+                    "id": "164515ff-d3f1-4f60-8654-33e0e50b3fba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon2",
+                    "type": "Button",
+                    "id": "c00e9895-c18c-4572-bb0b-8ec948093d9a",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -72,7 +90,7 @@
                     "name": "Reload",
                     "type": "Button",
                     "id": "781ccf7e-ce71-4b0e-891d-a50f4f3e146d",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,7 +117,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "fafa5449-219a-4f14-9968-8d651ec2f317",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -108,7 +126,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "5f8cec63-aa0a-4b5f-9cb0-cd01efcbe8a9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -126,7 +144,7 @@
                     "name": "Slide",
                     "type": "Button",
                     "id": "75a2a6e4-7eb2-4557-a086-e73034f5d88b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -135,7 +153,7 @@
                     "name": "CycleScope",
                     "type": "Button",
                     "id": "3ebcfcd8-c943-4578-a792-25c54c5c341b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -163,6 +181,15 @@
                     "type": "Button",
                     "id": "398a09d8-df40-4ed5-a831-65e9f9201c81",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CurrentInfo",
+                    "type": "Button",
+                    "id": "420feec8-74c4-4b62-9b90-baefdd2aac37",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -215,12 +242,34 @@
                 },
                 {
                     "name": "",
-                    "id": "e62386ed-e227-432d-be94-2b77010693cc",
-                    "path": "<Keyboard>/tab",
+                    "id": "1ee7a8f5-1490-4f36-b235-f7f58bd4774e",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d8af505-1f7e-4f8c-af76-940aebe32b59",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5650e38e-99a9-4822-a546-2a16372437dc",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -325,17 +374,6 @@
                 },
                 {
                     "name": "",
-                    "id": "954f0245-e5b1-4d13-b4e9-1e3c4f599112",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9d063bf9-6dae-43da-8ce4-83e827681992",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -353,28 +391,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9eea3511-34d7-4ae2-84c1-89afd500b40a",
-                    "path": "<Keyboard>/z",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Prone",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "62e7a942-28e5-49bc-a26e-16789c65d0ec",
-                    "path": "<Keyboard>/#(X)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -436,11 +452,61 @@
                 {
                     "name": "",
                     "id": "ec1def2a-4dd2-4fa8-ae55-3c31e2649cbd",
-                    "path": "<Keyboard>/i",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ToggleAttachmentEditing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9ce09a3-c521-47bb-ad02-6be07e6aa72f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CurrentInfo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fc5f724-8626-41a3-b27c-5cd48d787333",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Splash",
+            "id": "525dd68c-de1a-4f28-85ec-d2b7b7ef5406",
+            "actions": [
+                {
+                    "name": "Skip",
+                    "type": "Button",
+                    "id": "93a5354a-ecab-42e0-ba3c-ad8328cccba0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "45140615-4661-4712-be13-8f75b60cc69e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
