@@ -134,7 +134,7 @@ namespace STARTING
             killLogIcon = back.transform.Find("killLogIcon").gameObject.GetComponent<Image>();
             killLogText = back.transform.Find("killLogText").gameObject.GetComponent<TMP_Text>();
 
-            if (SceneManager.GetActiveScene().name == "WorldScene_Multi")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("Multi"))
             {
                 playMode = PlayMode.MULTI;
             }
@@ -413,7 +413,7 @@ namespace STARTING
         private void UpdateChipUI(int currentindex)
         {
             currentChipText.text = $"{currentindex}";
-            if (SceneManager.GetActiveScene().name == "WorldScene")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("Single"))
                 currentChipTextInWeaponChangeUI.text = $"{currentindex}";
         }
 

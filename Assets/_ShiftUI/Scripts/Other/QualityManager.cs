@@ -48,7 +48,7 @@ namespace Michsky.UI.Shift
 
         private void Awake()
         {
-            if (SceneManager.GetActiveScene().name != "WorldScene_Multi")
+            if (SceneManager.GetActiveScene().name != SceneDataManager.GetSceneName("Multi"))
             {
                 cameraData = FindAnyObjectByType<HDAdditionalCameraData>();
             }
@@ -56,7 +56,7 @@ namespace Michsky.UI.Shift
 
         void Start()
         {
-            if (SceneManager.GetActiveScene().name == "WorldScene_Multi")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("Multi"))
             {
                 StartCoroutine(FindLocalPlayer());
             }

@@ -58,7 +58,7 @@ namespace STARTING
         {
             if (false == NetworkClient.active)
             {
-                SceneManager.LoadScene("MainScene");
+                SceneManager.LoadScene(SceneDataManager.GetSceneName("Main"));
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 SceneManager.sceneLoaded += CustomNetworkManager.singleton.OnSceneLoaded;
@@ -98,7 +98,7 @@ namespace STARTING
         // 게임 오버시 체크포인트 불러오기
         public void ContinueGame()
         {
-            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("SingleDungeon"))
             {
                 StartCoroutine(LoadWorldSceneAfterDelay(3f));
             }
@@ -111,7 +111,7 @@ namespace STARTING
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Additive);
             asyncLoad.allowSceneActivation = false;
 
             yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
@@ -120,11 +120,11 @@ namespace STARTING
 
             yield return new WaitUntil(() => asyncLoad.isDone);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
 
             InitializePlayerAfterGameOver();
             LoadGame();
-            SceneManager.UnloadSceneAsync("DungeonScene");
+            SceneManager.UnloadSceneAsync(SceneDataManager.GetSceneName("SingleDungeon"));
 
             yield return new WaitForSeconds(delay);
         }
@@ -286,7 +286,7 @@ namespace STARTING
         public void SaveGamePartial(string fieldName, object value)
         {
             //Debug.Log("게임정보 저장됨" + fieldName + " / " + value);
-            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("SingleDungeon"))
             {
                 return;
             }

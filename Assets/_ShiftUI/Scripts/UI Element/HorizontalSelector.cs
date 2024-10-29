@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.SceneManagement;
+using STARTING;
 
 namespace Michsky.UI.Shift
 {
@@ -94,7 +95,7 @@ namespace Michsky.UI.Shift
                 Destroy(indicatorParent);
             }
 
-            if (SceneManager.GetActiveScene().name != "MainScene")
+            if (SceneManager.GetActiveScene().name != SceneDataManager.GetSceneName("Main"))
             {
                 if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
                 {

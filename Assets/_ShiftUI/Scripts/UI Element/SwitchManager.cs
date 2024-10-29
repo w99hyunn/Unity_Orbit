@@ -72,7 +72,7 @@ namespace Michsky.UI.Shift
                 else { switchAnimator.Play("Switch Off"); isOn = false; }
             }
 
-            if (SceneManager.GetActiveScene().name != "MainScene")
+            if (SceneManager.GetActiveScene().name != SceneDataManager.GetSceneName("Main"))
             {
                 if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
                 {

@@ -131,7 +131,7 @@ namespace STARTING
             DestroyObjectsInList();
             yield return new WaitForSeconds(2f);
 
-            AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
+            AsyncOperation op = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Single);
             op.allowSceneActivation = false;
 
             while (op.progress < 0.9f)
@@ -151,7 +151,7 @@ namespace STARTING
                 yield return null;
             }
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
         }
 
         public void StartNewGame()

@@ -19,7 +19,7 @@ namespace STARTING
         public virtual void BackToMain()
         {
             DestroyObjectsInList();
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene(SceneDataManager.GetSceneName("Main"));
         }
 
         public void DestroyObjectsInList()

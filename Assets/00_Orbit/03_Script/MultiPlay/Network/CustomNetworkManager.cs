@@ -42,7 +42,7 @@ namespace STARTING
         // 클라이언트가 서버 연결 종료시
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "MainScene")
+            if (scene.name == SceneDataManager.GetSceneName("Main"))
             {
                 StartCoroutine(LoadWorldSceneAfterDelay());
             }
@@ -57,7 +57,7 @@ namespace STARTING
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
-            if (SceneManager.GetActiveScene().name == "MainScene")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("Main"))
             {
                 return;
             }

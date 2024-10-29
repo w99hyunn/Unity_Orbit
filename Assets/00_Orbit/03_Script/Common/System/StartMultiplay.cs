@@ -200,6 +200,9 @@ namespace STARTING
         public void GameStart()
         {
             uiSupport.StartLoadingEvent();
+
+            uiSupport.MultiConnectInfo($"{ip} : {port}에 접속중입니다.");
+
             StartCoroutine(LoadWorldScene());
         }
 
@@ -209,7 +212,7 @@ namespace STARTING
 
             yield return new WaitForSeconds(2f);
 
-            AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene_Multi", LoadSceneMode.Single);
+            AsyncOperation op = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Multi"), LoadSceneMode.Single);
             op.allowSceneActivation = false;
 
             while (op.progress < 0.9f)
@@ -230,12 +233,12 @@ namespace STARTING
                 yield return null;
             }
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene_Multi"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Multi")));
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "WorldScene_Multi")
+            if (scene.name == SceneDataManager.GetSceneName("Multi"))
             {
                 if (NetworkClient.isConnected)
                 {

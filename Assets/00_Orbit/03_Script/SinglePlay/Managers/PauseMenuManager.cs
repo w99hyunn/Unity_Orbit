@@ -22,11 +22,11 @@ namespace STARTING
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == "DungeonScene")
+            if (scene.name == SceneDataManager.GetSceneName("SingleDungeon"))
             {
                 SetGameObjectsActive(false);
             }
-            else if (scene.name == "WorldScene")
+            else if (scene.name == SceneDataManager.GetSceneName("Single"))
             {
                 SetGameObjectsActive(true);
             }

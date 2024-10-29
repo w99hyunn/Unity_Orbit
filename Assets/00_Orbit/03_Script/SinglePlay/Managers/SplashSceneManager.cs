@@ -58,7 +58,7 @@ namespace STARTING
         private void OnSkip(InputValue value)
         {
             Cursor.visible = true;
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene(SceneDataManager.GetSceneName("Main"));
         }
     }
 }
