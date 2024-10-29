@@ -93,6 +93,11 @@ namespace STARTING
                 GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
             }
 
+            if (oldHealth > newHealth)
+            {
+                GetComponent<FPSMovement_Multi>().OnHit();
+            }
+
             if (newHealth <= 0)
             {
                 currentHealth = 0;

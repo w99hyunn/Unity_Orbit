@@ -1,6 +1,5 @@
 // Designed by KINEMATION, 2024.
 
-using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
 using Mirror;
@@ -90,6 +89,7 @@ namespace Demo.Scripts.Runtime.Character
         private static readonly int Sprinting = Animator.StringToHash("Sprinting");
         private static readonly int Proning = Animator.StringToHash("Proning");
         private static readonly int Die = Animator.StringToHash("Die");
+        private static readonly int Hit = Animator.StringToHash("Hit");
 
         private float _sprintAnimatorInterp = 8f;
         private bool _wasMoving = false;
@@ -576,6 +576,11 @@ namespace Demo.Scripts.Runtime.Character
         public void OnRevival()
         {
             _animator.SetBool(Die, false);
+        }
+
+        public void OnHit()
+        {
+            _animator.SetTrigger(Hit);
         }
 #endif
     }
