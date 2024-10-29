@@ -9,6 +9,7 @@ using UnityEngine;
 
 using UnityEngine.Animations;
 using UnityEngine.Playables;
+using Mirror;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 {
@@ -44,7 +45,6 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
 
         protected int _playablesWeightPropertyIndex;
 
-        [SerializeField] private bool isDie = false;
 
         protected virtual void Update()
         {
@@ -60,19 +60,16 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Playables
                 weight *= Mathf.Clamp01(_inputController.GetValue<float>(_playablesWeightPropertyIndex));
             }
 
-            if (isDie)
-            {
-                _masterMixer.SetInputWeight(1, 0f);
-            }
-            else
+            //로컬 플레이어만 UpperBody 사용
+            if (NetworkClient.localPlayer == this.GetComponent<NetworkIdentity>())
             {
                 _masterMixer.SetInputWeight(1, Mathf.Clamp01(weight));
             }
-        }
-
-        public void SetDie(bool value)
-        {
-            isDie = value;
+            //로컬 플레이어가 아니면 mix하지않음.
+            else
+            {
+                _masterMixer.SetInputWeight(1, 0f);
+            }
         }
 
         private void OnDestroy()
