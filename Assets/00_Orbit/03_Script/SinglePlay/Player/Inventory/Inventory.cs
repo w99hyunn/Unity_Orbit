@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,12 @@ namespace STARTING
         public Sprite chipIcon;
 
         [Header("무기 변경 시스템")]
-        public List<int> availableWeaponIndices;
-        public List<int> equippedWeaponIndices;
+        public List<int> availableWeaponIndices = new List<int>();
+        public List<int> equippedWeaponIndices = new List<int>();
 
-        void Start()
+        public event Action<int> OnWeaponChanged;
+
+        void Awake()
         {
             InitializeInventory();
         }
@@ -21,9 +24,6 @@ namespace STARTING
         public void InitializeInventory()
         {
             chip = 0;
-            availableWeaponIndices = new List<int>();
-            equippedWeaponIndices = new List<int>();
-
             availableWeaponIndices.Add(0);
             equippedWeaponIndices.Add(0);
         }
@@ -35,10 +35,7 @@ namespace STARTING
             {
                 chip -= weaponCost;
                 availableWeaponIndices.Add(weaponIndex);
-                Debug.Log($"무기 {weaponIndex}를 구매. 남은 칩: {chip}");
-
-                for (int i = 0; i < availableWeaponIndices.Count; i++)
-                    Debug.Log(availableWeaponIndices[i]);
+                //Debug.Log($"무기 {weaponIndex} 구매. 남은 칩: {chip}");
 
                 UIManager.Instance.UpdateStats("chip", chip);
                 GameManager.Instance.SaveGamePartial("chip", chip);
@@ -47,20 +44,23 @@ namespace STARTING
             }
             else
             {
-                Debug.Log("칩이 부족합니다.");
                 return false;
             }
         }
 
         // 무기 장착
-        public void EquipWeapon(int weaponIndex)
+        public bool EquipWeapon(int weaponIndex)
         {
             if (equippedWeaponIndices.Count < 2 && !equippedWeaponIndices.Contains(weaponIndex))
             {
                 equippedWeaponIndices.Add(weaponIndex);
-                Debug.Log($"무기 {weaponIndex}를 장착했습니다.");
-
+                OnWeaponChanged?.Invoke(0);
                 GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -68,9 +68,17 @@ namespace STARTING
         public void UnequipWeapon(int weaponIndex)
         {
             equippedWeaponIndices.Remove(weaponIndex);
-            Debug.Log($"무기 {weaponIndex}를 장착 해제했습니다.");
+            OnWeaponChanged?.Invoke(0);
+            GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
+        }
 
-            // 게임 상태 저장
+        // 순서 변경
+        public void SwapWeapon(int index1, int index2)
+        {
+            int temp = equippedWeaponIndices[index1];
+            equippedWeaponIndices[index1] = equippedWeaponIndices[index2];
+            equippedWeaponIndices[index2] = temp;
+
             GameManager.Instance.SaveGamePartial("equippedWeaponIndices", equippedWeaponIndices);
         }
 

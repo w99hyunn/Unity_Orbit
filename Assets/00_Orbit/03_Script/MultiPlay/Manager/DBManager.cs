@@ -31,12 +31,13 @@ namespace STARTING
             }
         }
 
-        public void ConnectDB()
+        public bool ConnectDB()
         {
-            ConnectToDatabase("localhost", "orbit", "root", "root", "3306");
+            bool success = ConnectToDatabase("localhost", "orbit", "root", "root", "3306");
+            return success;
         }
 
-        public void ConnectToDatabase(string server, string database, string uid, string password, string port)
+        public bool ConnectToDatabase(string server, string database, string uid, string password, string port)
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Allow Zero Datetime=True;Convert Zero Datetime=True;";
 
@@ -45,10 +46,11 @@ namespace STARTING
             try
             {
                 connection.Open();
+                return true;
             }
-            catch (Exception ex)
+            catch
             {
-                Debug.LogError("Failed to connect to database: " + ex.Message);
+                return false;
             }
         }
 
@@ -87,7 +89,6 @@ namespace STARTING
                         // 비밀번호 비교 (해싱 알고리즘에 맞게 구현)
                         if (VerifyPasswordHash(password, storedPasswordSalt, Convert.FromBase64String(storedPasswordHash))) // Hash도 Base64로 변환하여 비교
                         {
-                            Debug.Log("Login successful.");
                             return true;
                         }
                     }

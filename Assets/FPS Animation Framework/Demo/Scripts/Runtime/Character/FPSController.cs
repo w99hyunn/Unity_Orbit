@@ -80,7 +80,13 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Awake()
         {
-            inventory = this.gameObject.GetComponent<Inventory>();
+            _fpsAnimator = GetComponent<FPSAnimator>();
+            _userInput = GetComponent<UserInputController>();
+            _animator = GetComponent<Animator>();
+            _recoilPattern = GetComponent<RecoilPattern>();
+            inventory = GetComponent<Inventory>();
+
+            inventory.OnWeaponChanged += OnChangeWeaponSetting;
         }
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
@@ -105,8 +111,6 @@ namespace Demo.Scripts.Runtime.Character
 
         private bool IsAiming()
         {
-            //에임상태(줌) 변경될 때 이벤트 발생
-            OnActiveAiming?.Invoke(_aimState);
             return _aimState is FPSAimState.Aiming or FPSAimState.PointAiming;
         }
 
@@ -161,19 +165,13 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
-            _fpsAnimator = GetComponent<FPSAnimator>();
-            _userInput = GetComponent<UserInputController>();
-            _animator = GetComponent<Animator>();
-            _recoilPattern = GetComponent<RecoilPattern>();
 
             InitializeMovement();
             InitializeWeapons();
 
             _actionState = FPSActionState.None;
+
             // 첫 번째 장착된 무기 자동 장착
             if (inventory.equippedWeaponIndices.Count > 0)
             {
@@ -401,6 +399,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
                 return;
             }
 
@@ -408,6 +408,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 DisableAim();
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
             }
         }
 
@@ -425,6 +427,11 @@ namespace Demo.Scripts.Runtime.Character
             {
                 StartWeaponChange(inventory.equippedWeaponIndices[1]);
             }
+        }
+
+        public void OnChangeWeaponSetting(int index)
+        {
+            StartWeaponChange(inventory.equippedWeaponIndices[index]);
         }
 
         public void OnLook(InputValue value)

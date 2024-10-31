@@ -8,25 +8,26 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class GameManager_Multi : NetworkBehaviour
+    public class GameManager_Multi : MonoBehaviour
     {
         public static GameManager_Multi Instance { get; private set; }
-        public ClientNetworkHandler clientNetworkHandler;
+        private ClientNetworkHandler clientNetworkHandler;
 
         public event Action OnEnemyHit;
 
-        public GameObject player;
-        public FPSMovement_Multi controller;
-        public PlayerStats_Multi playerStats;
-        public Inventory inventory;
+        public GameObject player { get; set; }
+        public FPSMovement_Multi controller { get; set; }
+        public PlayerStats_Multi playerStats { get; set; }
+        public Inventory inventory { get; set; }
+
+        [Header("스폰 포인트")]
+        public List<GameObject> SpawnPoints;
 
         // 인스턴스 던전관련
         public List<ZoneData> zones;
         public string currentZoneName;
         public Vector3 lastPlayerPosition { get; private set; }
         public AudioSource audioSource;
-
-        public float gameTime = 13600f; // 21600
 
         private string _saveFilePath;
         private const float _realSecondsPerGameDay = 3 * 60 * 60;
@@ -37,23 +38,31 @@ namespace STARTING
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
-            //_saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+            
+            StartCoroutine(FindLocalPlayer());
         }
 
         private void Start()
         {
-            StartCoroutine(FindLocalPlayer());
+            clientNetworkHandler = FindAnyObjectByType<ClientNetworkHandler>();
         }
 
         private void Update()
         {
             UpdateGameTime();
+            ServerStateCheck();
+        }
+
+        private void ServerStateCheck()
+        {
+            if (false == NetworkClient.active)
+            {
+                SceneManager.LoadScene(SceneDataManager.GetSceneName("Main"));
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                SceneManager.sceneLoaded += CustomNetworkManager.singleton.OnSceneLoaded;
+            }
         }
 
         private IEnumerator FindLocalPlayer()
@@ -64,7 +73,7 @@ namespace STARTING
             }
 
             player = NetworkClient.localPlayer.gameObject;
-            Debug.Log(player.name);
+            //Debug.Log(player.name);
             if (player != null)
             {
                 controller = player.GetComponent<FPSMovement_Multi>();
@@ -73,7 +82,6 @@ namespace STARTING
 
                 LoadGame();
                 SaveGame();
-                Debug.Log("얜가");
             }
             else
             {
@@ -90,7 +98,7 @@ namespace STARTING
         // 게임 오버시 체크포인트 불러오기
         public void ContinueGame()
         {
-            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("SingleDungeon"))
             {
                 StartCoroutine(LoadWorldSceneAfterDelay(3f));
             }
@@ -103,7 +111,7 @@ namespace STARTING
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Additive);
             asyncLoad.allowSceneActivation = false;
 
             yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
@@ -112,11 +120,11 @@ namespace STARTING
 
             yield return new WaitUntil(() => asyncLoad.isDone);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
 
             InitializePlayerAfterGameOver();
             LoadGame();
-            SceneManager.UnloadSceneAsync("DungeonScene");
+            SceneManager.UnloadSceneAsync(SceneDataManager.GetSceneName("SingleDungeon"));
 
             yield return new WaitForSeconds(delay);
         }
@@ -127,7 +135,8 @@ namespace STARTING
 
             data.currentHealth = 50;
             data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
-            data.playerPosition = new Vector3(0, 0, 0);
+            int randomIndex = UnityEngine.Random.Range(0, SpawnPoints.Count);
+            data.playerPosition = SpawnPoints[randomIndex].transform.position;
 
             SaveGame();
         }
@@ -143,9 +152,15 @@ namespace STARTING
 
             if (data.level != -1)
             {
-                this.gameTime = data.gameTime;
+                //this.gameTime = data.gameTime;
                 controller.SetPos(data.playerPosition);
-                playerStats.SetStats(data.maxHealth, data.maxMana, data.maxExperience, data.currentHealth, data.currentMana, data.currentExperience, data.level);
+                playerStats.SetStats(data.maxHealth,
+                                     data.maxMana,
+                                     data.maxExperience,
+                                     data.currentHealth <= 0 ? 50 : data.currentHealth, // 현재 체력이 0 이하인 경우 50으로 설정
+                                     data.currentMana,
+                                     data.currentExperience,
+                                     data.level);
                 //this.zones = data.zones;
                 inventory.SetInventory(data.chip);
             }
@@ -173,17 +188,12 @@ namespace STARTING
 
         public void UpdateGameTime()
         {
-            gameTime += Time.deltaTime * _gameSecondsPerRealSecond;
+            DateTime now = DateTime.Now;
 
-            if (gameTime >= 24 * 60 * 60)
-            {
-                gameTime -= 24 * 60 * 60;
-            }
-
-            int hours = (int)(gameTime / 3600) % 24;
-            int minutes = (int)(gameTime % 3600 / 60);
-
+            int hours = now.Hour;
+            int minutes = now.Minute;
             string period = hours >= 12 ? "오후" : "오전";
+
             hours = hours % 12;
 
             if (period == "오전" && hours == 0)
@@ -201,10 +211,7 @@ namespace STARTING
 
             string timeFormatted = string.Format("{0} {1:D2}:{2:D2}", period, hours, minutes);
 
-            if (UIManager.Instance != null)
-            {
-                UIManager.Instance.UpdateTime(timeFormatted);
-            }
+            UIManager.Instance.UpdateTime(timeFormatted);
         }
 
         //public void LiberateZone(string zoneName)
@@ -278,7 +285,8 @@ namespace STARTING
 
         public void SaveGamePartial(string fieldName, object value)
         {
-            if (SceneManager.GetActiveScene().name == "DungeonScene")
+            //Debug.Log("게임정보 저장됨" + fieldName + " / " + value);
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("SingleDungeon"))
             {
                 return;
             }

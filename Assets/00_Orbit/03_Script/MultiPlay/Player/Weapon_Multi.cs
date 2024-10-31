@@ -40,7 +40,7 @@ namespace Demo.Scripts.Runtime.Item
         [SerializeField] private RecoilAnimData recoilData;
         [SerializeField] private RecoilPatternSettings recoilPatternSettings;
         [SerializeField] private FPSCameraShake cameraShake;
-        [Min(0f)] [SerializeField] private float fireRate;
+        [Min(0f)] [SerializeField] public float fireRate;
 
         [SerializeField] private bool supportsAuto;
         [SerializeField] private bool supportsBurst;
@@ -86,8 +86,6 @@ namespace Demo.Scripts.Runtime.Item
 
         private GunFire_Multi gunFire;
 
-        public Sprite weaponPreview;
-
         private void Start()
         {
             gunFire = GetComponent<GunFire_Multi>();
@@ -132,7 +130,10 @@ namespace Demo.Scripts.Runtime.Item
             }
 
             _userInputController.SetValue("SensitivityMultiplier", sensitivityMultiplier);
-            _fpsCameraController.UpdateTargetFOV(fov);
+            if (_fpsCameraController != null)
+            {
+                _fpsCameraController.UpdateTargetFOV(fov);
+            }
         }
 
         protected void UpdateAimPoint()

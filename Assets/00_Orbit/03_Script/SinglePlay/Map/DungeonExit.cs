@@ -60,7 +60,7 @@ namespace STARTING
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Additive);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Additive);
             asyncLoad.allowSceneActivation = false;
 
             yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
@@ -69,12 +69,12 @@ namespace STARTING
 
             yield return new WaitUntil(() => asyncLoad.isDone);
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
 
             GameManager.Instance.SetPos(GameManager.Instance.LoadPlayerPosition());
 
             yield return new WaitForSeconds(delay);
-            SceneManager.UnloadSceneAsync("DungeonScene");
+            SceneManager.UnloadSceneAsync(SceneDataManager.GetSceneName("SingleDungeon"));
             asyncLoad.completed += OnSceneLoaded;
         }
 

@@ -35,11 +35,11 @@ namespace STARTING
 		// Impact types
 		public enum ImpactType
 		{
-			Flesh,
-			Metal,
-			Sand,
-			Stone,
-			Wood
+			FLESH,
+			METAL,
+			SAND,
+			STONE,
+			WOOD
 		}
 
 		private void Awake()
@@ -53,23 +53,23 @@ namespace STARTING
 		}
 
 		// Play impact particle of given type
-		public void PlayImpact(Vector3 pos, Vector3 normal, Transform parent, ImpactType type = ImpactType.Stone)
+		public void PlayImpact(Vector3 pos, Vector3 normal, Transform parent, ImpactType type = ImpactType.STONE)
 		{
 			switch (type)
 			{
-				case ImpactType.Flesh:
+				case ImpactType.FLESH:
 					PlayImpact(_fleshImpactParticles, parent, FleshImpactPrefab, pos, normal);
 					break;
-				case ImpactType.Metal:
+				case ImpactType.METAL:
 					PlayImpact(_metalImpactParticles, parent, MetalImpactPrefab, pos, normal);
 					break;
-				case ImpactType.Sand:
+				case ImpactType.SAND:
 					PlayImpact(_sandImpactParticles, parent, SandImpactPrefab, pos, normal);
 					break;
-				case ImpactType.Stone:
+				case ImpactType.STONE:
 					PlayImpact(_stoneImpactParticles, parent, StoneImpactPrefab, pos, normal);
 					break;
-				case ImpactType.Wood:
+				case ImpactType.WOOD:
 					PlayImpact(_woodImpactParticles, parent, WoodImpactPrefab, pos, normal);
 					break;
 

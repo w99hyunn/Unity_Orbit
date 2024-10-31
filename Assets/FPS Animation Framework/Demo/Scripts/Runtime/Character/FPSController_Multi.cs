@@ -38,8 +38,6 @@ namespace Demo.Scripts.Runtime.Character
     [RequireComponent(typeof(CharacterController), typeof(FPSMovement_Multi))]
     public class FPSController_Multi : NetworkBehaviour
     {
-        //~ Legacy Controller Interface
-
         [SerializeField] private FPSControllerSettings settings;
 
         private FPSMovement_Multi _movementComponent;
@@ -47,6 +45,7 @@ namespace Demo.Scripts.Runtime.Character
         private Transform _weaponBone;
         private Vector2 _playerInput;
 
+        [SyncVar(hook = nameof(OnWeaponChanged))]
         private int _activeWeaponIndex;
         private int _previousWeaponIndex;
 
@@ -63,7 +62,7 @@ namespace Demo.Scripts.Runtime.Character
         private UserInputController _userInput;
         // ~Scriptable Animation System Integration
 
-        private List<FPSItem> _instantiatedWeapons;
+        public List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
@@ -77,7 +76,12 @@ namespace Demo.Scripts.Runtime.Character
         private ChromaticAberration chromaticAberration;
 
         private PlayerStats_Multi playerStats;
-        private PlayerInput playerInput;
+
+        // ~ 무기 위치/ 회전값 업데이트
+        [SyncVar(hook = nameof(OnWeaponPositionChanged))]
+        private Vector3 weaponPosition;
+        [SyncVar(hook = nameof(OnWeaponRotationChanged))]
+        private Quaternion weaponRotation;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -88,6 +92,21 @@ namespace Demo.Scripts.Runtime.Character
 
             _fpsAnimator.LinkAnimatorLayer(layerSettings);
         }
+
+        private void OnWeaponChanged(int oldIndex, int newIndex)
+        {
+            // 무기 변경 처리
+            EquipWeapon();
+        }
+
+        [Command]
+        public void CmdChangeWeapon(int newWeaponIndex)
+        {
+            // 서버에서 무기 변경
+            _activeWeaponIndex = newWeaponIndex;
+        }
+
+
 
         private bool IsSprinting()
         {
@@ -101,8 +120,6 @@ namespace Demo.Scripts.Runtime.Character
 
         private bool IsAiming()
         {
-            //에임상태(줌) 변경될 때 이벤트 발생
-            OnActiveAiming?.Invoke(_aimState);
             return _aimState is FPSAimState_Multi.Aiming or FPSAimState_Multi.PointAiming;
         }
 
@@ -159,19 +176,14 @@ namespace Demo.Scripts.Runtime.Character
         {
             //Cursor.visible = false;
             //Cursor.lockState = CursorLockMode.Locked;
-
-            //멀티플레이 세팅
-            if (!isLocalPlayer)
-            {
-                // Disable input if not the local player
-                playerInput = GetComponent<PlayerInput>();
-                playerInput.enabled = false;
-                enabled = false;
-                return;
-            }
             playerStats = GetComponent <PlayerStats_Multi>();
 
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
+            if (_weaponBone == null)
+            {
+                Debug.LogError("Weapon bone not found!");
+                return;
+            }
             _fpsAnimator = GetComponent<FPSAnimator>();
             _userInput = GetComponent<UserInputController>();
             _animator = GetComponent<Animator>();
@@ -188,6 +200,30 @@ namespace Demo.Scripts.Runtime.Character
             //volume
             profile = localVolume.sharedProfile;
 
+        }
+
+        private void Update()
+        {
+            //멀티플레이 세팅
+            if (!isLocalPlayer)
+                return;
+
+            Time.timeScale = settings.timeScale;
+
+            //pause메뉴가 열려있으면 마우스회전 x
+            if (playerStats.playerState == PlayerState_Multi.IDLE || playerStats.playerState == PlayerState_Multi.INIT)
+            {
+                UpdateLookInput();
+                OnMovementUpdated();
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (!isLocalPlayer)
+                return;
+
+            CmdUpdateWeaponTransform(_weaponBone.localPosition, _weaponBone.localRotation);
         }
 
         private void UnequipWeapon()
@@ -207,11 +243,47 @@ namespace Demo.Scripts.Runtime.Character
             if (_instantiatedWeapons.Count == 0) return;
 
             _instantiatedWeapons[_previousWeaponIndex].gameObject.SetActive(false);
-            GetActiveItem().gameObject.SetActive(true);
+            _instantiatedWeapons[_activeWeaponIndex].gameObject.SetActive(true);
             GetActiveItem().OnEquip(gameObject);
 
             _actionState = FPSActionState_Multi.None;
         }
+
+
+
+
+        /* ~ 클라이언트 무기 변경시 모든 클라이언트에 위치값과 회전값을 동기화하기 위한 함수 */
+        private void OnWeaponPositionChanged(Vector3 oldPosition, Vector3 newPosition)
+        {
+            UpdateWeaponPosition(newPosition, weaponRotation);
+        }
+
+        private void OnWeaponRotationChanged(Quaternion oldRotation, Quaternion newRotation)
+        {
+            UpdateWeaponPosition(weaponPosition, newRotation);
+        }
+
+        [Command]
+        public void CmdUpdateWeaponTransform(Vector3 position, Quaternion rotation)
+        {
+            weaponPosition = position;
+            weaponRotation = rotation;
+        }
+
+        [ClientRpc]
+        public void RpcUpdateWeaponTransform(Vector3 position, Quaternion rotation)
+        {
+            UpdateWeaponPosition(position, rotation);
+        }
+
+        private void UpdateWeaponPosition(Vector3 position, Quaternion rotation)
+        {
+            if (_weaponBone == null) return;
+            _weaponBone.localPosition = position;
+            _weaponBone.localRotation = rotation;
+        }
+
+        /* 클라이언트 무기 변경시 모든 클라이언트에 위치값과 회전값을 동기화하기 위한 함수 ~ */
 
         private void DisableAim()
         {
@@ -220,13 +292,10 @@ namespace Demo.Scripts.Runtime.Character
 
         private void OnFirePressed()
         {
-            Debug.Log("원래" + _instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
             if (_instantiatedWeapons.Count == 0 || HasActiveAction())
             {
-                Debug.Log(_instantiatedWeapons.Count + " / " + HasActiveAction() + " / 스테이트 :" + _actionState);
                 return;
             }
-            Debug.Log("어때2");
             GetActiveItem().OnFirePressed();
         }
 
@@ -343,30 +412,9 @@ namespace Demo.Scripts.Runtime.Character
             }
         }
 
-        private void Update()
-        {
-
-            //멀티플레이 세팅
-            if (!isLocalPlayer)
-                return; // Only process input for the local player
-
-            Time.timeScale = settings.timeScale;
-
-            //pause메뉴가 열려있으면 마우스회전 x
-            if (playerStats.playerState == PlayerState_Multi.IDLE || playerStats.playerState == PlayerState_Multi.INIT)
-            {
-                UpdateLookInput();
-                OnMovementUpdated();
-            }
-
-            //UpdateLookInput();
-            //OnMovementUpdated();
-        }
-
 #if ENABLE_INPUT_SYSTEM
         public void OnReload()
         {
-            Debug.Log("흠??");
             if (IsSprinting() || HasActiveAction() || !GetActiveItem().OnReload()) return;
             _actionState = FPSActionState_Multi.PlayingAnimation;
         }
@@ -400,7 +448,6 @@ namespace Demo.Scripts.Runtime.Character
             //Pause메뉴가 열려있으면 총알발사 X
             if (value.isPressed && (playerStats.playerState == PlayerState_Multi.IDLE || playerStats.playerState == PlayerState_Multi.INIT))
             {
-                Debug.Log("들어옴?>");
                 OnFirePressed();
                 return;
             }
@@ -416,6 +463,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState_Multi.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
                 return;
             }
 
@@ -423,6 +472,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 DisableAim();
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
             }
         }
 

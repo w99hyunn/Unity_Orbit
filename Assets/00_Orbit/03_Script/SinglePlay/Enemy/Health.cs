@@ -18,7 +18,7 @@ namespace STARTING
 		public Health Parent;
 
 		[Space]
-		public EfxManager.ImpactType MaterialType = EfxManager.ImpactType.Stone;
+		public EfxManager.ImpactType MaterialType = EfxManager.ImpactType.STONE;
 
 		public float PenetrationResistance = 0.5f;
 		public float DamageMultiplier = 1f;

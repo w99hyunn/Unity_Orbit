@@ -31,7 +31,7 @@ MonoBehaviour:
     supportVolumetricClouds: 0
     supportLightLayers: 1
     renderingLayerMaskBuffer: 0
-    supportWater: 0
+    supportWater: 1
     waterSimulationResolution: 128
     supportWaterExclusion: 1
     supportWaterDecals: 1
@@ -60,8 +60,8 @@ MonoBehaviour:
       m_Values: 800000000001000000020000
       m_SchemaId:
         m_Id: With3Levels
-    supportDecals: 0
-    supportDecalLayers: 0
+    supportDecals: 1
+    supportDecalLayers: 1
     supportSurfaceGradient: 1
     decalNormalBufferHP: 0
     supportHighQualityLineRendering: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 0
       maxLocalVolumetricFogOnScreen: 256
     hdShadowInitParams:
-      maxShadowRequests: 30
+      maxShadowRequests: 100
       directionalShadowsDepthBits: 32
       punctualShadowFilteringQuality: 1
       directionalShadowFilteringQuality: 1
@@ -165,8 +165,8 @@ MonoBehaviour:
     dynamicResolutionSettings:
       enabled: 1
       useMipBias: 1
-      advancedUpscalersByPriority: 0200
-      DLSSPerfQualitySetting: 0
+      advancedUpscalersByPriority: 0002
+      DLSSPerfQualitySetting: 2
       DLSSInjectionPoint: 0
       TAAUInjectionPoint: 0
       STPInjectionPoint: 0

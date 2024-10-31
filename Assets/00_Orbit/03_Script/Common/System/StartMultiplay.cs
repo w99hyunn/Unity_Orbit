@@ -4,34 +4,24 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    enum StartType {
-        HOST,
-        CLIENT
-    };
-    
     public class StartMultiplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
-        public ClientNetworkHandler clientNetworkHandler;
-
-        public UnityEvent login;
-        public UnityEvent startLoading;
-        public UnityEvent connectFail;
+        private ClientNetworkHandler clientNetworkHandler;
 
         private string publicIP;
         private string hamachiIP;
-        private StartType startType;
         private ushort port;
         private string ip;
 
         private void Start()
         {
+            clientNetworkHandler = FindAnyObjectByType<ClientNetworkHandler>();
             StartCoroutine(GetPublicIP());
             hamachiIP = GetHamachiIP();
         }
@@ -109,19 +99,26 @@ namespace STARTING
         /// </summary>
         public void ServerOpen()
         {
-            DBManager.Instance.ConnectDB();
+            bool success = DBManager.Instance.ConnectDB();
 
-            ip = "localhost";
-            port = GetAvailablePort(1024, 65535);
-
-            CustomNetworkManager.singleton.networkAddress = ip;
-            if (Transport.active is PortTransport portTransport)
+            if (true == success)
             {
-                portTransport.Port = port;
-            }
+                ip = "localhost";
+                port = GetAvailablePort(1024, 65535);
 
-            CustomNetworkManager.singleton.StartHost();
-            StartCoroutine(CheckOpen());
+                CustomNetworkManager.singleton.networkAddress = ip;
+                if (Transport.active is PortTransport portTransport)
+                {
+                    portTransport.Port = port;
+                }
+
+                CustomNetworkManager.singleton.StartHost();
+                StartCoroutine(CheckOpen());
+            }
+            else if (false == success)
+            {
+                uiSupport.DBConnectFailEvent();
+            }
         }
 
         private IEnumerator CheckOpen()
@@ -130,13 +127,12 @@ namespace STARTING
             {
                 if (true == NetworkServer.active) // 서버에 연결된 상태
                 {
-                    startType = StartType.HOST;
-                    login?.Invoke();
+                    uiSupport.LoginEvent();
                     yield break;
                 }
                 yield return null;
             }
-            connectFail?.Invoke();
+            uiSupport.ConnectFailEvent();
             yield break;
         }
 
@@ -175,13 +171,12 @@ namespace STARTING
             {
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
-                    startType = StartType.CLIENT;
-                    login?.Invoke();
+                    uiSupport.LoginEvent();
                     yield break;
                 }
                 yield return null;
             }
-            connectFail?.Invoke();
+            uiSupport.ConnectFailEvent();
             yield break;
         }
 
@@ -204,27 +199,10 @@ namespace STARTING
 
         public void GameStart()
         {
-            startLoading?.Invoke();
+            uiSupport.StartLoadingEvent();
 
-            string message;
+            uiSupport.MultiConnectInfo($"{ip} : {port}에 접속중입니다.");
 
-            if (startType == StartType.HOST)
-            {
-                if (!string.IsNullOrEmpty(hamachiIP))
-                {
-                    message = $"공인 IP : {publicIP}하마치 IP : {hamachiIP}\nPort : {port}";
-                }
-                else
-                {
-                    message = $"공인 IP : {publicIP}Port : {port}";
-                }
-            }
-            else
-            {
-                message = $"연결 IP : {ip}\n연결 Port : {port}";
-            }
-
-            uiSupport.MultiConnectInfo(message);
             StartCoroutine(LoadWorldScene());
         }
 
@@ -232,9 +210,9 @@ namespace STARTING
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
 
-            AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene_Multi", LoadSceneMode.Single);
+            AsyncOperation op = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Multi"), LoadSceneMode.Single);
             op.allowSceneActivation = false;
 
             while (op.progress < 0.9f)
@@ -248,27 +226,24 @@ namespace STARTING
 
             yield return new WaitForSeconds(1f);
 
-            SceneManager.LoadScene("Element_UI_Multi", LoadSceneMode.Additive);
-
             op.allowSceneActivation = true;
 
             while (!op.isDone)
             {
                 yield return null;
             }
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene_Multi"));
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Multi")));
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("OnSceneLoaded 호출됨: " + scene.name);
-
-            if (scene.name == "WorldScene_Multi")
+            if (scene.name == SceneDataManager.GetSceneName("Multi"))
             {
                 if (NetworkClient.isConnected)
                 {
                     NetworkClient.AddPlayer();
-                    Debug.Log("플레이어 추가");
+                    ChatSupport.Instance?.AddChatMessage("멀티플레이", $"{ip} : {port}에 접속되었습니다.");
                 }
                 else
                 {

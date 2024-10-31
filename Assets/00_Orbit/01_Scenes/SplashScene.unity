@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -251,7 +252,7 @@ RectTransform:
   - {fileID: 2004828973}
   - {fileID: 559085040}
   - {fileID: 748590866}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -271,7 +272,7 @@ GameObject:
   - component: {fileID: 271671671}
   - component: {fileID: 271671674}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +702,7 @@ RectTransform:
   - {fileID: 1516707544}
   - {fileID: 297431039}
   - {fileID: 2000645662}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1144,7 +1145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.487915, y: -7.8530884}
+  m_AnchoredPosition: {x: -4.488037, y: -7.8530273}
   m_SizeDelta: {x: 170.5217, y: 145.8411}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &559085041
@@ -1557,6 +1558,41 @@ MonoBehaviour:
   useCustomColor: 0
   colorType: 1
   fontType: 1
+--- !u!1 &839286435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 839286436}
+  m_Layer: 0
+  m_Name: '@ui'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &839286436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839286435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 881.55383, y: 440.11194, z: -0.4558301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 274449921}
+  - {fileID: 1313541999}
+  - {fileID: 2016780393}
+  - {fileID: 212351470}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1002275287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1873,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1823746747}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2266,7 +2302,7 @@ GameObject:
   - component: {fileID: 1836245015}
   - component: {fileID: 1836245016}
   m_Layer: 0
-  m_Name: SplashSceneManager
+  m_Name: '@splashSceneManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2415,7 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 2ef5aad5d0c53ac4696d23de2820a3b6,
+  m_Actions: {fileID: -944628639613478452, guid: 0430edc6937d19d4597613d506b926fe,
     type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -2920,7 +2956,7 @@ RectTransform:
   - {fileID: 351220678}
   - {fileID: 272265204}
   - {fileID: 333309682}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 839286436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3097,9 +3133,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 271671673}
-  - {fileID: 1836245014}
   - {fileID: 500872883}
-  - {fileID: 274449921}
-  - {fileID: 1313541999}
-  - {fileID: 2016780393}
-  - {fileID: 212351470}
+  - {fileID: 1836245014}
+  - {fileID: 839286436}

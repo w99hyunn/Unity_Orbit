@@ -11,22 +11,27 @@ namespace STARTING
     {
         public GameObject weaponButtonPrefab;  // 전체 무기
         public GameObject currentWeaponButtonPrefab;  // 장착 중인 무기
+        public GameObject weaponEmptyPrefab; // 현재 무기에서 빈 슬롯
         public Transform leftWeaponListParent; // 전체 무기 리스트
         public Transform rightWeaponListParent; // 장착 중인 무기 리스트
 
         public UnityEvent unEquip;
         public UnityEvent chipLess;
+        public UnityEvent fullWeapon;
 
         private GameObject player;
         private Inventory inventory;
         private FPSController fpsController;
 
-        void OnEnable()
+        public virtual void Awake()
         {
             player = GameObject.FindWithTag("Player");
             inventory = player.GetComponent<Inventory>();
             fpsController = player.GetComponent<FPSController>();
+        }
 
+        private void Start()
+        {
             UpdateWeaponLists();
         }
 
@@ -101,8 +106,10 @@ namespace STARTING
                 Destroy(child.gameObject);
             }
 
-            foreach (int weaponIndex in inventory.equippedWeaponIndices)
+            for (int i = 0; i < inventory.equippedWeaponIndices.Count; i++)
             {
+                int weaponIndex = inventory.equippedWeaponIndices[i];
+
                 FPSItem weapon = fpsController._instantiatedWeapons[weaponIndex];
                 GameObject weaponButton = Instantiate(currentWeaponButtonPrefab, rightWeaponListParent);
                 Button unEquipButton = weaponButton.transform.Find("UnEquipButton").GetComponent<Button>();
@@ -113,11 +120,22 @@ namespace STARTING
                 TMP_Text weaponName = weaponButton.transform.Find("WeaponName").GetComponent<TMP_Text>();
                 weaponName.text = weapon.name.Replace("(Clone)", "").Trim();
 
+                WeaponSlotDragHandler weaponPutIndex = weaponButton.GetComponent<WeaponSlotDragHandler>();
+                weaponPutIndex.slotIndex = i;
+
                 unEquipButton.onClick.AddListener(() => OnEquipButtonClicked(weaponIndex));
+            }
+
+            int maxSlots = 2;
+            int emptySlotsNeeded = maxSlots - inventory.equippedWeaponIndices.Count;
+
+            for (int i = 0; i < emptySlotsNeeded; i++)
+            {
+                GameObject emptySlot = Instantiate(weaponEmptyPrefab, rightWeaponListParent);
             }
         }
 
-        // 무기 구매 버튼 클릭
+        // 무기 구매
         public void OnPurchaseButtonClicked(int weaponIndex, int cost)
         {
             if (true == inventory.PurchaseWeapon(weaponIndex, cost))
@@ -130,10 +148,10 @@ namespace STARTING
             }
         }
 
-        // 무기 장착 버튼 클릭
+        // 무기 장착
         public void OnEquipButtonClicked(int weaponIndex)
         {
-            if (inventory.equippedWeaponIndices.Contains(weaponIndex))  // 장착 해제
+            if (inventory.equippedWeaponIndices.Contains(weaponIndex))
             {
                 if (inventory.equippedWeaponIndices.Count <= 1)
                 {
@@ -142,11 +160,23 @@ namespace STARTING
                 }
                 inventory.UnequipWeapon(weaponIndex);
             }
-            else  // 무기 장착
+            else
             {
-                inventory.EquipWeapon(weaponIndex);
+                if (false == inventory.EquipWeapon(weaponIndex))
+                {
+                    fullWeapon?.Invoke();
+                }
             }
 
+            UpdateWeaponLists();
+        }
+
+        // 무기 슬롯 교체
+        public void SwapWeaponSlots(int index1, int index2)
+        {
+            if (inventory.equippedWeaponIndices.Count <= Mathf.Max(index1, index2)) return;
+
+            inventory.SwapWeapon(index1, index2);
             UpdateWeaponLists();
         }
     }

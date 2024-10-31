@@ -1,14 +1,12 @@
 using Demo.Scripts.Runtime.Character;
 using KINEMATION.FPSAnimationFramework.Runtime.Recoil;
-using Mirror;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace STARTING
 {
-    public class GunControll_Multi : NetworkBehaviour
+    public class GunControll_Multi : MonoBehaviour
     {
         private GameObject player;
         private RecoilAnimation recoil;
@@ -20,13 +18,6 @@ namespace STARTING
         public TMP_Text fireMode;
         public AudioClip hitSound;
 
-        public Image weaponBase;
-        public Sprite weaponMK18;
-        public Sprite weaponAK12;
-        public Sprite weaponAK74;
-        public Sprite weaponPistol;
-        public Sprite weaponFAL;
-
         private Coroutine _currentCoroutine;
 
         private void Start()
@@ -36,13 +27,13 @@ namespace STARTING
 
         private IEnumerator FindLocalPlayer()
         {
-            while (NetworkClient.localPlayer == null)
+            while (GameManager_Multi.Instance.player == null)
             {
                 yield return null;
             }
 
             player = GameManager_Multi.Instance.player;
-            Debug.Log(player.name);
+            //Debug.Log(this.gameObject.name + player.name);
             if (player != null)
             {
                 audioSource = player.GetComponent<AudioSource>();
@@ -50,6 +41,7 @@ namespace STARTING
                 fpsController = player.GetComponent<FPSController_Multi>();
 
                 fpsController.OnActiveAiming += ChangeAimState;
+                GameManager_Multi.Instance.OnEnemyHit += OnAnyEnemyHit;
             }
             else
             {
@@ -57,14 +49,9 @@ namespace STARTING
             }
         }
 
-        void OnEnable()
-        {
-            //GameManager_Multi.Instance.OnEnemyHit += OnAnyEnemyHit;
-        }
-
         void OnDisable()
         {
-            //GameManager_Multi.Instance.OnEnemyHit -= OnAnyEnemyHit;
+            GameManager_Multi.Instance.OnEnemyHit -= OnAnyEnemyHit;
         }
 
         void Update()
@@ -81,11 +68,11 @@ namespace STARTING
         {
             if (aimState == FPSAimState_Multi.Aiming)
             {
-                UIManager.Instance.ShowAim(true);
+                UIManager.Instance.ShowAim(false);
             }
             else if (aimState == FPSAimState_Multi.None)
             {
-                UIManager.Instance.ShowAim(false);
+                UIManager.Instance.ShowAim(true);
             }
         }
 

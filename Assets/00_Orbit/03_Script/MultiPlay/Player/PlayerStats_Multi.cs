@@ -1,3 +1,5 @@
+using Demo.Scripts.Runtime.Character;
+using KINEMATION.FPSAnimationFramework.Runtime.Playables;
 using Mirror;
 using System.Collections;
 using UnityEngine;
@@ -20,7 +22,8 @@ namespace STARTING
         [SyncVar] public int maxHealth;
         [SyncVar] public int maxMana;
         [SyncVar] public int maxExperience;
-        [SyncVar] public int currentHealth;
+        [SyncVar(hook = nameof(OnHealthChanged))] public int currentHealth;
+        [SyncVar] public uint lastAttackerId;
         [SyncVar] public int currentMana;
         [SyncVar] public int currentExperience;
         [SyncVar] public int level;
@@ -29,36 +32,113 @@ namespace STARTING
         public PlayerState_Multi playerState;
 
         private float _manaRegenRate = 10f;
-        private float _healthRegenRate = 5f;
-        private float _regenInterval = 10f;
+        private float _healthRegenRate = 15f;
+        private float _regenInterval = 5f;
         private bool _isShowInfoUI;
 
         private void Awake()
         {
             if (isLocalPlayer)
             {
-                InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
-                InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
                 InitializeStats();
             }
         }
+
+        private void Start()
+        {
+            if (isLocalPlayer)
+            {
+                InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
+                InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
+            }
+        }
+
+        [Command(requiresAuthority = false)]
+        public void CmdTakeDamage(int amount, uint attackerId)
+        {
+            if (!isServer) return;
+
+            currentHealth -= amount;
+            lastAttackerId = attackerId;
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+
+                // 공격자의 NetworkIdentity 가져오기
+                NetworkIdentity attackerIdentity = NetworkServer.spawned[attackerId];
+                if (attackerIdentity != null)
+                {
+                    PlayerStats_Multi attackerStats = attackerIdentity.GetComponent<PlayerStats_Multi>();
+                    if (attackerStats != null)
+                    {
+                        attackerStats.TargetShowKillLog(attackerStats.connectionToClient, gameObject.name);
+                    }
+                }
+            }
+        }
+
+        [TargetRpc]
+        public void TargetShowKillLog(NetworkConnection target, string enemyName)
+        {
+            GetComponent<Health_Multi>().KillLog(enemyName);
+            GainExperience(GetComponent<Health_Multi>().expPoints);
+        }
+
+        void OnHealthChanged(int oldHealth, int newHealth)
+        {
+            if (isLocalPlayer && oldHealth > newHealth)
+            {
+                StartCoroutine(UIManager.Instance.FlashScreen());
+                GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
+            }
+
+            if (oldHealth > newHealth)
+            {
+                GetComponent<FPSMovement_Multi>().OnHit();
+            }
+
+            if (newHealth <= 0)
+            {
+                currentHealth = 0;
+                if (isLocalPlayer)
+                {
+                    GetComponent<FPSMovement_Multi>().OnDie();
+                    GameManager_Multi.Instance.GameOver();
+                }
+            }
+
+            UpdateUI();
+        }
+
 
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
         {
             this.maxHealth = maxHealth;
             this.maxMana = maxMana;
             this.maxExperience = maxExperience;
-
             this.currentHealth = health;
             this.currentMana = mana;
             this.currentExperience = experience;
-
             this.level = level;
 
             //시작시 5초간 무적
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
 
+            GetComponent<FPSMovement_Multi>().OnRevival();
+
             UpdateUI();
+            if (!isServer)
+            {
+                CmdUpdateStats(maxHealth, maxMana, maxExperience, health, mana, experience, level);
+            }
+        }
+
+        //호스트의 클라이언트 플레이어 정보 업데이트
+        [Command(requiresAuthority = false)]
+        public void CmdUpdateStats(int newMaxHealth, int newMaxMana, int newMaxExperience, int newHealth, int newMana, int newExperience, int newLevel)
+        {
+            SetStats(newMaxHealth, newMaxMana, newMaxExperience, newHealth, newMana, newExperience, newLevel);
         }
 
         public IEnumerator ChangePlayerState(float time, PlayerState_Multi playerState)
@@ -87,11 +167,9 @@ namespace STARTING
             maxHealth = 100;
             maxMana = 100;
             maxExperience = 100;
-
             currentHealth = 100;
             currentMana = 100;
             currentExperience = 0;
-
             level = 1;
 
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
@@ -117,29 +195,6 @@ namespace STARTING
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
-        }
-
-        public void TakeDamage(int amount)
-        {
-            if (amount == -1)
-            {
-                currentHealth -= maxHealth;
-            }
-            else
-            {
-                currentHealth -= amount;
-            }
-            //UIManager.Instance.hudMovement.Shake();
-            StartCoroutine(UIManager.Instance.FlashScreen());
-            UpdateUI();
-
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                GameManager_Multi.Instance.GameOver();
-            }
-            // 체력 <= 0 death 추가 해야함
-            GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
         }
 
         public void UseMana(int amount)
@@ -186,14 +241,18 @@ namespace STARTING
             GameManager_Multi.Instance.SaveGamePartial("maxExperience", maxExperience);
             GameManager_Multi.Instance.SaveGamePartial("currentHealth", currentHealth);
             GameManager_Multi.Instance.SaveGamePartial("currentMana", currentMana);
+            GameManager_Multi.Instance.SaveGamePartial("currentExperience", currentExperience);
         }
 
         public void UpdateUI()
         {
-            UIManager.Instance.UpdateStats("level", level);
-            UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
-            UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
-            UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
+            if (isLocalPlayer)
+            {
+                UIManager.Instance.UpdateStats("level", level);
+                UIManager.Instance.UpdateStats("exp", currentExperience, maxExperience);
+                UIManager.Instance.UpdateStats("health", currentHealth, maxHealth);
+                UIManager.Instance.UpdateStats("mana", currentMana, maxMana);
+            }
         }
 
         

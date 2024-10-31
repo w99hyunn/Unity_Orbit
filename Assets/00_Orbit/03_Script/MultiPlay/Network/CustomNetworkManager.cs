@@ -1,6 +1,8 @@
 using Mirror;
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
@@ -35,11 +37,32 @@ namespace STARTING
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             base.OnServerAddPlayer(conn);
-            // 클라이언트가 연결될 때 모든 네트워크 오브젝트의 상태를 동기화
-            //foreach (var netObj in FindObjectsOfType<NetworkedObject>())
-            //{
-            //    netObj.RpcSyncColor(netObj.objectColor);
-            //}
+        }
+
+        // 클라이언트가 서버 연결 종료시
+        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == SceneDataManager.GetSceneName("Main"))
+            {
+                StartCoroutine(LoadWorldSceneAfterDelay());
+            }
+        }
+
+        private IEnumerator LoadWorldSceneAfterDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
+            FindAnyObjectByType<MainUISupport>().ServerDisconnect();
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        public override void OnServerDisconnect(NetworkConnectionToClient conn)
+        {
+            if (SceneManager.GetActiveScene().name == SceneDataManager.GetSceneName("Main"))
+            {
+                return;
+            }
+            ChatManager.Instance?.CmdSendChatMessage("퇴장", $"{conn.identity.name}님이 퇴장하셨습니다.");
+            base.OnServerDisconnect(conn);
         }
 
         /// <summary>
@@ -58,7 +81,7 @@ namespace STARTING
                 userName = msg.username,
                 userId = success ? userId : -1
             };
-            Debug.Log($"서버가 로그인 요청 받음 : ID {msg.username}, PW {msg.password}, 성공여부 {success}, userID {userId}");
+            //Debug.Log($"서버가 로그인 요청 받음 : ID {msg.username}, PW {msg.password}, 성공여부 {success}, userID {userId}");
             conn.Send(response);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 namespace STARTING
 {
@@ -13,12 +14,13 @@ namespace STARTING
     public class StartSingleplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
-
         public List<GameObject> objectsToDestroy = new List<GameObject>();
 
         private void Start()
         {
             CheckForSavedGame();
+            objectsToDestroy.Add(DBManager.Instance.gameObject);
+            objectsToDestroy.Add(CustomNetworkManager.singleton.gameObject);
         }
 
         public void DestroyObjectsInList()
@@ -43,7 +45,7 @@ namespace STARTING
                 LoadGameData(saveFilePath);
 
                 FileInfo fileInfo = new FileInfo(saveFilePath);
-                uiSupport.LastSaveDate(fileInfo.LastWriteTime.ToString("G") + "에 저장된 세이브파일입니다.");
+                uiSupport.LastSaveDate(fileInfo.LastWriteTime.ToString("G"));
             }
             else
             {
@@ -93,7 +95,9 @@ namespace STARTING
                 uiSupport.SaveFileInfo(TimeCalc(data.gameTime),
                     data.level.ToString() + "레벨 (" + ((int)((float)data.currentExperience / data.maxExperience * 100)).ToString() + "%)",
                     ((int)((float)data.currentHealth / data.maxHealth * 100)).ToString() + "%",
-                    ((int)((float)data.currentMana / data.maxMana * 100)).ToString() + "%");
+                    ((int)((float)data.currentMana / data.maxMana * 100)).ToString() + "%",
+                    ((int)((float)data.chip)).ToString() + "개",
+                    data.zones.Count(zone => zone.isLiberated) + "개");
 
                 //최초 1회 레벨 3 이상 달성시 PlayerPrefs에 멀티플레이 가능 여부를 저장하여 싱글플레이 데이터 삭제시에도 유지
                 if ((false == PlayerPrefs.HasKey("MultiplayAvailable")) && (data.level >= 3))
@@ -127,7 +131,7 @@ namespace STARTING
             DestroyObjectsInList();
             yield return new WaitForSeconds(2f);
 
-            AsyncOperation op = SceneManager.LoadSceneAsync("WorldScene", LoadSceneMode.Single);
+            AsyncOperation op = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Single);
             op.allowSceneActivation = false;
 
             while (op.progress < 0.9f)
@@ -141,17 +145,14 @@ namespace STARTING
 
             yield return new WaitForSeconds(1f); // 1초 대기
 
-            SceneManager.LoadScene("Element_UI", LoadSceneMode.Additive);
-
             op.allowSceneActivation = true;
             while (!op.isDone)
             {
                 yield return null;
             }
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("WorldScene"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
         }
-
 
         public void StartNewGame()
         {

@@ -1,31 +1,26 @@
-using Mirror;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
-    public class CursorManager_Multi : NetworkBehaviour
+    public class CursorManager_Multi : CursorManager
     {
-        public List<GameObject> objectsToDestroy = new List<GameObject>();
-        public GameObject pauseMenuHotkey;
-
-        private PlayerStats_Multi playerStats;
+        public PlayerStats_Multi playerStats;
 
         private void Start()
         {
             StartCoroutine(FindLocalPlayer());
-            objectsToDestroy.Add(GameManager_Multi.Instance.gameObject);
+            //objectsToDestroy.Add(GameManager_Multi.Instance.gameObject);
         }
 
         private IEnumerator FindLocalPlayer()
         {
-            while (NetworkClient.localPlayer == null)
+            while (GameManager_Multi.Instance.playerStats == null)
             {
                 yield return null; 
             }
-            playerStats = NetworkClient.localPlayer.GetComponent<PlayerStats_Multi>();
+            playerStats = GameManager_Multi.Instance.playerStats;
+            //Debug.Log(this.gameObject.name + playerStats);
             if (playerStats != null)
             {
                 ContinueGame();
@@ -36,80 +31,22 @@ namespace STARTING
             }
         }
 
-        public void BackToMain()
+        public override void BackToMain()
         {
-            if (NetworkClient.localPlayer)
-            {
-                CustomNetworkManager.singleton.BackToMain();
-                DBManager.Instance.CloseDBServer();
-                DestroyObjectsInList();
-                SceneManager.LoadScene("MainScene");
-            }
+            CustomNetworkManager.singleton.BackToMain();
+            DBManager.Instance.CloseDBServer();
+
+            base.BackToMain();
         }
 
-        public void DestroyObjectsInList()
+        public override void OpenPauseMenu()
         {
-            foreach (GameObject obj in objectsToDestroy)
-            {
-                if (obj != null)
-                {
-                    Destroy(obj);
-                }
-            }
-            objectsToDestroy.Clear();
-        }
-        public void DieGame()
-        {
-            if (NetworkClient.localPlayer)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                pauseMenuHotkey.SetActive(false);
-            }
+            playerStats.playerState = PlayerState_Multi.PAUSE;
         }
 
-        public void ContinueGame()
+        public override void ClosePauseMenu()
         {
-            if (NetworkClient.localPlayer)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                pauseMenuHotkey.SetActive(true);
-            }
-        }
-
-        public void CustomResume()
-        {
-            if (NetworkClient.localPlayer)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-        }
-
-        public void CustomPause()
-        {
-            if (NetworkClient.localPlayer)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-
-        public void OpenPauseMenu()
-        {
-            if (NetworkClient.localPlayer)
-            {
-                playerStats.playerState = PlayerState_Multi.PAUSE;
-            }
-        }
-
-        public void ClosePauseMenu()
-        {
-            if (NetworkClient.localPlayer)
-            {
-                playerStats.playerState = PlayerState_Multi.IDLE;
-            }
+            playerStats.playerState = PlayerState_Multi.IDLE;
         }
     }
 }

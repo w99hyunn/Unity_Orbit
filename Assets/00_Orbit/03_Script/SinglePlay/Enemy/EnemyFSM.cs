@@ -122,6 +122,7 @@ namespace STARTING
             GameObject explosionInstance = Instantiate(explosionVFX, eyeTransform.transform.position, eyeTransform.transform.rotation);
             AudioSource audioSource = explosionInstance.AddComponent<AudioSource>();
 
+            audioSource.outputAudioMixerGroup = this.audioSource.outputAudioMixerGroup;
             audioSource.clip = explosionSound;
             audioSource.Play();
 
