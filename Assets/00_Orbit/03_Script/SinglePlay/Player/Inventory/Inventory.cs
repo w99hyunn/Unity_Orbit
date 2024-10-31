@@ -24,7 +24,6 @@ namespace STARTING
         public void InitializeInventory()
         {
             chip = 0;
-
             availableWeaponIndices.Add(0);
             equippedWeaponIndices.Add(0);
         }

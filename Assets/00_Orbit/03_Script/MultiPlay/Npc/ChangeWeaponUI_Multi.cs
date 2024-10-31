@@ -11,12 +11,12 @@ namespace STARTING
         private Inventory inventory;
         private FPSController_Multi fpsController;
 
-        private void Start()
+        public override void Awake()
         {
             StartCoroutine(FindLocalPlayer());
         }
 
-        public override void OnEnable()
+        private void Start()
         {
             if (NetworkClient.localPlayer != null)
             {
