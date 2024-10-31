@@ -9,6 +9,9 @@ namespace STARTING
 {
     public class DBManager : MonoBehaviour
     {
+        public string DBSERVER_IP = "35.184.161.253";
+        public string DBHOST = "orbit-readonly";
+        public string DBPW = "orbitreadonlyohmygodpassword!!@";
         public static DBManager Instance;
 
         private MySqlConnection connection;
@@ -33,7 +36,7 @@ namespace STARTING
 
         public bool ConnectDB()
         {
-            bool success = ConnectToDatabase("localhost", "orbit", "root", "root", "3306");
+            bool success = ConnectToDatabase(DBSERVER_IP, "orbit", DBHOST, DBPW, "3306");
             return success;
         }
 
