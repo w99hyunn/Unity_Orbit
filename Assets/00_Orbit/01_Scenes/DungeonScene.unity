@@ -319,7 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 62618110}
   m_Layer: 0
-  m_Name: '@Trigger'
+  m_Name: '@trigger'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9185,52 +9185,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 486332537}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &629581773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 629581775}
-  - component: {fileID: 629581774}
-  m_Layer: 0
-  m_Name: '@DebugPanel'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &629581774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629581773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b7de4bb03a6b7489e391087541a51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
-  inventory: {fileID: 0}
---- !u!4 &629581775
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629581773}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &629775278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9769,7 +9723,7 @@ GameObject:
   - component: {fileID: 743083642}
   - component: {fileID: 743083643}
   m_Layer: 0
-  m_Name: '@DungeonTimer'
+  m_Name: '@dungeonTimer'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11085,7 +11039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251790076}
   m_Layer: 0
-  m_Name: '@Map'
+  m_Name: '@map'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11891,6 +11845,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1149134363}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1478920132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478920133}
+  m_Layer: 0
+  m_Name: -------------------------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478920133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478920132}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1546227251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18091,7 +18076,7 @@ GameObject:
   - component: {fileID: 1864573236}
   - component: {fileID: 1864573235}
   m_Layer: 5
-  m_Name: overlayCanvas - dungeon
+  m_Name: '@ui'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18456,9 +18441,9 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 743083641}
+  - {fileID: 1864573234}
+  - {fileID: 1478920133}
   - {fileID: 1251790076}
   - {fileID: 62618110}
-  - {fileID: 743083641}
-  - {fileID: 629581775}
   - {fileID: 209298919}
-  - {fileID: 1864573234}

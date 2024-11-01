@@ -80,7 +80,13 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Awake()
         {
-            inventory = this.gameObject.GetComponent<Inventory>();
+            _fpsAnimator = GetComponent<FPSAnimator>();
+            _userInput = GetComponent<UserInputController>();
+            _animator = GetComponent<Animator>();
+            _recoilPattern = GetComponent<RecoilPattern>();
+            inventory = GetComponent<Inventory>();
+
+            inventory.OnWeaponChanged += OnChangeWeaponSetting;
         }
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
@@ -159,19 +165,13 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
-            _fpsAnimator = GetComponent<FPSAnimator>();
-            _userInput = GetComponent<UserInputController>();
-            _animator = GetComponent<Animator>();
-            _recoilPattern = GetComponent<RecoilPattern>();
 
             InitializeMovement();
             InitializeWeapons();
 
             _actionState = FPSActionState.None;
+
             // 첫 번째 장착된 무기 자동 장착
             if (inventory.equippedWeaponIndices.Count > 0)
             {
@@ -187,8 +187,6 @@ namespace Demo.Scripts.Runtime.Character
 
             //volume
             profile = localVolume.sharedProfile;
-
-            inventory.OnWeaponChanged += OnChangeWeaponSetting;
         }
 
         private void UnequipWeapon()
