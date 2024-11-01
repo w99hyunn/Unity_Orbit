@@ -164,14 +164,6 @@ namespace STARTING
 
         public void InitializeStats()
         {
-            maxHealth = 100;
-            maxMana = 100;
-            maxExperience = 100;
-            currentHealth = 100;
-            currentMana = 100;
-            currentExperience = 0;
-            level = 1;
-
             StartCoroutine(ChangePlayerState(5f, PlayerState_Multi.IDLE));
             UpdateUI();
         }

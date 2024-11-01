@@ -171,7 +171,7 @@ namespace STARTING
             {
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
-                    uiSupport.LoginEvent();
+                    uiSupport.LoginClientEvent();
                     yield break;
                 }
                 yield return null;

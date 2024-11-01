@@ -152,18 +152,35 @@ namespace STARTING
 
             if (data.level != -1)
             {
-                //this.gameTime = data.gameTime;
-                controller.SetPos(data.playerPosition);
-                playerStats.SetStats(data.maxHealth,
-                                     data.maxMana,
-                                     data.maxExperience,
-                                     data.currentHealth <= 0 ? 50 : data.currentHealth, // 현재 체력이 0 이하인 경우 50으로 설정
-                                     data.currentMana,
-                                     data.currentExperience,
-                                     data.level);
-                //this.zones = data.zones;
-                inventory.SetInventory(data.chip);
+
             }
+            else
+            {
+                int randomIndex = UnityEngine.Random.Range(0, SpawnPoints.Count);
+                data.playerPosition = SpawnPoints[randomIndex].transform.position;
+                data.maxHealth = 100;
+                data.maxMana = 100;
+                data.maxExperience = 100;
+                data.currentHealth = 100;
+                data.currentMana = 100;
+                data.currentExperience = 0;
+                data.level = 1;
+                data.chip = 0;
+                SaveGame();
+            }
+            
+            //Load 부분
+            //this.gameTime = data.gameTime;
+            controller.SetPos(data.playerPosition);
+            playerStats.SetStats(data.maxHealth,
+                                 data.maxMana,
+                                 data.maxExperience,
+                                 data.currentHealth <= 0 ? 50 : data.currentHealth, // 현재 체력이 0 이하인 경우 50으로 설정
+                                 data.currentMana,
+                                 data.currentExperience,
+                                 data.level);
+            //this.zones = data.zones;
+            inventory.SetInventory(data.chip);
         }
 
         public void SetPos(Vector3 pos)
