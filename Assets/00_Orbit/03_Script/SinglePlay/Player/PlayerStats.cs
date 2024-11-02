@@ -30,6 +30,7 @@ namespace STARTING
         [Header("플레이어 상태")]
         public PlayerState playerState;
 
+        private Inventory inventory;
         private float _manaRegenRate = 10f;
         private float _healthRegenRate = 5f;
         private float _regenInterval = 10f;
@@ -46,6 +47,7 @@ namespace STARTING
             {
                 Destroy(gameObject);
             }
+            inventory = GetComponent<Inventory>();
         }
 
         void Start()
@@ -55,6 +57,7 @@ namespace STARTING
             InitializeStats();
             OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
         }
+
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
         {
             this.maxHealth = maxHealth;
@@ -196,6 +199,7 @@ namespace STARTING
             GameManager.Instance.SaveGamePartial("maxExperience", maxExperience);
             GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
             GameManager.Instance.SaveGamePartial("currentMana", currentMana);
+            inventory.GainChip();
         }
 
         public void UpdateUI()

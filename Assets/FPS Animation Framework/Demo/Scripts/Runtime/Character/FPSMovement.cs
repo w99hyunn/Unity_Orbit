@@ -463,7 +463,7 @@ namespace Demo.Scripts.Runtime.Character
         public void ResetPos()
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
-            transform.position = new Vector3(0, 1, 10);
+            transform.position = new Vector3(26.19f, 2.1f, -47.5f);
             _controller.enabled = true;  // 다시 활성화
         }
 
