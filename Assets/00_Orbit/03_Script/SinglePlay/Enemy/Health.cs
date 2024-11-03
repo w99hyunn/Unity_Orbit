@@ -127,9 +127,11 @@ namespace STARTING
 				case KillLogType.NORMAL:
                     UIManager.Instance.ShowKillLog(enemyName.text);
                     float randomValue = Random.Range(0f, 100f);
-					if (randomValue <= probability)
+                    AchievementManager.Instance.UpdateAchievement("MonsterKill", 1);
+                    if (randomValue <= probability)
 					{
 						inventory.GainChip();
+                        AchievementManager.Instance.UpdateAchievement("IntactChipCollection", 1);
                     }
                     break;
                 case KillLogType.ARETE:

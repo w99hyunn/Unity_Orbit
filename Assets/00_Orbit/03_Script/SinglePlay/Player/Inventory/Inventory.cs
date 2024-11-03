@@ -40,6 +40,7 @@ namespace STARTING
                 UIManager.Instance.UpdateStats("chip", chip);
                 GameManager.Instance.SaveGamePartial("chip", chip);
                 GameManager.Instance.SaveGamePartial("availableWeaponIndices", availableWeaponIndices);
+                AchievementManager.Instance.UpdateAchievement("WeaponPurchase", 1);
                 return true;
             }
             else
@@ -87,6 +88,7 @@ namespace STARTING
             chip = chip + gain;
             GameManager.Instance.SaveGamePartial("chip", chip);
             UIManager.Instance.UpdateStats("chip", chip);
+            AchievementManager.Instance.UpdateAchievement("ChipCollection", gain);
             StartCoroutine(ChipLog(2f));
         }
 

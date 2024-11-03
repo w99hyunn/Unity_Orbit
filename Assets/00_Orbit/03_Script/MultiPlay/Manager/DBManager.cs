@@ -23,15 +23,29 @@ namespace STARTING
 
         void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
+            if (!InitializeSingleton()) return;
+        }
+
+        bool InitializeSingleton()
+        {
+            if (Instance != null && Instance == this)
+                return true;
+
+
+            if (Instance != null)
             {
                 Destroy(gameObject);
+                return false;
             }
+            Instance = this;
+
+            if (Application.isPlaying)
+            {
+                transform.SetParent(null);
+                DontDestroyOnLoad(gameObject);
+            }
+
+            return true;
         }
 
         public bool ConnectDB()

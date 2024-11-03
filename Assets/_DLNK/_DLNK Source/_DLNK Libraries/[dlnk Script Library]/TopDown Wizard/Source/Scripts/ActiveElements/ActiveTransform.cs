@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using STARTING;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ActiveTransform : MonoBehaviour
@@ -122,6 +123,7 @@ public class ActiveTransform : MonoBehaviour
                 done = true;
                 _waitforit = true;
                 Debug.Log("Door Opened");
+                AchievementManager.Instance.UpdateAchievement("AutoDoorUse", 1);
             }
             else
                 if (_percentage < 0f)

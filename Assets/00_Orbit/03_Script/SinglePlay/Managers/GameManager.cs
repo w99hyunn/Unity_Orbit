@@ -266,6 +266,7 @@ namespace STARTING
                 {
                     zone.isLiberated = true;
                     SaveZoneData(zoneName, true);
+                    AchievementManager.Instance.UpdateAchievement("ZoneLiberations", 1);
                     return;
                 }
             }

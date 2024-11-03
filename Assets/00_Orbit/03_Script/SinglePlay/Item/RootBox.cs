@@ -53,6 +53,7 @@ namespace STARTING
             //루트박스에서 F를 누르면 랜덤 아이템 생성
             int randomIndex = Random.Range(0, itemList.Count);
             GameObject selectedItem = itemList[randomIndex];
+            AchievementManager.Instance.UpdateAchievement("LootBoxOpen", 1);
 
             // 현재 위치에 y값 +1해서 스폰
             Vector3 currentPosition = this.gameObject.transform.position;

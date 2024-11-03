@@ -18,8 +18,8 @@ public class FloorChangeTrigger : MonoBehaviour
         currentTargetFloor = targetFloor;
 
         
-             // Disable the MeshRenderer component on start
-             GetComponent<MeshRenderer>().enabled = false;
+        // Disable the MeshRenderer component on start
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,7 +57,7 @@ public class FloorChangeTrigger : MonoBehaviour
             {
                 elevator.ChangeTargetFloor(currentTargetFloor);
             }
-
+            AchievementManager.Instance.UpdateAchievement("ElevatorUse", 1);
             Debug.Log("Floor changed to " + currentTargetFloor.ToString());
         }
     }

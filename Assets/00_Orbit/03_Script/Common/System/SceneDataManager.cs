@@ -14,7 +14,7 @@ namespace STARTING
             {
                 if (_instance == null)
                 {
-                    GameObject obj = new GameObject("@sceneDataManager");
+                    GameObject obj = new GameObject("SceneDataManager");
                     _instance = obj.AddComponent<SceneDataManager>();
                     DontDestroyOnLoad(obj);
 

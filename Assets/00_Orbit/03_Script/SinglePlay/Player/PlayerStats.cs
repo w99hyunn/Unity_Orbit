@@ -164,6 +164,7 @@ namespace STARTING
             {
                 currentHealth = 0;
                 GameManager.Instance.GameOver();
+                AchievementManager.Instance.UpdateAchievement("Deaths", 1);
             }
 
             GameManager.Instance.SaveGamePartial("currentHealth", currentHealth);
@@ -192,6 +193,7 @@ namespace STARTING
 
         void LevelUp()
         {
+            AchievementManager.Instance.UpdateAchievement("LevelUp", 1);
             GameManager.Instance.PlaySound(levelUpSound);
             level++;
             currentExperience -= maxExperience; // 남은 경험치는 다음 레벨로 이월
