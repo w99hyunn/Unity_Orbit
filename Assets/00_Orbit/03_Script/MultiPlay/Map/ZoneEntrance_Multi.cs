@@ -1,3 +1,6 @@
+using Demo.Scripts.Runtime.Character;
+using Mirror;
+using System.Collections;
 using UnityEngine;
 
 namespace STARTING
@@ -7,9 +10,27 @@ namespace STARTING
     /// </summary>
     public class ZoneEntrance_Multi : ZoneEntrance
     {
+        private GameObject localPlayer;
+
+        private void Start()
+        {
+            StartCoroutine(FindLocalPlayer());
+        }
+
+        private IEnumerator FindLocalPlayer()
+        {
+            while (GameManager_Multi.Instance.player == null)
+            {
+                yield return null;
+            }
+
+            localPlayer = GameManager_Multi.Instance.player;
+            
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.gameObject == localPlayer)
             {
                 //멀티플레이의 경우 점령 시스템은 아직 적용되지 않았음.
                 //싱글플레이와 동일하게 적용할지, 다른 시스템을 적용할지 고민중

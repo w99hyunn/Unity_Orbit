@@ -52,6 +52,7 @@ namespace STARTING
         public UnityEvent registerSuccess;
         public UnityEvent registerFail;
         public UnityEvent login;
+        public UnityEvent loginClient;
         public UnityEvent startLoading;
         public UnityEvent connectFail;
         public UnityEvent dbServerConnectFail;
@@ -206,6 +207,11 @@ namespace STARTING
         public void LoginEvent()
         {
             login?.Invoke();
+        }
+
+        public void LoginClientEvent()
+        {
+            loginClient?.Invoke();
         }
 
         public void StartLoadingEvent()

@@ -136,7 +136,7 @@ namespace STARTING
 
             data.currentHealth = 50;
             data.currentExperience = Mathf.Max(0, data.currentExperience - (int)(data.currentExperience * 0.3f));
-            data.playerPosition = new Vector3(0, 0, 0);
+            data.playerPosition = new Vector3(26.19f, 2.1f, -47.5f);
 
             string json = JsonUtility.ToJson(data);
             string encryptedJson = CryptoUtility.EncryptString(json);

@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8364306ee3c01864ba275514ef07b5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBullet: 12
+  maxBullet: 20
   currentBullet: 0
   damage: 20
   firePoint: {fileID: 807225738118481201}
@@ -205,6 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponPreview: {fileID: 21300000, guid: 64740f803c6217a4fa0688333a7405c9, type: 3}
+  cost: 0
   fieldOfView: 90
   reloadClip: {fileID: 11400000, guid: 2d446d575ab7f0c44a565f6684c53aaa, type: 2}
   cameraReloadAnimation: {fileID: 11400000, guid: 07fc9d875c58d584a8f0dcdaa9242f7b,
@@ -231,7 +233,6 @@ MonoBehaviour:
   scopeGroups:
   - attachments:
     - {fileID: 7649588884087146613}
-  weaponPreview: {fileID: 21300000, guid: 64740f803c6217a4fa0688333a7405c9, type: 3}
 --- !u!114 &3801993692961882802
 MonoBehaviour:
   m_ObjectHideFlags: 0

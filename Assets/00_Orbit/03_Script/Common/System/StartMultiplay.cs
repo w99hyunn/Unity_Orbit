@@ -9,6 +9,13 @@ using UnityEngine.SceneManagement;
 
 namespace STARTING
 {
+    enum StartType
+    {
+        NONE,
+        HOST,
+        CLIENT
+    };
+
     public class StartMultiplay : MonoBehaviour
     {
         public MainUISupport uiSupport;
@@ -18,6 +25,7 @@ namespace STARTING
         private string hamachiIP;
         private ushort port;
         private string ip;
+        private StartType startType;
 
         private void Start()
         {
@@ -34,7 +42,7 @@ namespace STARTING
 
         IEnumerator GetPublicIP()
         {
-            UnityWebRequest request = UnityWebRequest.Get("https://checkip.amazonaws.com");
+            UnityWebRequest request = UnityWebRequest.Get("https://api.ip.pe.kr");
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
@@ -128,6 +136,7 @@ namespace STARTING
                 if (true == NetworkServer.active) // 서버에 연결된 상태
                 {
                     uiSupport.LoginEvent();
+                    startType = StartType.HOST;
                     yield break;
                 }
                 yield return null;
@@ -171,7 +180,8 @@ namespace STARTING
             {
                 if (true == NetworkClient.isConnected) // 서버에 연결된 상태
                 {
-                    uiSupport.LoginEvent();
+                    uiSupport.LoginClientEvent();
+                    startType = StartType.CLIENT;
                     yield break;
                 }
                 yield return null;
@@ -201,7 +211,21 @@ namespace STARTING
         {
             uiSupport.StartLoadingEvent();
 
-            uiSupport.MultiConnectInfo($"{ip} : {port}에 접속중입니다.");
+            if (startType == StartType.HOST)
+            {
+                if (hamachiIP != null)
+                {
+                    uiSupport.MultiConnectInfo($"{hamachiIP} : {port}에 접속중입니다.");
+                }
+                else
+                {
+                    uiSupport.MultiConnectInfo($"{ip} : {port}에 접속중입니다.\n외부에서 접속하려면 고정IP또는 하마치IP로 접속하세요.");
+                }
+            }
+            else if (startType == StartType.CLIENT)
+            {
+                uiSupport.MultiConnectInfo($"{ip} : {port}에 접속중입니다.");
+            }
 
             StartCoroutine(LoadWorldScene());
         }
