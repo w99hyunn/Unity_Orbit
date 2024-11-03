@@ -13,6 +13,7 @@ namespace STARTING
         public float pauseDuration = 0.05f; // 고점과 저점에서 멈추는 시간
 
         [Header("파괴 FX")]
+        private AudioSource audioSource;
         public AudioClip explosionSound;
         public GameObject explosionVFX;
 
@@ -22,6 +23,7 @@ namespace STARTING
 
         private void Start()
         {
+            audioSource = GetComponent<AudioSource>();
             _startPosition = transform.position;
             StartCoroutine(MoveObject());
         }
@@ -62,6 +64,7 @@ namespace STARTING
             GameObject explosionInstance = Instantiate(explosionVFX, this.transform.position, this.transform.rotation);
             AudioSource audioSource = explosionInstance.AddComponent<AudioSource>();
 
+            audioSource.outputAudioMixerGroup = this.audioSource.outputAudioMixerGroup;
             audioSource.clip = explosionSound;
             audioSource.Play();
             Destroy(explosionInstance, 5f);

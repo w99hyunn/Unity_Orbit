@@ -1,3 +1,4 @@
+using Demo.Scripts.Runtime.Character;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,10 +32,12 @@ namespace STARTING
         public PlayerState playerState;
 
         private Inventory inventory;
-        private float _manaRegenRate = 10f;
+        private float _manaRegenRate = 50f;
         private float _healthRegenRate = 5f;
         private float _regenInterval = 10f;
         private bool _isShowInfoUI;
+
+        private FPSMovement fpsMovement;
 
         private void Awake()
         {
@@ -48,14 +51,21 @@ namespace STARTING
                 Destroy(gameObject);
             }
             inventory = GetComponent<Inventory>();
+            fpsMovement = GetComponent<FPSMovement>();
         }
 
         void Start()
         {
-            InvokeRepeating("RegenerateMana", _regenInterval, _regenInterval);
+            InvokeRepeating("RegenerateMana", 2f, 2f);
             InvokeRepeating("RegenerateHealth", _regenInterval, _regenInterval);
             InitializeStats();
             OnPlayerStatsInitialized?.Invoke(); // 초기화 완료 이벤트 호출
+        }
+
+        public void SetCurrentMana(int value)
+        {
+            currentMana = Mathf.Max(0, value);
+            UpdateUI();
         }
 
         public void SetStats(int maxHealth, int maxMana, int maxExperience, int health, int mana, int experience, int level)
@@ -128,6 +138,10 @@ namespace STARTING
 
         void RegenerateMana()
         {
+            if (fpsMovement.MovementState == FPSMovementState.Sprinting)
+            {
+                return;
+            }
             currentMana = Mathf.Min(currentMana + (int)_manaRegenRate, maxMana);
             UpdateUI();
             GameManager.Instance.SaveGamePartial("currentMana", currentMana);
