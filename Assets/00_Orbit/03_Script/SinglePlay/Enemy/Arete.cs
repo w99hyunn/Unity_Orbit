@@ -69,7 +69,10 @@ namespace STARTING
             audioSource.Play();
             Destroy(explosionInstance, 5f);
 
-            enemySpawner.SetActive(false);
+            // enemySpawner.SetActive(false);로 설정하면 아레테 파괴 후 몬스터가 남아있음.
+            // 아레테 파괴 후 굳이 몬스터를 남겨 잡몹을 모두 잡게 하는건 불쾌한 게임성일 수 있음.
+            Destroy(enemySpawner);
+
             UIManager.Instance.ScriptText_Enable($"{GameManager.Instance.currentZoneName} 구역이 해방됐다. 더 이상 드론이 소환되지 않을거야.");
             dungeonTimer.Destroy_Arete();
             Destroy(this.gameObject);

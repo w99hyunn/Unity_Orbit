@@ -312,7 +312,6 @@ namespace STARTING
             else
             {
                 data.zones.Add(new ZoneData(zoneName, isLiberated));
-                Debug.Log(zoneName + "/" + isLiberated);
             }
 
             string json = JsonUtility.ToJson(data);
