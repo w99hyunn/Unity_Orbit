@@ -112,20 +112,10 @@ namespace STARTING
 
         private IEnumerator LoadWorldSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("Single"), LoadSceneMode.Additive);
-            asyncLoad.allowSceneActivation = false;
-
-            yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
-
-            asyncLoad.allowSceneActivation = true;
-
-            yield return new WaitUntil(() => asyncLoad.isDone);
-
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("Single")));
+            SceneManager.LoadScene(SceneDataManager.GetSceneName("Single"));
 
             InitializePlayerAfterGameOver();
             LoadGame();
-            SceneManager.UnloadSceneAsync(SceneDataManager.GetSceneName("SingleDungeon"));
 
             yield return new WaitForSeconds(delay);
         }

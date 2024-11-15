@@ -60,39 +60,28 @@ namespace STARTING
             }
             else
             {
+                UIManager.Instance.interactionKeyDisable();
+                UIManager.Instance.DungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
                 PlayerStats.Instance.playerState = PlayerState.LOADING;
                 GameManager.Instance.PlaySound(entranceSound);
-                UIManager.Instance.DungeonLoading("주어진 시간 내에", "아레테를 파괴해야 합니다!", "아레테를 파괴하여 지역을 해방시키세요.");
                 GameManager.Instance.SavePlayerPosition(other.transform.position);
-                UIManager.Instance.interactionKeyDisable();
                 StartCoroutine(LoadDungeonSceneAfterDelay(3f));
             }
         }
 
         private IEnumerator LoadDungeonSceneAfterDelay(float delay)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneDataManager.GetSceneName("SingleDungeon"), LoadSceneMode.Additive);
-            asyncLoad.allowSceneActivation = false;
-
-            yield return new WaitUntil(() => asyncLoad.progress >= 0.9f);
-
-            asyncLoad.allowSceneActivation = true;
-
-            yield return new WaitUntil(() => asyncLoad.isDone);
-
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneDataManager.GetSceneName("SingleDungeon")));
-
-            GameManager.Instance.SetPos(spawnPos);
-
+            SceneManager.sceneLoaded += OnSceneLoaded;
             yield return new WaitForSeconds(delay);
-            SceneManager.UnloadSceneAsync(SceneDataManager.GetSceneName("Single"));
-            asyncLoad.completed += OnSceneLoaded;
+            SceneManager.LoadScene(SceneDataManager.GetSceneName("SingleDungeon"));
+            GameManager.Instance.SetPos(spawnPos);
         }
 
-        private void OnSceneLoaded(AsyncOperation asyncOperation)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             UIManager.Instance.DungeonLoadingComplete();
             PlayerStats.Instance.ChangeState(1f, PlayerState.IDLE);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }

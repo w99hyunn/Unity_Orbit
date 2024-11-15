@@ -1,30 +1,18 @@
-using Mirror;
-using System.Collections;
 using UnityEngine;
 
 namespace STARTING
 {
-    public class _Debug_Multi : MonoBehaviour
+    public class DebugPanelInGame : MonoBehaviour
     {
-        public PlayerStats_Multi playerStats;
+        private PlayerStats playerStats;
+        private Inventory inventory;
 
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(FindLocalPlayer());
+            playerStats = PlayerStats.Instance;
+            inventory = playerStats.gameObject.GetComponent<Inventory>();
         }
-
-        private IEnumerator FindLocalPlayer()
-        {
-            while (NetworkClient.localPlayer == null)
-            {
-                yield return null;
-            }
-
-            playerStats = NetworkClient.localPlayer.gameObject.GetComponent<PlayerStats_Multi>();
-
-        }
-
 
         // Update is called once per frame
         void Update()
@@ -48,6 +36,10 @@ namespace STARTING
             if (Input.GetKeyDown(KeyCode.L))
             {
                 GameManager.Instance.SaveGame();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                inventory.GainChip(200);
             }
         }
         void DestroyEnemies()
@@ -80,7 +72,7 @@ namespace STARTING
             GUILayout.BeginArea(new Rect(xPosition, yPosition, labelWidth, labelHeight));
 
             // 글자 출력
-            GUILayout.Label("H 체력 200 회복, M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장");
+            GUILayout.Label("H 체력 200 회복, M 몬스터 전부 제거, V 피 20 감소, B 마나 20감소, N 경험치 50증가, L 게임저장, C 칩증가");
 
             // GUI 영역 종료
             GUILayout.EndArea();
