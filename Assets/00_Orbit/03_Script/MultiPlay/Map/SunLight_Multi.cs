@@ -1,24 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace STARTING
 {
-    public class SunLight : MonoBehaviour
+    public class SunLight_Multi : SunLight
     {
         private Light sun;
 
-        public virtual void Start()
+        public override void UpdateSunRotation()
         {
-            sun = GetComponent<Light>();
-        }
-
-        public virtual void Update()
-        {
-            UpdateSunRotation();
-        }
-
-        public virtual void UpdateSunRotation()
-        {
-            float hours = GameManager.Instance.gameTime / 3600f;
+            float hours = DateTime.Now.Hour;
 
             //(05:00) = 0도, (12:00) = 90도, (18:00) = 180도
             //0도에서 180도로 선형 보간
@@ -38,11 +29,6 @@ namespace STARTING
             }
 
             SunTransformUpdate(rotationAngle);
-        }
-
-        public virtual void SunTransformUpdate(float rotationAngle)
-        {
-            sun.transform.rotation = Quaternion.Euler(rotationAngle, 0, 0);
         }
     }
 }
