@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 88229f81338f4f046971b5e39b4ab3d6
+  m_OcclusionCullingData: {fileID: 36300000, guid: 8aeb869e52f12c7408069c62c77edaf8,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -42,7 +43,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -92,7 +94,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 88f549389450f4a448e8fac613a65eb8,
+  m_LightingDataAsset: {fileID: 112000000, guid: 92c18a0d106001742a56a1b043858b3e,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 27ce1227c19b57c4aa744b12067b06a8,
     type: 2}
@@ -300,12 +302,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38985722}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.47174, y: 118.89, z: 28.6344}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.90475464, y: 118.89, z: 7.7977486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1251790076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &62618109
 GameObject:
@@ -317,7 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 62618110}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: '@trigger'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9135,22 +9137,22 @@ PrefabInstance:
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -2.7531802e-21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: -0.8743244
+      value: 9.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.211589e-14
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 729468.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1170380237987875180, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
@@ -9183,51 +9185,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 486332537}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &629581773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 629581775}
-  - component: {fileID: 629581774}
-  m_Layer: 0
-  m_Name: '>DebugPanel'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &629581774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629581773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b7de4bb03a6b7489e391087541a51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
---- !u!4 &629581775
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629581773}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &629775278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9318,22 +9275,22 @@ PrefabInstance:
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 6.255558e+11
+      value: 5.155395e-39
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: -133591576
+      value: 8.115549e-22
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -0.000000011297504
+      value: 1.84e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108711698021863148, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 1.0368974e+9
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 1170380237987875180, guid: 7a89e0ad1abbcd844a9ae20eff24d4ab,
         type: 3}
@@ -9766,7 +9723,7 @@ GameObject:
   - component: {fileID: 743083642}
   - component: {fileID: 743083643}
   m_Layer: 0
-  m_Name: DungeonTimer
+  m_Name: '@dungeonTimer'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9784,7 +9741,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1970198039170077617}
+  - {fileID: 2029430061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &743083642
@@ -9933,22 +9892,22 @@ PrefabInstance:
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -5.8556937e-28
+      value: 2.5362938e-26
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.5034388e+24
+      value: 9.224082e+18
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -8.429244e-27
+      value: 1.84e-43
       objectReference: {fileID: 0}
     - target: {fileID: 6067561024586434408, guid: b407a709600b42e4ba5714d56869f66f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 1775535.2
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 8772161811932577053, guid: b407a709600b42e4ba5714d56869f66f,
         type: 3}
@@ -10356,22 +10315,22 @@ PrefabInstance:
     - target: {fileID: 3574362967237534935, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.0000000018301627
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 3574362967237534935, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 4.0517156e+35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3574362967237534935, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -1.6660082e+29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3574362967237534935, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 29.28187
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3650638188812647480, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
@@ -10858,22 +10817,22 @@ PrefabInstance:
     - target: {fileID: 8707514470532437557, guid: 9ea6fd58eb960904b8d214fae2ee99c5,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.0000000028026825
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8707514470532437557, guid: 9ea6fd58eb960904b8d214fae2ee99c5,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 4.3984645e-35
+      value: 0.0078125
       objectReference: {fileID: 0}
     - target: {fileID: 8707514470532437557, guid: 9ea6fd58eb960904b8d214fae2ee99c5,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.7664652e-30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8707514470532437557, guid: 9ea6fd58eb960904b8d214fae2ee99c5,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7.935134
+      value: 0.0078125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11080,7 +11039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251790076}
   m_Layer: 0
-  m_Name: Map
+  m_Name: '@map'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11099,6 +11058,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 38985724}
   - {fileID: 203811332}
   - {fileID: 1291951038}
   - {fileID: 376526257}
@@ -11507,22 +11467,22 @@ PrefabInstance:
     - target: {fileID: 108142126652828542, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.000000010486197
+      value: 4.6e-44
       objectReference: {fileID: 0}
     - target: {fileID: 108142126652828542, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.5970807e+25
+      value: 9.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108142126652828542, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 6.9784524e+22
+      value: -8.13378e-29
       objectReference: {fileID: 0}
     - target: {fileID: 108142126652828542, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.8578602e+30
+      value: 9.01e-43
       objectReference: {fileID: 0}
     - target: {fileID: 108295072418829176, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
@@ -11547,22 +11507,22 @@ PrefabInstance:
     - target: {fileID: 108295072418829176, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.0000000072137816
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108295072418829176, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 7.16e-43
+      value: 0.0078125
       objectReference: {fileID: 0}
     - target: {fileID: 108295072418829176, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1e-45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108295072418829176, guid: 121f6b51ad4d06f4083be192e70faccf,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: 0.0078125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11885,6 +11845,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1149134363}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1478920132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478920133}
+  m_Layer: 0
+  m_Name: -------------------------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478920133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478920132}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1546227251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18085,7 +18076,7 @@ GameObject:
   - component: {fileID: 1864573236}
   - component: {fileID: 1864573235}
   m_Layer: 5
-  m_Name: Canvas  - Dungeon
+  m_Name: '@ui'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18324,12 +18315,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029430059}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 743083641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1970198039170077616
 PrefabInstance:
@@ -18337,7 +18328,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 743083641}
     m_Modifications:
     - target: {fileID: 1245501503478773792, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
@@ -18352,7 +18343,7 @@ PrefabInstance:
     - target: {fileID: 2964542210574489384, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.72
+      value: -15.720001
       objectReference: {fileID: 0}
     - target: {fileID: 2964542210574489384, guid: 5154dcd7b87f3244b8546819c0050522,
         type: 3}
@@ -18440,16 +18431,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5154dcd7b87f3244b8546819c0050522, type: 3}
+--- !u!4 &1970198039170077617 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2964542210574489384, guid: 5154dcd7b87f3244b8546819c0050522,
+    type: 3}
+  m_PrefabInstance: {fileID: 1970198039170077616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1864573234}
   - {fileID: 743083641}
-  - {fileID: 2029430061}
-  - {fileID: 629581775}
-  - {fileID: 62618110}
-  - {fileID: 38985724}
+  - {fileID: 1864573234}
+  - {fileID: 1478920133}
   - {fileID: 1251790076}
-  - {fileID: 1970198039170077616}
+  - {fileID: 62618110}
   - {fileID: 209298919}

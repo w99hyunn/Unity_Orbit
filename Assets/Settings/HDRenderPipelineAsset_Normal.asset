@@ -31,7 +31,7 @@ MonoBehaviour:
     supportVolumetricClouds: 0
     supportLightLayers: 1
     renderingLayerMaskBuffer: 0
-    supportWater: 0
+    supportWater: 1
     waterSimulationResolution: 128
     supportWaterExclusion: 1
     supportWaterDecals: 1
@@ -48,20 +48,20 @@ MonoBehaviour:
     supportTransparentBackface: 1
     supportTransparentDepthPrepass: 1
     supportTransparentDepthPostpass: 1
-    colorBufferFormat: 48
+    colorBufferFormat: 74
     supportCustomPass: 1
     customBufferFormat: 8
     supportedLitShaderMode: 2
     planarReflectionResolution:
-      m_Values: 000100000004000000040000
+      m_Values: 000100000002000000020000
       m_SchemaId:
         m_Id: With3Levels
     cubeReflectionResolution:
       m_Values: 800000000001000000020000
       m_SchemaId:
         m_Id: With3Levels
-    supportDecals: 0
-    supportDecalLayers: 0
+    supportDecals: 1
+    supportDecalLayers: 1
     supportSurfaceGradient: 1
     decalNormalBufferHP: 0
     supportHighQualityLineRendering: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     supportDitheringCrossFade: 1
     supportRuntimeAOVAPI: 0
     supportTerrainHole: 0
-    lightProbeSystem: 1
+    lightProbeSystem: 0
     oldLightProbeSystem: 0
     probeVolumeMemoryBudget: 512
     supportProbeVolumeGPUStreaming: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
     supportedRayTracingMode: 3
     lightLoopSettings:
       cookieAtlasSize: 1024
-      cookieFormat: 48
+      cookieFormat: 74
       cookieAtlasLastValidMip: 10
       cookieTexArraySize: 1
       planarReflectionAtlasSize: 0
@@ -95,8 +95,8 @@ MonoBehaviour:
       reflectionCubemapSize: 0
       maxEnvLightsOnScreen: 0
       reflectionCacheCompressed: 1
-      reflectionProbeFormat: 48
-      reflectionProbeTexCacheSize: 1024
+      reflectionProbeFormat: 74
+      reflectionProbeTexCacheSize: 512
       reflectionProbeTexLastValidCubeMip: 6
       reflectionProbeTexLastValidPlanarMip: 6
       reflectionProbeDecreaseResToFit: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 0
       maxLocalVolumetricFogOnScreen: 256
     hdShadowInitParams:
-      maxShadowRequests: 30
+      maxShadowRequests: 100
       directionalShadowsDepthBits: 32
       punctualShadowFilteringQuality: 1
       directionalShadowFilteringQuality: 1
@@ -164,9 +164,9 @@ MonoBehaviour:
       bufferFormat: 74
     dynamicResolutionSettings:
       enabled: 1
-      useMipBias: 0
-      advancedUpscalersByPriority: 0200
-      DLSSPerfQualitySetting: 0
+      useMipBias: 1
+      advancedUpscalersByPriority: 0002
+      DLSSPerfQualitySetting: 2
       DLSSInjectionPoint: 0
       TAAUInjectionPoint: 0
       STPInjectionPoint: 0
@@ -214,6 +214,10 @@ MonoBehaviour:
       DoFResolution: 040000000200000001000000
       DoFHighQualityFiltering: 000101
       DoFPhysicallyBased: 000000
+      AdaptiveSamplingWeight:
+      - 0.5
+      - 0.75
+      - 2
       LimitManualRangeNearBlur: 000000
       MotionBlurSampleCount: 04000000080000000c000000
       BloomRes: 040000000200000002000000

@@ -40,7 +40,7 @@ namespace Demo.Scripts.Runtime.Item
         [SerializeField] private RecoilAnimData recoilData;
         [SerializeField] private RecoilPatternSettings recoilPatternSettings;
         [SerializeField] private FPSCameraShake cameraShake;
-        [Min(0f)] [SerializeField] private float fireRate;
+        [Min(0f)] [SerializeField] public float fireRate;
 
         [SerializeField] private bool supportsAuto;
         [SerializeField] private bool supportsBurst;
@@ -89,6 +89,11 @@ namespace Demo.Scripts.Runtime.Item
         private void Start()
         {
             gunFire = GetComponent<GunFire>();
+        }
+
+        private void OnEnable()
+        {
+            UIManager.Instance.ChangeWeapon(weaponPreview);
         }
 
         //게임 시작시 총알은 소지한채 시작.

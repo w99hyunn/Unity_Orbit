@@ -62,19 +62,32 @@ namespace Demo.Scripts.Runtime.Character
         private UserInputController _userInput;
         // ~Scriptable Animation System Integration
 
-        private List<FPSItem> _instantiatedWeapons;
+        public List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
         private int _sensitivityMultiplierPropertyIndex;
 
-        public event Action<int> OnActiveWeaponIndexChanged;
         public event Action<FPSAimState> OnActiveAiming;
 
         [Header("달리기 화면 번짐 효과 관련")]
         public Volume localVolume;
         private VolumeProfile profile;
         private ChromaticAberration chromaticAberration;
+
+        //무기변경 시스템
+        private Inventory inventory;
+
+        private void Awake()
+        {
+            _fpsAnimator = GetComponent<FPSAnimator>();
+            _userInput = GetComponent<UserInputController>();
+            _animator = GetComponent<Animator>();
+            _recoilPattern = GetComponent<RecoilPattern>();
+            inventory = GetComponent<Inventory>();
+
+            inventory.OnWeaponChanged += OnChangeWeaponSetting;
+        }
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -98,8 +111,6 @@ namespace Demo.Scripts.Runtime.Character
 
         private bool IsAiming()
         {
-            //에임상태(줌) 변경될 때 이벤트 발생
-            OnActiveAiming?.Invoke(_aimState);
             return _aimState is FPSAimState.Aiming or FPSAimState.PointAiming;
         }
 
@@ -154,20 +165,23 @@ namespace Demo.Scripts.Runtime.Character
 
         private void Start()
         {
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-
             _weaponBone = GetComponentInChildren<KRigComponent>().GetRigTransform(settings.weaponBone);
-            _fpsAnimator = GetComponent<FPSAnimator>();
-            _userInput = GetComponent<UserInputController>();
-            _animator = GetComponent<Animator>();
-            _recoilPattern = GetComponent<RecoilPattern>();
 
             InitializeMovement();
             InitializeWeapons();
 
             _actionState = FPSActionState.None;
-            EquipWeapon();
+
+            // 첫 번째 장착된 무기 자동 장착
+            if (inventory.equippedWeaponIndices.Count > 0)
+            {
+                _activeWeaponIndex = inventory.equippedWeaponIndices[0]; // equippedWeaponIndices에서 첫 번째 인덱스 사용
+                EquipWeapon();
+            }
+            else
+            {
+                Debug.LogWarning("장착된 무기가 없습니다.");
+            }
 
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
 
@@ -283,10 +297,6 @@ namespace Demo.Scripts.Runtime.Character
 
             _previousWeaponIndex = _activeWeaponIndex;
             _activeWeaponIndex = newIndex;
-
-            //무기 변경시 이벤트 발생
-            // _activeWeaponIndex == 현재 무기 인덱스
-            OnActiveWeaponIndexChanged?.Invoke(_activeWeaponIndex);
         }
 
         private void UpdateLookInput()
@@ -389,6 +399,8 @@ namespace Demo.Scripts.Runtime.Character
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
                 return;
             }
 
@@ -396,15 +408,30 @@ namespace Demo.Scripts.Runtime.Character
             {
                 DisableAim();
                 PlayTransitionMotion(settings.aimingMotion);
+                //에임상태(줌) 변경될 때 이벤트 발생
+                OnActiveAiming?.Invoke(_aimState);
             }
         }
 
-        public void OnChangeWeapon()
+        public void OnChangeWeapon1()
         {
-            if (_movementComponent.PoseState == FPSPoseState.Prone) return;
-            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
+            if (inventory.equippedWeaponIndices.Count > 0)
+            {
+                StartWeaponChange(inventory.equippedWeaponIndices[0]);
+            }
+        }
 
-            StartWeaponChange(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1 ? 0 : _activeWeaponIndex + 1);
+        public void OnChangeWeapon2()
+        {
+            if (inventory.equippedWeaponIndices.Count > 1)
+            {
+                StartWeaponChange(inventory.equippedWeaponIndices[1]);
+            }
+        }
+
+        public void OnChangeWeaponSetting(int index)
+        {
+            StartWeaponChange(inventory.equippedWeaponIndices[index]);
         }
 
         public void OnLook(InputValue value)

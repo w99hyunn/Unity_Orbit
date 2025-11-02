@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Windows Profile
   m_EditorClassIdentifier: 
+  m_AssetVersion: 1
   m_BuildTarget: 19
   m_Subtarget: 2
   m_PlatformId: 4e3c793746204150860bf175a9a41a05
   m_PlatformBuildProfile:
     rid: 4657808551823015969
+  m_OverrideGlobalSceneList: 0
   m_Scenes:
   - m_enabled: 1
     m_path: Assets/00_Orbit/01_Scenes/SplashScene.unity
@@ -77,6 +79,7 @@ MonoBehaviour:
     - line: '|   m_StereoRenderingPath: 0'
     - line: '|   m_ActiveColorSpace: 1'
     - line: '|   unsupportedMSAAFallback: 0'
+    - line: '|   m_SpriteBatchMaxVertexCount: 65535'
     - line: '|   m_SpriteBatchVertexThreshold: 300'
     - line: '|   m_MTRendering: 1'
     - line: '|   mipStripping: 1'
@@ -601,6 +604,7 @@ MonoBehaviour:
     - line: '|   playModeTestRunnerEnabled: 0'
     - line: '|   runPlayModeTestAsEditModeTest: 0'
     - line: '|   actionOnDotNetUnhandledException: 1'
+    - line: '|   editorGfxJobOverride: 1'
     - line: '|   enableInternalProfiler: 0'
     - line: '|   logObjCUncaughtExceptions: 1'
     - line: '|   enableCrashReportAPI: 0'
@@ -917,8 +921,7 @@ MonoBehaviour:
     - line: '|   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628,
         a: 0}'
     - line: '|   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902,
-        b: 0.21568628,'
-    - line: '|     a: 1}'
+        b: 0.21568628,    a: 1}'
     - line: '|   metroSplashScreenUseBackgroundColor: 0'
     - line: '|   syncCapabilities: 0'
     - line: '|   platformCapabilities: {}'

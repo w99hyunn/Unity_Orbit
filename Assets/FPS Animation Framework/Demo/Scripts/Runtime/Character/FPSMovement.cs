@@ -2,6 +2,7 @@
 
 using KINEMATION.KAnimationCore.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Input;
+using STARTING;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -86,6 +87,7 @@ namespace Demo.Scripts.Runtime.Character
         private static readonly int Sliding = Animator.StringToHash("Sliding");
         private static readonly int Sprinting = Animator.StringToHash("Sprinting");
         private static readonly int Proning = Animator.StringToHash("Proning");
+        private static readonly int Die = Animator.StringToHash("Die");
 
         private float _sprintAnimatorInterp = 8f;
         private bool _wasMoving = false;
@@ -134,7 +136,17 @@ namespace Demo.Scripts.Runtime.Character
         {
             float height = _originalHeight - _controller.radius * 2f;
             Vector3 position = rootBone.TransformPoint(_originalCenter + Vector3.up * height / 2f);
-            return !Physics.CheckSphere(position, _controller.radius);
+
+            Collider[] colliders = Physics.OverlapSphere(position, _controller.radius);
+            foreach (Collider collider in colliders)
+            {
+                // 충돌한 콜라이더가 "Trigger" 레이어가 아닌 경우에는 일어설 수 있음.
+                if (collider.gameObject.layer != LayerMask.NameToLayer("Trigger"))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void EnableProne()
@@ -174,6 +186,7 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState.Crouching;
 
             _animator.SetBool(Crouching, true);
+            UIManager.Instance.CrouchState(true);
             onCrouch.Invoke();
         }
 
@@ -185,6 +198,7 @@ namespace Demo.Scripts.Runtime.Character
             PoseState = FPSPoseState.Standing;
 
             _animator.SetBool(Crouching, false);
+            UIManager.Instance.CrouchState(false);
             onUncrouch.Invoke();
         }
 
@@ -246,6 +260,8 @@ namespace Demo.Scripts.Runtime.Character
                 float prevVelocity = _desiredGait.velocity;
                 _desiredGait = movementSettings.idle;
                 _desiredGait.velocity = prevVelocity;
+
+                GameManager.Instance.SaveGamePartial("playerPosition", transform.position);
                 return;
             }
 
@@ -369,12 +385,15 @@ namespace Demo.Scripts.Runtime.Character
             _inputController.SetValue("MoveInput", new Vector4(AnimatorVelocity.x, AnimatorVelocity.y));
         }
 
-        private void Start()
+        private void Awake()
         {
             _controller = GetComponent<CharacterController>();
             _animator = GetComponentInChildren<Animator>();
             _inputController = GetComponent<UserInputController>();
+        }
 
+        private void Start()
+        {
             _originalHeight = _controller.height;
             _originalCenter = _controller.center;
 
@@ -444,7 +463,7 @@ namespace Demo.Scripts.Runtime.Character
         public void ResetPos()
         {
             _controller.enabled = false;  // Move 대신 transform.position을 설정하려면 일시적으로 비활성화
-            transform.position = new Vector3(0, 1, 10);
+            transform.position = new Vector3(26.19f, 2.1f, -47.5f);
             _controller.enabled = true;  // 다시 활성화
         }
 
@@ -545,6 +564,16 @@ namespace Demo.Scripts.Runtime.Character
 
             _slideProgress = 0f;
             MovementState = FPSMovementState.Sliding;
+        }
+
+        public void OnDie()
+        {
+            _animator.SetBool(Die, true);
+        }
+
+        public void OnRevival()
+        {
+            _animator.SetBool(Die, false);
         }
 #endif
     }

@@ -25,8 +25,8 @@ public class TDScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if ((PlayerChar) == null)
-        PlayerChar = GameObject.FindWithTag("Player").GetComponent<Collider>();
+        //if ((PlayerChar) == null)
+        //PlayerChar = GameObject.FindWithTag("Player").GetComponent<Collider>();
         previousFloor = ActiveFloor;
     }
 

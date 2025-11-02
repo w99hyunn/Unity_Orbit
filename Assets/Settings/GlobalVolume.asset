@@ -40,6 +40,9 @@ MonoBehaviour:
   cullingDistance:
     m_OverrideState: 1
     m_Value: 1000
+  minSolidAngle:
+    m_OverrideState: 1
+    m_Value: 4
 --- !u!114 &-8422611332777177291
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -181,10 +184,10 @@ MonoBehaviour:
     m_Value: 1
   planetRadius:
     m_OverrideState: 1
-    m_Value: 6378.1
+    m_Value: 100
   renderingSpace:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   centerMode:
     m_OverrideState: 1
     m_Value: 0
@@ -1198,41 +1201,47 @@ MonoBehaviour:
     m_Value: 10
   focusDistanceMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   nearFocusStart:
     m_OverrideState: 1
     m_Value: 0
   nearFocusEnd:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 4
   farFocusStart:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 199.99998
   farFocusEnd:
     m_OverrideState: 1
     m_Value: 200
   m_NearSampleCount:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 3
   m_NearMaxBlur:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 0
   m_FarSampleCount:
     m_OverrideState: 1
     m_Value: 7
   m_FarMaxBlur:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 8
   m_Resolution:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
   m_PhysicallyBased:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
+  m_AdaptiveSamplingWeight:
+    m_OverrideState: 1
+    m_Value: 0.75
   m_LimitManualRangeNearBlur:
+    m_OverrideState: 1
+    m_Value: 0
+  coCStabilization:
     m_OverrideState: 1
     m_Value: 0
 --- !u!114 &11400000
@@ -1870,7 +1879,7 @@ MonoBehaviour:
   active: 1
   enable:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   triangleSize:
     m_OverrideState: 1
     m_Value: 30
@@ -1904,10 +1913,10 @@ MonoBehaviour:
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.3224012, g: 0.50764734, b: 0.5943396, a: 1}
   maxFogDistance:
     m_OverrideState: 1
-    m_Value: 5000
+    m_Value: 100
   mipFogMaxMip:
     m_OverrideState: 1
     m_Value: 0.5
@@ -1922,16 +1931,16 @@ MonoBehaviour:
     m_Value: 0
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 50
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 400
+    m_Value: 100
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.5980331, g: 0.72071856, b: 0.8396226, a: 1}
+    m_Value: {r: 0.6039216, g: 0.7411765, b: 0.7960785, a: 1}
   globalLightProbeDimmer:
     m_OverrideState: 1
     m_Value: 1
@@ -2305,7 +2314,7 @@ MonoBehaviour:
     m_Value: 1
   cascadeShadowBorder3:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.7489711
 --- !u!114 &6749912450253119498
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2334,6 +2343,9 @@ MonoBehaviour:
   tileOpacityThreshold:
     m_OverrideState: 1
     m_Value: 1
+  writeDepthAlphaThreshold:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &6816448363671394043
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -2631,16 +2643,16 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   threshold:
     m_OverrideState: 1
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.086
+    m_Value: 0.071
   scatter:
     m_OverrideState: 1
-    m_Value: 0.824
+    m_Value: 0.807
   tint:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -2649,7 +2661,7 @@ MonoBehaviour:
     m_Value: {fileID: 2800000, guid: 45f504f30054f52479fa1ed909e3bd0b, type: 3}
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 5
   anamorphic:
     m_OverrideState: 1
     m_Value: 1
@@ -2658,7 +2670,7 @@ MonoBehaviour:
     m_Value: 2
   m_HighQualityPrefiltering:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
