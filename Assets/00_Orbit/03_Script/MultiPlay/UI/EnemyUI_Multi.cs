@@ -2,7 +2,7 @@ using Mirror;
 using System.Collections;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     public class EnemyUI_Multi : MonoBehaviour
     {

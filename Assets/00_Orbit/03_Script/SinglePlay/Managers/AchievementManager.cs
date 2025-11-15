@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     [System.Serializable]
     public class AchievementData

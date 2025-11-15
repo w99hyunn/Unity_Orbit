@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// 맵의 존 트리거에 닿았을 때 출력 및 GameManager에 전달

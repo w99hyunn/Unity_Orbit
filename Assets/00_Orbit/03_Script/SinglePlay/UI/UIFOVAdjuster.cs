@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Demo.Scripts.Runtime.Character;
 
-namespace STARTING
+namespace NOLDA
 {
     public class UIFOVAdjuster : MonoBehaviour
     {

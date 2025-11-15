@@ -2,17 +2,34 @@ using MySql.Data.MySqlClient;
 
 using System;
 using System.Collections;
+using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
+    [Serializable]
+    public class DBConfig
+    {
+        public string serverIP;
+        public string port;
+        public string host;
+        public string password;
+    }
+
     public class DBManager : MonoBehaviour
     {
-        public string DBSERVER_IP = "35.184.161.253";
-        public string DBPORT = "3306";
-        public string DBHOST = "orbit-readonly";
-        public string DBPW = "orbitreadonlyohmygodpassword!!@";
+        private const string DEFAULT_SERVER_IP = "localhost";
+        private const string DEFAULT_PORT = "3306";
+        private const string DEFAULT_HOST = "root";
+        private const string DEFAULT_PASSWORD = "";
+        private const string CONFIG_FILE_PATH = "DBConfig.json";
+
+        private string DBSERVER_IP;
+        private string DBPORT;
+        private string DBHOST;
+        private string DBPW;
+
         public static DBManager Instance;
 
         private MySqlConnection connection;
@@ -25,6 +42,41 @@ namespace STARTING
         void Awake()
         {
             if (!InitializeSingleton()) return;
+            LoadDBConfig();
+        }
+
+        private void LoadDBConfig()
+        {
+            string configPath = Path.Combine(Application.streamingAssetsPath, CONFIG_FILE_PATH);
+
+            if (File.Exists(configPath))
+            {
+                try
+                {
+                    string jsonContent = File.ReadAllText(configPath);
+                    DBConfig config = JsonUtility.FromJson<DBConfig>(jsonContent);
+
+                    DBSERVER_IP = string.IsNullOrEmpty(config.serverIP) ? DEFAULT_SERVER_IP : config.serverIP;
+                    DBPORT = string.IsNullOrEmpty(config.port) ? DEFAULT_PORT : config.port;
+                    DBHOST = string.IsNullOrEmpty(config.host) ? DEFAULT_HOST : config.host;
+                    DBPW = string.IsNullOrEmpty(config.password) ? DEFAULT_PASSWORD : config.password;
+
+                    Debug.Log("DB Config loaded from file.");
+                    return;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"Failed to load DB config from file: {e.Message}. Using default values.");
+                }
+            }
+
+            // 파일이 없거나 로드 실패 시 기본값 사용
+            DBSERVER_IP = DEFAULT_SERVER_IP;
+            DBPORT = DEFAULT_PORT;
+            DBHOST = DEFAULT_HOST;
+            DBPW = DEFAULT_PASSWORD;
+
+            Debug.Log("Using default DB config values.");
         }
 
         bool InitializeSingleton()

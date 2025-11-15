@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     public class SceneDataEditor : EditorWindow
     {
         private SceneData sceneData;
         private const string sceneFolderPath = "Assets/00_Orbit/01_Scenes/";
 
-        [MenuItem("STARTING/Scene Data Wizard")]
+        [MenuItem("NOLDA/Scene Data Wizard")]
         public static void ShowWindow()
         {
             GetWindow<SceneDataEditor>("Scene Data Wizard");

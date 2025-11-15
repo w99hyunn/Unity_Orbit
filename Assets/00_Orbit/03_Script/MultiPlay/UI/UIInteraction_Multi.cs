@@ -1,7 +1,7 @@
 using Mirror;
 using System.Collections;
 
-namespace STARTING
+namespace NOLDA
 {
     public class UIInteraction_Multi : UIInteraction
     {

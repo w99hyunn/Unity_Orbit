@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     public class GameManager : MonoBehaviour
     {

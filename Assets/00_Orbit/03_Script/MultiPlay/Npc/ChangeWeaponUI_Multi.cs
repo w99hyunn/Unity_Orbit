@@ -3,7 +3,7 @@ using Demo.Scripts.Runtime.Character;
 using Mirror;
 using System.Collections;
 
-namespace STARTING
+namespace NOLDA
 {
     public class ChangeWeaponUI_Multi : ChangeWeaponUI
     {

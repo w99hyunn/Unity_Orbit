@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// 세이브 파일 암호화 / 복호화를 위함

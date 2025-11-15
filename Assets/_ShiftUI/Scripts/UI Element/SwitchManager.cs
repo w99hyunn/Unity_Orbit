@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using STARTING;
+using NOLDA;
 using UnityEngine.Rendering.HighDefinition;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -74,7 +74,7 @@ namespace Michsky.UI.Shift
 
             if (SceneManager.GetActiveScene().name != SceneDataManager.GetSceneName("Main"))
             {
-                if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
+                if (NOLDA.UIManager.Instance.playMode == NOLDA.PlayMode.MULTI)
                 {
                     StartCoroutine(MultiSetting());
                 }

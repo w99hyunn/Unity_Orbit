@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     public class CursorManager : MonoBehaviour
     {

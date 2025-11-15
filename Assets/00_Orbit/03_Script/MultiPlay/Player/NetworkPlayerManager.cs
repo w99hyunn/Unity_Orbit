@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine.InputSystem;
 
-namespace STARTING
+namespace NOLDA
 {
     public class NetworkPlayerManager : NetworkBehaviour
     {

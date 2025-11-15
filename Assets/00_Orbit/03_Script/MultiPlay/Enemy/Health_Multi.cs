@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using TMPro;
 using Mirror;
 
-namespace STARTING
+namespace NOLDA
 {
 	public enum MonsterType
 	{
@@ -47,7 +47,7 @@ namespace STARTING
 		private int _lastDamageIndex;
 
 		[Header("죽었을 때 킬로그 종류")]
-		public KillLogType killLogType = STARTING.KillLogType.NORMAL;
+		public KillLogType killLogType = NOLDA.KillLogType.NORMAL;
 		public Sprite deathIcon;
 
 		[Header("칩 획득 확률")]

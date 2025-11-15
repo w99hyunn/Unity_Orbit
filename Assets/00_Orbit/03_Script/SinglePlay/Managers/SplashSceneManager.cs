@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     public class SplashSceneManager : MonoBehaviour
     {

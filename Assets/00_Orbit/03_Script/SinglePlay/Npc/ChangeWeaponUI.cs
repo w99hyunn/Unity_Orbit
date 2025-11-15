@@ -5,7 +5,7 @@ using Demo.Scripts.Runtime.Item;
 using TMPro;
 using UnityEngine.Events;
 
-namespace STARTING
+namespace NOLDA
 {
     public class ChangeWeaponUI : MonoBehaviour
     {

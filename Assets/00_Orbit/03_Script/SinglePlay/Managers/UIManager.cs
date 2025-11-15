@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     public enum PlayMode
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.SceneManagement;
-using STARTING;
+using NOLDA;
 
 namespace Michsky.UI.Shift
 {
@@ -97,7 +97,7 @@ namespace Michsky.UI.Shift
 
             if (SceneManager.GetActiveScene().name != SceneDataManager.GetSceneName("Main"))
             {
-                if (STARTING.UIManager.Instance.playMode == STARTING.PlayMode.MULTI)
+                if (NOLDA.UIManager.Instance.playMode == NOLDA.PlayMode.MULTI)
                 {
                     StartCoroutine(MultiSetting());
                 }

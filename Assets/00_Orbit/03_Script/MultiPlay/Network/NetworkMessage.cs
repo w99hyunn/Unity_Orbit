@@ -1,6 +1,6 @@
 using Mirror;
 
-namespace STARTING
+namespace NOLDA
 {
     // ·Î±×ÀÎ
     public struct LoginRequestMessage : NetworkMessage

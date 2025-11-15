@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
 
-namespace STARTING
+namespace NOLDA
 {
     public class EnemySpawner : MonoBehaviour
     {

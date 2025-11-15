@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     public class GunFire : MonoBehaviour
     {

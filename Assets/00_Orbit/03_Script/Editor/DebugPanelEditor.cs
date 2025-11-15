@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace STARTING
+namespace NOLDA
 {
     public class DebugPanelEditor : EditorWindow
     {
         private PlayerStats playerStats;
         private Inventory inventory;
 
-        [MenuItem("STARTING/Debug Panel")]
+        [MenuItem("NOLDA/Debug Panel")]
         public static void ShowWindow()
         {
             // 에디터 창 생성

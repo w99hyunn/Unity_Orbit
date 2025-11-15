@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     public class DissolveChildsPingPong : MonoBehaviour
     {

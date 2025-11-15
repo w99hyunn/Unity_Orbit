@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// 던전 씬에서 비활성화할 메뉴 버튼들

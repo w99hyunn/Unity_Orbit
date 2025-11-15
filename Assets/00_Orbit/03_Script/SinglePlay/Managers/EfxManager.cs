@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
 	public class EfxManager : MonoBehaviour
 	{
