@@ -3,7 +3,7 @@ using System.Collections;
 using Demo.Scripts.Runtime.Character;
 using Mirror;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// localPosition »ç¿ë

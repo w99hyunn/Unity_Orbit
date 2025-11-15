@@ -2,7 +2,7 @@ using Michsky.UI.Shift;
 using TMPro;
 using UnityEngine;
 
-namespace STARTING
+namespace NOLDA
 {
     public class FpsScript : MonoBehaviour
     {

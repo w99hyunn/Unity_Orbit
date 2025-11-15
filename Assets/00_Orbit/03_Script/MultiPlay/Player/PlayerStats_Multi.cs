@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace STARTING
+namespace NOLDA
 {
     public enum PlayerState_Multi
     {

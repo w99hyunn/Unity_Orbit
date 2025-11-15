@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace STARTING
+namespace NOLDA
 {
     public class ChatSupport : MonoBehaviour
     {

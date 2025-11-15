@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
-namespace STARTING
+namespace NOLDA
 {
     public class GunControll : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// ΄ψΐό Επΐε Trigger

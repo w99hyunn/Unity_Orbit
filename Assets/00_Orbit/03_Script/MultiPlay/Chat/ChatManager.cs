@@ -1,6 +1,6 @@
 using Mirror;
 
-namespace STARTING
+namespace NOLDA
 {
     public class ChatManager : NetworkBehaviour
     {

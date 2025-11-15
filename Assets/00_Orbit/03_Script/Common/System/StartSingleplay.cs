@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// MainScene에서 싱글플레이 게임 시작 과정을 위한 코드

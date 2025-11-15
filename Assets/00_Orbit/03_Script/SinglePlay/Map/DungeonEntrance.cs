@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// 던전 입장 Trigger 스크립트

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-namespace STARTING
+namespace NOLDA
 {
     enum StartType
     {

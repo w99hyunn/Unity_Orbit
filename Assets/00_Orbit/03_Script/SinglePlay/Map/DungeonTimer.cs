@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 
-namespace STARTING
+namespace NOLDA
 {
     /// <summary>
     /// 던전 내부 Timer
