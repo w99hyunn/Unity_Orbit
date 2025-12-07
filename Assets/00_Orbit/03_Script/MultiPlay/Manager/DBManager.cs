@@ -2,28 +2,17 @@ using MySql.Data.MySqlClient;
 
 using System;
 using System.Collections;
-using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
 
 namespace NOLDA
 {
-    [Serializable]
-    public class DBConfig
-    {
-        public string serverIP;
-        public string port;
-        public string host;
-        public string password;
-    }
-
     public class DBManager : MonoBehaviour
     {
         private const string DEFAULT_SERVER_IP = "localhost";
         private const string DEFAULT_PORT = "3306";
         private const string DEFAULT_HOST = "root";
-        private const string DEFAULT_PASSWORD = "";
-        private const string CONFIG_FILE_PATH = "DBConfig.json";
+        private const string DEFAULT_PASSWORD = "root";
 
         private string DBSERVER_IP;
         private string DBPORT;
@@ -33,6 +22,9 @@ namespace NOLDA
         public static DBManager Instance;
 
         private MySqlConnection connection;
+
+        [Header("Database Configuration")]
+        [SerializeField] private DBConfigSO dbConfig;
 
         [Header("클라이언트가 각자 가지고 있는 자신의 정보")]
         public GameData clientGameData;
@@ -47,36 +39,24 @@ namespace NOLDA
 
         private void LoadDBConfig()
         {
-            string configPath = Path.Combine(Application.streamingAssetsPath, CONFIG_FILE_PATH);
-
-            if (File.Exists(configPath))
+            if (dbConfig != null)
             {
-                try
-                {
-                    string jsonContent = File.ReadAllText(configPath);
-                    DBConfig config = JsonUtility.FromJson<DBConfig>(jsonContent);
+                DBSERVER_IP = string.IsNullOrEmpty(dbConfig.serverIP) ? DEFAULT_SERVER_IP : dbConfig.serverIP;
+                DBPORT = string.IsNullOrEmpty(dbConfig.port) ? DEFAULT_PORT : dbConfig.port;
+                DBHOST = string.IsNullOrEmpty(dbConfig.host) ? DEFAULT_HOST : dbConfig.host;
+                DBPW = string.IsNullOrEmpty(dbConfig.password) ? DEFAULT_PASSWORD : dbConfig.password;
 
-                    DBSERVER_IP = string.IsNullOrEmpty(config.serverIP) ? DEFAULT_SERVER_IP : config.serverIP;
-                    DBPORT = string.IsNullOrEmpty(config.port) ? DEFAULT_PORT : config.port;
-                    DBHOST = string.IsNullOrEmpty(config.host) ? DEFAULT_HOST : config.host;
-                    DBPW = string.IsNullOrEmpty(config.password) ? DEFAULT_PASSWORD : config.password;
-
-                    Debug.Log("DB Config loaded from file.");
-                    return;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning($"Failed to load DB config from file: {e.Message}. Using default values.");
-                }
+                Debug.Log("DB Config loaded from ScriptableObject.");
+                return;
             }
 
-            // 파일이 없거나 로드 실패 시 기본값 사용
+            // ScriptableObject가 없을 경우 기본값 사용
             DBSERVER_IP = DEFAULT_SERVER_IP;
             DBPORT = DEFAULT_PORT;
             DBHOST = DEFAULT_HOST;
             DBPW = DEFAULT_PASSWORD;
 
-            Debug.Log("Using default DB config values.");
+            Debug.LogWarning("DBConfig ScriptableObject is not assigned. Using default DB config values.");
         }
 
         bool InitializeSingleton()
@@ -109,7 +89,7 @@ namespace NOLDA
 
         public bool ConnectToDatabase(string server, string database, string uid, string password, string port)
         {
-            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Allow Zero Datetime=True;Convert Zero Datetime=True;SslMode=Preferred;AllowPublicKeyRetrieval=true;";
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Connection Timeout=30;Allow Zero Datetime=True;Convert Zero Datetime=True;SslMode=Preferred;AllowPublicKeyRetrieval=true;";
 
             connection = new MySqlConnection(connectionString);
 
