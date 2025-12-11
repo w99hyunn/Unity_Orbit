@@ -107,9 +107,14 @@ namespace NOLDA
         /// </summary>
         public void ServerOpen()
         {
-            bool success = DBManager.Instance.ConnectDB();
+            StartCoroutine(ServerOpenCoroutine());
+        }
 
-            if (true == success)
+        private IEnumerator ServerOpenCoroutine()
+        {
+            yield return StartCoroutine(DBManager.Instance.ConnectDB());
+
+            if (DBManager.Instance.IsConnected())
             {
                 ip = "localhost";
                 port = GetAvailablePort(1024, 65535);
@@ -123,7 +128,7 @@ namespace NOLDA
                 CustomNetworkManager.singleton.StartHost();
                 StartCoroutine(CheckOpen());
             }
-            else if (false == success)
+            else
             {
                 uiSupport.DBConnectFailEvent();
             }
