@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NOLDA
@@ -81,27 +82,35 @@ namespace NOLDA
             return true;
         }
 
-        public bool ConnectDB()
+        public IEnumerator ConnectDB()
         {
-            bool success = ConnectToDatabase(DBSERVER_IP, "orbit", DBHOST, DBPW, DBPORT);
-            return success;
+            yield return StartCoroutine(ConnectToDatabase(DBSERVER_IP, "orbit", DBHOST, DBPW, DBPORT));
         }
 
-        public bool ConnectToDatabase(string server, string database, string uid, string password, string port)
+        public IEnumerator ConnectToDatabase(string server, string database, string uid, string password, string port)
         {
-            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Connection Timeout=30;Allow Zero Datetime=True;Convert Zero Datetime=True;SslMode=Preferred;AllowPublicKeyRetrieval=true;";
-
+            string connectionString = $"SERVER={server};DATABASE={database};UID={uid};PASSWORD={password};PORT={port};Connection Timeout=20;Allow Zero Datetime=True;Convert Zero Datetime=True;SslMode=Preferred;AllowPublicKeyRetrieval=true;";
             connection = new MySqlConnection(connectionString);
 
-            try
+            Task connectTask = Task.Run(async () =>
             {
-                connection.Open();
-                return true;
-            }
-            catch
+                try
+                {
+                    await connection.OpenAsync();
+                }
+                catch
+                { }
+            });
+
+            while (!connectTask.IsCompleted)
             {
-                return false;
+                yield return null;
             }
+        }
+
+        public bool IsConnected()
+        {
+            return connection != null && connection.State == System.Data.ConnectionState.Open;
         }
 
 
